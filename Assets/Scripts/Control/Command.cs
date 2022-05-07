@@ -4,7 +4,7 @@ namespace Game.Control
 {
     public interface IReceiver
     {
-        void ExecuteAction(Vector3 position);
+        void ExecuteAction(RaycastHit hit);
         void CancelAction();
     }
 
@@ -12,22 +12,37 @@ namespace Game.Control
     {
         protected IReceiver receiver = null;
 
-        protected Command(IReceiver receiver) 
+        protected Command(IReceiver receiver)
         {
             this.receiver = receiver;
         }
 
-        public abstract void Execute(Vector3 position); 
-        public abstract void Cancel(); 
+        public abstract void Execute(RaycastHit hit);
+        public abstract void Cancel();
     }
 
     public class MoveCommand : Command
     {
-        public MoveCommand(IReceiver receiver) : base(receiver) {}
+        public MoveCommand(IReceiver receiver) : base(receiver) { }
 
-        public override void Execute(Vector3 position)
+        public override void Execute(RaycastHit hit)
         {
-            receiver.ExecuteAction(position);
+            receiver.ExecuteAction(hit);
+        }
+
+        public override void Cancel()
+        {
+            receiver.CancelAction();
+        }
+    }
+
+    public class CombatCommand : Command
+    {
+        public CombatCommand(IReceiver receiver) : base(receiver) { }
+
+        public override void Execute(RaycastHit hit)
+        {
+            receiver.ExecuteAction(hit);
         }
 
         public override void Cancel()

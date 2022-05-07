@@ -1,26 +1,31 @@
+using Game.SO;
 using UnityEngine;
 
 namespace Game.Control
 {
+    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class PlayerController : MonoBehaviour
     {
         MoveEntity moveEntity = null;
+        CombatEntity combatEntity = null;
+        Command command = null;
         RaycastHit hit;
-        Command command;
 
-        void ExecuteCommand(Command command, Vector3 position)
+        void ExecuteCommand(Command command, RaycastHit hit)
         {
             this.command = command;
-            command.Execute(position);
+            command.Execute(hit);
         }
 
         void CancelCommand()
         {
+            command.Cancel();
         }
 
         void Awake()
         {
             moveEntity = GetComponent<MoveEntity>();
+            combatEntity = GetComponent<CombatEntity>();
         }
 
         void Update()
@@ -31,9 +36,12 @@ namespace Game.Control
                 {
                     switch (hit.collider.tag)
                     {
-                    case "Terrain":
-                        ExecuteCommand(new MoveCommand(moveEntity), hit.point);
-                        break;
+                        case "Terrain":
+                            ExecuteCommand(new MoveCommand(moveEntity), hit);
+                            break;
+                        case "Enemy":
+                            ExecuteCommand(new CombatCommand(combatEntity), hit);
+                            break;
                     }
                 }
             }

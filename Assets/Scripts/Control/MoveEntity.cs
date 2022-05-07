@@ -1,24 +1,24 @@
+using Game.SO;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Game.Control
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class MoveEntity : MonoBehaviour, IReceiver
     {
-        public float walkSpeed = 1.558401f, runSpeed = 5.662316f;
+        public float walkSpeed = 1.558401f, runSpeed = 5.662316f, stopDistance = 1.5f;
         Animator animator = null;
         NavMeshAgent agent = null;
 
-        public void ExecuteAction(Vector3 position)
+        public void ExecuteAction(RaycastHit hit)
         {
-            agent.isStopped = false;
-            agent.destination = position;
+            GetComponent<CombatEntity>().CancelAction();
+            agent.destination = hit.point;
         }
 
         public void CancelAction()
         {
-            agent.isStopped = true;
+            agent.destination = transform.position;
         }
 
         void Awake()
@@ -26,6 +26,9 @@ namespace Game.Control
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
             agent.speed = runSpeed;
+            agent.isStopped = false;
+            agent.autoBraking = false;
+            agent.stoppingDistance = stopDistance;
         }
 
         void Update()
