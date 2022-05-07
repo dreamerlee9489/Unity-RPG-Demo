@@ -12,7 +12,9 @@ namespace Game.Control
 
         public void ExecuteAction(RaycastHit hit)
         {
-            GetComponent<CombatEntity>().CancelAction();
+            if (GetComponent<CombatEntity>().target != null)
+                GetComponent<CombatEntity>().CancelAction();
+            agent.speed = runSpeed;
             agent.destination = hit.point;
         }
 

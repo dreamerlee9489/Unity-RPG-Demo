@@ -8,8 +8,7 @@ namespace Game.Control
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
         NavMeshAgent agent = null;
         Animator animator = null;
-        [HideInInspector] public Transform target = null;
-
+        public Transform target { get; private set; }
 
         public bool CanSee(Transform target)
         {
@@ -30,17 +29,25 @@ namespace Game.Control
         public void ExecuteAction(RaycastHit hit)
         {
             target = hit.transform;
-            agent.destination = target.position;
             transform.LookAt(target);
+            agent.destination = target.position;
         }
 
         public void CancelAction()
         {
-            if (target != null)
-            {
-                target = null;
-                agent.destination = transform.position;
-            }
+            target = null;
+            agent.destination = transform.position;
+            animator.SetBool("attack", false);
+        }
+
+        void AttackL()
+        {
+            print("左勾拳");
+        }
+
+        void AttackR()
+        {
+            print("右勾拳");
         }
 
         void Awake()
@@ -51,10 +58,18 @@ namespace Game.Control
 
         void Update()
         {
-            if (target != null && !CanAttack(target))
+            if (target != null)
             {
-                agent.destination = target.position;
-                transform.LookAt(target);
+                if (CanAttack(target))
+                {
+                    animator.SetBool("attack", true);
+                }
+                else
+                {
+                    agent.destination = target.position;
+                    transform.LookAt(target);
+                    animator.SetBool("attack", false);
+                }
             }
         }
     }
