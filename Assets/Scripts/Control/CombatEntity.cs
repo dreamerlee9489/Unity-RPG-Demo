@@ -7,8 +7,8 @@ namespace Game.Control
     public class CombatEntity : MonoBehaviour, IReceiver
     {
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
-        NavMeshAgent agent = null;
         Animator animator = null;
+        NavMeshAgent agent = null;
         AbilityConfig abilityConfig = null;
         public Transform target { get; private set; }
 
@@ -54,9 +54,9 @@ namespace Game.Control
 
         void Awake()
         {
-            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(abilityConfig.attackRadius, 2);
         }

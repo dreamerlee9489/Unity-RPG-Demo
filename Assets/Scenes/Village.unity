@@ -1202,6 +1202,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 876609339}
     m_Modifications:
+    - target: {fileID: 3283108469386399560, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283108469386399561, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_Text
+      value: XP
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283108469729807658, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_Text
+      value: MP
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283108469729807659, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283108470261868352, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283108470991152419, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290724707321939992, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_Text
+      value: HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290724707321939993, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290724707862323826, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6290724708501168938, guid: 475fe98051194db43bc09eeeaec17641, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -6,10 +6,10 @@ namespace Game.Control
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class PlayerController : MonoBehaviour
     {
+        RaycastHit hit;
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         Command command = null;
-        RaycastHit hit;
 
         void ExecuteCommand(Command command, RaycastHit hit)
         {
