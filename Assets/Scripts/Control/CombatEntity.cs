@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Game.SO;
 
 namespace Game.Control
 {
@@ -8,6 +9,7 @@ namespace Game.Control
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
         NavMeshAgent agent = null;
         Animator animator = null;
+        AbilityConfig abilityConfig = null;
         public Transform target { get; private set; }
 
         public bool CanSee(Transform target)
@@ -52,8 +54,11 @@ namespace Game.Control
 
         void Awake()
         {
+            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
+            sqrAttackRadius = Mathf.Pow(abilityConfig.attackRadius, 2);
         }
 
         void Update()

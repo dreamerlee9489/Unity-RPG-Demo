@@ -15,11 +15,6 @@ namespace Game.Control
             command.Execute(hit);
         }
 
-        void CancelCommand()
-        {
-            command.Cancel();
-        }
-
         void Awake()
         {
             moveEntity = GetComponent<MoveEntity>();

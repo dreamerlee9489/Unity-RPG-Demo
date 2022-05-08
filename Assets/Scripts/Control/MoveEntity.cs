@@ -1,20 +1,19 @@
-using Game.SO;
 using UnityEngine;
 using UnityEngine.AI;
+using Game.SO;
 
 namespace Game.Control
 {
     public class MoveEntity : MonoBehaviour, IReceiver
     {
-        public float walkSpeed = 1.558401f, runSpeed = 5.662316f, stopDistance = 1.5f;
         Animator animator = null;
         NavMeshAgent agent = null;
+        public AbilityConfig abilityConfig = null;
 
         public void ExecuteAction(RaycastHit hit)
         {
             if (GetComponent<CombatEntity>().target != null)
                 GetComponent<CombatEntity>().CancelAction();
-            agent.speed = runSpeed;
             agent.destination = hit.point;
         }
 
@@ -27,10 +26,10 @@ namespace Game.Control
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            agent.speed = runSpeed;
             agent.isStopped = false;
             agent.autoBraking = false;
-            agent.stoppingDistance = stopDistance;
+            agent.speed = abilityConfig.runSpeed;
+            agent.stoppingDistance = abilityConfig.attackRadius;
         }
 
         void Update()

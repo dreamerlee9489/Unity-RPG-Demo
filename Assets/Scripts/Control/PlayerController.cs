@@ -1,5 +1,5 @@
-using Game.SO;
 using UnityEngine;
+using Game.SO;
 
 namespace Game.Control
 {
@@ -15,11 +15,6 @@ namespace Game.Control
         {
             this.command = command;
             command.Execute(hit);
-        }
-
-        void CancelCommand()
-        {
-            command.Cancel();
         }
 
         void Awake()
