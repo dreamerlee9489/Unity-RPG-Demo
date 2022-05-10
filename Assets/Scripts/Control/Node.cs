@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Game.Control.BehaviourTree
 {
     public enum Status { SUCCESS, RUNNING, FAILURE }
-    
+
     public abstract class Node
     {
         public Status status;
@@ -21,8 +21,8 @@ namespace Game.Control.BehaviourTree
         public override Status Execute()
         {
             if (task != null && task())
-                return Status.SUCCESS;
-            return Status.FAILURE;
+                return status = Status.SUCCESS;
+            return status = Status.FAILURE;
         }
     }
 
@@ -34,8 +34,8 @@ namespace Game.Control.BehaviourTree
         public override Status Execute()
         {
             if (task != null)
-                return task();
-            return Status.FAILURE;
+                return status = task();
+            return status = Status.FAILURE;
         }
     }
 

@@ -17,13 +17,13 @@ namespace Game.Control.BehaviourTree
             switch (node.Execute())
             {
                 case Status.SUCCESS:
-                    return Status.FAILURE;
+                    return status = Status.FAILURE;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
-                    return Status.SUCCESS;
+                    return status = Status.SUCCESS;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -35,13 +35,13 @@ namespace Game.Control.BehaviourTree
             switch (node.Execute())
             {
                 case Status.SUCCESS:
-                    return Status.FAILURE;
+                    return status = Status.FAILURE;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
                     break;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -57,9 +57,9 @@ namespace Game.Control.BehaviourTree
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
-                    return Status.FAILURE;
+                    return status = Status.FAILURE;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -76,7 +76,7 @@ namespace Game.Control.BehaviourTree
                     if (count >= time)
                     {
                         count = 0;
-                        return Status.SUCCESS;
+                        return status = Status.SUCCESS;
                     }
                     break;
                 case Status.RUNNING:
@@ -86,11 +86,11 @@ namespace Game.Control.BehaviourTree
                     if (count >= time)
                     {
                         count = 0;
-                        return Status.SUCCESS;
+                        return status = Status.SUCCESS;
                     }
                     break;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -107,15 +107,15 @@ namespace Game.Control.BehaviourTree
                 {
                     case Status.SUCCESS:
                         timer = 0;
-                        return Status.SUCCESS;
+                        return status = Status.SUCCESS;
                     case Status.RUNNING:
                         break;
                     case Status.FAILURE:
                         timer = 0;
-                        return Status.FAILURE;
+                        return status = Status.FAILURE;
                 }
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -129,9 +129,9 @@ namespace Game.Control.BehaviourTree
             if (timer >= runtime)
             {
                 timer = 0;
-                return Status.SUCCESS;
+                return status = Status.SUCCESS;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 }

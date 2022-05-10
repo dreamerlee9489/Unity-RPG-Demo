@@ -4,6 +4,7 @@ using Game.SO;
 
 namespace Game.Control
 {
+    [RequireComponent(typeof(MoveEntity))]
     public class CombatEntity : MonoBehaviour, IReceiver
     {
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
@@ -42,16 +43,6 @@ namespace Game.Control
             animator.SetBool("attack", false);
         }
 
-        public void StartAttack()
-        {
-            animator.SetBool("attack", true);
-        }
-
-        public void StopAttack()
-        {
-            animator.SetBool("attack", false);
-        }
-
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -59,23 +50,6 @@ namespace Game.Control
             abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(abilityConfig.armRadius + abilityConfig.weaponRadius, 2);
-        }
-
-        void Update()
-        {
-            if (target != null)
-            {
-                if (CanAttack(target))
-                {
-                    animator.SetBool("attack", true);
-                }
-                else
-                {
-                    agent.destination = target.position;
-                    transform.LookAt(target);
-                    animator.SetBool("attack", false);
-                }
-            }
         }
 
         void AttackL()

@@ -7,6 +7,11 @@ namespace Game.Control.BehaviourTree
         protected List<Node> children = new List<Node>();
         protected Composite(string name = "Composite") : base(name) { }
         public void AddChild(Node node) => children.Add(node);
+        public void AddChildren(params Node[] nodes)
+        {
+            foreach(Node node in nodes)
+                children.Add(node);
+        }
     }
     /// <summary>
     /// 选择结点
@@ -22,7 +27,7 @@ namespace Game.Control.BehaviourTree
             {
                 case Status.SUCCESS:
                     index = 0;
-                    return Status.SUCCESS;
+                    return status = Status.SUCCESS;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
@@ -30,11 +35,11 @@ namespace Game.Control.BehaviourTree
                     if (index >= children.Count)
                     {
                         index = 0;
-                        return Status.FAILURE;
+                        return status = Status.FAILURE;
                     }
                     break;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -62,7 +67,7 @@ namespace Game.Control.BehaviourTree
                 case Status.SUCCESS:
                     index = 0;
                     ordered = false;
-                    return Status.SUCCESS;
+                    return status = Status.SUCCESS;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
@@ -71,11 +76,11 @@ namespace Game.Control.BehaviourTree
                     {
                         index = 0;
                         ordered = false;
-                        return Status.FAILURE;
+                        return status = Status.FAILURE;
                     }
                     break;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -95,7 +100,7 @@ namespace Game.Control.BehaviourTree
                 case Status.SUCCESS:
                     index = 0;
                     shuffled = false;
-                    return Status.SUCCESS;
+                    return status = Status.SUCCESS;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
@@ -104,11 +109,11 @@ namespace Game.Control.BehaviourTree
                     {
                         index = 0;
                         shuffled = false;
-                        return Status.FAILURE;
+                        return status = Status.FAILURE;
                     }
                     break;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 
@@ -124,16 +129,16 @@ namespace Game.Control.BehaviourTree
                     if (index >= children.Count)
                     {
                         index = 0;
-                        return Status.SUCCESS;
+                        return status = Status.SUCCESS;
                     }
                     break;
                 case Status.RUNNING:
                     break;
                 case Status.FAILURE:
                     index = 0;
-                    return Status.FAILURE;
+                    return status = Status.FAILURE;
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
     /// <summary>
@@ -154,15 +159,15 @@ namespace Game.Control.BehaviourTree
                     case Status.SUCCESS:
                         succ_count++;
                         if (succ_count == children.Count)
-                            return Status.SUCCESS;
+                            return status = Status.SUCCESS;
                         break;
                     case Status.RUNNING:
                         break;
                     case Status.FAILURE:
-                        return Status.FAILURE;
+                        return status = Status.FAILURE;
                 }
             }
-            return Status.RUNNING;
+            return status = Status.RUNNING;
         }
     }
 }
