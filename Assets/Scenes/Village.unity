@@ -742,7 +742,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpened: 0
-  keycode: 101
 --- !u!1 &1755893932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1017,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpened: 0
-  keycode: 105
 --- !u!1001 &139914773900810524
 PrefabInstance:
   m_ObjectHideFlags: 0
