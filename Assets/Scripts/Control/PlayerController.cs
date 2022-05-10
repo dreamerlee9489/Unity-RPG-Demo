@@ -7,7 +7,6 @@ namespace Game.Control
     public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
-        Transform target = null;
         Animator animator = null;
         NavMeshAgent agent = null;
         MoveEntity moveEntity = null;
@@ -26,7 +25,6 @@ namespace Game.Control
             agent = GetComponent<NavMeshAgent>();
             moveEntity = GetComponent<MoveEntity>();
             combatEntity = GetComponent<CombatEntity>();
-            target = combatEntity.target;
         }
 
         void Update()
@@ -46,16 +44,16 @@ namespace Game.Control
                     }
                 }
             }
-            if (target != null)
+            if (combatEntity.target != null)
             {
-                if (combatEntity.CanAttack(target))
+                if (combatEntity.CanAttack(combatEntity.target))
                 {
                     animator.SetBool("attack", true);
                 }
                 else
                 {
-                    agent.destination = target.position;
-                    transform.LookAt(target);
+                    agent.destination = combatEntity.target.position;
+                    transform.LookAt(combatEntity.target);
                     animator.SetBool("attack", false);
                 }
             }

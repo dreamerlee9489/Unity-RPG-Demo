@@ -16,6 +16,9 @@ MonoBehaviour:
   runSpeed: 5.662316
   speedFactor: 0.75
   viewRadius: 6
-  armRadius: 1
-  weaponRadius: 1.5
+  unarmRadius: 1.5
   fleeRadius: 6
+  level: 1
+  maxHP: 100
+  maxMP: 100
+  unarmAtk: 10

@@ -10,7 +10,7 @@ namespace Game.Control
         float wanderTimer = 6f;
         Animator animator = null;
         NavMeshAgent agent = null;
-        Transform target = null;
+        Transform player = null;
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         Selector root = new Selector();
@@ -21,13 +21,13 @@ namespace Game.Control
             agent = GetComponent<NavMeshAgent>();
             moveEntity = GetComponent<MoveEntity>();
             combatEntity = GetComponent<CombatEntity>();
-            target = GameObject.FindWithTag("Player").transform;
+            player = GameObject.FindWithTag("Player").transform;
             Sequence retreat = new Sequence();
             Parallel wander = new Parallel();
             Parallel chase = new Parallel();
             Condition canSeePlayer = new Condition(() =>
             {
-                if (combatEntity.CanSee(target))
+                if (combatEntity.CanSee(player))
                     return true;
                 return false;
             });
@@ -38,7 +38,7 @@ namespace Game.Control
                 return false;
             }), new Action(() =>
             {
-                if (moveEntity.Flee(target.position))
+                if (moveEntity.Flee(player.position))
                     return Status.SUCCESS;
                 return Status.RUNNING;
             }), new Action(() =>
@@ -58,16 +58,17 @@ namespace Game.Control
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                if (moveEntity.Seek(target.position) <= agent.stoppingDistance)
+                if (moveEntity.Seek(player.position) <= agent.stoppingDistance)
                     return Status.SUCCESS;
                 return Status.RUNNING;
             }), new Action(() =>
             {
-                if (combatEntity.CanAttack(target))
+                if (combatEntity.CanAttack(player))
                 {
                     animator.SetBool("attack", true);
                     return Status.SUCCESS;
                 }
+                transform.LookAt(player);
                 animator.SetBool("attack", false);
                 return Status.RUNNING;
             }));

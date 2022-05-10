@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace Game.SO
 {
-    [CreateAssetMenu(fileName = "NewAbilityConfig", menuName = "Project/AbilityConfig", order = 0)]
+    [CreateAssetMenu(fileName = "NewAbilityConfig", menuName = "Unity RPG Project/AbilityConfig", order = 0)]
     public class AbilityConfig : ScriptableObject
     {
         public float walkSpeed = 1.558401f, runSpeed = 5.662316f, speedFactor = 0.75f;
-        public float viewRadius = 6f, armRadius = 1f, weaponRadius = 1f, fleeRadius = 6f;
+        public float viewRadius = 6f, unarmRadius = 1.5f, fleeRadius = 6f;
+        public int level = 1, maxHP = 100, maxMP = 100, unarmAtk = 10;
     }
 }
