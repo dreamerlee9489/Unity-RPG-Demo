@@ -9,6 +9,7 @@ namespace Game.Control
     public class MoveEntity : MonoBehaviour, IReceiver
     {
         float sqrFleeRadius = 36f;
+        Vector3 initPos;
         Animator animator = null;
         NavMeshAgent agent = null;
         public AbilityConfig abilityConfig = null;
@@ -77,20 +78,12 @@ namespace Game.Control
 
         public void Wander(float radius = 6f)
         {
-            Vector3 position = transform.position + Random.insideUnitSphere * radius;
+            Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+            position = position.normalized * radius * Random.Range(0f, 1f);
             agent.autoBraking = false;
             agent.isStopped = false;
             agent.speed = abilityConfig.walkSpeed;
-            NavMeshHit hit;
-            for (int i = 0; i < 10; i++)
-            {
-                if (NavMesh.SamplePosition(position, out hit, 1, NavMesh.AllAreas))
-                {
-                    agent.destination = hit.position;
-                    return;
-                }
-            }
-            agent.destination = transform.position;
+            agent.destination = initPos + position;
         }
 
         public void Interpose(NavMeshAgent agentA, NavMeshAgent agentB)
@@ -150,6 +143,7 @@ namespace Game.Control
             agent.isStopped = false;
             agent.autoBraking = false;
             agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
+            initPos = transform.position;
         }
 
         void Update()

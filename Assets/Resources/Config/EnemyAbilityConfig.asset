@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 1.558401
   runSpeed: 5.662316
-  speedFactor: 0.75
-  viewRadius: 6
+  speedFactor: 0.5
+  viewRadius: 5
   unarmRadius: 1.5
   fleeRadius: 6
   level: 1

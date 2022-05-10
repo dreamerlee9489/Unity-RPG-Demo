@@ -7,7 +7,7 @@ namespace Game.Control
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class EnemyController : MonoBehaviour
     {
-        float wanderTimer = 6f;
+        float wanderTimer = 2f;
         Animator animator = null;
         NavMeshAgent agent = null;
         Transform player = null;
@@ -29,6 +29,7 @@ namespace Game.Control
             {
                 if (combatEntity.CanSee(player))
                     return true;
+                animator.SetBool("attack", false);
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
@@ -77,6 +78,7 @@ namespace Game.Control
         private void Update()
         {
             root.Execute();
+            print(root.index);
         }
 
         void OnDrawGizmosSelected()
