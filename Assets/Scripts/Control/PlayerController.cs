@@ -1,5 +1,4 @@
 using UnityEngine;
-using Game.SO;
 
 namespace Game.Control
 {
