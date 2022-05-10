@@ -42,14 +42,14 @@ namespace Game.Control
             animator.SetBool("attack", false);
         }
 
-        void AttackL()
+        public void StartAttack()
         {
-            print("左勾拳");
+            animator.SetBool("attack", true);
         }
 
-        void AttackR()
+        public void StopAttack()
         {
-            print("右勾拳");
+            animator.SetBool("attack", false);
         }
 
         void Awake()
@@ -58,7 +58,7 @@ namespace Game.Control
             animator = GetComponent<Animator>();
             abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
-            sqrAttackRadius = Mathf.Pow(abilityConfig.attackRadius, 2);
+            sqrAttackRadius = Mathf.Pow(abilityConfig.armRadius + abilityConfig.weaponRadius, 2);
         }
 
         void Update()
@@ -76,6 +76,16 @@ namespace Game.Control
                     animator.SetBool("attack", false);
                 }
             }
+        }
+
+        void AttackL()
+        {
+            print("左勾拳");
+        }
+
+        void AttackR()
+        {
+            print("右勾拳");
         }
     }
 }
