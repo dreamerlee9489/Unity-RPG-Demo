@@ -50,22 +50,20 @@ namespace Game.Control
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             abilityConfig = GetComponent<MoveEntity>().abilityConfig;
-            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
-            sqrAttackRadius = Mathf.Pow(abilityConfig.unarmRadius + weaponConfig.weaponRadius, 2);
+            agent.stoppingDistance = abilityConfig.unarmRadius + weaponConfig.weaponRadius;
             currHP = abilityConfig.maxHP;
             currMP = abilityConfig.maxMP;
             currAtk = abilityConfig.unarmAtk + weaponConfig.weaponAtk;
-            agent.stoppingDistance = abilityConfig.unarmRadius + weaponConfig.weaponRadius;
+            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
+            sqrAttackRadius = Mathf.Pow(abilityConfig.unarmRadius + weaponConfig.weaponRadius, 2);
         }
 
         void AttackL()
         {
-            print("左勾拳");
         }
 
         void AttackR()
         {
-            print("右勾拳");
         }
     }
 }

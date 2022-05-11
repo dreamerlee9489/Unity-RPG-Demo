@@ -6,15 +6,15 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unarmed Animator Override Controller
+  m_Name: Axe Controller
   m_Controller: {fileID: 9100000, guid: b798abf01ca03a544a1ca4e1c27b85b7, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: dffa50cfe77e0434bbfa71245b3dd529, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: dffa50cfe77e0434bbfa71245b3dd529, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: aba51471d6e800946afe92e31cf5521c, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 1cb8ed3cbba15f0479fbae54e0a963df, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: b1a5e04ae51004842aba06704a6c2903, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 981c60fc10a7ef04a906ca01105dc245, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: b1a5e04ae51004842aba06704a6c2903, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 1cb8ed3cbba15f0479fbae54e0a963df, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 81ab5976dd7b302458e91569714fd735, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: ce17781955d25c647922801319f24e9e, type: 3}
     m_OverrideClip: {fileID: 1827226128182048838, guid: f21b60013b235a049abe20c4478d913d, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 95dc4fbaa01379f4f908847fb44054d4, type: 3}

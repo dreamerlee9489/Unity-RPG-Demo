@@ -78,7 +78,6 @@ namespace Game.Control
         private void Update()
         {
             root.Execute();
-            print(root.index);
         }
 
         void OnDrawGizmosSelected()

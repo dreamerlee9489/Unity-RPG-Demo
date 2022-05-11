@@ -139,11 +139,12 @@ namespace Game.Control
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
+            animator.applyRootMotion = false;
             agent.isStopped = false;
             agent.autoBraking = false;
             agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
             initPos = transform.position;
+            sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
         }
 
         void Update()

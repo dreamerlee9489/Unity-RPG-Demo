@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Game.UI
 {
-	public class UIController : MonoBehaviour
+	public class UICanvas : MonoBehaviour
 	{
 		public EquipmentPanel equipmentPanel = null;
 		public InventoryPanel inventoryPanel = null;
 
-		void Start()
+		void Awake()
 		{
 			equipmentPanel.Close();
 			inventoryPanel.Close();
