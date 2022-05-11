@@ -66,10 +66,10 @@ namespace Game.Control
             {
                 if (combatEntity.CanAttack(player))
                 {
+                    transform.LookAt(player);
                     animator.SetBool("attack", true);
                     return Status.SUCCESS;
                 }
-                transform.LookAt(player);
                 animator.SetBool("attack", false);
                 return Status.RUNNING;
             }));

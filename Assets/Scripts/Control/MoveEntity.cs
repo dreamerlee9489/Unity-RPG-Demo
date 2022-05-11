@@ -19,6 +19,7 @@ namespace Game.Control
             if (GetComponent<CombatEntity>().target != null)
                 GetComponent<CombatEntity>().CancelAction();
             agent.destination = hit.point;
+            agent.stoppingDistance = abilityConfig.stopDistance;
         }
 
         public void CancelAction()
@@ -142,6 +143,8 @@ namespace Game.Control
             animator.applyRootMotion = false;
             agent.isStopped = false;
             agent.autoBraking = false;
+            agent.angularSpeed = 4800;
+            agent.acceleration = 80;            
             agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
             initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);

@@ -4,7 +4,6 @@ using Game.SO;
 
 namespace Game.Control
 {
-    [RequireComponent(typeof(MoveEntity))]
     public class CombatEntity : MonoBehaviour, IReceiver
     {
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
@@ -17,9 +16,11 @@ namespace Game.Control
 
         public void ExecuteAction(RaycastHit hit)
         {
+            agent.destination = hit.point;
+            agent.stoppingDistance = abilityConfig.stopDistance + hit.transform.GetComponent<CombatEntity>().abilityConfig.stopDistance;
+            sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             target = hit.transform;
             transform.LookAt(target);
-            agent.destination = target.position;
         }
 
         public void CancelAction()
@@ -47,15 +48,16 @@ namespace Game.Control
 
         void Awake()
         {
+            GetComponent<Collider>().isTrigger = true;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             abilityConfig = GetComponent<MoveEntity>().abilityConfig;
-            agent.stoppingDistance = abilityConfig.unarmRadius + weaponConfig.weaponRadius;
+            agent.stoppingDistance = abilityConfig.stopDistance;
             currHP = abilityConfig.maxHP;
             currMP = abilityConfig.maxMP;
             currAtk = abilityConfig.unarmAtk + weaponConfig.weaponAtk;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
-            sqrAttackRadius = Mathf.Pow(abilityConfig.unarmRadius + weaponConfig.weaponRadius, 2);
+            sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
         }
 
         void AttackL()
