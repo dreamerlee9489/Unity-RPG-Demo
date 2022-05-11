@@ -16,7 +16,7 @@ namespace Game.Control.BehaviourTree
     public class Condition : Node
     {
         public delegate bool Task();
-        public Task task = null;
+        public event Task task = null;
         public Condition(Task task, string name = "Condition") : base(name) => this.task = task;
         public override Status Execute()
         {
@@ -29,7 +29,7 @@ namespace Game.Control.BehaviourTree
     public class Action : Node
     {
         public delegate Status Task();
-        public Task task = null;
+        public event Task task = null;
         public Action(Task task, string name = "Action") : base(name) => this.task = task;
         public override Status Execute()
         {

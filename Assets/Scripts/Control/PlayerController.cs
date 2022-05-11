@@ -46,6 +46,7 @@ namespace Game.Control
             }
             if (combatEntity.target != null)
             {
+                transform.LookAt(combatEntity.target);
                 if (combatEntity.CanAttack(combatEntity.target))
                 {
                     animator.SetBool("attack", true);
@@ -53,7 +54,6 @@ namespace Game.Control
                 else
                 {
                     agent.destination = combatEntity.target.position;
-                    transform.LookAt(combatEntity.target);
                     animator.SetBool("attack", false);
                 }
             }

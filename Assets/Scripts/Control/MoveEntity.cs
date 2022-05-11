@@ -31,7 +31,7 @@ namespace Game.Control
         {
             agent.autoBraking = false;
             agent.isStopped = false;
-            agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
+            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             agent.destination = position;
             return Vector3.Distance(position, agent.destination);
         }
@@ -43,7 +43,7 @@ namespace Game.Control
             {
                 agent.autoBraking = false;
                 agent.isStopped = false;
-                agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
+                agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
                 agent.destination = direction.normalized * abilityConfig.fleeRadius;
             }
             return direction.sqrMagnitude > sqrFleeRadius;
@@ -53,7 +53,7 @@ namespace Game.Control
         {
             agent.autoBraking = true;
             agent.isStopped = false;
-            agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
+            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             agent.destination = position;
         }
 
@@ -83,7 +83,7 @@ namespace Game.Control
             position = position.normalized * radius * Random.Range(0f, 1f);
             agent.autoBraking = false;
             agent.isStopped = false;
-            agent.speed = abilityConfig.walkSpeed;
+            agent.speed = abilityConfig.walkSpeed * abilityConfig.walkFactor;
             agent.destination = initPos + position;
         }
 
@@ -145,7 +145,7 @@ namespace Game.Control
             agent.autoBraking = false;
             agent.angularSpeed = 4800;
             agent.acceleration = 80;            
-            agent.speed = abilityConfig.runSpeed * abilityConfig.speedFactor;
+            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
         }
