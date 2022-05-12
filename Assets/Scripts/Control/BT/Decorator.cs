@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Control.BehaviourTree
+namespace Game.Control.BT
 {
     public abstract class Decorator : Node
     {

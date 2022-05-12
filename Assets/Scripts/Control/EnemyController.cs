@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Game.Control.BehaviourTree;
+using Game.Control.BT;
 
 namespace Game.Control
 {

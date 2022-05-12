@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Game.Control.BehaviourTree
+namespace Game.Control.BT
 {
     public enum Status { SUCCESS, RUNNING, FAILURE }
 

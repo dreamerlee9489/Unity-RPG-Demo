@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Game.Control.BehaviourTree
+namespace Game.Control.BT
 {
     public abstract class Composite : Node
     {
