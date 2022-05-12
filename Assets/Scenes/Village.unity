@@ -195,7 +195,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 2.4354486, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -228,13 +228,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505119819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1012548141}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &505119821
 MonoBehaviour:
@@ -644,7 +644,6 @@ Transform:
   m_Children:
   - {fileID: 705507995}
   - {fileID: 1755893935}
-  - {fileID: 505119820}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1241,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3762264174449391839, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3762264174449391839, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1294,7 +1293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3888248117555117655, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3888248117555117655, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1355,7 +1354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4627014260419631311, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4627014260419631311, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1408,7 +1407,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1128079727253933914, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1128079727253933914, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: m_LocalPosition.x
