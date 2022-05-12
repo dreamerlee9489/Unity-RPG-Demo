@@ -2197,7 +2197,7 @@ GameObject:
   - component: {fileID: 4622678920358887014}
   - component: {fileID: 4622678920358887015}
   - component: {fileID: 4622678920358887016}
-  - component: {fileID: 4622678920358887017}
+  - component: {fileID: 878612308}
   m_Layer: 0
   m_Name: Enemy_Knight_01
   m_TagString: Enemy
@@ -2314,7 +2314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponConfig: {fileID: 11400000, guid: e2c6683d3b38043428d525922ccd9af9, type: 2}
---- !u!114 &4622678920358887017
+--- !u!114 &878612308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4621647554842674533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6176bf4e48d25042a42895eb907945c, type: 3}
+  m_Script: {fileID: 11500000, guid: bc6a00aa412d2e44e817dcd28b3b39a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4621653098364238971

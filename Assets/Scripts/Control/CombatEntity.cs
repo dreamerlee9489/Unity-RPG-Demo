@@ -4,7 +4,7 @@ using Game.SO;
 
 namespace Game.Control
 {
-    public class CombatEntity : MonoBehaviour, IReceiver
+    public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
         float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
         int currHP = 100, currMP = 100, currAtk = 10;
@@ -13,6 +13,28 @@ namespace Game.Control
         AbilityConfig abilityConfig = null;
         public Transform target { get; private set; }
         public WeaponConfig weaponConfig = null;
+
+        void AttackL()
+        {
+        }
+
+        void AttackR()
+        {
+        }
+
+        void Awake()
+        {
+            GetComponent<Collider>().isTrigger = true;
+            agent = GetComponent<NavMeshAgent>();
+            animator = GetComponent<Animator>();
+            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
+            agent.stoppingDistance = abilityConfig.stopDistance;
+            currHP = abilityConfig.maxHP;
+            currMP = abilityConfig.maxMP;
+            currAtk = abilityConfig.unarmAtk + weaponConfig.weaponAtk;
+            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
+            sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+        }
 
         public void ExecuteAction(RaycastHit hit)
         {
@@ -46,26 +68,9 @@ namespace Game.Control
             return false;
         }
 
-        void Awake()
+        public bool HandleMessage(Telegram telegram)
         {
-            GetComponent<Collider>().isTrigger = true;
-            agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
-            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
-            agent.stoppingDistance = abilityConfig.stopDistance;
-            currHP = abilityConfig.maxHP;
-            currMP = abilityConfig.maxMP;
-            currAtk = abilityConfig.unarmAtk + weaponConfig.weaponAtk;
-            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
-            sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
-        }
-
-        void AttackL()
-        {
-        }
-
-        void AttackR()
-        {
+            throw new System.NotImplementedException();
         }
     }
 }

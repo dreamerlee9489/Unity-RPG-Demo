@@ -7,7 +7,7 @@ namespace Game.Control
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class EnemyController : MonoBehaviour
     {
-        float wanderTimer = 3f;
+        float wanderTimer = 6f;
         Animator animator = null;
         NavMeshAgent agent = null;
         Transform player = null;
@@ -50,7 +50,7 @@ namespace Game.Control
             wander.AddChildren(new UntilSuccess(canSeePlayer), new Action(() =>
             {
                 wanderTimer += Time.deltaTime;
-                if(wanderTimer >= 3f)
+                if(wanderTimer >= 6f)
                 {
                     moveEntity.Wander();
                     wanderTimer = 0;

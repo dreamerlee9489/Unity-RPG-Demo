@@ -6,13 +6,39 @@ using Game.SO;
 
 namespace Game.Control
 {
-    public class MoveEntity : MonoBehaviour, IReceiver
+    public class MoveEntity : MonoBehaviour, ICmdReceiver
     {
         float sqrFleeRadius = 36f;
         Vector3 initPos;
         Animator animator = null;
         NavMeshAgent agent = null;
         public AbilityConfig abilityConfig = null;
+
+        Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
+        {
+            float distAway = obstacle.radius + distanceFromBoundary;
+            Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
+            return obstacle.transform.position + toObstacle * distAway;
+        }
+
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
+            agent = GetComponent<NavMeshAgent>();
+            animator.applyRootMotion = false;
+            agent.isStopped = false;
+            agent.autoBraking = false;
+            agent.angularSpeed = 4800;
+            agent.acceleration = 80;
+            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
+            initPos = transform.position;
+            sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
+        }
+
+        void Update()
+        {
+            animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
+        }
 
         public void ExecuteAction(RaycastHit hit)
         {
@@ -77,7 +103,7 @@ namespace Game.Control
             Flee(pursuer.transform.position + pursuer.velocity * lookAheadTime);
         }
 
-        public void Wander(float radius = 6f)
+        public void Wander(float radius = 10f)
         {
             Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
             position = position.normalized * radius * Random.Range(0f, 1f);
@@ -127,32 +153,6 @@ namespace Game.Control
             Vector3 toOffset = worldOffsetPos - transform.position;
             float lookAheadTime = toOffset.magnitude / (agent.speed + leader.speed);
             Arrive(worldOffsetPos + leader.velocity * lookAheadTime);
-        }
-
-        private Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
-        {
-            float distAway = obstacle.radius + distanceFromBoundary;
-            Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
-            return obstacle.transform.position + toObstacle * distAway;
-        }
-
-        void Awake()
-        {
-            animator = GetComponent<Animator>();
-            agent = GetComponent<NavMeshAgent>();
-            animator.applyRootMotion = false;
-            agent.isStopped = false;
-            agent.autoBraking = false;
-            agent.angularSpeed = 4800;
-            agent.acceleration = 80;            
-            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
-            initPos = transform.position;
-            sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
-        }
-
-        void Update()
-        {
-            animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
         }
     }
 }

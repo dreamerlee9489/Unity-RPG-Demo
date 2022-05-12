@@ -113,6 +113,7 @@ namespace Game.Control.FSM
         {
             if (!combatEntity.CanAttack(target))
                 owner.ChangeState(new Patrol(owner, target));
+            owner.transform.LookAt(target);
         }
 
         public override void Exit()

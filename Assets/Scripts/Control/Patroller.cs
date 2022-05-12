@@ -10,19 +10,26 @@ namespace Game.Control
         NavMeshAgent agent = null;
         int index = 0;
         bool isPatrolling = false;
-        [HideInInspector] public Transform target;
+        public Transform target;
         PatrolState state = PatrolState.WALKING;
         float timer = 0, alertTime = 4f;
         Animator animator = null;
 
-        private void Awake()
+        bool OnWaypoint(int index)
+        {
+            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= agent.stoppingDistance)
+                return true;
+            return false;
+        }
+
+        void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             index = Random.Range(0, path.childCount);
         }
 
-        private void Update()
+        void Update()
         {
             if (isPatrolling)
             {
@@ -54,11 +61,14 @@ namespace Game.Control
             }
         }
 
-        bool OnWaypoint(int index)
+        void OnDrawGizmos()
         {
-            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= agent.stoppingDistance)
-                return true;
-            return false;
+            Gizmos.color = Color.green;
+            for (int i = 0; i < path.childCount; i++)
+            {
+                Gizmos.DrawSphere(path.GetChild(i).position, 0.3f);
+                Gizmos.DrawLine(path.GetChild(i).position, path.GetChild((i + 1) % path.childCount).position);
+            }
         }
 
         public void StartPatrol()
@@ -73,16 +83,6 @@ namespace Game.Control
             animator.SetBool("isAlert", false);
             agent.speed = GetComponent<MoveEntity>().abilityConfig.runSpeed;
             isPatrolling = false;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            for (int i = 0; i < path.childCount; i++)
-            {
-                Gizmos.DrawSphere(path.GetChild(i).position, 0.3f);
-                Gizmos.DrawLine(path.GetChild(i).position, path.GetChild((i + 1) % path.childCount).position);
-            }
         }
     }
 }

@@ -2850,7 +2850,7 @@ GameObject:
   - component: {fileID: 4584058774185601103}
   - component: {fileID: 4584058774185601102}
   - component: {fileID: 4584058774185601089}
-  - component: {fileID: 4584058774185601088}
+  - component: {fileID: 1901529579}
   m_Layer: 0
   m_Name: Enemy_Soldier_01
   m_TagString: Enemy
@@ -2961,7 +2961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponConfig: {fileID: 11400000, guid: 919c4491416fdf441976117f645a4f19, type: 2}
---- !u!114 &4584058774185601088
+--- !u!114 &1901529579
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2970,7 +2970,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1128079727254294964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6176bf4e48d25042a42895eb907945c, type: 3}
+  m_Script: {fileID: 11500000, guid: bc6a00aa412d2e44e817dcd28b3b39a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1128079727254295642
