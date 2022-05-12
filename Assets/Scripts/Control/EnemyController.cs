@@ -35,7 +35,6 @@ namespace Game.Control
             root.AddChildren(retreat, wander, chase);
             retreat.AddChildren(new Condition(() =>
             {
-                print("不需要逃跑");
                 return false;
             }), new Action(() =>
             {
@@ -44,7 +43,6 @@ namespace Game.Control
                 return Status.RUNNING;
             }), new Action(() =>
             {
-                print("已找到安全位置");
                 return Status.SUCCESS;
             }));
             wander.AddChildren(new UntilSuccess(canSeePlayer), new Action(() =>

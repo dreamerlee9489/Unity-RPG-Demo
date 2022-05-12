@@ -15,7 +15,7 @@ namespace Game.Control
 
 		void Update()
 		{
-			MessageDispatcher.Instance.DispatchDelayMessage();
+			MessageDispatcher.Instance.DispatchDelay();
 		}
 	}
 }

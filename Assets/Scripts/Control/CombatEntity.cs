@@ -70,7 +70,7 @@ namespace Game.Control
 
         public bool HandleMessage(Telegram telegram)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }

@@ -16,13 +16,13 @@ namespace Game.Control
         public float dispatchTime = 0f;
         public GameObject sender = null;
         public IMsgReceiver receiver = null;
-        public Message msg = Message.Hello;
+        public Message message = Message.Hello;
 
         public Telegram(GameObject sender, IMsgReceiver receiver, Message msg, float delayTime = 0f)
         {
             this.sender = sender;
             this.receiver = receiver;
-            this.msg = msg;
+            this.message = msg;
             this.dispatchTime = delayTime;
         }
 
@@ -41,20 +41,19 @@ namespace Game.Control
     {
         SortedSet<Telegram> queue = new SortedSet<Telegram>();
         static MessageDispatcher instance = new MessageDispatcher();
-        MessageDispatcher() { }
         public static MessageDispatcher Instance => instance;
 
-        void DischargeMessage(Telegram telegram)
+        void Discharge(IMsgReceiver receiver, Telegram telegram)
         {
-            if (!telegram.receiver.HandleMessage(telegram))
+            if (!receiver.HandleMessage(telegram))
                 Debug.Log("Message not handled!");
         }
 
-        public void DispatchMessage(Telegram telegram, float delay = 0)
+        public void Dispatch(Telegram telegram, float delay = 0)
         {
             if (delay <= 0)
             {
-                DischargeMessage(telegram);
+                Discharge(telegram.receiver, telegram);
             }
             else
             {
@@ -63,12 +62,28 @@ namespace Game.Control
             }
         }
 
-        public void DispatchDelayMessage()
+        public void DispatchDelay()
         {
             while (queue.Count > 0 && queue.Max.dispatchTime < Time.unscaledTime)
             {
-                DischargeMessage(queue.Max);
+                Discharge(queue.Max.receiver, queue.Max);
                 queue.Remove(queue.Max);
+            }
+        }
+    }
+
+    public static class MessageTranslator
+    {
+        public static string Translate(Message message)
+        {
+            switch (message)
+            {
+                case Message.Hello:
+                    return "Hello";
+                case Message.ByeBye:
+                    return "Bye Bye";
+                default:
+                    return "";
             }
         }
     }
