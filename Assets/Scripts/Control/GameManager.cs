@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace Game.Control
 {
-	public class GameManager : MonoBehaviour
-	{
-		static GameManager instance = null;
-		public static GameManager Instance => instance;
+    public class GameManager : MonoBehaviour
+    {
+        static GameManager instance = null;
+        public static GameManager Instance => instance;
 
-		void Awake()
-		{
-			instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
+        void Awake()
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
-		void Update()
-		{
-			MessageDispatcher.Instance.DispatchDelay();
-		}
-	}
+        void FixedUpdate()
+        {
+            MessageDispatcher.Instance.DispatchDelay();
+        }
+    }
 }

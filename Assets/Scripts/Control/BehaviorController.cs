@@ -5,7 +5,7 @@ using Game.Control.BT;
 namespace Game.Control
 {
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
-    public class EnemyController : MonoBehaviour
+    public class BehaviorController : MonoBehaviour
     {
         float wanderTimer = 6f;
         Animator animator = null;

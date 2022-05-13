@@ -72,9 +72,9 @@ namespace Game.Control
         }
     }
 
-    public static class MessageTranslator
+    public static class Utils
     {
-        public static string Translate(Message message)
+        public static string ToString(this Message message)
         {
             switch (message)
             {
