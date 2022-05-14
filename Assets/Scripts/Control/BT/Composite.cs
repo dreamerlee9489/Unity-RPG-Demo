@@ -13,11 +13,7 @@ namespace Game.Control.BT
                 children.Add(node);
         }
     }
-    /// <summary>
-    /// 选择结点
-    /// 子节点返回成功:退出
-    /// 子节点返回失败:执行下一个子节点
-    /// </summary>
+
     public class Selector : Composite
     {
         public Selector(string name = "Selector") : base(name) { }
@@ -141,11 +137,7 @@ namespace Game.Control.BT
             return status = Status.RUNNING;
         }
     }
-    /// <summary>
-    /// 并行结点
-    /// 所有子节点都返回成功则退出
-    /// 某个子节点返回失败则返回失败
-    /// </summary>
+
     public class Parallel : Composite
     {
         public Parallel(string name = "Parallel") : base(name) { }

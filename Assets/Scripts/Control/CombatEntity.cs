@@ -70,6 +70,7 @@ namespace Game.Control
 
         public bool HandleMessage(Telegram telegram)
         {
+            print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
             return true;
         }
     }

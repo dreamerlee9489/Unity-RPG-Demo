@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,41 +10,15 @@ namespace Game.Control
         bool HandleMessage(Telegram telegram);
     }
 
-    public class Telegram : IComparable
-    {
-        public float dispatchTime = 0f;
-        public GameObject sender = null;
-        public IMsgReceiver receiver = null;
-        public Message message = Message.Hello;
-
-        public Telegram(GameObject sender, IMsgReceiver receiver, Message msg, float delayTime = 0f)
-        {
-            this.sender = sender;
-            this.receiver = receiver;
-            this.message = msg;
-            this.dispatchTime = delayTime;
-        }
-
-        public int CompareTo(object obj)
-        {
-            if (dispatchTime < (obj as Telegram).dispatchTime)
-                return -1;
-            else if (dispatchTime > (obj as Telegram).dispatchTime)
-                return 1;
-            else
-                return 0;
-        }
-    }
-
     public class MessageDispatcher
     {
         SortedSet<Telegram> queue = new SortedSet<Telegram>();
         static MessageDispatcher instance = new MessageDispatcher();
         public static MessageDispatcher Instance => instance;
 
-        void Discharge(IMsgReceiver receiver, Telegram telegram)
+        void Discharge(Telegram telegram)
         {
-            if (!receiver.HandleMessage(telegram))
+            if (!telegram.receiver.GetComponent<IMsgReceiver>().HandleMessage(telegram))
                 Debug.Log("Message not handled!");
         }
 
@@ -53,7 +26,7 @@ namespace Game.Control
         {
             if (delay <= 0)
             {
-                Discharge(telegram.receiver, telegram);
+                Discharge(telegram);
             }
             else
             {
@@ -66,24 +39,8 @@ namespace Game.Control
         {
             while (queue.Count > 0 && queue.Max.dispatchTime < Time.unscaledTime)
             {
-                Discharge(queue.Max.receiver, queue.Max);
+                Discharge(queue.Max);
                 queue.Remove(queue.Max);
-            }
-        }
-    }
-
-    public static class Utils
-    {
-        public static string ToString(this Message message)
-        {
-            switch (message)
-            {
-                case Message.Hello:
-                    return "Hello";
-                case Message.ByeBye:
-                    return "Bye Bye";
-                default:
-                    return "";
             }
         }
     }

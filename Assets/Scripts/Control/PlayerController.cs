@@ -13,6 +13,12 @@ namespace Game.Control
         CombatEntity combatEntity = null;
         Command command = null;
 
+        void ExecuteCommand(Command command, RaycastHit hit)
+        {
+            this.command = command;
+            command.Execute(hit);
+        }
+        
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -51,12 +57,6 @@ namespace Game.Control
                     animator.SetBool("attack", false);
                 }
             }
-        }
-
-        void ExecuteCommand(Command command, RaycastHit hit)
-        {
-            this.command = command;
-            command.Execute(hit);
         }
     }
 }
