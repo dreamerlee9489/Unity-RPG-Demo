@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Control.BT
+namespace App.Control.BT
 {
     public abstract class Decorator : Node
     {

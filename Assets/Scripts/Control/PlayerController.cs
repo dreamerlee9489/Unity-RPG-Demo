@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
-namespace Game.Control
+namespace App.Control
 {
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class PlayerController : MonoBehaviour
@@ -18,7 +19,7 @@ namespace Game.Control
             this.command = command;
             command.Execute(hit);
         }
-        
+
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -31,7 +32,10 @@ namespace Game.Control
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                }
+                else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
                     switch (hit.collider.tag)
                     {

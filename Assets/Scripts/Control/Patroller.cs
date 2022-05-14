@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.Control
+namespace App.Control
 {
     public class Patroller : MonoBehaviour
     {

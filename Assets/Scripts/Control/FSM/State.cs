@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.Control.FSM
+namespace App.Control.FSM
 {
     public abstract class State
     {
@@ -25,6 +25,7 @@ namespace Game.Control.FSM
         public abstract void Enter();
         public abstract void Execute();
         public abstract void Exit();
+        public abstract bool OnMessage(Telegram telegram);
     }
 
     public class Idle : State
@@ -41,6 +42,11 @@ namespace Game.Control.FSM
 
         public override void Exit()
         {
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -72,6 +78,11 @@ namespace Game.Control.FSM
         public override void Exit()
         {
         }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class Pursuit : State
@@ -98,6 +109,11 @@ namespace Game.Control.FSM
         public override void Exit()
         {
         }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class Attack : State
@@ -120,6 +136,11 @@ namespace Game.Control.FSM
         {
             animator.SetBool("attack", false);
         }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class RunAway : State
@@ -136,6 +157,11 @@ namespace Game.Control.FSM
         }
 
         public override void Exit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool OnMessage(Telegram telegram)
         {
             throw new System.NotImplementedException();
         }

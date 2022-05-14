@@ -1,12 +1,14 @@
+using App.UI;
 using UnityEngine;
 
-namespace Game.Control
+namespace App.Control
 {
     public class GameManager : MonoBehaviour
     {
         GameObject player = null;
         static GameManager instance = null;
         public static GameManager Instance => instance;
+        public UICanvas canvas = null;
 
         void Awake()
         {

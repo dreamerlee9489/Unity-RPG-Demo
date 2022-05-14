@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Control
+namespace App.Control
 {
     public enum Message { Hello, ByeBye }
 

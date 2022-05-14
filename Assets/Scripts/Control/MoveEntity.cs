@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Game.SO;
+using App.SO;
 
-namespace Game.Control
+namespace App.Control
 {
     public class MoveEntity : MonoBehaviour, ICmdReceiver
     {

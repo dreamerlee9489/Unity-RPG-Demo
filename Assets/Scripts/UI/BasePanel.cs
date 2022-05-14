@@ -1,21 +1,37 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-namespace Game.UI
+namespace App.UI
 {
-	public class BasePanel : MonoBehaviour
-	{
-		public bool isOpened = false;
+    public class BasePanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    {
+        public bool isOpened = false;
 
-		public void Open()
-		{
-			isOpened = true;
-			gameObject.SetActive(true);
-		}
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+        }
 
-		public void Close()
-		{
-			isOpened = false;
-			gameObject.SetActive(false);
-		}
-	}
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+        }
+
+        public void Open()
+        {
+            isOpened = true;
+            gameObject.SetActive(true);
+        }
+
+        public void Close()
+        {
+            isOpened = false;
+            gameObject.SetActive(false);
+        }
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Control
+namespace App.Control
 {
     public interface ICmdReceiver
     {

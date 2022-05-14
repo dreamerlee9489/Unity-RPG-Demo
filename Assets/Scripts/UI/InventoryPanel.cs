@@ -1,12 +1,10 @@
-using UnityEngine;
-
-namespace Game.UI
+namespace App.UI
 {
-	public class InventoryPanel : BasePanel
-	{
-		void Start()
-		{
-			
-		}
-	}
+    public class InventoryPanel : BasePanel
+    {
+        void Start()
+        {
+
+        }
+    }
 }

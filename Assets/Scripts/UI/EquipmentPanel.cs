@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Game.UI
+namespace App.UI
 {
 	public class EquipmentPanel : BasePanel
 	{

@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Game.Control.BT;
+using App.Control.BT;
 
-namespace Game.Control
+namespace App.Control
 {
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class BehaviorController : MonoBehaviour

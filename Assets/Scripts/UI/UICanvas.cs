@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.UI
+namespace App.UI
 {
 	public class UICanvas : MonoBehaviour
 	{

@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.Control.FSM
+namespace App.Control.FSM
 {
+    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class FiniteStateMachine : MonoBehaviour
     {
         Transform target = null;
@@ -27,13 +28,22 @@ namespace Game.Control.FSM
         public void RevertPreviousState() => ChangeState(previousState);
 
         public bool IsInState(State state) => currentState.GetType() == state.GetType();
-        
+
         public void ChangeState(State newState)
         {
             previousState = currentState;
             currentState.Exit();
             currentState = newState;
             currentState.Enter();
+        }
+
+        public bool HandleMessage(Telegram telegram)
+        {
+            if(currentState != null && currentState.OnMessage(telegram))
+                return true;
+            if(globalState != null && globalState.OnMessage(telegram))
+                return true;
+            return false;
         }
     }
 }

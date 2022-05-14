@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.SO
+namespace App.SO
 {
     [CreateAssetMenu(fileName = "NewAbilityConfig", menuName = "Unity RPG Project/AbilityConfig", order = 0)]
     public class AbilityConfig : ScriptableObject

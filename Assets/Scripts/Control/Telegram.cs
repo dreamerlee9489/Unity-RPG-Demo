@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Control
+namespace App.Control
 {
 	public class Telegram : IComparable
     {

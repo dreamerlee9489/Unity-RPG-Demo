@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Game.SO;
+using App.SO;
 
-namespace Game.Control
+namespace App.Control
 {
     public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
@@ -71,7 +71,7 @@ namespace Game.Control
         public bool HandleMessage(Telegram telegram)
         {
             print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
-            return true;
+            return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
         }
     }
 }
