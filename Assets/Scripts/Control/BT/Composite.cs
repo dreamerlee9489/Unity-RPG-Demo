@@ -9,7 +9,7 @@ namespace App.Control.BT
         public void AddChild(Node node) => children.Add(node);
         public void AddChildren(params Node[] nodes)
         {
-            foreach(Node node in nodes)
+            foreach (Node node in nodes)
                 children.Add(node);
         }
     }

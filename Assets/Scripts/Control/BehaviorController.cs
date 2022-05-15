@@ -48,7 +48,7 @@ namespace App.Control
             wander.AddChildren(new UntilSuccess(canSeePlayer), new Action(() =>
             {
                 wanderTimer += Time.deltaTime;
-                if(wanderTimer >= 6f)
+                if (wanderTimer >= 6f)
                 {
                     moveEntity.Wander();
                     wanderTimer = 0;

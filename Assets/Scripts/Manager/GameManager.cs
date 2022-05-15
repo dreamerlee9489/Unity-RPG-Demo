@@ -1,7 +1,8 @@
+using App.Control;
 using App.UI;
 using UnityEngine;
 
-namespace App.Control
+namespace App.Manager
 {
     public class GameManager : MonoBehaviour
     {
@@ -15,6 +16,7 @@ namespace App.Control
             instance = this;
             DontDestroyOnLoad(gameObject);
             player = GameObject.FindWithTag("Player");
+            canvas = GameObject.Find("Canvas").GetComponent<UICanvas>();
         }
 
         void Update()

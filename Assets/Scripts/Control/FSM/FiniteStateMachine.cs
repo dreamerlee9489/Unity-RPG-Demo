@@ -39,9 +39,9 @@ namespace App.Control.FSM
 
         public bool HandleMessage(Telegram telegram)
         {
-            if(currentState != null && currentState.OnMessage(telegram))
+            if (currentState != null && currentState.OnMessage(telegram))
                 return true;
-            if(globalState != null && globalState.OnMessage(telegram))
+            if (globalState != null && globalState.OnMessage(telegram))
                 return true;
             return false;
         }

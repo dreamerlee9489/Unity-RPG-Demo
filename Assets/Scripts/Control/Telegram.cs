@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Control
 {
-	public class Telegram : IComparable
+    public class Telegram : IComparable
     {
         public float dispatchTime = 0f;
         public GameObject sender = null, receiver = null;
@@ -39,5 +39,4 @@ namespace App.Control
             }
         }
     }
-
 }
