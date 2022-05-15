@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55edeb7823dac3e448c789672e8ebe14, type: 3}
-  m_Name: GuardDialogue_TaskGiven
+  m_Name: GuardDialogue_QuestGiven
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4E0D\u662F\u8BA9\u4F60\u5E2E\u6211\u89E3\u51B3\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
+  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u5E2E\u6211\u89E3\u51B3\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
     hasNext: 0
     options: []

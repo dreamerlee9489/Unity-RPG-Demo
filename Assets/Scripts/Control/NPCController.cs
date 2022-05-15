@@ -13,9 +13,9 @@ namespace App.Control
 			// dialoguesConfig = Resources.Load<DialoguesConfig>("Config/Dialogue/GuardDialogue_TaskNotGiven");
         }
 
-        public void GiveTask()
+        public void GiveQuest()
         {
-			// dialoguesConfig = Instantiate(Resources.Load<DialoguesConfig>("Config/Dialogue/GuardDialogue_TaskGiven"));
+			dialoguesConfig = Resources.Load<DialoguesConfig>("Config/Dialogue/GuardDialogue_QuestGiven");
             print("Get Quest");
         }
     }

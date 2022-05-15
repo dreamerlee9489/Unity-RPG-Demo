@@ -3061,6 +3061,7 @@ GameObject:
   - component: {fileID: 7239271153554113594}
   - component: {fileID: 6074627334660705068}
   - component: {fileID: 7363631187237748029}
+  - component: {fileID: 3638265201886721554}
   m_Layer: 0
   m_Name: NPC_Soldier_01
   m_TagString: NPC
@@ -3136,6 +3137,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguesConfig: {fileID: 11400000, guid: ac75f58a0d8baa749adb58d735d0ea81, type: 2}
+--- !u!114 &3638265201886721554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239271153561498324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a16d35902099874694b5c19f383d99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GiveQuest
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7363631187237748029}
+        m_TargetAssemblyTypeName: App.Control.NPCController, Assembly-CSharp
+        m_MethodName: GiveTask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7239271153561499450
 GameObject:
   m_ObjectHideFlags: 0

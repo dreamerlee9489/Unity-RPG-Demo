@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+
 namespace App.SO
 {
 	[System.Serializable]
 	public class DialogueOption
 	{
-		public string text = "";
-		public UnityEvent action = new UnityEvent();
+		public string dialogue = "";
+		public string actionName = "";
 	}
 
 	[System.Serializable]

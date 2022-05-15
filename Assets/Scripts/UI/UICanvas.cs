@@ -11,9 +11,7 @@ namespace App.UI
 
         public void ExecuteAction(RaycastHit hit)
         {
-			NPCController npc = hit.transform.GetComponent<NPCController>();
-			dialoguePanel.npcName.text = npc.gameObject.name;
-			dialoguePanel.dialoguesConfig = npc.dialoguesConfig;
+			dialoguePanel.npc = hit.transform.GetComponent<NPCController>();
 			dialoguePanel.gameObject.SetActive(true);
         }
 
