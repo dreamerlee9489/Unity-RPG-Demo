@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class BootsItemUI : MonoBehaviour
+	public class BootsItemUI : ItemUI
 	{
 		void Start()
 		{

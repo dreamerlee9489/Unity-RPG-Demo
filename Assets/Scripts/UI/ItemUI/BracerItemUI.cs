@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class BracerItemUI : MonoBehaviour
+	public class BracerItemUI : ItemUI
 	{
 		void Start()
 		{

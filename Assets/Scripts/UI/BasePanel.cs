@@ -21,17 +21,5 @@ namespace App.UI
         {
             transform.position = eventData.position;
         }
-
-        public void Open()
-        {
-            isOpened = true;
-            gameObject.SetActive(true);
-        }
-
-        public void Close()
-        {
-            isOpened = false;
-            gameObject.SetActive(false);
-        }
     }
 }

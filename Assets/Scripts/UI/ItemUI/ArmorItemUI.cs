@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class ArmorItemUI : MonoBehaviour
+	public class ArmorItemUI : ItemUI
 	{
 		void Start()
 		{

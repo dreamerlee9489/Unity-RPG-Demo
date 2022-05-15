@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class HelmetItemUI : MonoBehaviour
+	public class HelmetItemUI : ItemUI
 	{
 		void Start()
 		{

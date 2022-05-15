@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class PantsItemUI : MonoBehaviour
+	public class PantsItemUI : ItemUI
 	{
 		void Start()
 		{

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace App.UI
@@ -10,8 +9,8 @@ namespace App.UI
 
 		void Awake()
 		{
-			equipmentPanel.Close();
-			inventoryPanel.Close();
+			equipmentPanel.gameObject.SetActive(false);
+			inventoryPanel.gameObject.SetActive(false);
 		}
 
 		void Update()

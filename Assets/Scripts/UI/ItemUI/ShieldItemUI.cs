@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class ShieldItemUI : MonoBehaviour
+	public class ShieldItemUI : ItemUI
 	{
 		void Start()
 		{

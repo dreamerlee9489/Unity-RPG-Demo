@@ -1,8 +1,6 @@
-using UnityEngine;
-
-namespace App
+namespace App.UI
 {
-	public class NecklaceItemUI : MonoBehaviour
+	public class NecklaceItemUI : ItemUI
 	{
 		void Start()
 		{

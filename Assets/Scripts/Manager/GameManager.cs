@@ -1,6 +1,5 @@
-using App.Control;
-using App.UI;
 using UnityEngine;
+using App.Control;
 
 namespace App.Manager
 {
@@ -9,14 +8,14 @@ namespace App.Manager
         GameObject player = null;
         static GameManager instance = null;
         public static GameManager Instance => instance;
-        public UICanvas canvas = null;
+        public Canvas canvas = null;
 
         void Awake()
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
             player = GameObject.FindWithTag("Player");
-            canvas = GameObject.Find("Canvas").GetComponent<UICanvas>();
+            canvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         }
 
         void Update()
