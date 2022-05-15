@@ -3060,6 +3060,7 @@ GameObject:
   - component: {fileID: 7239271153561660474}
   - component: {fileID: 7239271153554113594}
   - component: {fileID: 6074627334660705068}
+  - component: {fileID: 7363631187237748029}
   m_Layer: 0
   m_Name: NPC_Soldier_01
   m_TagString: NPC
@@ -3122,6 +3123,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7363631187237748029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239271153561498324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386da4243a280434cb334ce42cb2e117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguesConfig: {fileID: 11400000, guid: ac75f58a0d8baa749adb58d735d0ea81, type: 2}
 --- !u!1 &7239271153561499450
 GameObject:
   m_ObjectHideFlags: 0

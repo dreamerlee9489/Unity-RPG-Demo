@@ -24,15 +24,20 @@ namespace App.UI
                 DialogueNode node = dialoguesConfig.dialogues[++index];
                 dialogue.text = node.dialogue;
                 nextRow.SetActive(node.hasNext);
-                if (node.choices.Count > 0)
+                if (node.options.Count > 0)
                 {
                     choices.SetActive(true);
-                    for (int i = 0; i < node.choices.Count; i++)
+                    for (int i = 0; i < node.options.Count; i++)
                     {
-                        // Button btn = Instantiate(Resources.Load<Button>("UI/ChoiceButton"), choices.transform);
+                        int n = i;
                         Button btn = choices.transform.GetChild(i).GetComponent<Button>();
                         btn.gameObject.SetActive(true);
-                        btn.transform.GetChild(0).GetComponent<Text>().text = node.choices[i];
+                        btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].text;
+                        btn.onClick.AddListener(() =>
+                        {
+                            node.options[n].action.Invoke();                            
+                            gameObject.SetActive(false);
+                        });
                     }
                 }
                 else
@@ -52,15 +57,20 @@ namespace App.UI
             DialogueNode node = dialoguesConfig.dialogues[0];
             dialogue.text = node.dialogue;
             nextRow.SetActive(node.hasNext);
-            if (node.choices.Count > 0)
+            if (node.options.Count > 0)
             {
                 choices.SetActive(true);
-                for (int i = 0; i < node.choices.Count; i++)
+                for (int i = 0; i < node.options.Count; i++)
                 {
-                    // Button btn = Instantiate(Resources.Load<Button>("UI/ChoiceButton"), choices.transform);
+                    int n = i;
                     Button btn = choices.transform.GetChild(i).GetComponent<Button>();
                     btn.gameObject.SetActive(true);
-                    btn.transform.GetChild(0).GetComponent<Text>().text = node.choices[i];
+                    btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].text;
+                    btn.onClick.AddListener(() =>
+                    {
+                        node.options[n].action.Invoke();
+                        gameObject.SetActive(false);
+                    });
                 }
             }
             else

@@ -10,17 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55edeb7823dac3e448c789672e8ebe14, type: 3}
-  m_Name: GuardDialogueConfig
+  m_Name: GuardDialogue_TaskGiven
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4ECA\u5929\u5929\u6C14\u771F\u4E0D\u9519!"
-    hasNext: 1
-    choices: []
-  - dialogue: "\u4F60\u4E0D\u662F\u672C\u5730\u4EBA\u5427?"
-    hasNext: 1
-    choices: []
-  - dialogue: "\u5E2E\u6211\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u597D\u5417?"
+  - dialogue: "\u4E0D\u662F\u8BA9\u4F60\u5E2E\u6211\u89E3\u51B3\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
     hasNext: 0
-    choices:
-    - "\u6CA1\u95EE\u9898!"
-    - "\u7B97\u4E86."
+    options: []
