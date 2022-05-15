@@ -29,4 +29,11 @@ namespace App.Control
         public override void Execute(RaycastHit hit) => receiver.ExecuteAction(hit);
         public override void Cancel() => receiver.CancelAction();
     }
+
+    public class DialogueCommand : Command
+    {
+        public DialogueCommand(ICmdReceiver receiver) : base(receiver) { }
+        public override void Execute(RaycastHit hit) => receiver.ExecuteAction(hit);
+        public override void Cancel() => receiver.CancelAction();
+    }
 }

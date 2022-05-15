@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7840214958487539921}
   - component: {fileID: 7840214958487539927}
   - component: {fileID: 7840214958487539920}
+  - component: {fileID: 1555740054}
   m_Layer: 5
   m_Name: EquipmentPanel
   m_TagString: Untagged
@@ -156,6 +157,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1555740054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7840214958487539922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4054432193ff24ba9fae5973a13d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpened: 0
 --- !u!1 &7840214958573871184
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +316,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u88C5\u5907"
+  m_Text: "\u88C5\u5907(E)"
 --- !u!1 &7840214958954088695
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +479,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3029464359941708947, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c438a3604a96dd4d8990cc11b424f42, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &7840214957990947337 stripped
@@ -575,6 +597,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 70a77abda853dd941a0c8debf1de9b04, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438446882247077 stripped
@@ -685,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438446655597758 stripped
@@ -795,6 +825,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b8fb302c5768e334ca82005f50e58121, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438447403929543 stripped
@@ -905,6 +939,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0e123cfdc54a3ca4684816a34167a566, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438447038595078 stripped
@@ -1015,6 +1053,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b97c91e8b348f3f4ebdc11f5c82182cd, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438445522755752 stripped
@@ -1125,6 +1167,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438446292402281 stripped
@@ -1235,6 +1281,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
+    - target: {fileID: 6731504123954775272, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: itemType
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
 --- !u!224 &5099438446378191286 stripped

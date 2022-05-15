@@ -5,7 +5,7 @@ namespace App.UI
 {
     public class BasePanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public bool isOpened = false;
+        [HideInInspector] public bool isOpened = false;
 
         public void OnBeginDrag(PointerEventData eventData)
         {

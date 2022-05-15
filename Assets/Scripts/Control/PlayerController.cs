@@ -1,3 +1,5 @@
+using App.Manager;
+using App.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -20,6 +22,11 @@ namespace App.Control
             command.Execute(hit);
         }
 
+        void CancelCommand()
+        {
+            command?.Cancel();
+        }
+
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -30,6 +37,21 @@ namespace App.Control
 
         void Update()
         {
+            if (combatEntity.target != null)
+            {
+                transform.LookAt(combatEntity.target);
+                if (combatEntity.CanAttack(combatEntity.target))
+                {
+                    animator.SetBool("attack", true);
+                }
+                else
+                {
+                    agent.destination = combatEntity.target.position;
+                    animator.SetBool("attack", false);
+                }
+            }
+            if(Input.GetMouseButtonDown(1))
+                CancelCommand();
             if (Input.GetMouseButtonDown(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
@@ -45,20 +67,10 @@ namespace App.Control
                         case "Enemy":
                             ExecuteCommand(new CombatCommand(combatEntity), hit);
                             break;
+                        case "NPC":
+                            ExecuteCommand(new DialogueCommand(GameManager.Instance.canvas), hit);
+                            break;
                     }
-                }
-            }
-            if (combatEntity.target != null)
-            {
-                transform.LookAt(combatEntity.target);
-                if (combatEntity.CanAttack(combatEntity.target))
-                {
-                    animator.SetBool("attack", true);
-                }
-                else
-                {
-                    agent.destination = combatEntity.target.position;
-                    animator.SetBool("attack", false);
                 }
             }
         }
