@@ -15,13 +15,6 @@ namespace App.Control
         float timer = 0, alertTime = 4f;
         Animator animator = null;
 
-        bool OnWaypoint(int index)
-        {
-            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= agent.stoppingDistance)
-                return true;
-            return false;
-        }
-
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -71,6 +64,13 @@ namespace App.Control
             }
         }
 
+        bool OnWaypoint(int index)
+        {
+            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= agent.stoppingDistance)
+                return true;
+            return false;
+        }
+        
         public void StartPatrol()
         {
             agent.isStopped = false;

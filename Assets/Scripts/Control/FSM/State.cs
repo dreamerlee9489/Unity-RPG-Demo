@@ -30,14 +30,28 @@ namespace App.Control.FSM
 
     public class Idle : State
     {
+        float idleTimer = 0;
+
         public Idle(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
+            agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
         }
 
         public override void Execute()
         {
+            idleTimer += Time.deltaTime;
+            if(idleTimer > 4)
+            {
+                owner.ChangeState(new Patrol(owner, target));
+                idleTimer = 0;
+            }
+            else if (combatEntity.CanSee(target))
+            {
+                owner.ChangeState(new Pursuit(owner, target));
+                idleTimer = 0;
+            }
         }
 
         public override void Exit()
@@ -52,12 +66,13 @@ namespace App.Control.FSM
 
     public class Patrol : State
     {
-        private float wanderTimer = 3f;
+        float wanderTimer = 6f;
 
         public Patrol(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
+            agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
         }
 
         public override void Execute()
@@ -67,7 +82,7 @@ namespace App.Control.FSM
             else
             {
                 wanderTimer += Time.deltaTime;
-                if (wanderTimer >= 3f)
+                if (wanderTimer >= 6f)
                 {
                     moveEntity.Wander();
                     wanderTimer = 0;
@@ -91,6 +106,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
+            agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
         }
 
         public override void Execute()
@@ -103,7 +119,7 @@ namespace App.Control.FSM
                 owner.transform.LookAt(target);
             }
             else
-                owner.ChangeState(new Patrol(owner, target));
+                owner.ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
@@ -122,18 +138,20 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
+            combatEntity.target = target;
             animator.SetBool("attack", true);
         }
 
         public override void Execute()
         {
-            if (!combatEntity.CanAttack(target))
-                owner.ChangeState(new Patrol(owner, target));
             owner.transform.LookAt(target);
+            if (!combatEntity.CanAttack(target))
+                owner.ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
         {
+            combatEntity.target = null;
             animator.SetBool("attack", false);
         }
 
@@ -149,6 +167,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
+            agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
         }
 
         public override void Execute()

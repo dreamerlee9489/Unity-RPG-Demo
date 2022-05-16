@@ -13,21 +13,15 @@ namespace App.Control
         Vector3 initPos;
         Animator animator = null;
         NavMeshAgent agent = null;
+        CombatEntity combatEntity = null;
         public AbilityConfig abilityConfig = null;
-
-        Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
-        {
-            float distAway = obstacle.radius + distanceFromBoundary;
-            Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
-            return obstacle.transform.position + toObstacle * distAway;
-        }
 
         void Awake()
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
+            combatEntity = GetComponent<CombatEntity>();
             animator.applyRootMotion = false;
-            agent.isStopped = false;
             agent.autoBraking = false;
             agent.angularSpeed = 4800;
             agent.acceleration = 80;
@@ -36,34 +30,36 @@ namespace App.Control
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
         }
 
-        void Start()
-        {
-            GameManager.Instance.entities.Add(name, this.transform);
-        }
-
         void Update()
         {
             animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
         }
 
-        public void ExecuteAction(RaycastHit hit)
+        Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
         {
-            if (GetComponent<CombatEntity>().target != null)
-                GetComponent<CombatEntity>().CancelAction();
-            agent.destination = hit.point;
+            float distAway = obstacle.radius + distanceFromBoundary;
+            Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
+            return obstacle.transform.position + toObstacle * distAway;
+        }
+        
+        public void ExecuteAction(Transform target) {}
+        public void ExecuteAction(Vector3 point)
+        {
+            if (combatEntity.target != null)
+                combatEntity.CancelAction();
+            agent.isStopped = false;
+            agent.destination = point;
             agent.stoppingDistance = abilityConfig.stopDistance;
         }
 
         public void CancelAction()
         {
-            agent.destination = transform.position;
+            agent.isStopped = true;
         }
 
         public float Seek(Vector3 position)
         {
             agent.autoBraking = false;
-            agent.isStopped = false;
-            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             agent.destination = position;
             return Vector3.Distance(position, agent.destination);
         }
@@ -74,8 +70,6 @@ namespace App.Control
             if (direction.sqrMagnitude <= Mathf.Pow(abilityConfig.fleeRadius, 2))
             {
                 agent.autoBraking = false;
-                agent.isStopped = false;
-                agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
                 agent.destination = direction.normalized * abilityConfig.fleeRadius;
             }
             return direction.sqrMagnitude > sqrFleeRadius;
@@ -84,8 +78,6 @@ namespace App.Control
         public void Arrive(Vector3 position)
         {
             agent.autoBraking = true;
-            agent.isStopped = false;
-            agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             agent.destination = position;
         }
 
@@ -113,9 +105,6 @@ namespace App.Control
         {
             Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
             position = position.normalized * radius * Random.Range(0f, 1f);
-            agent.autoBraking = false;
-            agent.isStopped = false;
-            agent.speed = abilityConfig.walkSpeed * abilityConfig.walkFactor;
             agent.destination = initPos + position;
         }
 

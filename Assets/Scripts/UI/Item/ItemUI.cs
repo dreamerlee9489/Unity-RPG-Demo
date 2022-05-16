@@ -10,33 +10,6 @@ namespace App.UI
         [HideInInspector] public Transform originParent = null;
         public ItemType itemType = ItemType.ALL;
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            originParent = transform.parent;
-            transform.position = eventData.position;
-            eventData.pointerDrag.transform.SetParent(GameManager.Instance.canvas.transform);
-            GetComponent<Image>().raycastTarget = false;
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            transform.position = eventData.position;
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            transform.position = eventData.position;
-            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter));
-            GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            GetComponent<Image>().raycastTarget = true;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (eventData.pointerId == -2)
-                UseItem();
-        }
-
         protected virtual void UseItem() { print(" Use: " + gameObject.name); }
 
         Transform CheckSlotType(GameObject obj)
@@ -68,6 +41,33 @@ namespace App.UI
                 }
             }
             return originParent;
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            originParent = transform.parent;
+            transform.position = eventData.position;
+            eventData.pointerDrag.transform.SetParent(GameManager.Instance.canvas.transform);
+            GetComponent<Image>().raycastTarget = false;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter));
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            GetComponent<Image>().raycastTarget = true;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.pointerId == -2)
+                UseItem();
         }
     }
 }

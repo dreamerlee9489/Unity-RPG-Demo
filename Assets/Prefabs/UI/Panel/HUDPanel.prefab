@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6290724708501168917}
   m_Layer: 5
   m_Name: HUDPanel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,6 +89,10 @@ PrefabInstance:
     - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Name
       value: HPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850841234703, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Pivot.x
@@ -199,6 +203,10 @@ PrefabInstance:
     - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Name
       value: XPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850841234703, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Pivot.x
@@ -313,6 +321,10 @@ PrefabInstance:
     - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Name
       value: MPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850841234703, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Pivot.x

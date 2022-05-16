@@ -33,19 +33,6 @@ namespace App.Control
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
         [HideInInspector] public int index = 0;
 
-        public void CompleteQuest(Quest quest)
-        {
-            quest.isCompleted = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/CompletedQuest_KillUndeadKnight").asset as DialoguesConfig;
-            Debug.Log("任务已完成: " + quest.current);
-        }
-
-        public void ActionTrigger(string action)
-        {
-            if (actions.ContainsKey(action))
-                actions[action].Invoke();
-        }
-
         void Awake()
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
@@ -74,6 +61,19 @@ namespace App.Control
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/Quest_KillUndeadKnight").asset as DialoguesConfig;
             Debug.Log("获取奖励: " + quests[index].name);
             index = 0;
+        }
+
+        public void CompleteQuest(Quest quest)
+        {
+            quest.isCompleted = true;
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/CompletedQuest_KillUndeadKnight").asset as DialoguesConfig;
+            Debug.Log("任务已完成: " + quest.current);
+        }
+
+        public void ActionTrigger(string action)
+        {
+            if (actions.ContainsKey(action))
+                actions[action].Invoke();
         }
     }
 }

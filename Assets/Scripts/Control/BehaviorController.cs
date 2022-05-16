@@ -28,8 +28,11 @@ namespace App.Control
             Condition canSeePlayer = new Condition(() =>
             {
                 if (combatEntity.CanSee(player))
+                {
+                    agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
                     return true;
-                animator.SetBool("attack", false);
+                }
+                agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
@@ -57,25 +60,15 @@ namespace App.Control
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                if (moveEntity.Seek(player.position) <= agent.stoppingDistance)
-                    return Status.SUCCESS;
-                return Status.RUNNING;
-            }), new Action(() =>
-            {
-                if (combatEntity.CanAttack(player))
-                {
-                    transform.LookAt(player);
-                    animator.SetBool("attack", true);
-                    return Status.SUCCESS;
-                }
-                animator.SetBool("attack", false);
+                combatEntity.ExecuteAction(player);
                 return Status.RUNNING;
             }));
         }
 
         private void Update()
         {
-            root.Execute();
+            if(!combatEntity.isDead)
+                root.Execute();
         }
 
         void OnDrawGizmosSelected()

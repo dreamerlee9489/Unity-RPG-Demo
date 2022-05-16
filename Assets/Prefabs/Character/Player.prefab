@@ -2087,7 +2087,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sqrViewRadius: 36
+  sqrAttackRadius: 2.25
+  currHp: 100
+  currDef: 1
+  currAtk: 10
   weaponConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
+  healthBar: {fileID: 0}
+  isDead: 0
+  target: {fileID: 0}
 --- !u!114 &3796356216321399749
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,17 +15,6 @@ namespace App.Control
         CombatEntity combatEntity = null;
         Command command = null;
 
-        void ExecuteCommand(Command command, RaycastHit hit)
-        {
-            this.command = command;
-            command.Execute(hit);
-        }
-
-        void CancelCommand()
-        {
-            command?.Cancel();
-        }
-
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -36,47 +25,53 @@ namespace App.Control
 
         void Update()
         {
-            if (combatEntity.target != null)
+            if (!combatEntity.isDead)
             {
-                transform.LookAt(combatEntity.target);
-                if (combatEntity.CanAttack(combatEntity.target))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    animator.SetBool("attack", true);
-                }
-                else
-                {
-                    agent.destination = combatEntity.target.position;
-                    animator.SetBool("attack", false);
-                }
-            }
-            if(Input.GetMouseButtonDown(1))
-                CancelCommand();
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                {
-                }
-                else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                {
-                    switch (hit.collider.tag)
+                    if (!EventSystem.current.IsPointerOverGameObject())
                     {
-                        case "Terrain":
-                            ExecuteCommand(new MoveCommand(moveEntity), hit);
-                            break;
-                        case "Enemy":
-                            ExecuteCommand(new CombatCommand(combatEntity), hit);
-                            break;
-                        case "NPC":
-                            ExecuteCommand(new DialogueCommand(GameManager.Instance.canvas), hit);
-                            break;
+                        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                        {
+                            switch (hit.collider.tag)
+                            {
+                                case "Terrain":
+                                    ExecuteCommand(new MoveCommand(moveEntity), hit.point);
+                                    break;
+                                case "Enemy":
+                                    ExecuteCommand(new CombatCommand(combatEntity), hit.transform);
+                                    agent.stoppingDistance = moveEntity.abilityConfig.stopDistance + combatEntity.target.GetComponent<MoveEntity>().abilityConfig.stopDistance;
+                                    combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+                                    break;
+                                case "NPC":
+                                    ExecuteCommand(new DialogueCommand(GameManager.Instance.canvas), hit.transform);
+                                    break;
+                            }
+                        }
                     }
                 }
+                if (Input.GetMouseButtonDown(1))
+                    CancelCommand();
+                if (combatEntity.target != null)
+                    combatEntity.ExecuteAction(combatEntity.target);
             }
-            if(Input.GetKeyDown(KeyCode.T))
-            {
-                NPCController npc = GameManager.Instance.entities["NPC_Guard_01"].GetComponent<NPCController>();
-                npc.quests[npc.index].UpdateProgress(1);
-            }
+        }
+
+        void ExecuteCommand(Command command, Vector3 point)
+        {
+            this.command = command;
+            command.Execute(point);
+        }
+
+        void ExecuteCommand(Command command, Transform target)
+        {
+            this.command = command;
+            command.Execute(target);
+        }
+
+        void CancelCommand()
+        {
+            command?.Cancel();
         }
     }
 }

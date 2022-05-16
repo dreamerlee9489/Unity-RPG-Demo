@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 1.558401
   runSpeed: 5.662316
-  walkFactor: 1.2
-  runFactor: 1.2
+  walkFactor: 1
+  runFactor: 1
   viewRadius: 6
   fleeRadius: 6
   stopDistance: 2
-  level: 1
-  maxHP: 100
-  maxMP: 100
-  unarmAtk: 10
+  hp: 100
+  def: 1
+  atk: 10
