@@ -35,15 +35,10 @@ namespace App.UI
                         btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
                         btn.onClick.AddListener(() =>
                         {
-                            npc.EventTrigger(node.options[n].action);
+                            npc.ActionTrigger(node.options[n].action);
                             gameObject.SetActive(false);
                         });
                     }
-                    choices.SetActive(true);
-                }
-                else
-                {
-                    choices.SetActive(false);
                 }
             });
             quitBtn.onClick.AddListener(() =>
@@ -51,11 +46,11 @@ namespace App.UI
                 gameObject.SetActive(false);
             });
             nextRow.SetActive(false);
-            choices.SetActive(true);
         }
 
         void OnEnable()
         {
+            npcName.text = npc.gameObject.name;
             dialoguesConfig = npc.dialoguesConfig;
             DialogueNode node = dialoguesConfig.dialogues[0];
             dialogue.text = node.dialogue;
@@ -70,15 +65,10 @@ namespace App.UI
                     btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
                     btn.onClick.AddListener(() =>
                     {
-                        npc.EventTrigger(node.options[n].action);
+                        npc.ActionTrigger(node.options[n].action);
                         gameObject.SetActive(false);
                     });
                 }
-                choices.SetActive(true);
-            }
-            else
-            {
-                choices.SetActive(false);
             }
         }
 
@@ -91,7 +81,6 @@ namespace App.UI
                 btn.onClick.RemoveAllListeners();
                 btn.gameObject.SetActive(false);
             }
-            // choices.SetActive(false);
         }
     }
 }

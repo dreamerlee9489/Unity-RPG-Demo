@@ -1,6 +1,6 @@
 namespace App.UI
 {
-    public class InventoryPanel : BasePanel
+    public class BagPanel : BasePanel
     {
         void Start()
         {

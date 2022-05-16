@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using App.Manager;
-using App.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -16,7 +14,6 @@ namespace App.Control
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         Command command = null;
-        public List<Quest> quests = new List<Quest>();
 
         void ExecuteCommand(Command command, RaycastHit hit)
         {
@@ -77,7 +74,8 @@ namespace App.Control
             }
             if(Input.GetKeyDown(KeyCode.T))
             {
-                quests[0].UpdateProgress(1);
+                NPCController npc = GameManager.Instance.entities["NPC_Guard_01"].GetComponent<NPCController>();
+                npc.quests[npc.index].UpdateProgress(1);
             }
         }
     }

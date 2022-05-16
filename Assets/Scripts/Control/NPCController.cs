@@ -19,17 +19,19 @@ namespace App.Control
         public void UpdateProgress(int count)
         {
             current += count;
+            GameManager.Instance.canvas.questPanel.UpdateQuest(this);
             if (current >= total && !isCompleted)
                 npc.CompleteQuest(this);
         }
     }
 
+    [RequireComponent(typeof(MoveEntity))]
     public class NPCController : MonoBehaviour
     {
         public DialoguesConfig dialoguesConfig = null;
         public List<Quest> quests = new List<Quest>();
-        public Dictionary<string, Action> events = new Dictionary<string, Action>();
-        int index = 0;
+        public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+        [HideInInspector] public int index = 0;
 
         public void CompleteQuest(Quest quest)
         {
@@ -38,19 +40,19 @@ namespace App.Control
             Debug.Log("任务已完成: " + quest.current);
         }
 
-        public void EventTrigger(string action)
+        public void ActionTrigger(string action)
         {
-            if (events.ContainsKey(action))
-                events[action].Invoke();
+            if (actions.ContainsKey(action))
+                actions[action].Invoke();
         }
 
         void Awake()
         {
-            events.Add("GiveQuest_KillUndeadKnight", () =>
+            actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
                 GiveQuest(null);
             });
-            events.Add("GiveReward_KillUndeadKnight", () =>
+            actions.Add("GiveReward_KillUndeadKnight", () =>
             {
                 GiveReward();
             });
@@ -60,16 +62,18 @@ namespace App.Control
         {
             quests[index].npc = this;
             quests[index].rewards = rewards;
-            GameManager.Instance.player.quests.Add(quests[index]);
+            GameManager.Instance.canvas.questPanel.AddQuest(quests[index]);
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/GivenQuest_KillUndeadKnight").asset as DialoguesConfig;
             Debug.Log("领取任务: " + quests[index].name);
         }
 
         void GiveReward()
         {
-            index = 0;
+            quests[index].current -= quests[index].total;
+            GameManager.Instance.canvas.questPanel.RemoveQuest(quests[index]);
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/Quest_KillUndeadKnight").asset as DialoguesConfig;
             Debug.Log("获取奖励: " + quests[index].name);
+            index = 0;
         }
     }
 }

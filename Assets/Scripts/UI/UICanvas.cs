@@ -5,9 +5,10 @@ namespace App.UI
 {
 	public class UICanvas : MonoBehaviour, ICmdReceiver
 	{
+		public BagPanel bagPanel = null;
 		public EquipmentPanel equipmentPanel = null;
-		public InventoryPanel inventoryPanel = null;
 		public DialoguePanel dialoguePanel = null;
+		public QuestPanel questPanel = null;
 
         public void ExecuteAction(RaycastHit hit)
         {
@@ -22,17 +23,20 @@ namespace App.UI
 
         void Awake()
 		{
+			bagPanel.gameObject.SetActive(false);
 			equipmentPanel.gameObject.SetActive(false);
-			inventoryPanel.gameObject.SetActive(false);
 			dialoguePanel.gameObject.SetActive(false);
+			questPanel.gameObject.SetActive(false);
 		}
 
 		void Update()
 		{
 			if(Input.GetKeyDown(KeyCode.B))
-				inventoryPanel.gameObject.SetActive(inventoryPanel.isOpened = !inventoryPanel.isOpened);
+				bagPanel.gameObject.SetActive(bagPanel.isOpened = !bagPanel.isOpened);
 			if(Input.GetKeyDown(KeyCode.E))
 				equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = !equipmentPanel.isOpened);
+			if(Input.GetKeyDown(KeyCode.Q))
+				questPanel.gameObject.SetActive(questPanel.isOpened = !questPanel.isOpened);
 		}
 	}
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GivenQuest_KillUndeadKnight
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u5E2E\u6211\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
+  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
     hasNext: 0
     options: []

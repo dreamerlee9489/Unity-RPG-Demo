@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
+using App.Manager;
 
 namespace App.Control
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public class MoveEntity : MonoBehaviour, ICmdReceiver
     {
         float sqrFleeRadius = 36f;
@@ -32,6 +34,11 @@ namespace App.Control
             agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
+        }
+
+        void Start()
+        {
+            GameManager.Instance.entities.Add(name, this.transform);
         }
 
         void Update()

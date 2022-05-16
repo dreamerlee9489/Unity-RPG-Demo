@@ -3060,6 +3060,8 @@ GameObject:
   - component: {fileID: 7239271153561660474}
   - component: {fileID: 7239271153554113594}
   - component: {fileID: 6074627334660705068}
+  - component: {fileID: 3916986652904118308}
+  - component: {fileID: 3454087764502834853}
   - component: {fileID: 7363631187237748029}
   m_Layer: 0
   m_Name: NPC_Soldier_01
@@ -3123,6 +3125,41 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!195 &3916986652904118308
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239271153561498324}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 120
+  avoidancePriority: 50
+  m_AngularSpeed: 3600
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &3454087764502834853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239271153561498324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
 --- !u!114 &7363631187237748029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,7 +3178,9 @@ MonoBehaviour:
     description: Test to Kill Undead Knight.
     current: 0
     total: 1
+    isCompleted: 0
     npc: {fileID: 0}
+  index: 0
 --- !u!1 &7239271153561499450
 GameObject:
   m_ObjectHideFlags: 0
