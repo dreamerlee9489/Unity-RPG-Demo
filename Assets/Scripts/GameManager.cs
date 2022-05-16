@@ -4,7 +4,7 @@ using UnityEngine;
 using App.Control;
 using App.UI;
 
-namespace App.Manager
+namespace App
 {
     public class GameManager : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace App.Manager
         public static GameManager Instance => instance;
         public UICanvas canvas = null;
         public Dictionary<string, MoveEntity> entities;
+        public List<Quest> ongoingQuests = new List<Quest>();
 
         void Awake()
         {

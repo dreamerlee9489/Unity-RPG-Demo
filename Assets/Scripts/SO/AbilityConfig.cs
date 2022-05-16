@@ -7,6 +7,6 @@ namespace App.SO
     {
         public float walkSpeed = 1.558401f, runSpeed = 5.662316f, walkFactor = 1f, runFactor = 1f;
         public float viewRadius = 6f, fleeRadius = 6f, stopDistance = 1f;
-        public float hp = 100f, def = 1f, atk = 10f;
+        public float hp = 100f, atk = 10f, def = 1f;
     }
 }

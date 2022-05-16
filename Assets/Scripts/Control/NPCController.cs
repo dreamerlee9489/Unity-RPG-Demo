@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using App.SO;
-using App.Manager;
 
 namespace App.Control
 {
@@ -14,6 +13,7 @@ namespace App.Control
         public int current = 0, total = 1;
         public bool isCompleted = false;
         public Dictionary<string, int> rewards = null;
+        [HideInInspector] public string target = null;
         [HideInInspector] public NPCController npc = null;
 
         public void UpdateProgress(int count)
@@ -37,7 +37,7 @@ namespace App.Control
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
-                GiveQuest(null);
+                GiveQuest("Enemy_UndeadKnight", null);
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
@@ -45,11 +45,14 @@ namespace App.Control
             });
         }
 
-        void GiveQuest(Dictionary<string, int> rewards)
+        void GiveQuest(string target, Dictionary<string, int> rewards)
         {
             quests[index].npc = this;
+            quests[index].target = target;
             quests[index].rewards = rewards;
-            GameManager.Instance.canvas.questPanel.AddQuest(quests[index]);
+            GameManager.Instance.ongoingQuests.Add(quests[index]);
+            GameManager.Instance.canvas.questPanel.Add(quests[index]);
+            GameManager.Instance.entities[target].GetComponent<CombatEntity>().isQuestTarget = true;
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/GivenQuest_KillUndeadKnight").asset as DialoguesConfig;
             Debug.Log("领取任务: " + quests[index].name);
         }
@@ -57,7 +60,9 @@ namespace App.Control
         void GiveReward()
         {
             quests[index].current -= quests[index].total;
-            GameManager.Instance.canvas.questPanel.RemoveQuest(quests[index]);
+            GameManager.Instance.ongoingQuests.Remove(quests[index]);
+            GameManager.Instance.canvas.questPanel.Remove(quests[index]);
+            GameManager.Instance.entities[quests[index].target].GetComponent<CombatEntity>().isQuestTarget = false;
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/Quest_KillUndeadKnight").asset as DialoguesConfig;
             Debug.Log("获取奖励: " + quests[index].name);
             index = 0;

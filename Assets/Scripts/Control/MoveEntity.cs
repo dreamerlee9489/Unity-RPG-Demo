@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
-using App.Manager;
 
 namespace App.Control
 {

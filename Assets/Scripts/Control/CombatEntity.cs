@@ -11,9 +11,10 @@ namespace App.Control
         AbilityConfig abilityConfig = null;
         public float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
         public float currHp = 100f, currDef = 1f, currAtk = 10f;        
-        public WeaponConfig weaponConfig = null;
+        public EquipmentConfig weaponConfig = null;
         public HealthBar healthBar = null;
         [HideInInspector] public bool isDead = false;
+        [HideInInspector] public bool isQuestTarget = false;
         [HideInInspector] public Transform target = null;
 
         void Awake()
@@ -28,7 +29,7 @@ namespace App.Control
             agent.radius = 0.5f;
             currHp = abilityConfig.hp;
             currDef = abilityConfig.def;
-            currAtk = abilityConfig.atk + weaponConfig.weaponAtk;
+            currAtk = abilityConfig.atk + weaponConfig.atk;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
         }
@@ -58,6 +59,15 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
+            if(isQuestTarget)
+            {
+                for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
+                {
+                    Quest quest = GameManager.Instance.ongoingQuests[i];
+                    if(quest.target == name)
+                        quest.UpdateProgress(1);
+                }
+            }
         }
 
         public void ExecuteAction(Vector3 point) {}

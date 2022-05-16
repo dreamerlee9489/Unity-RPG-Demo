@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using App.Manager;
 
 namespace App.UI
 {
+    public enum ItemType { ALL, HELMET, ARMOR, SHIELD, BOOTS, NECKLACE, BRACER, WEAPON, PANTS, POTION }
+
+    public class ItemSlot : MonoBehaviour
+    {
+        public ItemType itemType = ItemType.ALL;
+    }
+
+    [System.Serializable]
     public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         [HideInInspector] public Transform originParent = null;

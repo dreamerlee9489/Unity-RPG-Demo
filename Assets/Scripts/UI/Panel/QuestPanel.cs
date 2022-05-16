@@ -8,7 +8,7 @@ namespace App.UI
 	{
 		public ScrollRect scrollRect = null;
 
-		public void AddQuest(Quest quest)
+		public void Add(Quest quest)
 		{
 			QuestBar bar = Instantiate(Resources.Load<QuestBar>("UI/QuestBar"), scrollRect.content.transform);
 			bar.gameObject.name = bar.questName.text = quest.name;
@@ -24,7 +24,7 @@ namespace App.UI
 			}
 		}
 
-		public void RemoveQuest(Quest quest)
+		public void Remove(Quest quest)
 		{
 			for (int i = 0; i < scrollRect.content.transform.childCount; i++)
 			{

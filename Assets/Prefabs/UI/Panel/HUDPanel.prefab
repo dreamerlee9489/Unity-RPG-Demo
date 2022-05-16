@@ -184,15 +184,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767799, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 75
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+--- !u!114 &6290724707194442261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+  m_PrefabInstance: {fileID: 3283108469819116782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6290724707602694625 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8845866850841234703, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
   m_PrefabInstance: {fileID: 3283108469819116782}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6290724707602694630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8845866850841234696, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+  m_PrefabInstance: {fileID: 3283108469819116782}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &657459142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290724707602694630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foreground: {fileID: 6290724707194442261}
 --- !u!1001 &6290724706887519167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767798, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Text
-      value: "\u7ECF\u9A8C"
+      value: XP
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767798, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -302,7 +331,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767799, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 75
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.565917
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
@@ -412,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767798, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Text
-      value: "\u6CD5\u529B"
+      value: MP
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767798, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -420,7 +453,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8845866850879767799, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 75
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27935553
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
