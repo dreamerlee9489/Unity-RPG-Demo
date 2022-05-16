@@ -27,7 +27,6 @@ namespace App.UI
                 nextRow.SetActive(node.hasNext);
                 if (node.options.Count > 0)
                 {
-                    choices.SetActive(true);
                     for (int i = 0; i < node.options.Count; i++)
                     {
                         int n = i;
@@ -36,10 +35,11 @@ namespace App.UI
                         btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
                         btn.onClick.AddListener(() =>
                         {
-                            npc.GetComponent<DialogueTrigger>().Trigger(node.options[n].actionName);
+                            npc.EventTrigger(node.options[n].action);
                             gameObject.SetActive(false);
                         });
                     }
+                    choices.SetActive(true);
                 }
                 else
                 {
@@ -51,6 +51,7 @@ namespace App.UI
                 gameObject.SetActive(false);
             });
             nextRow.SetActive(false);
+            choices.SetActive(true);
         }
 
         void OnEnable()
@@ -61,7 +62,6 @@ namespace App.UI
             nextRow.SetActive(node.hasNext);
             if (node.options.Count > 0)
             {
-                choices.SetActive(true);
                 for (int i = 0; i < node.options.Count; i++)
                 {
                     int n = i;
@@ -70,10 +70,11 @@ namespace App.UI
                     btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
                     btn.onClick.AddListener(() =>
                     {
-                        npc.GetComponent<DialogueTrigger>().Trigger(node.options[n].actionName);
+                        npc.EventTrigger(node.options[n].action);
                         gameObject.SetActive(false);
                     });
                 }
+                choices.SetActive(true);
             }
             else
             {
@@ -86,8 +87,11 @@ namespace App.UI
             index = 0;
             for (int i = 0; i < choices.transform.childCount; i++)
             {
-                choices.transform.GetChild(i).gameObject.SetActive(false);
+                Button btn = choices.transform.GetChild(i).GetComponent<Button>();
+                btn.onClick.RemoveAllListeners();
+                btn.gameObject.SetActive(false);
             }
+            // choices.SetActive(false);
         }
     }
 }

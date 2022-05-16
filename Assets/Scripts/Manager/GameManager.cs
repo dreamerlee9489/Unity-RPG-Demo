@@ -6,16 +6,16 @@ namespace App.Manager
 {
     public class GameManager : MonoBehaviour
     {
-        GameObject player = null;
         static GameManager instance = null;
         public static GameManager Instance => instance;
         public UICanvas canvas = null;
+        public PlayerController player = null;
 
         void Awake()
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            player = GameObject.FindWithTag("Player");
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
             canvas = GameObject.Find("UICanvas").GetComponent<UICanvas>();
         }
 

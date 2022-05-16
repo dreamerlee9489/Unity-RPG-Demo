@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using App.Manager;
 using App.UI;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace App.Control
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         Command command = null;
+        public List<Quest> quests = new List<Quest>();
 
         void ExecuteCommand(Command command, RaycastHit hit)
         {
@@ -72,6 +74,10 @@ namespace App.Control
                             break;
                     }
                 }
+            }
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                quests[0].UpdateProgress(1);
             }
         }
     }
