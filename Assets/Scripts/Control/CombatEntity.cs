@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
+using App.Manager;
+using App.Item;
 
 namespace App.Control
 {
@@ -8,14 +10,14 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
-        AbilityConfig abilityConfig = null;
-        public float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
-        public float currHp = 100f, currDef = 1f, currAtk = 10f;        
-        public EquipmentConfig weaponConfig = null;
+        public Transform weaponPos = null;
+        public WeaponConfig weaponConfig = null;
         public HealthBar healthBar = null;
-        [HideInInspector] public bool isDead = false;
-        [HideInInspector] public bool isQuestTarget = false;
+        [HideInInspector] public float currHp = 100f, currDef = 1f, currAtk = 10f;        
+        [HideInInspector] public float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
+        [HideInInspector] public bool isDead = false, isQuestTarget = false;
         [HideInInspector] public Transform target = null;
+        [HideInInspector] public AbilityConfig abilityConfig = null;
 
         void Awake()
         {

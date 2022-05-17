@@ -3,11 +3,9 @@ using App.UI;
 
 namespace App.SO
 {
-    [CreateAssetMenu(fileName = "NewPotionConfig", menuName = "Unity RPG Project/PotionConfig", order = 0)]
-    public class PotionConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "PotionConfig_", menuName = "Unity RPG Project/PotionConfig", order = 4)]
+    public class PotionConfig : ItemConfig
     {
-        public string itemName = "";
-        public string description = "";
-        public ItemUI itemUI = null;
+        public float hp = 10f, atk = 10f, def = 5f;
     }
 }

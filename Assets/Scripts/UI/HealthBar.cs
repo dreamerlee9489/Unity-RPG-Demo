@@ -31,11 +31,16 @@ namespace App
 
 		public void UpdateBar(Vector3 vector)
 		{
-			if(CompareTag("Enemy") && !isShow)
+			if(CompareTag("Enemy"))
 			{
-				isShow = true;
-				gameObject.SetActive(isShow);
-				timer = 6;
+				if(!isShow)
+				{
+					isShow = true;
+					gameObject.SetActive(isShow);
+					timer = 6;
+				}
+				else
+					timer = 6;
 			}
 			foreground.transform.localScale = vector;
 		}
