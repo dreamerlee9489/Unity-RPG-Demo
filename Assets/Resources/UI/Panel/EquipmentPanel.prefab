@@ -407,6 +407,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
       value: Helm
@@ -534,7 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -667,7 +675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -800,7 +812,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -933,7 +949,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -1066,7 +1086,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -1199,7 +1223,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name
@@ -1321,7 +1349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: slotType
-      value: 1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012494549646120238, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
+      propertyPath: panelType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3029464359941708945, guid: 1e92a4e957e04dc48a75cf818185b48b, type: 3}
       propertyPath: m_Name

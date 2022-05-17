@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using App.Manager;
 using App.Item;
+using App.Control;
 
 namespace App.UI
 {
@@ -38,49 +39,49 @@ namespace App.UI
                     }
                     else if (targetUISlot.slotType == SlotType.ACTION)
                     {
-                        if (targetUISlot.itemType != ItemType.SKILL)
+                        if (targetUISlot.itemType == ItemType.SKILL)
+                            return originParent;
+                        if(item.panelType == PanelType.EQUIPMENT)
                         {
-                            Transform temp = targetUISlot.transform;
-                            targetUI.transform.SetParent(originParent);
-                            targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                            if(item.itemType != targetUISlot.itemType)
+                                return originParent;
+                            GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
                             item.panelType = PanelType.ACTION;
-                            return temp;
+                            targetUISlot.itemUI.item.Use(GameManager.Instance.entities["Player"].transform);
                         }
-                        return originParent;
+                        Transform temp = targetUISlot.transform;
+                        targetUI.transform.SetParent(originParent);
+                        targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                        item.panelType = PanelType.ACTION;
+                        return temp;
                     }
                     else if (targetUISlot.slotType == SlotType.BAG)
                     {
-                        if (item.itemType != ItemType.SKILL)
+                        if (item.itemType == ItemType.SKILL)
+                            return originParent;
+                        if(item.panelType == PanelType.EQUIPMENT)
+                        {
+                            if(item.itemType != targetUISlot.itemType)
+                                return originParent;
+                            GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
+                            item.panelType = PanelType.ACTION;
+                            targetUISlot.itemUI.item.Use(GameManager.Instance.entities["Player"].transform);
+                        }
+                        Transform temp = targetUISlot.transform;
+                        targetUI.transform.SetParent(originParent);
+                        targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                        item.panelType = PanelType.BAG;
+                        return temp;
+                    }
+                    else
+                    {
+                        if (item.itemType == targetSlot.itemType)
                         {
                             Transform temp = targetUISlot.transform;
                             targetUI.transform.SetParent(originParent);
                             targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                            item.panelType = PanelType.BAG;
+                            item.panelType = PanelType.EQUIPMENT;
                             return temp;
-                        }
-                        return originParent;
-                    }
-                    else
-                    {
-                        switch (item.itemType)
-                        {
-                            case ItemType.ARMOR:
-                            case ItemType.BOOTS:
-                            case ItemType.BRACER:
-                            case ItemType.HELMET:
-                            case ItemType.NECKLACE:
-                            case ItemType.PANTS:
-                            case ItemType.SHIELD:
-                            case ItemType.WEAPON:
-                                if (item.itemType == targetSlot.itemType)
-                                {
-                                    item.panelType = PanelType.EQUIPMENT;
-                                    return targetSlot.transform;
-                                }
-                                break;
-                            case ItemType.POTION:
-                            case ItemType.SKILL:
-                                break;
                         }
                         return originParent;
                     }
@@ -92,41 +93,26 @@ namespace App.UI
                     return targetSlot.transform;
                 else if (targetSlot.slotType == SlotType.ACTION)
                 {
+                    if (item.panelType == PanelType.EQUIPMENT)
+                        GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
                     item.panelType = PanelType.ACTION;
                     return targetSlot.transform;
                 }
                 else if (targetSlot.slotType == SlotType.BAG)
                 {
-                    if (item.itemType != ItemType.SKILL)
-                    {
-                        item.panelType = PanelType.BAG;
-                        return targetSlot.transform;
-                    }
-                    return originParent;
+                    if (item.itemType == ItemType.SKILL)
+                        return originParent;
+                    if (item.panelType == PanelType.EQUIPMENT)
+                        GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
+                    item.panelType = PanelType.BAG;
+                    return targetSlot.transform;
                 }
                 else
                 {
-                    switch (item.itemType)
-                    {
-                        case ItemType.ARMOR:
-                        case ItemType.BOOTS:
-                        case ItemType.BRACER:
-                        case ItemType.HELMET:
-                        case ItemType.NECKLACE:
-                        case ItemType.PANTS:
-                        case ItemType.SHIELD:
-                        case ItemType.WEAPON:
-                            if (item.itemType == targetSlot.itemType)
-                            {
-                                item.panelType = PanelType.EQUIPMENT;
-                                return targetSlot.transform;
-                            }
-                            break;
-                        case ItemType.POTION:
-                        case ItemType.SKILL:
-                            break;
-                    }
-                    return originParent;
+                    if (item.itemType != targetSlot.itemType)
+                        return originParent;
+                    item.Use(GameManager.Instance.entities["Player"].transform);
+                    return targetSlot.transform;
                 }
             }
         }

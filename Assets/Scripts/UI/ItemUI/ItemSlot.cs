@@ -11,7 +11,7 @@ namespace App.UI
     {
         public PanelType panelType = PanelType.BAG;
         public SlotType slotType = SlotType.BAG;
-        public ItemType itemType = ItemType.NONE;
+        [HideInInspector] public ItemType itemType = ItemType.NONE;
         public ItemUI itemUI = null;
 
         void Awake()
@@ -63,7 +63,8 @@ namespace App.UI
 
         public void Remove()
         {
-            Destroy(transform.GetChild(0).gameObject);
+            if(transform.childCount != 0)
+                Destroy(transform.GetChild(0).gameObject);
             ResetItemType();
         }
     }

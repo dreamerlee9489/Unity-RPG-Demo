@@ -20,5 +20,10 @@ namespace App.Item
 
         protected abstract void OnTriggerEnter(Collider other);
         public abstract void Use(Transform user);
+
+        protected void OnDestroy()
+        {
+            // GetComponent<Collider>().enabled = true;
+        }
     }
 }

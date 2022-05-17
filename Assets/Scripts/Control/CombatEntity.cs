@@ -11,7 +11,7 @@ namespace App.Control
         Animator animator = null;
         NavMeshAgent agent = null;
         public Transform weaponPos = null;
-        public WeaponConfig weaponConfig = null;
+        public Weapon weapon = null;
         public HealthBar healthBar = null;
         [HideInInspector] public float currHp = 100f, currDef = 1f, currAtk = 10f;        
         [HideInInspector] public float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
@@ -31,7 +31,7 @@ namespace App.Control
             agent.radius = 0.5f;
             currHp = abilityConfig.hp;
             currDef = abilityConfig.def;
-            currAtk = abilityConfig.atk + weaponConfig.atk;
+            currAtk = abilityConfig.atk + (weapon.itemConfig as WeaponConfig).atk;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
         }
@@ -70,6 +70,15 @@ namespace App.Control
                         quest.UpdateProgress(1);
                 }
             }
+        }
+        
+        public void DetachEquipment()
+        {
+            currAtk = abilityConfig.atk;
+            animator.runtimeAnimatorController = Resources.LoadAsync("Animators/Unarmed Controller").asset as RuntimeAnimatorController;
+            GameManager.Instance.canvas.equipmentPanel.weaponSlot.Remove();
+            // GameManager.Instance.canvas.bagPanel.Add(weapon);
+            Destroy(weaponPos.GetChild(0).gameObject);
         }
 
         public void ExecuteAction(Vector3 point) {}

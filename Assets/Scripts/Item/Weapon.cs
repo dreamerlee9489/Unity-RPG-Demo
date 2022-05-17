@@ -28,7 +28,7 @@ namespace App.Item
                 case PanelType.ACTION:
                 case PanelType.BAG:
                     panelType = PanelType.EQUIPMENT;
-                    entity.weaponConfig = config;
+                    entity.weapon = this;
                     entity.currAtk = entity.abilityConfig.atk + config.atk;
                     entity.GetComponent<Animator>().runtimeAnimatorController = config.animatorController;
                     GameManager.Instance.canvas.bagPanel.Remove(this);
@@ -38,7 +38,8 @@ namespace App.Item
                 case PanelType.EQUIPMENT:
                     panelType = PanelType.BAG;
                     entity.currAtk = entity.abilityConfig.atk;
-                    entity.weaponConfig = Resources.Load<WeaponConfig>("Config/Weapon/WeaponConfig_Unarmed");
+                    // entity.weapon = Resources.Load<WeaponConfig>("Config/Weapon/WeaponConfig_Unarmed");
+                    entity.weapon = null;
                     entity.GetComponent<Animator>().runtimeAnimatorController = Resources.LoadAsync("Animators/Unarmed Controller").asset as RuntimeAnimatorController;
                     GameManager.Instance.canvas.equipmentPanel.weaponSlot.Remove();
                     GameManager.Instance.canvas.bagPanel.Add(this);

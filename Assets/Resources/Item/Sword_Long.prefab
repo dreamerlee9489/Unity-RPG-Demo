@@ -113,4 +113,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
   itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
-  slotType: 1
+  itemType: 7
+  panelType: 2

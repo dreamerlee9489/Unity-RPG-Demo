@@ -2890,7 +2890,7 @@ Animator:
   m_GameObject: {fileID: 1128079727254294964}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
-  m_Controller: {fileID: 22100000, guid: f067300e7aa238d4699c98595294d9a2, type: 2}
+  m_Controller: {fileID: 22100000, guid: f34e9d0f163529341b72036b0f08b076, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2962,7 +2962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPos: {fileID: 343062604}
-  weaponConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
+  weapon: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   healthBar: {fileID: 2482379876315533745}
   currHp: 100
   currDef: 1
@@ -3356,6 +3356,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
+  itemUI: {fileID: 0}
+  itemType: 0
+  panelType: 0
 --- !u!1001 &2546648270071929079
 PrefabInstance:
   m_ObjectHideFlags: 0
