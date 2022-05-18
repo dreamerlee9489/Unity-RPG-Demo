@@ -1,6 +1,4 @@
 ﻿using App.Manager;
-using App.Config;
-using App.UI;
 using UnityEngine;
 
 namespace App.Items
@@ -9,7 +7,16 @@ namespace App.Items
     {
         public override void Use(Transform user)
         {
-            throw new System.NotImplementedException();
+            print("Eat: " + config.itemName);
+        }
+
+        protected override void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                InventoryManager.Instance.Add(Instantiate(config.item, GameManager.Instance.player.transform), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().transform));
+                Destroy(gameObject);
+            }
         }
     }
 }

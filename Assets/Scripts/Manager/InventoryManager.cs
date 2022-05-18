@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using App.Items;
 using App.UI;
+using App.Data;
 
 namespace App.Manager
 {
@@ -11,6 +12,7 @@ namespace App.Manager
         public static InventoryManager Instance => instance;
         public List<GameItem> items = new List<GameItem>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
+        public PlayerData playerData = new PlayerData();
 
         public void Add(GameItem item, ItemUI itemUI)
         {

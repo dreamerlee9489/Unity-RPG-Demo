@@ -31,13 +31,6 @@ namespace App.Items
             GetComponent<Collider>().enabled = containerType == ContainerType.WORLD ? true : false;
         }
 
-        protected void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                InventoryManager.Instance.Add(Instantiate(config.item, GameManager.Instance.player.unarmedWeapon.transform), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().transform));
-                Destroy(gameObject);
-            }
-        }
+        protected abstract void OnTriggerEnter(Collider other);
     }
 }

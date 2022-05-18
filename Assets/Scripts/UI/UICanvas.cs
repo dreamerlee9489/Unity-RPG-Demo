@@ -5,10 +5,20 @@ namespace App.UI
 {
     public class UICanvas : MonoBehaviour, ICmdReceiver
     {
-        public BagPanel bagPanel = null;
-        public EquipmentPanel equipmentPanel = null;
-        public DialoguePanel dialoguePanel = null;
-        public QuestPanel questPanel = null;
+        public BagPanel bagPanel { get; set; }
+        public EquipmentPanel equipmentPanel { get; set; }
+        public DialoguePanel dialoguePanel { get; set; }
+        public QuestPanel questPanel { get; set; }
+        public GoldPanel goldPanel { get; set; }
+
+        void Awake()
+        {
+            bagPanel = GameObject.Find("BagPanel").GetComponent<BagPanel>();
+            equipmentPanel = GameObject.Find("EquipmentPanel").GetComponent<EquipmentPanel>();
+            dialoguePanel = GameObject.Find("DialoguePanel").GetComponent<DialoguePanel>();
+            questPanel = GameObject.Find("QuestPanel").GetComponent<QuestPanel>();
+            goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
+        }
 
         void Start()
         {

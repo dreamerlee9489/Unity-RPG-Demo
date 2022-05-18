@@ -6,6 +6,15 @@ namespace App.Items
 {
     public class Weapon : Equipment
     {
+        protected override void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                InventoryManager.Instance.Add(Instantiate(config.item, GameManager.Instance.player.unarmedWeapon.transform), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().transform));
+                Destroy(gameObject);
+            }
+        }
+        
         public override void Use(Transform user)
         {
             ItemSlot weaponSlot = GameManager.Instance.canvas.equipmentPanel.weaponSlot;
