@@ -14,7 +14,7 @@ namespace App.Control.FSM
 
         void Start()
         {
-            player = GameManager.Instance.entities["Player"].transform;
+            player = GameManager.Instance.player.transform;
             currentState = new Idle(this, player);
         }
 

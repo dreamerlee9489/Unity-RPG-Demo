@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 581f0fa192f8a4a448da23e0b96717b1, type: 3}
+  m_Name: WeaponConfig_Axe_Large_01
+  m_EditorClassIdentifier: 
+  itemName: "\u65E0\u60C5\u94C1\u65A7"
+  description: "\u6765\u81EA\u8BFA\u514B\u8428\u65AF\u7684\u94C1\u65A7"
+  item: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
+  itemUI: {fileID: -3276126370694680293, guid: 0f7cf912e68dec24687aeeef9776d7b8, type: 3}
+  itemType: 7
+  animatorController: {fileID: 22100000, guid: 063f0a2447483e54d8febb2bda658235, type: 2}
+  atk: 20

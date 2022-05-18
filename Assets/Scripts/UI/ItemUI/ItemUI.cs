@@ -1,10 +1,8 @@
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using App.Manager;
-using App.Item;
-using App.Control;
+using App.Items;
 
 namespace App.UI
 {
@@ -12,78 +10,74 @@ namespace App.UI
     public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         Transform originParent = null;
-        public GameItem item { get; set; }
+        public GameItem item = null;
+        protected void UseItem() { item.Use(GameManager.Instance.player.transform); }
 
-        protected void UseItem() { item.Use(GameManager.Instance.entities["Player"].transform); }
-
-        Transform CheckSlotType(GameObject target)
+        Transform CheckSlotType(GameObject obj)
         {
-            if (target == null)
+            if (obj == null)
                 return originParent;
             ItemSlot originSlot = originParent.GetComponent<ItemSlot>();
-            ItemSlot targetSlot = target.GetComponent<ItemSlot>();
+            ItemSlot targetSlot = obj.GetComponent<ItemSlot>();
             if (targetSlot == null)
             {
-                ItemUI targetUI = target.GetComponent<ItemUI>();
-                if (targetUI == null)
+                ItemUI target = obj.GetComponent<ItemUI>();
+                if (target == null)
                     return originParent;
                 else
                 {
-                    ItemSlot targetUISlot = targetUI.transform.parent.GetComponent<ItemSlot>();
-                    if (originSlot.slotType == targetUISlot.slotType)
+                    targetSlot = target.transform.parent.GetComponent<ItemSlot>();
+                    if (originSlot.slotType == targetSlot.slotType)
+                        return SwapItemUI(targetSlot, target);
+                    else if (targetSlot.slotType == SlotType.ACTION)
                     {
-                        Transform temp = targetUISlot.transform;
-                        targetUI.transform.SetParent(originParent);
-                        targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                        return temp;
-                    }
-                    else if (targetUISlot.slotType == SlotType.ACTION)
-                    {
-                        if (targetUISlot.itemType == ItemType.SKILL)
+                        if (targetSlot.itemUI.item.config.itemType == ItemType.SKILL)
                             return originParent;
-                        if(item.panelType == PanelType.EQUIPMENT)
+                        if (item.containerType == ContainerType.EQUIPMENT)
                         {
-                            if(item.itemType != targetUISlot.itemType)
+                            if (item.config.itemType != targetSlot.itemUI.item.config.itemType)
                                 return originParent;
-                            GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
-                            item.panelType = PanelType.ACTION;
-                            targetUISlot.itemUI.item.Use(GameManager.Instance.entities["Player"].transform);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
+                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
-                        Transform temp = targetUISlot.transform;
-                        targetUI.transform.SetParent(originParent);
-                        targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                        item.panelType = PanelType.ACTION;
-                        return temp;
+                        item.containerType = ContainerType.ACTION;
+                        return SwapItemUI(targetSlot, target);
                     }
-                    else if (targetUISlot.slotType == SlotType.BAG)
+                    else if (targetSlot.slotType == SlotType.BAG)
                     {
-                        if (item.itemType == ItemType.SKILL)
+                        if (item.config.itemType == ItemType.SKILL)
                             return originParent;
-                        if(item.panelType == PanelType.EQUIPMENT)
+                        if (item.containerType == ContainerType.EQUIPMENT)
                         {
-                            if(item.itemType != targetUISlot.itemType)
+                            if (item.config.itemType != targetSlot.itemUI.item.config.itemType)
                                 return originParent;
-                            GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
-                            item.panelType = PanelType.ACTION;
-                            targetUISlot.itemUI.item.Use(GameManager.Instance.entities["Player"].transform);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
+                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
-                        Transform temp = targetUISlot.transform;
-                        targetUI.transform.SetParent(originParent);
-                        targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                        item.panelType = PanelType.BAG;
-                        return temp;
+                        item.containerType = ContainerType.BAG;
+                        return SwapItemUI(targetSlot, target);
                     }
                     else
                     {
-                        if (item.itemType == targetSlot.itemType)
+                        if (item.config.itemType != targetSlot.itemUI.item.config.itemType)
+                            return originParent;
+                        if (item.containerType == ContainerType.EQUIPMENT)
                         {
-                            Transform temp = targetUISlot.transform;
-                            targetUI.transform.SetParent(originParent);
-                            targetUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                            item.panelType = PanelType.EQUIPMENT;
-                            return temp;
+                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
+                            item.containerType = targetSlot.itemUI.item.containerType;
+                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
-                        return originParent;
+                        else
+                        {
+                            GameManager.Instance.player.DetachEquipment(targetSlot.itemUI.item as Equipment);
+                            GameManager.Instance.player.AttachEquipment(item as Equipment);
+                            targetSlot.itemUI.item.containerType = item.containerType;
+                            item.containerType = ContainerType.EQUIPMENT;
+                        }
+                        return SwapItemUI(targetSlot, target);
                     }
                 }
             }
@@ -93,28 +87,37 @@ namespace App.UI
                     return targetSlot.transform;
                 else if (targetSlot.slotType == SlotType.ACTION)
                 {
-                    if (item.panelType == PanelType.EQUIPMENT)
-                        GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
-                    item.panelType = PanelType.ACTION;
+                    if (item.containerType == ContainerType.EQUIPMENT)
+                        GameManager.Instance.player.DetachEquipment(item as Equipment);
+                    item.containerType = ContainerType.ACTION;
                     return targetSlot.transform;
                 }
                 else if (targetSlot.slotType == SlotType.BAG)
                 {
-                    if (item.itemType == ItemType.SKILL)
+                    if (item.config.itemType == ItemType.SKILL)
                         return originParent;
-                    if (item.panelType == PanelType.EQUIPMENT)
-                        GameManager.Instance.entities["Player"].GetComponent<CombatEntity>().DetachEquipment();
-                    item.panelType = PanelType.BAG;
+                    if (item.containerType == ContainerType.EQUIPMENT)
+                        GameManager.Instance.player.DetachEquipment(item as Equipment);
+                    item.containerType = ContainerType.BAG;
                     return targetSlot.transform;
                 }
                 else
                 {
-                    if (item.itemType != targetSlot.itemType)
+                    if (item.config.itemType != targetSlot.itemType)
                         return originParent;
-                    item.Use(GameManager.Instance.entities["Player"].transform);
+                    GameManager.Instance.player.AttachEquipment(item as Equipment);
+                    item.containerType = ContainerType.EQUIPMENT;
                     return targetSlot.transform;
                 }
             }
+        }
+
+        Transform SwapItemUI(ItemSlot targetSlot, ItemUI target)
+        {
+            Transform temp = targetSlot.transform;
+            target.transform.SetParent(originParent);
+            target.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            return temp;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -131,7 +134,9 @@ namespace App.UI
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            originParent.GetComponent<ItemSlot>().itemUI = null;
             eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter));
+            transform.parent.GetComponent<ItemSlot>().itemUI = this;
             GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             GetComponent<Image>().raycastTarget = true;
         }

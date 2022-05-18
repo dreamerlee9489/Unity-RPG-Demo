@@ -1,5 +1,5 @@
 using UnityEngine.UI;
-using App.Item;
+using App.Items;
 
 namespace App.UI
 {

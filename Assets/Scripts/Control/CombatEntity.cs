@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using App.SO;
+using App.Config;
 using App.Manager;
-using App.Item;
+using App.Items;
 
 namespace App.Control
 {
@@ -10,14 +10,18 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
-        public Transform weaponPos = null;
+        public Weapon unarmedWeapon = null;
         public Weapon weapon = null;
         public HealthBar healthBar = null;
-        [HideInInspector] public float currHp = 100f, currDef = 1f, currAtk = 10f;        
-        [HideInInspector] public float sqrViewRadius = 36f, sqrAttackRadius = 2.25f;
-        [HideInInspector] public bool isDead = false, isQuestTarget = false;
-        [HideInInspector] public Transform target = null;
-        [HideInInspector] public AbilityConfig abilityConfig = null;
+        public float currHp { get; set; }
+        public float currDef { get; set; }
+        public float currAtk { get; set; }        
+        public float sqrViewRadius { get; set; } 
+        public float sqrAttackRadius { get; set; }
+        public bool isDead { get; set; }
+        public bool isQuestTarget { get; set; }
+        public Transform target { get; set; }
+        public AbilityConfig abilityConfig { get; set; }
 
         void Awake()
         {
@@ -31,7 +35,7 @@ namespace App.Control
             agent.radius = 0.5f;
             currHp = abilityConfig.hp;
             currDef = abilityConfig.def;
-            currAtk = abilityConfig.atk + (weapon.itemConfig as WeaponConfig).atk;
+            currAtk = abilityConfig.atk + (weapon.config as WeaponConfig).atk;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
         }
@@ -72,13 +76,46 @@ namespace App.Control
             }
         }
         
-        public void DetachEquipment()
+        public void AttachEquipment(Equipment equipment)
         {
-            currAtk = abilityConfig.atk;
-            animator.runtimeAnimatorController = Resources.LoadAsync("Animators/Unarmed Controller").asset as RuntimeAnimatorController;
-            GameManager.Instance.canvas.equipmentPanel.weaponSlot.Remove();
-            // GameManager.Instance.canvas.bagPanel.Add(weapon);
-            Destroy(weaponPos.GetChild(0).gameObject);
+            switch (equipment.equipmentType)
+            {
+                case EquipmentType.WEAPON:
+                    WeaponConfig weaponConfig = equipment.config as WeaponConfig;
+                    currAtk = abilityConfig.atk + weaponConfig.atk;
+                    weapon = equipment as Weapon;
+                    animator.runtimeAnimatorController = weaponConfig.animatorController;
+                    equipment.gameObject.SetActive(true);
+                    return;
+                case EquipmentType.ARMOR:
+                    ArmorConfig armorConfig = equipment.config as ArmorConfig;
+                    currHp = abilityConfig.hp + armorConfig.hp;
+                    currDef = abilityConfig.def + armorConfig.def;
+                    return;
+                case EquipmentType.JEWELRY:
+                    return;
+            }
+        }
+
+        public void DetachEquipment(Equipment equipment)
+        {
+            switch (equipment.equipmentType)
+            {
+                case EquipmentType.WEAPON:
+                    WeaponConfig weaponConfig = equipment.config as WeaponConfig;
+                    currAtk = abilityConfig.atk;
+                    weapon =  unarmedWeapon;
+                    animator.runtimeAnimatorController = Resources.LoadAsync("Animators/Unarmed Controller").asset as RuntimeAnimatorController;
+                    equipment.gameObject.SetActive(false);
+                    return;
+                case EquipmentType.ARMOR:
+                    ArmorConfig armorConfig = equipment.config as ArmorConfig;
+                    currHp = abilityConfig.hp;
+                    currDef = abilityConfig.def;
+                    return;
+                case EquipmentType.JEWELRY:
+                    return;
+            }
         }
 
         public void ExecuteAction(Vector3 point) {}

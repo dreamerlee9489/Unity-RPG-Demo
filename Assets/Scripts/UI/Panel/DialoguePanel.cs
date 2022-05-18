@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using App.SO;
+using App.Config;
 using App.Control;
 
 namespace App.UI
@@ -14,7 +14,7 @@ namespace App.UI
         public GameObject choices = null;
         public Button quitBtn = null;
         DialoguesConfig dialoguesConfig = null;
-        [HideInInspector] public NPCController npc = null;
+        public NPCController npc { get; set; }
         int index = 0;
 
         void Awake()
@@ -50,24 +50,27 @@ namespace App.UI
 
         void OnEnable()
         {
-            npcName.text = npc.gameObject.name;
-            dialoguesConfig = npc.dialoguesConfig;
-            DialogueNode node = dialoguesConfig.dialogues[0];
-            dialogue.text = node.dialogue;
-            nextRow.SetActive(node.hasNext);
-            if (node.options.Count > 0)
+            if (npc != null)
             {
-                for (int i = 0; i < node.options.Count; i++)
+                npcName.text = npc.gameObject.name;
+                dialoguesConfig = npc.dialoguesConfig;
+                DialogueNode node = dialoguesConfig.dialogues[0];
+                dialogue.text = node.dialogue;
+                nextRow.SetActive(node.hasNext);
+                if (node.options.Count > 0)
                 {
-                    int n = i;
-                    Button btn = choices.transform.GetChild(i).GetComponent<Button>();
-                    btn.gameObject.SetActive(true);
-                    btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
-                    btn.onClick.AddListener(() =>
+                    for (int i = 0; i < node.options.Count; i++)
                     {
-                        npc.ActionTrigger(node.options[n].action);
-                        gameObject.SetActive(false);
-                    });
+                        int n = i;
+                        Button btn = choices.transform.GetChild(i).GetComponent<Button>();
+                        btn.gameObject.SetActive(true);
+                        btn.transform.GetChild(0).GetComponent<Text>().text = node.options[i].dialogue;
+                        btn.onClick.AddListener(() =>
+                        {
+                            npc.ActionTrigger(node.options[n].action);
+                            gameObject.SetActive(false);
+                        });
+                    }
                 }
             }
         }

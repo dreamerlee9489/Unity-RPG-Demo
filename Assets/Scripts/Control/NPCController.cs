@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using App.SO;
+using App.Config;
 using App.Manager;
 
 namespace App.Control
@@ -11,11 +11,11 @@ namespace App.Control
     {
         public string name = "";
         public string description = "";
+        public string target { get; set; }
         public int current = 0, total = 1;
         public bool isCompleted = false;
-        public Dictionary<string, int> rewards = null;
-        [HideInInspector] public string target = null;
-        [HideInInspector] public NPCController npc = null;
+        public Dictionary<string, int> rewards { get; set; }
+        public NPCController npc { get; set; }
 
         public void UpdateProgress(int count)
         {
@@ -32,7 +32,7 @@ namespace App.Control
         public DialoguesConfig dialoguesConfig = null;
         public List<Quest> quests = new List<Quest>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
-        [HideInInspector] public int index = 0;
+        public int index = 0;
 
         void Awake()
         {

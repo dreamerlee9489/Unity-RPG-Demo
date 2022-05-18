@@ -1,17 +1,14 @@
-using UnityEngine;
-using App.Item;
+﻿using UnityEngine;
+using App.Items;
 
 namespace App.UI
 {
-    public enum PanelType { NONE, BAG, EQUIPMENT, ACTION }
-    public enum SlotType { BAG, HELMET, ARMOR, SHIELD, BOOTS, NECKLACE, BRACER, WEAPON, PANTS, ACTION }
-    public enum ItemType { NONE, HELMET, ARMOR, SHIELD, BOOTS, NECKLACE, BRACER, WEAPON, PANTS, POTION, SKILL }
+    public enum SlotType { BAG, ACTION, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, HAND, WEAPON, PANTS }
 
     public class ItemSlot : MonoBehaviour
     {
-        public PanelType panelType = PanelType.BAG;
         public SlotType slotType = SlotType.BAG;
-        [HideInInspector] public ItemType itemType = ItemType.NONE;
+        public ItemType itemType { get; set; }
         public ItemUI itemUI = null;
 
         void Awake()
@@ -19,7 +16,7 @@ namespace App.UI
             ResetItemType();
         }
 
-        private void ResetItemType()
+        void ResetItemType()
         {
             switch (slotType)
             {
@@ -27,14 +24,14 @@ namespace App.UI
                 case SlotType.BAG:
                     itemType = ItemType.NONE;
                     return;
-                case SlotType.ARMOR:
-                    itemType = ItemType.ARMOR;
+                case SlotType.BREAST:
+                    itemType = ItemType.BREAST;
                     return;
                 case SlotType.BOOTS:
                     itemType = ItemType.BOOTS;
                     return;
-                case SlotType.BRACER:
-                    itemType = ItemType.BRACER;
+                case SlotType.HAND:
+                    itemType = ItemType.HAND;
                     return;
                 case SlotType.HELMET:
                     itemType = ItemType.HELMET;
@@ -54,17 +51,21 @@ namespace App.UI
             }
         }
 
-        public void Add(GameItem item)
+        public void Open(ItemUI itemUI)
         {
-            itemUI = Instantiate(Resources.Load<ItemUI>("UI/ItemUI/" + item.itemUI.name), transform);
-            itemUI.item = item;
-            itemType = item.itemType;
+            this.itemUI = itemUI;
+            this.itemType = itemUI.item.config.itemType;
+            itemUI.transform.SetParent(transform);
+            itemUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
 
-        public void Remove()
+        public void Close()
         {
-            if(transform.childCount != 0)
-                Destroy(transform.GetChild(0).gameObject);
+            if(itemUI != null)
+            {
+                itemUI.transform.SetParent(null);
+                itemUI = null;
+            }
             ResetItemType();
         }
     }

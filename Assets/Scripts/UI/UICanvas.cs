@@ -1,5 +1,5 @@
-using App.Control;
 using UnityEngine;
+using App.Control;
 
 namespace App.UI
 {
@@ -10,7 +10,7 @@ namespace App.UI
         public DialoguePanel dialoguePanel = null;
         public QuestPanel questPanel = null;
 
-        void Awake()
+        void Start()
         {
             bagPanel.gameObject.SetActive(false);
             equipmentPanel.gameObject.SetActive(false);

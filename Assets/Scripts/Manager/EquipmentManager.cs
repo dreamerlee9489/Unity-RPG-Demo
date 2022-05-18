@@ -1,4 +1,4 @@
-using App.Item;
+using App.Items;
 using App.UI;
 
 namespace App.Manager

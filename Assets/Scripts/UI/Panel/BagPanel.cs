@@ -1,33 +1,37 @@
-using System.Collections.Generic;
-using UnityEngine;
-using App.Manager;
-using App.Item;
+﻿using UnityEngine;
 
 namespace App.UI
 {
     public class BagPanel : BasePanel
     {
         public Transform content = null;
-        public List<ItemUI> itemUIs = new List<ItemUI>();
-        
-        public void Add(GameItem item)
+
+        public void Open(ItemUI itemUI)
         {
-            item.panelType = PanelType.BAG;
-            ItemUI itemUI = Instantiate(Resources.Load<ItemUI>("UI/ItemUI/" + item.itemUI.name), content.GetChild(itemUIs.Count));
-            itemUI.item = item;
-            itemUIs.Add(itemUI);
+            GetFirstNullSlot().Open(itemUI);
         }
 
-        public void Remove(GameItem item)
+        public void Close(ItemUI itemUI)
         {
-            for (int i = 0; i < itemUIs.Count; i++)
+            for (int i = 0; i < content.childCount; i++)
             {
-                if(itemUIs[i].item == item)
+                ItemSlot slot = content.GetChild(i).GetComponent<ItemSlot>();
+                if(itemUI == slot.itemUI)
                 {
-                    Destroy(itemUIs[i].gameObject);
-                    itemUIs.RemoveAt(i);
+                    slot.Close();
+                    return;
                 }
             }
+        }
+
+        public ItemSlot GetFirstNullSlot()
+        {
+            for (int i = 0; i < content.childCount; i++)
+            {
+                if(content.GetChild(i).GetComponent<ItemSlot>().itemUI == null)
+                    return content.GetChild(i).GetComponent<ItemSlot>();
+            }
+            return null;
         }
     }
 }
