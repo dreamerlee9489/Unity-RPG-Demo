@@ -7,15 +7,15 @@ namespace App.UI
 {
     public class DialoguePanel : BasePanel
     {
+        int index = 0;
         Button nextBtn = null;
+        DialoguesConfig dialoguesConfig = null;
         public Text npcName = null;
         public Text dialogue = null;
         public GameObject nextRow = null;
         public GameObject choices = null;
         public Button quitBtn = null;
-        DialoguesConfig dialoguesConfig = null;
         public NPCController npc { get; set; }
-        int index = 0;
 
         void Awake()
         {
@@ -52,7 +52,7 @@ namespace App.UI
         {
             if (npc != null)
             {
-                npcName.text = npc.gameObject.name;
+                npcName.text = npc.GetComponent<MoveEntity>().nickName;
                 dialoguesConfig = npc.dialoguesConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];
                 dialogue.text = node.dialogue;

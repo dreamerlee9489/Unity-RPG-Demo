@@ -10,7 +10,7 @@ namespace App.UI
     public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         Transform originParent = null;
-        public GameItem item = null;
+        public GameItem item { get; set; }
         protected void UseItem() { item.Use(GameManager.Instance.player.transform); }
 
         Transform CheckSlotType(GameObject obj)
@@ -61,7 +61,7 @@ namespace App.UI
                     }
                     else
                     {
-                        if (item.config.itemType != targetSlot.itemUI.item.config.itemType)
+                        if (item.config.itemType != targetSlot.itemType)
                             return originParent;
                         if (item.containerType == ContainerType.EQUIPMENT)
                         {

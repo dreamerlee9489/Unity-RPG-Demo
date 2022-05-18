@@ -20,7 +20,7 @@ namespace App.Manager
             instance = this;
             canvas = GameObject.Find("UICanvas").GetComponent<UICanvas>();
             player = GameObject.FindWithTag("Player").GetComponent<CombatEntity>();
-            entities = GameObject.FindObjectsOfType<MoveEntity>().ToDictionary(entity => entity.name);
+            entities = GameObject.FindObjectsOfType<MoveEntity>().ToDictionary(entity => entity.nickName);
             DontDestroyOnLoad(gameObject);
         }
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b7a704af8483a448ea5f391f6afdc7, type: 3}
-  m_Name: EnemyDemonAbilityConfig
+  m_Name: AbilityConfig_Player
   m_EditorClassIdentifier: 
   walkSpeed: 1.558401
   runSpeed: 5.662316
@@ -18,7 +18,7 @@ MonoBehaviour:
   runFactor: 1
   viewRadius: 6
   fleeRadius: 6
-  stopDistance: 2
-  hp: 100
-  def: 1
+  stopDistance: 1
+  hp: 1000
   atk: 10
+  def: 1

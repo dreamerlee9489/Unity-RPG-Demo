@@ -32,13 +32,13 @@ namespace App.Control
         public DialoguesConfig dialoguesConfig = null;
         public List<Quest> quests = new List<Quest>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
-        public int index = 0;
+        public int index { get; set; }
 
         void Awake()
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
-                GiveQuest("Enemy_UndeadKnight", null);
+                GiveQuest("不死骑士", null);
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
@@ -54,7 +54,7 @@ namespace App.Control
             GameManager.Instance.ongoingQuests.Add(quests[index]);
             GameManager.Instance.canvas.questPanel.Add(quests[index]);
             GameManager.Instance.entities[target].GetComponent<CombatEntity>().isQuestTarget = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/GivenQuest_KillUndeadKnight").asset as DialoguesConfig;
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialoguesConfig_KillUndeadKnight_Accept").asset as DialoguesConfig;
             Debug.Log("领取任务: " + quests[index].name);
         }
 
@@ -64,7 +64,7 @@ namespace App.Control
             GameManager.Instance.ongoingQuests.Remove(quests[index]);
             GameManager.Instance.canvas.questPanel.Remove(quests[index]);
             GameManager.Instance.entities[quests[index].target].GetComponent<CombatEntity>().isQuestTarget = false;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/Quest_KillUndeadKnight").asset as DialoguesConfig;
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialoguesConfig_KillUndeadKnight_Start").asset as DialoguesConfig;
             Debug.Log("获取奖励: " + quests[index].name);
             index = 0;
         }
@@ -72,7 +72,7 @@ namespace App.Control
         public void CompleteQuest(Quest quest)
         {
             quest.isCompleted = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/CompletedQuest_KillUndeadKnight").asset as DialoguesConfig;
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialoguesConfig_KillUndeadKnight_Submit").asset as DialoguesConfig;
             Debug.Log("任务已完成: " + quest.current);
         }
 

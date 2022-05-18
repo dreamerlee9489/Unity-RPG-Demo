@@ -13,6 +13,7 @@ namespace App.Control
         Animator animator = null;
         NavMeshAgent agent = null;
         CombatEntity combatEntity = null;
+        public string nickName = "";
         public AbilityConfig abilityConfig = null;
 
         void Awake()

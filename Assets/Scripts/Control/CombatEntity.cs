@@ -70,7 +70,7 @@ namespace App.Control
                 for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
                 {
                     Quest quest = GameManager.Instance.ongoingQuests[i];
-                    if(quest.target == name)
+                    if(quest.target == GetComponent<MoveEntity>().nickName)
                         quest.UpdateProgress(1);
                 }
             }
@@ -105,7 +105,7 @@ namespace App.Control
                     WeaponConfig weaponConfig = equipment.config as WeaponConfig;
                     currAtk = abilityConfig.atk;
                     weapon =  unarmedWeapon;
-                    animator.runtimeAnimatorController = Resources.LoadAsync("Animators/Unarmed Controller").asset as RuntimeAnimatorController;
+                    animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.gameObject.SetActive(false);
                     return;
                 case EquipmentType.ARMOR:

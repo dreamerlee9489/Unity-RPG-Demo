@@ -8,7 +8,7 @@ namespace App.UI
 
         public void Open(ItemUI itemUI)
         {
-            GetFirstNullSlot().Open(itemUI);
+            GetFirstValidSlot().Open(itemUI);
         }
 
         public void Close(ItemUI itemUI)
@@ -24,7 +24,7 @@ namespace App.UI
             }
         }
 
-        public ItemSlot GetFirstNullSlot()
+        public ItemSlot GetFirstValidSlot()
         {
             for (int i = 0; i < content.childCount; i++)
             {

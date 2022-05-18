@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55edeb7823dac3e448c789672e8ebe14, type: 3}
-  m_Name: GivenQuest_KillUndeadKnight
+  m_Name: DialoguesConfig_KillUndeadKnight_Submit
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
+  - dialogue: "\u592A\u597D\u4E86\uFF0C\u4F60\u51FB\u8D25\u4E86\u4E0D\u6B7B\u9A91\u58EB\uFF01\u8FD9\u4E9B\u5956\u52B1\u5F52\u4F60\u4E86\u3002"
     hasNext: 0
-    options: []
+    options:
+    - dialogue: "\u6536\u4E0B\u4E86\u3002"
+      action: GiveReward_KillUndeadKnight

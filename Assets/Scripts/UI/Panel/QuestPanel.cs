@@ -7,10 +7,11 @@ namespace App.UI
 	public class QuestPanel : BasePanel
 	{
 		public ScrollRect scrollRect = null;
+		public QuestBar questBar = null;
 
 		public void Add(Quest quest)
 		{
-			QuestBar bar = Instantiate(Resources.Load<QuestBar>("UI/QuestBar"), scrollRect.content.transform);
+			QuestBar bar = Instantiate(questBar, scrollRect.content.transform);
 			bar.gameObject.name = bar.questName.text = quest.name;
 			bar.questProgress.text = quest.current + " / " + quest.total; 
 		}

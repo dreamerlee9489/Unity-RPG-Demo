@@ -18,7 +18,7 @@ namespace App.Config
         public List<DialogueOption> options = new List<DialogueOption>();
     }
 
-    [CreateAssetMenu(fileName = "DialogueConfig_", menuName = "Unity RPG Project/DialogueConfig", order = 1)]
+    [CreateAssetMenu(fileName = "DialoguesConfig_", menuName = "Unity RPG Project/DialoguesConfig", order = 1)]
     public class DialoguesConfig : ScriptableObject
     {
         public List<DialogueNode> dialogues = new List<DialogueNode>();

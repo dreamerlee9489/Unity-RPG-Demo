@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b7a704af8483a448ea5f391f6afdc7, type: 3}
-  m_Name: EnemyKnightAbilityConfig
+  m_Script: {fileID: 11500000, guid: 55edeb7823dac3e448c789672e8ebe14, type: 3}
+  m_Name: DialoguesConfig_KillUndeadKnight_Accept
   m_EditorClassIdentifier: 
-  walkSpeed: 1.558401
-  runSpeed: 5.662316
-  walkFactor: 1
-  runFactor: 1
-  viewRadius: 6
-  fleeRadius: 6
-  stopDistance: 1.5
-  hp: 100
-  atk: 10
-  def: 1
+  dialogues:
+  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u5417\uFF1F"
+    hasNext: 0
+    options: []
