@@ -9,7 +9,7 @@ namespace App.UI
     {
         public SlotType slotType = SlotType.BAG;
         public ItemType itemType { get; set; }
-        public ItemUI itemUI = null;
+        public ItemUI itemUI { get; set; }
 
         void Awake()
         {

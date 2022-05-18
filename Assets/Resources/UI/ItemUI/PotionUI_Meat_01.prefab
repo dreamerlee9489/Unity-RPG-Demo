@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 450657193006913727}
   - component: {fileID: 450657193006913725}
   - component: {fileID: 450657193006913726}
-  - component: {fileID: 1074980303936186560}
+  - component: {fileID: -2144716052617753750}
   m_Layer: 5
-  m_Name: ItemUI
+  m_Name: PotionUI_Meat_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1074980303936186560
+--- !u!114 &-2144716052617753750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 450657193006913720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d32863e437b5904b9b7b90972b970fa, type: 3}
+  m_Script: {fileID: 11500000, guid: dabbca9014f520848a1b932197034d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3643643152238010668

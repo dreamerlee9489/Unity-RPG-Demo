@@ -11,7 +11,7 @@ namespace App.UI
     {
         Transform originParent = null;
         public GameItem item { get; set; }
-        protected void UseItem() { item.Use(GameManager.Instance.player.transform); }
+        protected void UseItem() { item.Use(GameManager.Instance.player); }
 
         Transform CheckSlotType(GameObject obj)
         {

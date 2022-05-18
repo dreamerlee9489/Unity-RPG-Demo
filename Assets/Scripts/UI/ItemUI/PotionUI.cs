@@ -10,7 +10,7 @@ namespace App.UI
 		void Awake()
 		{
             count = transform.GetChild(0).GetComponent<Text>();
-            count.text = "99";		
+            count.text = "1";		
 		}
 	}
 }

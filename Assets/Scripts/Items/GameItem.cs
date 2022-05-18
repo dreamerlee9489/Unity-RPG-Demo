@@ -2,6 +2,7 @@
 using App.Manager;
 using App.Config;
 using App.UI;
+using App.Control;
 
 namespace App.Items
 {
@@ -14,7 +15,7 @@ namespace App.Items
         public ItemConfig config = null;
         public ItemUI itemUI { get; set; }
         public ContainerType containerType = ContainerType.WORLD;
-        public abstract void Use(Transform user);
+        public abstract void Use(CombatEntity user);
 
         public override bool Equals(object other)
         {

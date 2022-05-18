@@ -13,9 +13,9 @@ namespace App.Control
         public Weapon unarmedWeapon = null;
         public Weapon weapon = null;
         public HealthBar healthBar = null;
-        public float currHp { get; set; }
-        public float currDef { get; set; }
-        public float currAtk { get; set; }        
+        public float currHp = 0;
+        public float currDef = 0;
+        public float currAtk = 0;        
         public float sqrViewRadius { get; set; } 
         public float sqrAttackRadius { get; set; }
         public bool isDead { get; set; }

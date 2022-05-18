@@ -27,5 +27,17 @@ namespace App.Manager
             item.containerType = ContainerType.BAG;
             item.GetComponent<Collider>().enabled = false;
         }
+
+        public void Remove(GameItem item)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if(items[i] == item)
+                {
+                    items.RemoveAt(i);
+                    itemUIs.RemoveAt(i);
+                }
+            }
+        }
     }
 }

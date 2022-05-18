@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u70E4\u8089"
   description: "\u8FD9\u662F\u4E00\u5757\u9999\u55B7\u55B7\u7684\u70E4\u725B\u6392"
+  stackable: 0
   item: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
-  itemUI: {fileID: 4400699928256819874, guid: 55dc63de08991d740964799eb8bad205, type: 3}
+  itemUI: {fileID: -2144716052617753750, guid: 30bd806fae3602743be0fad2f47fb311, type: 3}
   itemType: 9
   hp: 200
   atk: 0
