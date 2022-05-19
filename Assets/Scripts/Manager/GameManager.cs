@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using App.Control;
-using App.UI;
 
 namespace App.Manager
 {
@@ -10,7 +9,6 @@ namespace App.Manager
     {
         static GameManager instance = null;
         public static GameManager Instance => instance;
-        public UICanvas canvas = null;
         public CombatEntity player = null;
         public Dictionary<string, MoveEntity> entities;
         public List<Quest> ongoingQuests = new List<Quest>();
@@ -18,7 +16,6 @@ namespace App.Manager
         void Awake()
         {
             instance = this;
-            canvas = GameObject.Find("UICanvas").GetComponent<UICanvas>();
             player = GameObject.FindWithTag("Player").GetComponent<CombatEntity>();
             entities = GameObject.FindObjectsOfType<MoveEntity>().ToDictionary(entity => entity.nickName);
             DontDestroyOnLoad(gameObject);

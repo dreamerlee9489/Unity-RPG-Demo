@@ -122,8 +122,8 @@ namespace App.UI
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            originParent = transform.parent;
-            eventData.pointerDrag.transform.SetParent(GameManager.Instance.canvas.transform);
+            originParent = transform.parent.parent;
+            eventData.pointerDrag.transform.SetParent(UIManager.Instance.transform);
             GetComponent<Image>().raycastTarget = false;
         }
 
@@ -135,8 +135,8 @@ namespace App.UI
         public void OnEndDrag(PointerEventData eventData)
         {
             originParent.GetComponent<ItemSlot>().itemUI = null;
-            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter));
-            transform.parent.GetComponent<ItemSlot>().itemUI = this;
+            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter).GetComponent<ItemSlot>().icons);
+            transform.parent.parent.GetComponent<ItemSlot>().itemUI = this;
             GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             GetComponent<Image>().raycastTarget = true;
         }

@@ -19,6 +19,6 @@ MonoBehaviour:
   viewRadius: 6
   fleeRadius: 6
   stopDistance: 2
-  maxHP: 100
+  hp: 50
   atk: 10
   def: 1

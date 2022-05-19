@@ -11,15 +11,15 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
-                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().icons.transform));
+                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                 Destroy(gameObject);
             }
         }
         
         public override void Use(CombatEntity user)
         {
-            ItemSlot weaponSlot = GameManager.Instance.canvas.equipmentPanel.weaponSlot;
-            BagPanel bagPanel = GameManager.Instance.canvas.bagPanel;
+            ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;
+            BagPanel bagPanel = UIManager.Instance.bagPanel;
             switch (containerType)
             {
                 case ContainerType.ACTION:

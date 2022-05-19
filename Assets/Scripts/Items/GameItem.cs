@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using App.Manager;
 using App.Config;
-using App.UI;
 using App.Control;
+using App.UI;
 
 namespace App.Items
 {
@@ -14,24 +13,21 @@ namespace App.Items
     {
         public ItemConfig config = null;
         public ItemUI itemUI { get; set; }
+        public new Collider collider { get; set; }
+        public new Rigidbody rigidbody { get; set; }
         public ContainerType containerType = ContainerType.WORLD;
+        protected abstract void OnTriggerEnter(Collider other);
         public abstract void Use(CombatEntity user);
-
-        public override bool Equals(object other)
-        {
-            return config == (other as GameItem).config;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override bool Equals(object other) => config == (other as GameItem).config;
+        public override int GetHashCode() => config.itemName.GetHashCode();
 
         protected void Awake()
         {
-            GetComponent<Collider>().enabled = containerType == ContainerType.WORLD ? true : false;
+            collider = GetComponent<Collider>();
+            rigidbody = GetComponent<Rigidbody>();
+            rigidbody.isKinematic = false;
+            collider.enabled = containerType == ContainerType.WORLD ? true : false;
+            rigidbody.useGravity = containerType == ContainerType.WORLD ? true : false;
         }
-
-        protected abstract void OnTriggerEnter(Collider other);
     }
 }

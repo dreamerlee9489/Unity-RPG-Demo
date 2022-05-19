@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.Config;
@@ -16,18 +17,19 @@ namespace App.Control
         public HealthBar healthBar = null;
         public float currHp = 0;
         public float currDef = 0;
-        public float currAtk = 0;        
-        public float sqrViewRadius { get; set; } 
+        public float currAtk = 0;
+        public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
         public bool isDead { get; set; }
         public bool isQuestTarget { get; set; }
         public Transform target { get; set; }
         public AbilityConfig abilityConfig { get; set; }
+        public DropListConfig dropListConfig = null;
 
         void Awake()
         {
-            if(CompareTag("Enemy"))
-                healthBar = transform.GetChild(0).GetComponent<HealthBar>();            
+            if (CompareTag("Enemy"))
+                healthBar = transform.GetChild(0).GetComponent<HealthBar>();
             GetComponent<Collider>().isTrigger = true;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
@@ -46,7 +48,7 @@ namespace App.Control
 
         void TakeDamage(Transform target, float atkFactor = 1)
         {
-            if(target != null)
+            if (target != null)
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currHp = Mathf.Max(defender.currHp + defender.currDef - currAtk * atkFactor, 0);
@@ -66,17 +68,23 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            if(isQuestTarget)
+            if (isQuestTarget)
             {
                 for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
                 {
                     Quest quest = GameManager.Instance.ongoingQuests[i];
-                    if(quest.target == GetComponent<MoveEntity>().nickName)
+                    if (quest.target == GetComponent<MoveEntity>().nickName)
                         quest.UpdateProgress(1);
                 }
             }
+            List<GameItem> drops = dropListConfig.GetDrops(abilityConfig, ref InventoryManager.Instance.playerData.golds);
+            UIManager.Instance.goldPanel.UpdatePanel();
+            foreach (var item in drops)
+            {
+                Instantiate(item, transform.position + Vector3.up + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
+            }
         }
-        
+
         public void AttachEquipment(Equipment equipment)
         {
             switch (equipment.equipmentType)
@@ -106,7 +114,7 @@ namespace App.Control
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.config as WeaponConfig;
                     currAtk = abilityConfig.atk;
-                    weapon =  unarmedWeapon;
+                    weapon = unarmedWeapon;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.inventory);
                     equipment.gameObject.SetActive(false);
@@ -121,7 +129,7 @@ namespace App.Control
             }
         }
 
-        public void ExecuteAction(Vector3 point) {}
+        public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
             if (!target.GetComponent<CombatEntity>().isDead)
@@ -146,18 +154,18 @@ namespace App.Control
 
         public bool CanSee(Transform target)
         {
-            if(!target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrViewRadius)
-                return true;
+                    return true;
             }
             return false;
         }
 
         public bool CanAttack(Transform target)
         {
-            if(!target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0.5f)

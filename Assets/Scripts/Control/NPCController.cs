@@ -20,7 +20,7 @@ namespace App.Control
         public void UpdateProgress(int count)
         {
             current += count;
-            GameManager.Instance.canvas.questPanel.UpdateQuest(this);
+            UIManager.Instance.questPanel.UpdateQuest(this);
             if (current >= total && !isCompleted)
                 npc.CompleteQuest(this);
         }
@@ -52,7 +52,7 @@ namespace App.Control
             quests[index].target = target;
             quests[index].rewards = rewards;
             GameManager.Instance.ongoingQuests.Add(quests[index]);
-            GameManager.Instance.canvas.questPanel.Add(quests[index]);
+            UIManager.Instance.questPanel.Add(quests[index]);
             GameManager.Instance.entities[target].GetComponent<CombatEntity>().isQuestTarget = true;
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialoguesConfig_KillUndeadKnight_Accept").asset as DialoguesConfig;
             Debug.Log("领取任务: " + quests[index].name);
@@ -62,7 +62,7 @@ namespace App.Control
         {
             quests[index].current -= quests[index].total;
             GameManager.Instance.ongoingQuests.Remove(quests[index]);
-            GameManager.Instance.canvas.questPanel.Remove(quests[index]);
+            UIManager.Instance.questPanel.Remove(quests[index]);
             GameManager.Instance.entities[quests[index].target].GetComponent<CombatEntity>().isQuestTarget = false;
             dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialoguesConfig_KillUndeadKnight_Start").asset as DialoguesConfig;
             Debug.Log("获取奖励: " + quests[index].name);

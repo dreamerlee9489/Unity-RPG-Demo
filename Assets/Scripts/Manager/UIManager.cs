@@ -1,10 +1,13 @@
 using UnityEngine;
 using App.Control;
+using App.UI;
 
-namespace App.UI
+namespace App.Manager
 {
-    public class UICanvas : MonoBehaviour, ICmdReceiver
+    public class UIManager : MonoBehaviour, ICmdReceiver
     {
+        static UIManager instance = null;
+        public static UIManager Instance => instance;
         public BagPanel bagPanel { get; set; }
         public EquipmentPanel equipmentPanel { get; set; }
         public DialoguePanel dialoguePanel { get; set; }
@@ -13,11 +16,13 @@ namespace App.UI
 
         void Awake()
         {
+            instance = this;
             bagPanel = GameObject.Find("BagPanel").GetComponent<BagPanel>();
             equipmentPanel = GameObject.Find("EquipmentPanel").GetComponent<EquipmentPanel>();
             dialoguePanel = GameObject.Find("DialoguePanel").GetComponent<DialoguePanel>();
             questPanel = GameObject.Find("QuestPanel").GetComponent<QuestPanel>();
             goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
+            DontDestroyOnLoad(gameObject);
         }
 
         void Start()

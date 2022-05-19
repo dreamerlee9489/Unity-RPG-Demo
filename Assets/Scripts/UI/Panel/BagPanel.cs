@@ -42,7 +42,7 @@ namespace App.UI
             for (int i = 0; i < content.childCount; i++)
             {
                 itemSlot = content.GetChild(i).GetComponent<ItemSlot>();
-                if (itemSlot.itemUI != null && itemSlot.itemUI.item.config.itemName == item.config.itemName)
+                if (itemSlot.itemUI != null && itemSlot.itemUI.item.Equals(item))
                     return itemSlot;
             }
             return GetFirstValidSlot();

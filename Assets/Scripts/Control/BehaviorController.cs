@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using App.Control.BT;
+using App.Config;
 
 namespace App.Control
 {

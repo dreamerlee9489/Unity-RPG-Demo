@@ -1,6 +1,6 @@
-
 using UnityEngine;
 using App.Manager;
+using App.Config;
 
 namespace App.Control.FSM
 {
@@ -29,12 +29,12 @@ namespace App.Control.FSM
             }
             else
             {
-                if(globalState != null)
+                if (globalState != null)
                 {
                     globalState.Exit();
                     globalState = null;
                 }
-                if(currentState != null)
+                if (currentState != null)
                 {
                     currentState.Exit();
                     currentState = null;

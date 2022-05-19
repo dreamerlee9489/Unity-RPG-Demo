@@ -22,7 +22,7 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             moveEntity = GetComponent<MoveEntity>();
             combatEntity = GetComponent<CombatEntity>();
-            commands = new Command[3] { new MoveCommand(moveEntity), new CombatCommand(combatEntity), new DialogueCommand(GameManager.Instance.canvas) };
+            commands = new Command[3] { new MoveCommand(moveEntity), new CombatCommand(combatEntity), new DialogueCommand(UIManager.Instance) };
         }
 
         void Update()
@@ -49,7 +49,7 @@ namespace App.Control
                         }
                     }
                 }
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
                 if (combatEntity.target != null)
                     combatEntity.ExecuteAction(combatEntity.target);
