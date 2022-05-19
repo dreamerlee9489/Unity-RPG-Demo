@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.Config;
@@ -17,15 +17,15 @@ namespace App.Control
         public Weapon weapon = null;
         public HUDBar healthBar = null;
         public int level = 1;
-        public float currHp = 0;
-        public float currMp = 0;
-        public float currDef = 0;
-        public float currAtk = 0;
-        public float currExp = 0;
-        public float sqrViewRadius { get; set; }
-        public float sqrAttackRadius { get; set; }
+        public float currHp { get; set; }
+        public float currMp { get; set; }
+        public float currDef { get; set; }
+        public float currAtk { get; set; }
+        public float currExp { get; set; }
         public bool isDead { get; set; }
         public bool isQuestTarget { get; set; }
+        public float sqrViewRadius { get; set; }
+        public float sqrAttackRadius { get; set; }
         public Transform combatTarget { get; set; }
         public Progression progression { get; set; }
         public AbilityConfig abilityConfig = null;
@@ -52,15 +52,15 @@ namespace App.Control
             currExp = 0;
         }
 
-        void AttackL() => TakeDamage(combatTarget);
-        void AttackR() => TakeDamage(combatTarget);
+        void AttackL(float factor) => TakeDamage(combatTarget, factor);
+        void AttackR(float factor) => TakeDamage(combatTarget, factor);
 
-        void TakeDamage(Transform target, float atkFactor = 1)
+        void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
-                defender.currHp = Mathf.Max(defender.currHp + defender.currDef - currAtk * atkFactor, 0);
+                defender.currHp = Mathf.Max(defender.currHp - Mathf.Max(currAtk * factor - defender.currDef, 1), 0);
                 defender.healthBar.UpdateBar(new Vector3(defender.currHp / defender.progression.thisLevelHp, 1, 1));
                 if (defender.currHp <= 0)
                 {
@@ -89,7 +89,7 @@ namespace App.Control
                     for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
                     {
                         Quest quest = GameManager.Instance.ongoingQuests[i];
-                        if (quest.target == nickName)
+                        if (quest.target.GetComponent<CombatEntity>().nickName == nickName)
                             quest.UpdateProgress(1);
                     }
                 }
@@ -204,8 +204,10 @@ namespace App.Control
 
         public bool HandleMessage(Telegram telegram)
         {
-            print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
-            return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
+            //print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
+            //return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
+
+            return true;
         }
     }
 }

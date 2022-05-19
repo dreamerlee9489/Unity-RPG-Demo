@@ -12,12 +12,24 @@ namespace App.Control
     {
         public string name = "";
         public string description = "";
-        public string target { get; set; }
         public int current = 0, total = 1;
         public bool isCompleted = false;
         public int bounty = 0;
-        public Dictionary<string, int> rewards { get; set; }
+        public float exp = 0;
+        public GameObject target = null;
         public NPCController npc { get; set; }
+        public Dictionary<string, int> rewards { get; set; }
+
+        public Quest(string name, int total, int bounty, float exp, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
+        {
+            this.name = name;
+            this.total = total;
+            this.bounty = bounty;
+            this.exp = exp;
+            this.target = target;
+            this.npc = npc;
+            this.rewards = rewards;
+        }
 
         public void UpdateProgress(int count)
         {
@@ -31,61 +43,69 @@ namespace App.Control
     [RequireComponent(typeof(MoveEntity))]
     public class NPCController : MonoBehaviour
     {
-        public DialoguesConfig dialoguesConfig = null;
-        public List<Quest> quests = new List<Quest>();
+        public DialogueConfig dialoguesConfig = null;
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+        public List<Quest> quests = new List<Quest>();
         public int index { get; set; }
 
         void Awake()
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
-                GiveQuest("不死骑士", new Dictionary<string, int>(){
+                GiveQuest("消灭不死骑士", "DialogueConfig_KillUndeadKnight_Accept", Resources.LoadAsync("Character/Enemy_UndeadKnight").asset as GameObject, new Dictionary<string, int>(){
                     { "Weapon_Sword_Broad", 1 }, { "Potion_Meat_01", 10 }
-                }, 500);
+                }, 500, 100);
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
-                GiveReward();
+                GiveReward("DialogueConfig_CollectMeat_Start");
+            });
+            actions.Add("GiveQuest_CollectMeat", () =>
+            {
+                GiveQuest("收集烤牛排", "DialogueConfig_CollectMeat_Accept", Resources.LoadAsync("Items/Potion_Meat_01").asset as GameObject, new Dictionary<string, int>() {
+                    { "Weapon_Axe_Large", 1 }
+                }, 500, 200);
+            });
+            actions.Add("GiveReward_CollectMeat", () =>
+            {
+                GiveReward("");
             });
         }
 
-        void GiveQuest(string target, Dictionary<string, int> rewards, int bounty = 0)
+        void GiveQuest(string name, string nextPath, GameObject target, Dictionary<string, int> rewards, int total = 0, int bounty = 0, int exp = 0)
         {
-            quests[index].npc = this;
-            quests[index].target = target;
-            quests[index].rewards = rewards;
-            quests[index].bounty = bounty;
+            quests.Add(new Quest(name, total, bounty, exp, target, this, null));
             GameManager.Instance.ongoingQuests.Add(quests[index]);
             UIManager.Instance.questPanel.Add(quests[index]);
-            GameManager.Instance.entities[target].isQuestTarget = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Accept").asset as DialoguesConfig;
-            Debug.Log("领取任务: " + quests[index].name);
+            //GameManager.Instance.entities[target].isQuestTarget = true;
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/" + nextPath).asset as DialogueConfig;
         }
 
-        void GiveReward()
+        void GiveReward(string nextPath)
         {
             quests[index].current -= quests[index].total;
             GameManager.Instance.ongoingQuests.Remove(quests[index]);
             UIManager.Instance.questPanel.Remove(quests[index]);
-            GameManager.Instance.entities[quests[index].target].isQuestTarget = false;
             foreach (var pair in quests[index].rewards)
             {
+                GameItem item = null;
                 for (int i = 0; i < pair.Value; i++)
-                    (Resources.Load<GameItem>("Items/" + pair.Key)).AddToInventory();
+                {
+                    item = Resources.Load<GameItem>("Items/" + pair.Key);
+                    item.AddToInventory();
+                }
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.config.itemName + " * " + pair.Value);
             }
             InventoryManager.Instance.playerData.golds += quests[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Start").asset as DialoguesConfig;
-            Debug.Log("获取奖励: " + quests[index].name);
-            index = 0;
+            dialoguesConfig = nextPath != "" ? Resources.LoadAsync("Config/Dialogue/" + nextPath).asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/" + GetComponent<CombatEntity>().nickName).asset as DialogueConfig;
+            index++;
         }
 
         public void CompleteQuest(Quest quest)
         {
             quest.isCompleted = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Submit").asset as DialoguesConfig;
-            Debug.Log("任务已完成: " + quest.current);
+            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Submit").asset as DialogueConfig;
         }
 
         public void ActionTrigger(string action)

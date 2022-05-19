@@ -3079,10 +3079,14 @@ MonoBehaviour:
   unarmedWeapon: {fileID: 6122089429030019768}
   weapon: {fileID: 6122089429030019768}
   healthBar: {fileID: 5642071631248901299}
+  level: 1
   currHp: 100
+  currMp: 0
   currDef: 0
   currAtk: 10
+  currExp: 0
   abilityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
+  progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
 --- !u!114 &7363631187237748029
 MonoBehaviour:

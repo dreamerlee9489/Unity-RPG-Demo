@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ada5a9f6f2cba4fad7b2fa110ea9d2, type: 3}
   m_Name: PotionConfig_Meat_01
   m_EditorClassIdentifier: 
-  itemName: "\u70E4\u8089"
+  itemName: "\u9999\u55B7\u55B7\u7684\u70E4\u725B\u6392"
   description: "\u8FD9\u662F\u4E00\u5757\u9999\u55B7\u55B7\u7684\u70E4\u725B\u6392"
   stackable: 0
   item: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}

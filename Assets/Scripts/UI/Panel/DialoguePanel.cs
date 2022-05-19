@@ -9,7 +9,7 @@ namespace App.UI
     {
         int index = 0;
         Button nextBtn = null;
-        DialoguesConfig dialoguesConfig = null;
+        DialogueConfig dialoguesConfig = null;
         public Text npcName = null;
         public Text dialogue = null;
         public GameObject nextRow = null;

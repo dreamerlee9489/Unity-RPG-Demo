@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace App.Config
@@ -18,8 +18,8 @@ namespace App.Config
         public List<DialogueOption> options = new List<DialogueOption>();
     }
 
-    [CreateAssetMenu(fileName = "DialoguesConfig_", menuName = "Unity RPG Project/DialoguesConfig", order = 1)]
-    public class DialoguesConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "DialogueConfig_", menuName = "Unity RPG Project/DialogueConfig", order = 1)]
+    public class DialogueConfig : ScriptableObject
     {
         public List<DialogueNode> dialogues = new List<DialogueNode>();
     }

@@ -20,7 +20,7 @@ namespace App.Items
             PotionConfig potionConfig = config as PotionConfig;
             user.currAtk += potionConfig.atk;
             user.currDef += potionConfig.def;
-            user.currHp = Mathf.Max(user.currHp + potionConfig.hp, user.progression.thisLevelHp);
+            user.currHp = Mathf.Min(user.currHp + potionConfig.hp, user.progression.thisLevelHp);
             user.healthBar.UpdateBar(new Vector3(user.currHp / user.progression.thisLevelHp, 1, 1));
             InventoryManager.Instance.Remove(this);
             ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);

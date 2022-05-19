@@ -143,7 +143,7 @@ namespace App.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.pointerId == -2)
+            if (!GameManager.Instance.player.isDead && eventData.pointerId == -2)
                 UseItem();
         }
     }

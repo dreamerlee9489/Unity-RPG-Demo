@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using App.Control;
 using App.UI;
 
@@ -14,6 +14,7 @@ namespace App.Manager
         public DialoguePanel dialoguePanel { get; set; }
         public QuestPanel questPanel { get; set; }
         public GoldPanel goldPanel { get; set; }
+        public MessagePanel messagePanel { get; set; }
 
         void Awake()
         {
@@ -24,6 +25,7 @@ namespace App.Manager
             dialoguePanel = GameObject.Find("DialoguePanel").GetComponent<DialoguePanel>();
             questPanel = GameObject.Find("QuestPanel").GetComponent<QuestPanel>();
             goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
+            messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -33,6 +35,7 @@ namespace App.Manager
             equipmentPanel.gameObject.SetActive(false);
             dialoguePanel.gameObject.SetActive(false);
             questPanel.gameObject.SetActive(false);
+            messagePanel.gameObject.SetActive(false);
         }
 
         void Update()
@@ -44,7 +47,7 @@ namespace App.Manager
             if (Input.GetKeyDown(KeyCode.Q))
                 questPanel.gameObject.SetActive(questPanel.isOpened = !questPanel.isOpened);
         }
-		
+
         public void ExecuteAction(Vector3 point)
         {
             throw new System.NotImplementedException();

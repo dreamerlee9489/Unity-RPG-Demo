@@ -2,6 +2,7 @@
 using App.Config;
 using App.Control;
 using App.UI;
+using App.Manager;
 
 namespace App.Items
 {
@@ -17,14 +18,6 @@ namespace App.Items
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
         public ContainerType containerType = ContainerType.WORLD;
-        protected void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                AddToInventory();
-                Destroy(gameObject);
-            }
-        }
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
         public override bool Equals(object other) => config == (other as GameItem).config;
@@ -37,6 +30,15 @@ namespace App.Items
             rigidbody.isKinematic = false;
             collider.enabled = containerType == ContainerType.WORLD ? true : false;
             rigidbody.useGravity = containerType == ContainerType.WORLD ? true : false;
+        }
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + config.itemName + " * 1");
+                AddToInventory();
+                Destroy(gameObject);
+            }
         }
     }
 }
