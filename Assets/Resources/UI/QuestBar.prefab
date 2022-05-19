@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8eb82ad95876c46a094679d97fe982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: {fileID: 5353727157497535354}
+  chName: {fileID: 5353727157497535354}
   questProgress: {fileID: 5353727159041690916}
 --- !u!1 &5353727159041690918
 GameObject:

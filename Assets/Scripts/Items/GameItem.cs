@@ -13,6 +13,7 @@ namespace App.Items
     [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
     public abstract class GameItem : MonoBehaviour
     {
+        public bool isQuestTarget = false;
         public ItemConfig config = null;
         public ItemUI itemUI { get; set; }
         public new Collider collider { get; set; }
@@ -35,6 +36,15 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
+                if (isQuestTarget)
+                {
+                    for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
+                    {
+                        GameItem item = GameManager.Instance.ongoingQuests[i].target.GetComponent<GameItem>();
+                        if (item != null && Equals(item))
+                            GameManager.Instance.ongoingQuests[i].UpdateProgress(1);
+                    }
+                }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + config.itemName + " * 1");
                 AddToInventory();
                 Destroy(gameObject);

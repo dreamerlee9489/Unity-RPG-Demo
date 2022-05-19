@@ -1567,7 +1567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363631187237748029, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
       propertyPath: quests.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7363631187237748029, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
       propertyPath: quests.Array.data[1].name
@@ -1758,7 +1758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 740
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1766,7 +1766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1870,11 +1870,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 740
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.y

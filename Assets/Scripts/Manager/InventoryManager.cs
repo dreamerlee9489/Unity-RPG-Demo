@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using App.Items;
 using App.UI;
@@ -37,12 +37,23 @@ namespace App.Manager
         {
             for (int i = 0; i < items.Count; i++)
             {
-                if(items[i] == item)
+                if (items[i] == item)
                 {
                     items.RemoveAt(i);
                     itemUIs.RemoveAt(i);
                 }
             }
+        }
+
+        public int CountItem(GameItem item)
+        {
+            int count = 0;
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Equals(item))
+                    count++;
+            }
+            return count;
         }
     }
 }
