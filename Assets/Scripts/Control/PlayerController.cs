@@ -40,7 +40,7 @@ namespace App.Control
                                 break;
                             case "Enemy":
                                 ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = combatEntity.abilityConfig.stopDistance + combatEntity.target.GetComponent<CombatEntity>().abilityConfig.stopDistance;
+                                agent.stoppingDistance = combatEntity.abilityConfig.stopDistance + combatEntity.combatTarget.GetComponent<CombatEntity>().abilityConfig.stopDistance;
                                 combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
@@ -51,8 +51,8 @@ namespace App.Control
                 }
                 if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
-                if (combatEntity.target != null)
-                    combatEntity.ExecuteAction(combatEntity.target);
+                if (combatEntity.combatTarget != null)
+                    combatEntity.ExecuteAction(combatEntity.combatTarget);
             }
         }
 

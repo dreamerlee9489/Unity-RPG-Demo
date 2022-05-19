@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace App.UI
 {
-	public class HealthBar : MonoBehaviour
+	public class HUDBar : MonoBehaviour
 	{
 		bool isShow = false;
 		float timer = 6;

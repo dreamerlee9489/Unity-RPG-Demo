@@ -4,7 +4,6 @@ using UnityEngine;
 using App.Config;
 using App.Manager;
 using App.Items;
-using App.UI;
 
 namespace App.Control
 {

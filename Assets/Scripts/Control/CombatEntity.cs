@@ -15,36 +15,45 @@ namespace App.Control
         public string nickName = "";
         public Weapon unarmedWeapon = null;
         public Weapon weapon = null;
-        public HealthBar healthBar = null;
+        public HUDBar healthBar = null;
+        public int level = 1;
         public float currHp = 0;
+        public float currMp = 0;
         public float currDef = 0;
         public float currAtk = 0;
+        public float currExp = 0;
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
         public bool isDead { get; set; }
         public bool isQuestTarget { get; set; }
-        public Transform target { get; set; }
+        public Transform combatTarget { get; set; }
+        public Progression progression { get; set; }
         public AbilityConfig abilityConfig = null;
+        public ProgressionConfig progressionConfig = null;
         public DropListConfig dropListConfig = null;
 
         void Awake()
         {
-            if (CompareTag("Enemy"))
-                healthBar = transform.GetChild(0).GetComponent<HealthBar>();
+            if (!CompareTag("Player"))
+                healthBar = transform.GetChild(0).GetComponent<HUDBar>();
             GetComponent<Collider>().isTrigger = true;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            GetComponent<Collider>().enabled = true;
             agent.stoppingDistance = abilityConfig.stopDistance;
             agent.radius = 0.5f;
-            currHp = abilityConfig.hp;
-            currDef = abilityConfig.def;
-            currAtk = abilityConfig.atk + (weapon.config as WeaponConfig).atk;
             sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+            progression = progressionConfig.GetProgressionByLevel(level);
+            currHp = progression.thisLevelHp;
+            currMp = progression.thisLevelMp;
+            currDef = progression.thisLevelDef;
+            currAtk = progression.thisLevelAtk + (weapon.config as WeaponConfig).atk;
+            currExp = 0;
         }
 
-        void AttackL() => TakeDamage(target);
-        void AttackR() => TakeDamage(target);
+        void AttackL() => TakeDamage(combatTarget);
+        void AttackR() => TakeDamage(combatTarget);
 
         void TakeDamage(Transform target, float atkFactor = 1)
         {
@@ -52,7 +61,7 @@ namespace App.Control
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currHp = Mathf.Max(defender.currHp + defender.currDef - currAtk * atkFactor, 0);
-                defender.healthBar.UpdateBar(new Vector3(defender.currHp / defender.abilityConfig.hp, 1, 1));
+                defender.healthBar.UpdateBar(new Vector3(defender.currHp / defender.progression.thisLevelHp, 1, 1));
                 if (defender.currHp <= 0)
                 {
                     defender.Death();
@@ -64,23 +73,44 @@ namespace App.Control
         void Death()
         {
             isDead = true;
+            combatTarget = null;
             animator.SetBool("attack", false);
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            if (isQuestTarget)
-            {
-                for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
-                {
-                    Quest quest = GameManager.Instance.ongoingQuests[i];
-                    if (quest.target == nickName)
-                        quest.UpdateProgress(1);
-                }
-            }
-            List<GameItem> drops = dropListConfig.GetDrops(abilityConfig, ref InventoryManager.Instance.playerData.golds);
+            List<GameItem> drops = dropListConfig.GetDrops(progression, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
+            if (CompareTag("Enemy"))
+            {
+                if (isQuestTarget)
+                {
+                    for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
+                    {
+                        Quest quest = GameManager.Instance.ongoingQuests[i];
+                        if (quest.target == nickName)
+                            quest.UpdateProgress(1);
+                    }
+                }
+                GameManager.Instance.player.currExp += progression.nextLevelExp * 1.5f;
+                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currExp / GameManager.Instance.player.progression.nextLevelExp, 1, 1));
+                if (GameManager.Instance.player.currExp >= GameManager.Instance.player.progression.nextLevelExp)
+                    GameManager.Instance.player.LevelUp();
+            }
+        }
+
+        void LevelUp()
+        {
+            currExp = currExp - progression.nextLevelExp;
+            progression = progressionConfig.GetProgressionByLevel(++level);
+            currHp = progression.thisLevelHp;
+            currMp = progression.thisLevelMp;
+            currDef = progression.thisLevelDef;
+            currAtk = progression.thisLevelAtk + (weapon.config as WeaponConfig).atk;
+            UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currHp / progression.thisLevelHp, 1, 1));
+            UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currMp / progression.thisLevelMp, 1, 1));
+            UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(currExp / progression.nextLevelExp, 1, 1));
         }
 
         public void AttachEquipment(Equipment equipment)
@@ -89,7 +119,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.config as WeaponConfig;
-                    currAtk = abilityConfig.atk + weaponConfig.atk;
+                    currAtk = progression.thisLevelAtk + weaponConfig.atk;
                     weapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(unarmedWeapon.transform);
@@ -97,8 +127,8 @@ namespace App.Control
                     return;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.config as ArmorConfig;
-                    currHp = abilityConfig.hp + armorConfig.hp;
-                    currDef = abilityConfig.def + armorConfig.def;
+                    currHp = progression.thisLevelAtk + armorConfig.hp;
+                    currDef = progression.thisLevelDef + armorConfig.def;
                     return;
                 case EquipmentType.JEWELRY:
                     return;
@@ -111,7 +141,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.config as WeaponConfig;
-                    currAtk = abilityConfig.atk;
+                    currAtk = progression.thisLevelAtk;
                     weapon = unarmedWeapon;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.inventory);
@@ -119,8 +149,8 @@ namespace App.Control
                     return;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.config as ArmorConfig;
-                    currHp = abilityConfig.hp;
-                    currDef = abilityConfig.def;
+                    currHp = progression.thisLevelHp;
+                    currDef = progression.thisLevelDef;
                     return;
                 case EquipmentType.JEWELRY:
                     return;
@@ -132,7 +162,7 @@ namespace App.Control
         {
             if (!target.GetComponent<CombatEntity>().isDead)
             {
-                this.target = target;
+                this.combatTarget = target;
                 transform.LookAt(target);
                 if (!CanAttack(target))
                 {
@@ -146,7 +176,7 @@ namespace App.Control
 
         public void CancelAction()
         {
-            target = null;
+            combatTarget = null;
             animator.SetBool("attack", false);
         }
 
