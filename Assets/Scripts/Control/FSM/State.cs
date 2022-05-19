@@ -37,7 +37,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
+            agent.speed = combatEntity.abilityConfig.walkSpeed * combatEntity.abilityConfig.walkFactor;
         }
 
         public override void Execute()
@@ -73,7 +73,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
+            agent.speed = combatEntity.abilityConfig.walkSpeed * combatEntity.abilityConfig.walkFactor;
         }
 
         public override void Execute()
@@ -107,7 +107,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
+            agent.speed = combatEntity.abilityConfig.runSpeed * combatEntity.abilityConfig.runFactor;
         }
 
         public override void Execute()
@@ -168,7 +168,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
+            agent.speed = combatEntity.abilityConfig.runSpeed * combatEntity.abilityConfig.runFactor;
         }
 
         public override void Execute()

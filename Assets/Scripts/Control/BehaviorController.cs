@@ -30,10 +30,10 @@ namespace App.Control
             {
                 if (combatEntity.CanSee(player))
                 {
-                    agent.speed = moveEntity.abilityConfig.runSpeed * moveEntity.abilityConfig.runFactor;
+                    agent.speed = combatEntity.abilityConfig.runSpeed * combatEntity.abilityConfig.runFactor;
                     return true;
                 }
-                agent.speed = moveEntity.abilityConfig.walkSpeed * moveEntity.abilityConfig.walkFactor;
+                agent.speed = combatEntity.abilityConfig.walkSpeed * combatEntity.abilityConfig.walkFactor;
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
@@ -75,7 +75,7 @@ namespace App.Control
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, GetComponent<MoveEntity>().abilityConfig.viewRadius);
+            Gizmos.DrawWireSphere(transform.position, GetComponent<CombatEntity>().abilityConfig.viewRadius);
         }
     }
 }

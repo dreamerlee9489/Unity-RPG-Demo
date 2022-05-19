@@ -8,15 +8,11 @@ namespace App.Items
 {
     public class Potion : GameItem
     {
-        protected override void OnTriggerEnter(Collider other)
+        public override void AddToInventory()
         {
-            if (other.CompareTag("Player"))
-            {
-                ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, itemSlot.icons.transform));
-                itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
-                Destroy(gameObject);
-            }
+            ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
+            InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, itemSlot.icons.transform));
+            itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
         }
 
         public override void Use(CombatEntity user)

@@ -52,7 +52,7 @@ namespace App.UI
         {
             if (npc != null)
             {
-                npcName.text = npc.GetComponent<MoveEntity>().nickName;
+                npcName.text = npc.GetComponent<CombatEntity>().nickName;
                 dialoguesConfig = npc.dialoguesConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];
                 dialogue.text = node.dialogue;

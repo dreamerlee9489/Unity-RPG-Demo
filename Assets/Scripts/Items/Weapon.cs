@@ -7,15 +7,11 @@ namespace App.Items
 {
     public class Weapon : Equipment
     {
-        protected override void OnTriggerEnter(Collider other)
+        public override void AddToInventory()
         {
-            if (other.CompareTag("Player"))
-            {
-                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
-                Destroy(gameObject);
-            }
-        }
-        
+            InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+        }   
+
         public override void Use(CombatEntity user)
         {
             ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;
@@ -49,6 +45,6 @@ namespace App.Items
                     containerType = ContainerType.BAG;
                     break;
             }
-        }
+        }   
     }
 }

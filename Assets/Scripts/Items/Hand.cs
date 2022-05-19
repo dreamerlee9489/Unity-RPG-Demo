@@ -8,14 +8,16 @@ namespace App.Items
 {
     public class Hand : Equipment
     {
+        public override void AddToInventory()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void Use(CombatEntity user)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void OnTriggerEnter(Collider other)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }

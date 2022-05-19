@@ -9,6 +9,7 @@ namespace App.Items
     public enum EquipmentType { WEAPON, ARMOR, JEWELRY }
     public enum ContainerType { WORLD, ENTITY, BAG, EQUIPMENT, ACTION }
 
+    [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
     public abstract class GameItem : MonoBehaviour
     {
         public ItemConfig config = null;
@@ -16,8 +17,16 @@ namespace App.Items
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
         public ContainerType containerType = ContainerType.WORLD;
-        protected abstract void OnTriggerEnter(Collider other);
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                AddToInventory();
+                Destroy(gameObject);
+            }
+        }
         public abstract void Use(CombatEntity user);
+        public abstract void AddToInventory();
         public override bool Equals(object other) => config == (other as GameItem).config;
         public override int GetHashCode() => config.itemName.GetHashCode();
 

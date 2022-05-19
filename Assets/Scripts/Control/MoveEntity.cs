@@ -13,8 +13,7 @@ namespace App.Control
         Animator animator = null;
         NavMeshAgent agent = null;
         CombatEntity combatEntity = null;
-        public string nickName = "";
-        public AbilityConfig abilityConfig = null;
+        public AbilityConfig abilityConfig { get; set; }
 
         void Awake()
         {
@@ -25,6 +24,7 @@ namespace App.Control
             agent.autoBraking = false;
             agent.angularSpeed = 4800;
             agent.acceleration = 80;
+            abilityConfig = combatEntity.abilityConfig;
             agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
@@ -41,8 +41,8 @@ namespace App.Control
             Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
             return obstacle.transform.position + toObstacle * distAway;
         }
-        
-        public void ExecuteAction(Transform target) {}
+
+        public void ExecuteAction(Transform target) { }
         public void ExecuteAction(Vector3 point)
         {
             if (combatEntity.target != null)

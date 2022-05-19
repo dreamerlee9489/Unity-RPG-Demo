@@ -28,9 +28,9 @@ namespace App.Manager
             itemSlot.itemType = item.config.itemType;
             item.gameObject.SetActive(false);
             item.containerType = ContainerType.BAG;
-            item.GetComponent<Collider>().enabled = false;
-            item.GetComponent<Rigidbody>().useGravity = false;
-            item.GetComponent<Rigidbody>().isKinematic = true;
+            item.collider.enabled = false;
+            item.rigidbody.useGravity = false;
+            item.rigidbody.isKinematic = true;
         }
 
         public void Remove(GameItem item)

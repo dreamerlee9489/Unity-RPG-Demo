@@ -12,6 +12,7 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
+        public string nickName = "";
         public Weapon unarmedWeapon = null;
         public Weapon weapon = null;
         public HealthBar healthBar = null;
@@ -23,7 +24,7 @@ namespace App.Control
         public bool isDead { get; set; }
         public bool isQuestTarget { get; set; }
         public Transform target { get; set; }
-        public AbilityConfig abilityConfig { get; set; }
+        public AbilityConfig abilityConfig = null;
         public DropListConfig dropListConfig = null;
 
         void Awake()
@@ -33,7 +34,6 @@ namespace App.Control
             GetComponent<Collider>().isTrigger = true;
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
-            abilityConfig = GetComponent<MoveEntity>().abilityConfig;
             agent.stoppingDistance = abilityConfig.stopDistance;
             agent.radius = 0.5f;
             currHp = abilityConfig.hp;
@@ -73,16 +73,14 @@ namespace App.Control
                 for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
                 {
                     Quest quest = GameManager.Instance.ongoingQuests[i];
-                    if (quest.target == GetComponent<MoveEntity>().nickName)
+                    if (quest.target == nickName)
                         quest.UpdateProgress(1);
                 }
             }
             List<GameItem> drops = dropListConfig.GetDrops(abilityConfig, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
-            {
-                Instantiate(item, transform.position + Vector3.up + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
-            }
+                Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
         }
 
         public void AttachEquipment(Equipment equipment)

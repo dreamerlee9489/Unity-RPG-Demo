@@ -2916,8 +2916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickName: "\u6295\u654C\u58EB\u5175"
-  abilityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
 --- !u!114 &4584058774185601089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2930,12 +2928,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nickName: "\u53DB\u53D8\u58EB\u5175"
   unarmedWeapon: {fileID: 5763897870942815625}
   weapon: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   healthBar: {fileID: 2482379876315533745}
   currHp: 0
   currDef: 0
   currAtk: 0
+  abilityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
   dropListConfig: {fileID: 11400000, guid: a3e92c4dd9f2f974a96bda57b8908805, type: 2}
 --- !u!114 &3761874412725296679
 MonoBehaviour:
@@ -3234,9 +3234,9 @@ GameObject:
   - component: {fileID: 3497508219931630909}
   - component: {fileID: 3497508219935018751}
   - component: {fileID: 3497508219933933737}
-  - component: {fileID: 3255801458476833636}
   - component: {fileID: 4906947280297877467}
   - component: {fileID: 6327562428251833399}
+  - component: {fileID: 8908571918840870563}
   m_Layer: 0
   m_Name: Weapon_Sword_Broad
   m_TagString: Item
@@ -3309,20 +3309,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3255801458476833636
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3497508219931952971}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.122020096
-  m_Height: 0.8914132
-  m_Direction: 1
-  m_Center: {x: -0.000000022351742, y: 0.32178894, z: 0.00000005960466}
 --- !u!54 &4906947280297877467
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3354,6 +3340,19 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 229cbd7324b081544982ba5114b5108c, type: 2}
   containerType: 1
   equipmentType: 0
+--- !u!65 &8908571918840870563
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497508219931952971}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5763897870942815622
 GameObject:
   m_ObjectHideFlags: 0
@@ -3363,9 +3362,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5763897870942815627}
-  - component: {fileID: 5763897870942815624}
   - component: {fileID: 7833418789762339478}
   - component: {fileID: 5763897870942815625}
+  - component: {fileID: 3195311676465488064}
   m_Layer: 0
   m_Name: Wepon_Unarmed
   m_TagString: Item
@@ -3389,20 +3388,6 @@ Transform:
   m_Father: {fileID: 1128079727253940944}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5763897870942815624
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5763897870942815622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7833418789762339478
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3434,6 +3419,19 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 919c4491416fdf441976117f645a4f19, type: 2}
   containerType: 1
   equipmentType: 0
+--- !u!65 &3195311676465488064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763897870942815622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2546648270071929079
 PrefabInstance:
   m_ObjectHideFlags: 0

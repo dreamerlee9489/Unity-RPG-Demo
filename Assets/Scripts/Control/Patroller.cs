@@ -74,14 +74,14 @@ namespace App.Control
         public void StartPatrol()
         {
             agent.isStopped = false;
-            agent.speed = GetComponent<MoveEntity>().abilityConfig.walkSpeed;
+            agent.speed = GetComponent<CombatEntity>().abilityConfig.walkSpeed;
             isPatrolling = true;
         }
 
         public void ExitPatrol()
         {
             animator.SetBool("isAlert", false);
-            agent.speed = GetComponent<MoveEntity>().abilityConfig.runSpeed;
+            agent.speed = GetComponent<CombatEntity>().abilityConfig.runSpeed;
             isPatrolling = false;
         }
     }

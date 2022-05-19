@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace App.UI
 {
-    public class BasePanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public abstract class BasePanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public bool isOpened { get; set; }
 

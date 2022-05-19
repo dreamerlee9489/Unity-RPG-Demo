@@ -40,7 +40,7 @@ namespace App.Control
                                 break;
                             case "Enemy":
                                 ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = moveEntity.abilityConfig.stopDistance + combatEntity.target.GetComponent<MoveEntity>().abilityConfig.stopDistance;
+                                agent.stoppingDistance = combatEntity.abilityConfig.stopDistance + combatEntity.target.GetComponent<CombatEntity>().abilityConfig.stopDistance;
                                 combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":

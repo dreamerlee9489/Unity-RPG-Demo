@@ -2301,7 +2301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
 --- !u!114 &4622678920358887016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2314,9 +2313,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nickName: "\u4E0D\u6B7B\u9A91\u58EB"
   unarmedWeapon: {fileID: 8380853060963233314}
   weapon: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   healthBar: {fileID: 8712104004270877124}
+  currHp: 0
+  currDef: 0
+  currAtk: 0
+  abilityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
+  dropListConfig: {fileID: 11400000, guid: 60d67729e0ab7e04ea3f289eb101c1ba, type: 2}
 --- !u!114 &5046530981095907722
 MonoBehaviour:
   m_ObjectHideFlags: 0
