@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u77ED\u5251"
   description: "\u8FD9\u662F\u4E00\u628A\u666E\u901A\u7684\u77ED\u5251"
+  stackable: 0
   item: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
   itemType: 7
-  animatorController: {fileID: 22100000, guid: f34e9d0f163529341b72036b0f08b076, type: 2}
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: -90, y: 0, z: 0}
+  scale: {x: 1, y: 1, z: 1}
   atk: 10
+  animatorController: {fileID: 22100000, guid: f34e9d0f163529341b72036b0f08b076, type: 2}

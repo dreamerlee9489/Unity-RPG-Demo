@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using App.Items;
 
 namespace App.UI
@@ -10,6 +11,8 @@ namespace App.UI
         public SlotType slotType = SlotType.BAG;
         public ItemType itemType { get; set; }
         public ItemUI itemUI { get; set; }
+        public Transform icons = null;
+        public Text count = null;
 
         void Awake()
         {
@@ -55,7 +58,7 @@ namespace App.UI
         {
             this.itemUI = itemUI;
             this.itemType = itemUI.item.config.itemType;
-            itemUI.transform.SetParent(transform);
+            itemUI.transform.SetParent(icons);
             itemUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
 

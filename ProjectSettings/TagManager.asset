@@ -45,3 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UIImage
+    uniqueID: 3330446275
+    locked: 0
+  - name: UIText
+    uniqueID: 1702813751
+    locked: 0

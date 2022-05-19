@@ -19,7 +19,7 @@ namespace App.Items
 
         public override bool Equals(object other)
         {
-            return config == (other as GameItem).config && containerType == (other as GameItem).containerType;
+            return config == (other as GameItem).config;
         }
 
         public override int GetHashCode()

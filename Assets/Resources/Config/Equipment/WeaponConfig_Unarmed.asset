@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   description: 
+  stackable: 0
   item: {fileID: 3350925516590248549, guid: 8b91e6ca590e1af4bb6c7c6d34a892c4, type: 3}
   itemUI: {fileID: 0}
   itemType: 7
   animatorController: {fileID: 9100000, guid: b798abf01ca03a544a1ca4e1c27b85b7, type: 2}
-  atk: 1
+  atk: 0

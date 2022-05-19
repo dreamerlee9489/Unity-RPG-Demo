@@ -14,6 +14,7 @@ namespace App.Control
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         Command[] commands = null;
+        public Transform inventory = null;
 
         void Start()
         {

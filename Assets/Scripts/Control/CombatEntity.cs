@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using App.Config;
 using App.Manager;
 using App.Items;
+using App.UI;
 
 namespace App.Control
 {
@@ -85,6 +86,7 @@ namespace App.Control
                     currAtk = abilityConfig.atk + weaponConfig.atk;
                     weapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
+                    equipment.transform.SetParent(unarmedWeapon.transform);
                     equipment.gameObject.SetActive(true);
                     return;
                 case EquipmentType.ARMOR:
@@ -106,6 +108,7 @@ namespace App.Control
                     currAtk = abilityConfig.atk;
                     weapon =  unarmedWeapon;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
+                    equipment.transform.SetParent(InventoryManager.Instance.inventory);
                     equipment.gameObject.SetActive(false);
                     return;
                 case EquipmentType.ARMOR:

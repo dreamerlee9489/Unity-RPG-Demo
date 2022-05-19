@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using App.Items;
+using UnityEngine;
 
 namespace App.UI
 {
@@ -32,6 +34,18 @@ namespace App.UI
                     return content.GetChild(i).GetComponent<ItemSlot>();
             }
             return null;
+        }
+
+        public ItemSlot GetStackSlot(GameItem item)
+        {
+            ItemSlot itemSlot = null;
+            for (int i = 0; i < content.childCount; i++)
+            {
+                itemSlot = content.GetChild(i).GetComponent<ItemSlot>();
+                if (itemSlot.itemUI != null && itemSlot.itemUI.item.config.itemName == item.config.itemName)
+                    return itemSlot;
+            }
+            return GetFirstValidSlot();
         }
     }
 }

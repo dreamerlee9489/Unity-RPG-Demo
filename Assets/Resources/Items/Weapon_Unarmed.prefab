@@ -61,4 +61,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 919c4491416fdf441976117f645a4f19, type: 2}
   containerType: 1
-  type: 0
+  equipmentType: 0

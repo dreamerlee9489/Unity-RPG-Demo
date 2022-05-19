@@ -11,7 +11,7 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
-                InventoryManager.Instance.Add(Instantiate(config.item, GameManager.Instance.player.unarmedWeapon.transform), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().transform));
+                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().icons.transform));
                 Destroy(gameObject);
             }
         }

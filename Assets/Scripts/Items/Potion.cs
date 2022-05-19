@@ -2,6 +2,7 @@
 using App.Config;
 using App.Manager;
 using App.Control;
+using App.UI;
 
 namespace App.Items
 {
@@ -11,7 +12,9 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
-                InventoryManager.Instance.Add(Instantiate(config.item, GameManager.Instance.player.transform), Instantiate(config.itemUI, GameManager.Instance.canvas.bagPanel.GetFirstValidSlot().transform));
+                ItemSlot itemSlot = GameManager.Instance.canvas.bagPanel.GetStackSlot(this);
+                InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, itemSlot.icons.transform));
+                itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
                 Destroy(gameObject);
             }
         }
@@ -21,9 +24,11 @@ namespace App.Items
             PotionConfig potionConfig = config as PotionConfig;
             user.currAtk += potionConfig.atk;
             user.currDef += potionConfig.def;
-            user.currHp += potionConfig.hp;
+            user.currHp = Mathf.Max(user.currHp + potionConfig.hp, user.abilityConfig.hp);
             user.healthBar.UpdateBar(new Vector3(user.currHp / user.abilityConfig.hp, 1, 1));
             InventoryManager.Instance.Remove(this);
+            ItemSlot itemSlot = GameManager.Instance.canvas.bagPanel.GetStackSlot(this);
+            itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);
         }
