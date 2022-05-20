@@ -54,7 +54,7 @@ namespace App.UI
             }
         }
 
-        public void Open(ItemUI itemUI)
+        public void Draw(ItemUI itemUI)
         {
             this.itemUI = itemUI;
             this.itemType = itemUI.item.itemConfig.itemType;
@@ -62,7 +62,7 @@ namespace App.UI
             itemUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
 
-        public void Close()
+        public void Erase()
         {
             if(itemUI != null)
             {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using App.Config;
+using App.SO;
 using App.Manager;
 using App.Control;
 using App.UI;

@@ -22,24 +22,24 @@ namespace App.Items
                     ItemUI temp = weaponSlot.itemUI;
                     if (weaponSlot.itemUI != null)
                     {
-                        weaponSlot.Close();
-                        bagPanel.Close(itemUI);
-                        weaponSlot.Open(itemUI);
-                        bagPanel.Open(temp);
+                        weaponSlot.Erase();
+                        bagPanel.Erase(itemUI);
+                        weaponSlot.Draw(itemUI);
+                        bagPanel.Draw(temp);
                         GameManager.Instance.player.DetachEquipment(temp.item as Equipment);
                         temp.item.containerType = ContainerType.BAG;
                     }
                     else
                     {
-                        bagPanel.Close(itemUI);
-                        weaponSlot.Open(itemUI);
+                        bagPanel.Erase(itemUI);
+                        weaponSlot.Draw(itemUI);
                     }
                     GameManager.Instance.player.AttachEquipment(this);
                     containerType = ContainerType.EQUIPMENT;
                     break;
                 case ContainerType.EQUIPMENT:
-                    weaponSlot.Close();
-                    bagPanel.Open(itemUI);
+                    weaponSlot.Erase();
+                    bagPanel.Draw(itemUI);
                     GameManager.Instance.player.DetachEquipment(this);
                     containerType = ContainerType.BAG;
                     break;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using App.Config;
+using App.SO;
 using App.Manager;
 using App.Items;
 
@@ -18,7 +18,7 @@ namespace App.Control
         public float exp = 0;
         public GameObject target { get; set; }
         public NPCController npc { get; set; }
-        public Dictionary<string, int> rewards = new Dictionary<string, int>();
+        public Dictionary<string, int> rewards { get; set; }
 
         public Quest(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
         {
@@ -42,41 +42,20 @@ namespace App.Control
     }
 
     [RequireComponent(typeof(MoveEntity))]
-    public class NPCController : MonoBehaviour
+    public abstract class NPCController : MonoBehaviour
     {
-        int index = 0;
-        List<Quest> quests = new List<Quest>();
-        public DialogueConfig dialogueConfig { get; set; }
+        protected int index = 0;
+        protected List<Quest> quests = new List<Quest>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+        public DialogueConfig dialogueConfig { get; set; }
 
         protected virtual void Awake()
         {
-            actions.Add("GiveQuest_KillUndeadKnight", () =>
-            {
-                GiveQuest("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, GameManager.Instance.objects["不死骑士"], new Dictionary<string, int>(){
-                    { "Weapon_Sword_Broad", 1 }, { "Potion_Meat_01", 10 }
-                });
-            });
-            actions.Add("GiveReward_KillUndeadKnight", () =>
-            {
-                GiveReward("CollectMeat");
-            });
-            actions.Add("GiveQuest_CollectMeat", () =>
-            {
-                GiveQuest("CollectMeat", "收集烤牛排",  500, 200, 12, GameManager.Instance.objects["香喷喷的烤牛排"], new Dictionary<string, int>() {
-                    { "Weapon_Axe_Large_01", 1 }
-                });
-            });
-            actions.Add("GiveReward_CollectMeat", () =>
-            {
-                GiveReward();
-            });
             index = 0;
-            dialogueConfig = index == 0 ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Start").asset as DialogueConfig;
             GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 
-        void GiveQuest(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
+        protected void GiveQuest(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
         {
             quests.Add(new Quest(thisName, chName, bounty, exp, number, target, this, rewards));
             GameManager.Instance.registeredQuests.Add(quests[index]);
@@ -86,7 +65,7 @@ namespace App.Control
                 quests[index].UpdateProgress(InventoryManager.Instance.Count(target.GetComponent<Item>()));
         }
 
-        void GiveReward(string nextName = null)
+        protected void GiveReward(string nextName = null)
         {
             GameManager.Instance.registeredQuests.Remove(quests[index]);
             UIManager.Instance.questPanel.Remove(quests[index]);

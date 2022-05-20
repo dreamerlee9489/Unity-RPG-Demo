@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using App.Config;
+using App.SO;
 using App.Manager;
 using App.Items;
 using App.UI;

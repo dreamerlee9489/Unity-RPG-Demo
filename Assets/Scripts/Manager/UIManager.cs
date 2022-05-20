@@ -16,6 +16,7 @@ namespace App.Manager
         public GoldPanel goldPanel { get; set; }
         public MessagePanel messagePanel { get; set; }
         public AttributePanel attributePanel { get; set; }
+        public TipPanel tipPanel { get; set; }
 
         void Awake()
         {
@@ -28,6 +29,7 @@ namespace App.Manager
             goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
             messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
             attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
+            tipPanel = GameObject.Find("TipPanel").GetComponent<TipPanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -39,6 +41,7 @@ namespace App.Manager
             questPanel.gameObject.SetActive(false);
             messagePanel.gameObject.SetActive(false);
             attributePanel.gameObject.SetActive(false);
+            tipPanel.gameObject.SetActive(false);
         }
 
         void Update()

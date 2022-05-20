@@ -7,19 +7,19 @@ namespace App.UI
     {
         public Transform content = null;
 
-        public void Open(ItemUI itemUI)
+        public void Draw(ItemUI itemUI)
         {
-            GetFirstValidSlot().Open(itemUI);
+            GetFirstValidSlot().Draw(itemUI);
         }
 
-        public void Close(ItemUI itemUI)
+        public void Erase(ItemUI itemUI)
         {
             for (int i = 0; i < content.childCount; i++)
             {
                 ItemSlot slot = content.GetChild(i).GetComponent<ItemSlot>();
                 if(itemUI == slot.itemUI)
                 {
-                    slot.Close();
+                    slot.Erase();
                     return;
                 }
             }

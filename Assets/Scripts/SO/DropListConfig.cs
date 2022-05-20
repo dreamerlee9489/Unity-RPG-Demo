@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using App.Items;
 
-namespace App.Config
+namespace App.SO
 {
     [CreateAssetMenu(fileName = "DropListConfig_", menuName = "Unity RPG Project/DropListConfig", order = 5)]
     public class DropListConfig : ScriptableObject

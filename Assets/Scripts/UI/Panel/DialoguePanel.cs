@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using App.Config;
+using App.SO;
 using App.Control;
 
 namespace App.UI

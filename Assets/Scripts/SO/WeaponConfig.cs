@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Config
+namespace App.SO
 {
     [CreateAssetMenu(fileName = "WeaponConfig_", menuName = "Unity RPG Project/WeaponConfig", order = 2)]
     public class WeaponConfig : ItemConfig

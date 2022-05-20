@@ -2996,7 +2996,7 @@ GameObject:
   - component: {fileID: 3916986652904118308}
   - component: {fileID: 3454087764502834853}
   - component: {fileID: 1221311907937795221}
-  - component: {fileID: 7363631187237748029}
+  - component: {fileID: 4148663055911647206}
   m_Layer: 0
   m_Name: NPC_Guard_01
   m_TagString: NPC
@@ -3113,7 +3113,7 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: 46fc001bb2ed3764e988d38d40e8a87e, type: 2}
   progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
---- !u!114 &7363631187237748029
+--- !u!114 &4148663055911647206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3122,7 +3122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7239271153561498324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 386da4243a280434cb334ce42cb2e117, type: 3}
+  m_Script: {fileID: 11500000, guid: e942ede8c7ea99f47a2f6daa6dd64160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7239271153561499450

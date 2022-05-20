@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Config
+namespace App.SO
 {
     [System.Serializable]
     public class Progression

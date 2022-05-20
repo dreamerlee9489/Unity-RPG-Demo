@@ -2,13 +2,12 @@
 using App.UI;
 using App.Items;
 
-namespace App.Config
+namespace App.SO
 {
     public abstract class ItemConfig : ScriptableObject
     {
         public string itemName = "";
         public string description = "";
-        public bool stackable = false;
         public Item item = null;
         public ItemUI itemUI = null;
         public ItemType itemType = ItemType.WEAPON;
