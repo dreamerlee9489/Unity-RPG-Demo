@@ -39,7 +39,6 @@ namespace App.Control
                         switch (hit.collider.tag)
                         {
                             case "Terrain":
-                            case "Item":
                                 ExecuteCommand(0, hit.point);
                                 break;
                             case "Enemy":
@@ -49,6 +48,11 @@ namespace App.Control
                                 break;
                             case "NPC":
                                 ExecuteCommand(2, hit.transform);
+                                agent.stoppingDistance = 1;
+                                break;
+                            case "Item":
+                                agent.destination = hit.point;
+                                agent.stoppingDistance = 0;
                                 break;
                         }
                     }

@@ -149,7 +149,10 @@ namespace App.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            UIManager.Instance.tipPanel.transform.position = eventData.pointerEnter.transform.position + new Vector3(-GetComponent<RectTransform>().rect.width, 0, 0);
+            Vector3 position = eventData.pointerEnter.transform.position;
+            float panelWidth = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect.width;
+            float offset = GetComponent<RectTransform>().rect.width + panelWidth;
+            UIManager.Instance.tipPanel.transform.position = position.x > offset? position - new Vector3(GetComponent<RectTransform>().rect.width, 0, 0) : position + new Vector3(offset, 0, 0);
             UIManager.Instance.tipPanel.Draw(this);
         }
 
