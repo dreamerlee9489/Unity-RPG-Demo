@@ -73,6 +73,7 @@ namespace App.Control
             });
             index = 0;
             dialogueConfig = index == 0 ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Start").asset as DialogueConfig;
+            GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 
         void GiveQuest(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)

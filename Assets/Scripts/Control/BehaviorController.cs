@@ -15,7 +15,7 @@ namespace App.Control
         CombatEntity combatEntity = null;
         Selector root = new Selector();
 
-        private void Awake()
+        void Awake()
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
@@ -65,7 +65,7 @@ namespace App.Control
             }));
         }
 
-        private void Update()
+        void Update()
         {
             if (!combatEntity.isDead)
                 root.Execute();

@@ -11,7 +11,7 @@ namespace App.UI
         public Scrollbar scrollbar = null;
         public Text messageBar = null;
 
-        private void Awake()
+        void Awake()
         {
             scrollbar.onValueChanged.AddListener((float value) =>
             {
@@ -19,7 +19,7 @@ namespace App.UI
             });
         }
 
-        private void Update()
+        void Update()
         {
             if (isShow)
             {
@@ -38,9 +38,9 @@ namespace App.UI
                 Destroy(content.GetChild(0).gameObject);
             Text text = Instantiate(messageBar, content);
             text.text = msg;
-            scrollbar.value = 0f;
             isShow = true;
             timer = 10;
+            scrollbar.value = 0f;
             gameObject.SetActive(true);
         }
     }

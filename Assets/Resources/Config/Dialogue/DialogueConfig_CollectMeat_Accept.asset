@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DialogueConfig_CollectMeat_Accept
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u5E2E\u6211\u5F04\u4E24\u4E2A\u70E4\u725B\u6392\u5417?"
+  - dialogue: "\u4F60\u4E0D\u662F\u8BF4\u8981\u5E2E\u6211\u5F04\u4E9B\u70E4\u725B\u6392\u5417?"
     hasNext: 0
     options: []

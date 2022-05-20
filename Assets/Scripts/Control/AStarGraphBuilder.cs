@@ -47,7 +47,7 @@ namespace App.Control
 			}		
 		}
 
-		private AStarNode FindNode(Transform node)
+		AStarNode FindNode(Transform node)
 		{
 			foreach(AStarNode n in nodes)
 				if(n.GetNode() == node)
@@ -99,7 +99,7 @@ namespace App.Control
             return false;
 		}
 
-        private void ConstructPath(AStarNode start, AStarNode end)
+        void ConstructPath(AStarNode start, AStarNode end)
         {
             path.Clear();
 			path.Add(end);
@@ -111,7 +111,7 @@ namespace App.Control
 			}
         }
 
-        private AStarNode MinFNode(List<AStarNode> openList)
+        AStarNode MinFNode(List<AStarNode> openList)
         {
 			float minF = openList[0].f;
 			int index = 0;
@@ -158,7 +158,7 @@ namespace App.Control
         public List<Edge> edges = new List<Edge>();
         public AStarGraph graph = new AStarGraph();
 
-        private void Awake()
+        void Awake()
         {
             BuildGraph();
         }

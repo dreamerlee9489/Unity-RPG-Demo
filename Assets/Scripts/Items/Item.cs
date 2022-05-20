@@ -58,12 +58,12 @@ namespace App.Items
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
                 AddToInventory();
+                Destroy(gameObject);
                 if(nameBar != null)
                 {
                     Destroy(nameBar.gameObject);
                     nameBar = null;
                 }
-                Destroy(gameObject);
             }
         }
     }

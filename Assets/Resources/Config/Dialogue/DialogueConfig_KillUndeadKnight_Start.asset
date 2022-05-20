@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DialogueConfig_KillUndeadKnight_Start
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u4ECA\u5929\u5929\u6C14\u771F\u4E0D\u9519!"
+  - dialogue: "\u4F60\u770B\u8D77\u6765\u4E0D\u50CF\u662F\u672C\u5730\u4EBA\u3002"
     hasNext: 1
     options: []
-  - dialogue: "\u4F60\u4E0D\u662F\u672C\u5730\u4EBA\u5427?"
+  - dialogue: "\u6211\u6253\u4E0D\u8FC7\u90A3\u4E2A\u4E0D\u6B7B\u9A91\u58EB\u3002"
     hasNext: 1
     options: []
   - dialogue: "\u5E2E\u6211\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB\u597D\u5417?"
