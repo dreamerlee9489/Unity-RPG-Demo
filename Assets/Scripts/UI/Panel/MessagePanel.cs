@@ -9,6 +9,7 @@ namespace App.UI
         float timer = 0;
         public Transform content = null;
         public Scrollbar scrollbar = null;
+        public Text messageBar = null;
 
         private void Awake()
         {
@@ -35,7 +36,7 @@ namespace App.UI
         {
             if (content.childCount > 10)
                 Destroy(content.GetChild(0).gameObject);
-            Text text = Instantiate(Resources.Load<Text>("UI/Message"), content);
+            Text text = Instantiate(messageBar, content);
             text.text = msg;
             scrollbar.value = 0f;
             isShow = true;

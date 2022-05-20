@@ -13,7 +13,7 @@ namespace App.Manager
         public CombatEntity[] entities = null;
         public Item[] items = null;
         public Dictionary<string, GameObject> objects = new Dictionary<string, GameObject>();
-        public List<Quest> registQuests = new List<Quest>();
+        public List<Quest> registeredQuests = new List<Quest>();
 
         void Awake()
         {

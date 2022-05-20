@@ -40,6 +40,14 @@ namespace App.Manager
 
         void Update()
         {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
+                equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = false);
+                dialoguePanel.gameObject.SetActive(dialoguePanel.isOpened = false);
+                questPanel.gameObject.SetActive(questPanel.isOpened = false);
+                messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
+            }
             if (Input.GetKeyDown(KeyCode.B))
                 bagPanel.gameObject.SetActive(bagPanel.isOpened = !bagPanel.isOpened);
             if (Input.GetKeyDown(KeyCode.E))

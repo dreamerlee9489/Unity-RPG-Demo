@@ -10,23 +10,23 @@ namespace App.Control
     [System.Serializable]
     public class Quest
     {
-        public string questName = "", chName = "";
+        public string name = "", chName = "";
         public string description = "";
-        public int current = 0, total = 1;
+        public int count = 0, number = 1;
         public bool isCompleted = false;
         public int bounty = 0;
         public float exp = 0;
-        public GameObject target = null;
+        public GameObject target { get; set; }
         public NPCController npc { get; set; }
         public Dictionary<string, int> rewards { get; set; }
 
-        public Quest(string questName, string chName, int total, int bounty, float exp, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
+        public Quest(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
         {
-            this.questName = questName;
+            this.name = name;
             this.chName = chName;
-            this.total = total;
             this.bounty = bounty;
             this.exp = exp;
+            this.number = number;
             this.target = target;
             this.npc = npc;
             this.rewards = rewards;
@@ -34,9 +34,9 @@ namespace App.Control
 
         public void UpdateProgress(int count)
         {
-            current += count;
+            this.count += count;
             UIManager.Instance.questPanel.UpdateQuest(this);
-            if (current >= total && !isCompleted)
+            if (this.count >= this.number && !isCompleted)
                 npc.CompleteQuest();
         }
     }
@@ -44,18 +44,18 @@ namespace App.Control
     [RequireComponent(typeof(MoveEntity))]
     public class NPCController : MonoBehaviour
     {
-        public DialogueConfig dialoguesConfig = null;
+        List<Quest> quests = new List<Quest>();
+        public DialogueConfig dialogueConfig = null;
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
-        public List<Quest> quests = new List<Quest>();
         public int index { get; set; }
 
         void Awake()
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
-                GiveQuest("KillUndeadKnight", "消灭不死骑士", GameManager.Instance.objects["不死骑士"], new Dictionary<string, int>(){
+                GiveQuest("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, GameManager.Instance.objects["不死骑士"], new Dictionary<string, int>(){
                     { "Weapon_Sword_Broad", 1 }, { "Potion_Meat_01", 10 }
-                }, 1, 500, 100);
+                });
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
@@ -63,32 +63,36 @@ namespace App.Control
             });
             actions.Add("GiveQuest_CollectMeat", () =>
             {
-                GiveQuest("CollectMeat", "收集烤牛排", GameManager.Instance.objects["香喷喷的烤牛排"], new Dictionary<string, int>() {
+                GiveQuest("CollectMeat", "收集烤牛排",  500, 200, 12, GameManager.Instance.objects["香喷喷的烤牛排"], new Dictionary<string, int>() {
                     { "Weapon_Axe_Large_01", 1 }
-                }, 2, 500, 200);
+                });
             });
             actions.Add("GiveReward_CollectMeat", () =>
             {
-                GiveReward("");
+                GiveReward();
             });
+            index = 0;
+            dialogueConfig = index == 0 ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Start").asset as DialogueConfig;
         }
 
-        void GiveQuest(string questName, string chName, GameObject target, Dictionary<string, int> rewards, int total = 0, int bounty = 0, int exp = 0)
+        void GiveQuest(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
         {
-            quests.Add(new Quest(questName, chName, total, bounty, exp, target, this, rewards));
-            GameManager.Instance.registQuests.Add(quests[index]);
+            quests.Add(new Quest(thisName, chName, bounty, exp, number, target, this, rewards));
+            GameManager.Instance.registeredQuests.Add(quests[index]);
             UIManager.Instance.questPanel.Add(quests[index]);
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + questName + "_Accept").asset as DialogueConfig;
+            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + thisName + "_Accept").asset as DialogueConfig;
             if (target.GetComponent<Item>() != null)
-                quests[index].UpdateProgress(InventoryManager.Instance.CountItem(target.GetComponent<Item>()));
+                quests[index].UpdateProgress(InventoryManager.Instance.Count(target.GetComponent<Item>()));
         }
 
-        void GiveReward(string questName)
+        void GiveReward(string nextName = null)
         {
-            quests[index].current -= quests[index].total;
-            GameManager.Instance.registQuests.Remove(quests[index]);
+            GameManager.Instance.registeredQuests.Remove(quests[index]);
             UIManager.Instance.questPanel.Remove(quests[index]);
-            dialoguesConfig = questName != "" ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + questName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
+            dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
+            if(quests[index].target.GetComponent<Item>() != null)
+                for (int i = 0; i < quests[index].number; i++)
+                    InventoryManager.Instance.Get(quests[index].target.GetComponent<Item>()).Use(GetComponent<CombatEntity>());
             foreach (var pair in quests[index].rewards)
             {
                 Item item = null;
@@ -107,7 +111,7 @@ namespace App.Control
         public void CompleteQuest()
         {
             quests[index].isCompleted = true;
-            dialoguesConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].questName + "_Submit").asset as DialogueConfig;
+            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Submit").asset as DialogueConfig;
         }
 
         public void ActionTrigger(string action)

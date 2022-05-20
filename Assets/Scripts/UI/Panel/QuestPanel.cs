@@ -12,7 +12,7 @@ namespace App.UI
         {
             QuestBar bar = Instantiate(questBar, scrollRect.content.transform);
             bar.gameObject.name = bar.chName.text = quest.chName;
-            bar.questProgress.text = quest.current + " / " + quest.total;
+            bar.questProgress.text = quest.count + " / " + quest.number;
         }
 
         public void UpdateQuest(Quest quest)
@@ -20,7 +20,7 @@ namespace App.UI
             for (int i = 0; i < scrollRect.content.transform.childCount; i++)
             {
                 if (scrollRect.content.transform.GetChild(i).name == quest.chName)
-                    scrollRect.content.transform.GetChild(i).GetComponent<QuestBar>().questProgress.text = quest.current + " / " + quest.total;
+                    scrollRect.content.transform.GetChild(i).GetComponent<QuestBar>().questProgress.text = quest.count + " / " + quest.number;
             }
         }
 

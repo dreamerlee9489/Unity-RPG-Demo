@@ -45,7 +45,7 @@ namespace App.Manager
             }
         }
 
-        public int CountItem(Item item)
+        public int Count(Item item)
         {
             int count = 0;
             for (int i = 0; i < items.Count; i++)
@@ -54,6 +54,16 @@ namespace App.Manager
                     count++;
             }
             return count;
+        }
+
+        public Item Get(Item item)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Equals(item))
+                    return items[i];
+            }
+            return null;
         }
     }
 }

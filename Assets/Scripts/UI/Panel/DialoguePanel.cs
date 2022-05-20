@@ -53,7 +53,7 @@ namespace App.UI
             if (npc != null)
             {
                 npcName.text = npc.GetComponent<CombatEntity>().entityConfig.nickName;
-                dialoguesConfig = npc.dialoguesConfig;
+                dialoguesConfig = npc.dialogueConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];
                 dialogue.text = node.dialogue;
                 nextRow.SetActive(node.hasNext);

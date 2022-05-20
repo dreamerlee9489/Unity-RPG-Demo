@@ -13,11 +13,12 @@ namespace App.Items
     [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
     {
+        NameBar nameBar = null;
         public ItemConfig itemConfig = null;
+        public ContainerType containerType = ContainerType.WORLD;
         public ItemUI itemUI { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
-        public ContainerType containerType = ContainerType.WORLD;
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
         public override bool Equals(object other) => itemConfig == (other as Item).itemConfig;
@@ -31,19 +32,32 @@ namespace App.Items
             collider.enabled = containerType == ContainerType.WORLD ? true : false;
             rigidbody.useGravity = containerType == ContainerType.WORLD ? true : false;
         }
+
+        void Update()
+        {
+            if (containerType == ContainerType.WORLD && nameBar == null)
+            {
+                nameBar = Instantiate(Resources.Load<NameBar>("UI/NameBar"));
+                nameBar.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+                nameBar.text.text = itemConfig.itemName;
+            }
+        }
+
         protected void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                for (int i = 0; i < GameManager.Instance.registQuests.Count; i++)
+                for (int i = 0; i < GameManager.Instance.registeredQuests.Count; i++)
                 {
-                    Item item = GameManager.Instance.registQuests[i].target.GetComponent<Item>();
+                    Item item = GameManager.Instance.registeredQuests[i].target.GetComponent<Item>();
                     if (item != null && Equals(item))
-                        GameManager.Instance.registQuests[i].UpdateProgress(1);
+                        GameManager.Instance.registeredQuests[i].UpdateProgress(1);
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
                 AddToInventory();
+                Destroy(nameBar.gameObject);
                 Destroy(gameObject);
+                nameBar = null;
             }
         }
     }
