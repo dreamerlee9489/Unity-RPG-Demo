@@ -8,7 +8,7 @@ using App.Items;
 namespace App.Control
 {
     [System.Serializable]
-    public class Quest
+    public class Task
     {
         public string name = "", chName = "";
         public string description = "";
@@ -20,7 +20,7 @@ namespace App.Control
         public NPCController npc { get; set; }
         public Dictionary<string, int> rewards { get; set; }
 
-        public Quest(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
+        public Task(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
         {
             this.name = name;
             this.chName = chName;
@@ -35,9 +35,9 @@ namespace App.Control
         public void UpdateProgress(int count)
         {
             this.count += count;
-            UIManager.Instance.questPanel.UpdateQuest(this);
+            UIManager.Instance.taskPanel.UpdateTask(this);
             if (this.count >= this.number && !isCompleted)
-                npc.CompleteQuest();
+                npc.CompleteTask();
         }
     }
 
@@ -45,7 +45,7 @@ namespace App.Control
     public abstract class NPCController : MonoBehaviour
     {
         protected int index = 0;
-        protected List<Quest> quests = new List<Quest>();
+        protected List<Task> tasks = new List<Task>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
         public DialogueConfig dialogueConfig { get; set; }
 
@@ -55,25 +55,25 @@ namespace App.Control
             GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 
-        protected void GiveQuest(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
+        protected void GiveTask(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
         {
-            quests.Add(new Quest(thisName, chName, bounty, exp, number, target, this, rewards));
-            GameManager.Instance.registeredQuests.Add(quests[index]);
-            UIManager.Instance.questPanel.Add(quests[index]);
+            tasks.Add(new Task(thisName, chName, bounty, exp, number, target, this, rewards));
+            GameManager.Instance.registeredTasks.Add(tasks[index]);
+            UIManager.Instance.taskPanel.Add(tasks[index]);
             dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + thisName + "_Accept").asset as DialogueConfig;
             if (target.GetComponent<Item>() != null)
-                quests[index].UpdateProgress(InventoryManager.Instance.Count(target.GetComponent<Item>()));
+                tasks[index].UpdateProgress(InventoryManager.Instance.Count(target.GetComponent<Item>()));
         }
 
         protected void GiveReward(string nextName = null)
         {
-            GameManager.Instance.registeredQuests.Remove(quests[index]);
-            UIManager.Instance.questPanel.Remove(quests[index]);
+            GameManager.Instance.registeredTasks.Remove(tasks[index]);
+            UIManager.Instance.taskPanel.Remove(tasks[index]);
             dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
-            if(quests[index].target.GetComponent<Item>() != null)
-                for (int i = 0; i < quests[index].number; i++)
-                    InventoryManager.Instance.Get(quests[index].target.GetComponent<Item>()).Use(GetComponent<CombatEntity>());
-            foreach (var pair in quests[index].rewards)
+            if(tasks[index].target.GetComponent<Item>() != null)
+                for (int i = 0; i < tasks[index].number; i++)
+                    InventoryManager.Instance.Get(tasks[index].target.GetComponent<Item>()).Use(GetComponent<CombatEntity>());
+            foreach (var pair in tasks[index].rewards)
             {
                 Item item = null;
                 for (int i = 0; i < pair.Value; i++)
@@ -83,17 +83,17 @@ namespace App.Control
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value);
             }
-            GameManager.Instance.player.GetExprience(quests[index].exp);
-            InventoryManager.Instance.playerData.golds += quests[index].bounty;
+            GameManager.Instance.player.GetExprience(tasks[index].exp);
+            InventoryManager.Instance.playerData.golds += tasks[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
             index++;
         }
 
-        public void CompleteQuest()
+        public void CompleteTask()
         {
-            quests[index].isCompleted = true;
-            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Submit").asset as DialogueConfig;
+            tasks[index].isCompleted = true;
+            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Submit").asset as DialogueConfig;
         }
 
         public void ActionTrigger(string action)

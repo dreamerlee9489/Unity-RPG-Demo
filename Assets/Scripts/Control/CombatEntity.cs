@@ -94,11 +94,11 @@ namespace App.Control
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
             if (CompareTag("Enemy"))
             {
-                for (int i = 0; i < GameManager.Instance.registeredQuests.Count; i++)
+                for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
                 {
-                    CombatEntity entity = GameManager.Instance.registeredQuests[i].target.GetComponent<CombatEntity>();
+                    CombatEntity entity = GameManager.Instance.registeredTasks[i].target.GetComponent<CombatEntity>();
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
-                        GameManager.Instance.registeredQuests[i].UpdateProgress(1);
+                        GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
                 UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentExp / GameManager.Instance.player.maxExp, 1, 1));
                 if (GameManager.Instance.player.currentExp >= GameManager.Instance.player.maxHp)

@@ -5,7 +5,6 @@ namespace App.UI
 {
 	public class HUDBar : MonoBehaviour
 	{
-		bool isShow = false;
 		float timer = 6;
 		public Image foreground = null;
 
@@ -17,14 +16,11 @@ namespace App.UI
 
 		void LateUpdate()
 		{
-			if(isShow)
+			if(gameObject.activeSelf)
 			{
 				timer -= Time.deltaTime;
 				if(timer <= 0)
-				{
-					isShow = false;
-					gameObject.SetActive(isShow);
-				}
+					gameObject.SetActive(false);
 			}
 			transform.forward = Camera.main.transform.forward;
 		}
@@ -33,14 +29,9 @@ namespace App.UI
 		{
 			if(CompareTag("Enemy"))
 			{
-				if(!isShow)
-				{
-					isShow = true;
-					gameObject.SetActive(isShow);
-					timer = 6;
-				}
-				else
-					timer = 6;
+				timer = 6;
+				if(!gameObject.activeSelf)
+					gameObject.SetActive(true);
 			}
 			foreground.transform.localScale = vector;
 		}

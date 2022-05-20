@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b7a704af8483a448ea5f391f6afdc7, type: 3}
-  m_Name: EntityConfig_NPC_Guard
+  m_Name: NPCConfig_Vendor
   m_EditorClassIdentifier: 
-  nickName: "\u57CE\u90CA\u5B88\u536B"
+  nickName: "\u65C5\u884C\u5546\u4EBA"
   description: 
-  entity: {fileID: 1221311907937795221, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
+  entity: {fileID: 2915318451938203349, guid: 985badc1c56165f4b999c7e0fd851931, type: 3}
   walkSpeed: 1.558401
   runSpeed: 5.662316
   walkFactor: 1

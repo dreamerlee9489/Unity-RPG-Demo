@@ -7,7 +7,7 @@ using App.Items;
 namespace App.UI
 {
     [System.Serializable]
-    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler  
+    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         Transform originParent = null;
         public Item item { get; set; }
@@ -149,8 +149,8 @@ namespace App.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            UIManager.Instance.tipPanel.Draw(this);
             UIManager.Instance.tipPanel.transform.position = eventData.pointerEnter.transform.position + new Vector3(-GetComponent<RectTransform>().rect.width, 0, 0);
+            UIManager.Instance.tipPanel.Draw(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)

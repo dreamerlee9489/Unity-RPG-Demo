@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55edeb7823dac3e448c789672e8ebe14, type: 3}
-  m_Name: DialogueConfig_CollectMeat_Start
+  m_Name: DialogueConfig_NPC_Vendor_01
   m_EditorClassIdentifier: 
   dialogues:
-  - dialogue: "\u7AD9\u4E86\u4E00\u5929\u5C97\uFF0C\u809A\u5B50\u597D\u997F\u554A\uFF01"
-    hasNext: 1
-    options: []
-  - dialogue: "\u53EF\u4EE5\u5E2E\u6211\u5F04\u4E9B\u70E4\u725B\u6392\u5417\uFF1F"
+  - dialogue: "\u6211\u8FD9\u91CC\u6709\u4E9B\u7A00\u5947\u5B9D\u8D1D\uFF0C\u8981\u770B\u770B\u5417\uFF1F"
     hasNext: 0
     options:
-    - dialogue: "\u53EF\u4EE5\u3002"
-      action: GiveTask_CollectMeat
-    - dialogue: "\u5173\u6211\u5C41\u4E8B\u3002"
+    - dialogue: "\u597D\u7684\u3002"
+      action: OpenShop
+    - dialogue: "\u4E0D\u611F\u5174\u8DA3\u3002"
       action: 

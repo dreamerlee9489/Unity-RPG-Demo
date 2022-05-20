@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 2471365959661734132}
-  questBar: {fileID: 6605589307533267330, guid: ca94ab054341f9a46915215b9c97afd9, type: 3}
+  taskBar: {fileID: 6605589307533267330, guid: ca94ab054341f9a46915215b9c97afd9, type: 3}
 --- !u!1 &2471365961250329826
 GameObject:
   m_ObjectHideFlags: 0

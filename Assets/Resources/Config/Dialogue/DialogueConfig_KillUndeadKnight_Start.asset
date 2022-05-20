@@ -23,6 +23,6 @@ MonoBehaviour:
     hasNext: 0
     options:
     - dialogue: "\u597D\u7684\uFF0C\u6CA1\u95EE\u9898\uFF01"
-      action: GiveQuest_KillUndeadKnight
+      action: GiveTask_KillUndeadKnight
     - dialogue: "\u7B97\u4E86\uFF0C\u6CA1\u7A7A\u3002"
       action: 

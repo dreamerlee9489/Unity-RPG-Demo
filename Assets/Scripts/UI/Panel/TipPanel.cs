@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using App.SO;
 using App.Items;
 
@@ -20,10 +21,17 @@ namespace App.UI
 			tipBar = Resources.Load<Text>("UI/TipBar");
 		}
 
+		void Update()
+		{
+			if(!EventSystem.current.IsPointerOverGameObject() && gameObject.activeSelf)
+				gameObject.SetActive(false);
+		}
+
 		public void Draw(ItemUI itemUI)
 		{
+			if(bars.Count > 0)
+				return;
 			gameObject.SetActive(true);
-			transform.GetComponent<RectTransform>().anchoredPosition = itemUI.GetComponent<RectTransform>().position;
 			itemName.text = itemUI.item.itemConfig.itemName;
 			description.text = itemUI.item.itemConfig.description;
 			switch (itemUI.item.itemConfig.itemType)
@@ -72,10 +80,10 @@ namespace App.UI
 
 		public void Erase()
 		{
+			gameObject.SetActive(false);
 			foreach (var text in bars)
 				Destroy(text.gameObject);
 			bars.Clear();
-			gameObject.SetActive(false);
 		}
 	}
 }

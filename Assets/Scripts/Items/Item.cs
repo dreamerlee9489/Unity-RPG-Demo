@@ -50,11 +50,11 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
-                for (int i = 0; i < GameManager.Instance.registeredQuests.Count; i++)
+                for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
                 {
-                    Item item = GameManager.Instance.registeredQuests[i].target.GetComponent<Item>();
+                    Item item = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
                     if (item != null && Equals(item))
-                        GameManager.Instance.registeredQuests[i].UpdateProgress(1);
+                        GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
                 AddToInventory();

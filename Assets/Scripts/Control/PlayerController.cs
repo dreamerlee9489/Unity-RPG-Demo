@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using App.Manager;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +14,7 @@ namespace App.Control
         NavMeshAgent agent = null;
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
-        Command[] commands = null;
+        List<Command> commands = new List<Command>();
         public Transform inventory = null;
 
         void Start()
@@ -22,7 +23,9 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             moveEntity = GetComponent<MoveEntity>();
             combatEntity = GetComponent<CombatEntity>();
-            commands = new Command[3] { new MoveCommand(moveEntity), new CombatCommand(combatEntity), new DialogueCommand(UIManager.Instance) };
+            commands.Add(new MoveCommand(moveEntity));
+            commands.Add(new CombatCommand(combatEntity));
+            commands.Add(new DialogueCommand(UIManager.Instance));
         }
 
         void Update()
@@ -36,6 +39,7 @@ namespace App.Control
                         switch (hit.collider.tag)
                         {
                             case "Terrain":
+                            case "Item":
                                 ExecuteCommand(0, hit.point);
                                 break;
                             case "Enemy":
@@ -57,9 +61,7 @@ namespace App.Control
         }
 
         void ExecuteCommand(int index, Vector3 point) => commands[index].Execute(point);
-
         void ExecuteCommand(int index, Transform target) => commands[index].Execute(target);
-
         void CancelCommand()
         {
             foreach (var command in commands)
