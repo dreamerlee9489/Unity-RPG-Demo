@@ -18,7 +18,7 @@ namespace App.Control
         public float exp = 0;
         public GameObject target { get; set; }
         public NPCController npc { get; set; }
-        public Dictionary<string, int> rewards { get; set; }
+        public Dictionary<string, int> rewards = new Dictionary<string, int>();
 
         public Quest(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
         {
@@ -44,12 +44,12 @@ namespace App.Control
     [RequireComponent(typeof(MoveEntity))]
     public class NPCController : MonoBehaviour
     {
+        int index = 0;
         List<Quest> quests = new List<Quest>();
-        public DialogueConfig dialogueConfig = null;
+        public DialogueConfig dialogueConfig { get; set; }
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
-        public int index { get; set; }
 
-        void Awake()
+        protected virtual void Awake()
         {
             actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
@@ -103,8 +103,10 @@ namespace App.Control
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value);
             }
+            GameManager.Instance.player.GetExprience(quests[index].exp);
             InventoryManager.Instance.playerData.golds += quests[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
+            UIManager.Instance.attributePanel.UpdatePanel();
             index++;
         }
 

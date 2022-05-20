@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4867f9c632ab80f4688fb501b4c1df3e, type: 3}
   m_Name: DropListConfig_Demon
   m_EditorClassIdentifier: 
-  dropList: []
+  dropList:
+  - {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
+  - {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
+  - {fileID: 8027321210737905596, guid: c2959e69625aa2b4ea57295b777da49d, type: 3}

@@ -18,10 +18,10 @@ namespace App.Items
         public override void Use(CombatEntity user)
         {
             PotionConfig potionConfig = itemConfig as PotionConfig;
-            user.currAtk += potionConfig.atk;
-            user.currDef += potionConfig.def;
-            user.currHp = Mathf.Min(user.currHp + potionConfig.hp, user.progression.thisLevelHp);
-            user.healthBar.UpdateBar(new Vector3(user.currHp / user.progression.thisLevelHp, 1, 1));
+            user.currentAtk += potionConfig.atk;
+            user.currentDef += potionConfig.def;
+            user.currentHp = Mathf.Min(user.currentHp + potionConfig.hp, user.progression.thisLevelHp);
+            user.healthBar.UpdateBar(new Vector3(user.currentHp / user.progression.thisLevelHp, 1, 1));
             InventoryManager.Instance.Remove(this);
             ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
             itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();

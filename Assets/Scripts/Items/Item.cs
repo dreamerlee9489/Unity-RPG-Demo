@@ -35,11 +35,14 @@ namespace App.Items
 
         void Update()
         {
-            if (containerType == ContainerType.WORLD && nameBar == null)
+            if (containerType == ContainerType.WORLD)
             {
-                nameBar = Instantiate(Resources.Load<NameBar>("UI/NameBar"));
-                nameBar.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-                nameBar.text.text = itemConfig.itemName;
+                if(nameBar == null)
+                {
+                    nameBar = Instantiate(Resources.Load<NameBar>("UI/NameBar"));
+                    nameBar.text.text = itemConfig.itemName;
+                }
+                nameBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             }
         }
 
@@ -55,9 +58,12 @@ namespace App.Items
                 }
                 UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
                 AddToInventory();
-                Destroy(nameBar.gameObject);
+                if(nameBar != null)
+                {
+                    Destroy(nameBar.gameObject);
+                    nameBar = null;
+                }
                 Destroy(gameObject);
-                nameBar = null;
             }
         }
     }

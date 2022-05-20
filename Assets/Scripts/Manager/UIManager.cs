@@ -15,6 +15,7 @@ namespace App.Manager
         public QuestPanel questPanel { get; set; }
         public GoldPanel goldPanel { get; set; }
         public MessagePanel messagePanel { get; set; }
+        public AttributePanel attributePanel { get; set; }
 
         void Awake()
         {
@@ -26,6 +27,7 @@ namespace App.Manager
             questPanel = GameObject.Find("QuestPanel").GetComponent<QuestPanel>();
             goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
             messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
+            attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -36,18 +38,22 @@ namespace App.Manager
             dialoguePanel.gameObject.SetActive(false);
             questPanel.gameObject.SetActive(false);
             messagePanel.gameObject.SetActive(false);
+            attributePanel.gameObject.SetActive(false);
         }
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
                 equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = false);
                 dialoguePanel.gameObject.SetActive(dialoguePanel.isOpened = false);
                 questPanel.gameObject.SetActive(questPanel.isOpened = false);
                 messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
+                attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
             }
+            if (Input.GetKeyDown(KeyCode.A))
+                attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
             if (Input.GetKeyDown(KeyCode.B))
                 bagPanel.gameObject.SetActive(bagPanel.isOpened = !bagPanel.isOpened);
             if (Input.GetKeyDown(KeyCode.E))
@@ -56,11 +62,7 @@ namespace App.Manager
                 questPanel.gameObject.SetActive(questPanel.isOpened = !questPanel.isOpened);
         }
 
-        public void ExecuteAction(Vector3 point)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
             dialoguePanel.npc = target.GetComponent<NPCController>();
