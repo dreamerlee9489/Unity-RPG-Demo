@@ -12,12 +12,12 @@ namespace App.Manager
         static InventoryManager instance = new InventoryManager();
         InventoryManager() { inventory = GameManager.Instance.player.GetComponent<PlayerController>().inventory; }
         public static InventoryManager Instance => instance;
-        public List<GameItem> items = new List<GameItem>();
+        public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
         public PlayerData playerData = new PlayerData();
         public Transform inventory { get; set; }
 
-        public void Add(GameItem item, ItemUI itemUI)
+        public void Add(Item item, ItemUI itemUI)
         {
             items.Add(item);
             itemUIs.Add(itemUI);
@@ -25,7 +25,7 @@ namespace App.Manager
             itemUI.item = item;
             ItemSlot itemSlot = itemUI.transform.parent.parent.GetComponent<ItemSlot>();
             itemSlot.itemUI = itemUI;
-            itemSlot.itemType = item.config.itemType;
+            itemSlot.itemType = item.itemConfig.itemType;
             item.gameObject.SetActive(false);
             item.containerType = ContainerType.BAG;
             item.collider.enabled = false;
@@ -33,7 +33,7 @@ namespace App.Manager
             item.rigidbody.isKinematic = true;
         }
 
-        public void Remove(GameItem item)
+        public void Remove(Item item)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -45,7 +45,7 @@ namespace App.Manager
             }
         }
 
-        public int CountItem(GameItem item)
+        public int CountItem(Item item)
         {
             int count = 0;
             for (int i = 0; i < items.Count; i++)

@@ -1,7 +1,4 @@
-﻿using App.Manager;
-using App.Config;
-using UnityEngine;
-using App.Control;
+﻿using App.Control;
 
 namespace App.Items
 {

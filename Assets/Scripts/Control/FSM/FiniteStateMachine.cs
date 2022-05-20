@@ -1,6 +1,5 @@
 using UnityEngine;
 using App.Manager;
-using App.Config;
 
 namespace App.Control.FSM
 {

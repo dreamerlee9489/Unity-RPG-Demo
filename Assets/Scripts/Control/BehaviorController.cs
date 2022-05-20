@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using App.Control.BT;
-using App.Config;
 
 namespace App.Control
 {
@@ -30,10 +29,10 @@ namespace App.Control
             {
                 if (combatEntity.CanSee(player))
                 {
-                    agent.speed = combatEntity.abilityConfig.runSpeed * combatEntity.abilityConfig.runFactor;
+                    agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor;
                     return true;
                 }
-                agent.speed = combatEntity.abilityConfig.walkSpeed * combatEntity.abilityConfig.walkFactor;
+                agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
@@ -75,7 +74,7 @@ namespace App.Control
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, GetComponent<CombatEntity>().abilityConfig.viewRadius);
+            Gizmos.DrawWireSphere(transform.position, GetComponent<CombatEntity>().entityConfig.viewRadius);
         }
     }
 }

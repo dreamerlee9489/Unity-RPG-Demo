@@ -1,5 +1,4 @@
-﻿using System;
-using App.Items;
+﻿using App.Items;
 using UnityEngine;
 
 namespace App.UI
@@ -36,7 +35,7 @@ namespace App.UI
             return null;
         }
 
-        public ItemSlot GetStackSlot(GameItem item)
+        public ItemSlot GetStackSlot(Item item)
         {
             ItemSlot itemSlot = null;
             for (int i = 0; i < content.childCount; i++)

@@ -1,10 +1,8 @@
-using App.Manager;
-
-namespace App.Data
+﻿namespace App.Data
 {
-	public class PlayerData 
-	{
-		public string nickName = "";
-		public int golds = 500;
-	}
+    public class PlayerData
+    {
+        public string nickName = "";
+        public int golds = 500;
+    }
 }

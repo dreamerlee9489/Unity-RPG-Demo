@@ -57,7 +57,7 @@ namespace App.UI
         public void Open(ItemUI itemUI)
         {
             this.itemUI = itemUI;
-            this.itemType = itemUI.item.config.itemType;
+            this.itemType = itemUI.item.itemConfig.itemType;
             itemUI.transform.SetParent(icons);
             itemUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }

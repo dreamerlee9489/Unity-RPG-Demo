@@ -6,18 +6,18 @@ using App.UI;
 
 namespace App.Items
 {
-    public class Potion : GameItem
+    public class Potion : Item
     {
         public override void AddToInventory()
         {
             ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, itemSlot.icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.inventory), Instantiate(itemConfig.itemUI, itemSlot.icons.transform));
             itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
         }
 
         public override void Use(CombatEntity user)
         {
-            PotionConfig potionConfig = config as PotionConfig;
+            PotionConfig potionConfig = itemConfig as PotionConfig;
             user.currAtk += potionConfig.atk;
             user.currDef += potionConfig.def;
             user.currHp = Mathf.Min(user.currHp + potionConfig.hp, user.progression.thisLevelHp);

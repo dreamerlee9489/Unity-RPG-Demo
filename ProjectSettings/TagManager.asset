@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - NPC
   - Item
+  - QuestTarget
   layers:
   - Default
   - TransparentFX

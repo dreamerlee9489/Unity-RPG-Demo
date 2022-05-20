@@ -1,12 +1,8 @@
-﻿using App.Manager;
-using App.Config;
-using App.UI;
-using UnityEngine;
-using App.Control;
+﻿using App.Control;
 
 namespace App.Items
 {
-    public class Pants : GameItem
+    public class Pants : Item
     {
         public override void AddToInventory()
         {

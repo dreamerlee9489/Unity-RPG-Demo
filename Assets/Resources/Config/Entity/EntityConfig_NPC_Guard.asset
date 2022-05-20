@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b7a704af8483a448ea5f391f6afdc7, type: 3}
-  m_Name: AbilityConfig_UndeadKnight
+  m_Name: EntityConfig_NPC_Guard
   m_EditorClassIdentifier: 
+  nickName: "\u57CE\u90CA\u5B88\u536B"
+  description: 
+  entity: {fileID: 1221311907937795221, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
   walkSpeed: 1.558401
   runSpeed: 5.662316
   walkFactor: 1
   runFactor: 1
   viewRadius: 6
   fleeRadius: 6
-  stopDistance: 1.5
-  hp: 50
-  atk: 10
-  def: 1
+  stopDistance: 1

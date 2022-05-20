@@ -1656,17 +1656,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickName: "\u57CE\u90CA\u5DE8\u9B54"
   unarmedWeapon: {fileID: 5924773072542235537}
   weapon: {fileID: 3350925516590248549, guid: 8b91e6ca590e1af4bb6c7c6d34a892c4, type: 3}
   healthBar: {fileID: 3006573216755222829}
   level: 1
-  currHp: 0
-  currMp: 0
-  currDef: 0
-  currAtk: 0
-  currExp: 0
-  abilityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
+  entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
   progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
 --- !u!114 &3851642028468238332

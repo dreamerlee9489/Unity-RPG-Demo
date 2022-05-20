@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using App.Config;
 using App.Control;
@@ -52,7 +52,7 @@ namespace App.UI
         {
             if (npc != null)
             {
-                npcName.text = npc.GetComponent<CombatEntity>().nickName;
+                npcName.text = npc.GetComponent<CombatEntity>().entityConfig.nickName;
                 dialoguesConfig = npc.dialoguesConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];
                 dialogue.text = node.dialogue;

@@ -11,18 +11,17 @@ namespace App.Items
     public enum ContainerType { WORLD, ENTITY, BAG, EQUIPMENT, ACTION }
 
     [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
-    public abstract class GameItem : MonoBehaviour
+    public abstract class Item : MonoBehaviour
     {
-        public bool isQuestTarget = false;
-        public ItemConfig config = null;
+        public ItemConfig itemConfig = null;
         public ItemUI itemUI { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
         public ContainerType containerType = ContainerType.WORLD;
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
-        public override bool Equals(object other) => config == (other as GameItem).config;
-        public override int GetHashCode() => config.itemName.GetHashCode();
+        public override bool Equals(object other) => itemConfig == (other as Item).itemConfig;
+        public override int GetHashCode() => itemConfig.itemName.GetHashCode();
 
         protected void Awake()
         {
@@ -36,16 +35,13 @@ namespace App.Items
         {
             if (other.CompareTag("Player"))
             {
-                if (isQuestTarget)
+                for (int i = 0; i < GameManager.Instance.registQuests.Count; i++)
                 {
-                    for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
-                    {
-                        GameItem item = GameManager.Instance.ongoingQuests[i].target.GetComponent<GameItem>();
-                        if (item != null && Equals(item))
-                            GameManager.Instance.ongoingQuests[i].UpdateProgress(1);
-                    }
+                    Item item = GameManager.Instance.registQuests[i].target.GetComponent<Item>();
+                    if (item != null && Equals(item))
+                        GameManager.Instance.registQuests[i].UpdateProgress(1);
                 }
-                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + config.itemName + " * 1");
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
                 AddToInventory();
                 Destroy(gameObject);
             }

@@ -75,6 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4918f23473ad57d43987dfbcd6b67c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 919c4491416fdf441976117f645a4f19, type: 2}
+  itemConfig: {fileID: 11400000, guid: 919c4491416fdf441976117f645a4f19, type: 2}
   containerType: 1
   equipmentType: 0

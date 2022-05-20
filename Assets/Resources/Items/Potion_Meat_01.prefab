@@ -127,5 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a44bf888502a0438ffa3da2eb20d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 0c7aa73b44e776b409db5fd02276c140, type: 2}
+  itemConfig: {fileID: 11400000, guid: 0c7aa73b44e776b409db5fd02276c140, type: 2}
   containerType: 0

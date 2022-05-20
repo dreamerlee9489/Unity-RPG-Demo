@@ -2967,7 +2967,7 @@ GameObject:
   - component: {fileID: 1221311907937795221}
   - component: {fileID: 7363631187237748029}
   m_Layer: 0
-  m_Name: NPC_Soldier_01
+  m_Name: NPC_Guard_01
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3075,17 +3075,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickName: "\u57CE\u90CA\u5B88\u536B"
   unarmedWeapon: {fileID: 6122089429030019768}
   weapon: {fileID: 6122089429030019768}
   healthBar: {fileID: 5642071631248901299}
   level: 1
-  currHp: 100
-  currMp: 0
-  currDef: 0
-  currAtk: 10
-  currExp: 0
-  abilityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
+  entityConfig: {fileID: 11400000, guid: 46fc001bb2ed3764e988d38d40e8a87e, type: 2}
   progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
 --- !u!114 &7363631187237748029
@@ -3101,13 +3095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguesConfig: {fileID: 11400000, guid: ac75f58a0d8baa749adb58d735d0ea81, type: 2}
-  quests:
-  - name: "\u6D88\u706D\u4E0D\u6B7B\u9A91\u58EB"
-    description: Test to Kill Undead Knight.
-    current: 0
-    total: 1
-    isCompleted: 0
-    bounty: 0
+  quests: []
 --- !u!1 &7239271153561499450
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using App.Manager;
+﻿using App.Manager;
 using App.UI;
 using App.Control;
 
@@ -9,7 +8,7 @@ namespace App.Items
     {
         public override void AddToInventory()
         {
-            InventoryManager.Instance.Add(Instantiate(config.item, InventoryManager.Instance.inventory), Instantiate(config.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.inventory), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
         }   
 
         public override void Use(CombatEntity user)

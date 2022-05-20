@@ -9,7 +9,7 @@ namespace App.Config
         public string itemName = "";
         public string description = "";
         public bool stackable = false;
-        public GameItem item = null;
+        public Item item = null;
         public ItemUI itemUI = null;
         public ItemType itemType = ItemType.WEAPON;
     }

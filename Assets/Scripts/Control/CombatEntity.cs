@@ -12,7 +12,6 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
-        public string nickName = "";
         public Weapon unarmedWeapon = null;
         public Weapon weapon = null;
         public HUDBar healthBar = null;
@@ -23,12 +22,11 @@ namespace App.Control
         public float currAtk { get; set; }
         public float currExp { get; set; }
         public bool isDead { get; set; }
-        public bool isQuestTarget { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
         public Transform combatTarget { get; set; }
         public Progression progression { get; set; }
-        public AbilityConfig abilityConfig = null;
+        public EntityConfig entityConfig = null;
         public ProgressionConfig progressionConfig = null;
         public DropListConfig dropListConfig = null;
 
@@ -40,15 +38,15 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             GetComponent<Collider>().enabled = true;
-            agent.stoppingDistance = abilityConfig.stopDistance;
+            agent.stoppingDistance = entityConfig.stopDistance;
             agent.radius = 0.5f;
-            sqrViewRadius = Mathf.Pow(abilityConfig.viewRadius, 2);
+            sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             progression = progressionConfig.GetProgressionByLevel(level);
             currHp = progression.thisLevelHp;
             currMp = progression.thisLevelMp;
             currDef = progression.thisLevelDef;
-            currAtk = progression.thisLevelAtk + (weapon.config as WeaponConfig).atk;
+            currAtk = progression.thisLevelAtk + (weapon.itemConfig as WeaponConfig).atk;
             currExp = 0;
         }
 
@@ -78,20 +76,17 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<GameItem> drops = dropListConfig.GetDrops(progression, ref InventoryManager.Instance.playerData.golds);
+            List<Item> drops = dropListConfig.GetDrops(progression, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
             if (CompareTag("Enemy"))
             {
-                if (isQuestTarget)
+                for (int i = 0; i < GameManager.Instance.registQuests.Count; i++)
                 {
-                    for (int i = 0; i < GameManager.Instance.ongoingQuests.Count; i++)
-                    {
-                        Quest quest = GameManager.Instance.ongoingQuests[i];
-                        if (quest.target.GetComponent<CombatEntity>().nickName == nickName)
-                            quest.UpdateProgress(1);
-                    }
+                    CombatEntity entity = GameManager.Instance.registQuests[i].target.GetComponent<CombatEntity>();
+                    if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
+                        GameManager.Instance.registQuests[i].UpdateProgress(1);
                 }
                 GameManager.Instance.player.currExp += progression.nextLevelExp * 1.5f;
                 UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currExp / GameManager.Instance.player.progression.nextLevelExp, 1, 1));
@@ -107,7 +102,7 @@ namespace App.Control
             currHp = progression.thisLevelHp;
             currMp = progression.thisLevelMp;
             currDef = progression.thisLevelDef;
-            currAtk = progression.thisLevelAtk + (weapon.config as WeaponConfig).atk;
+            currAtk = progression.thisLevelAtk + (weapon.itemConfig as WeaponConfig).atk;
             UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currHp / progression.thisLevelHp, 1, 1));
             UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currMp / progression.thisLevelMp, 1, 1));
             UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(currExp / progression.nextLevelExp, 1, 1));
@@ -118,7 +113,7 @@ namespace App.Control
             switch (equipment.equipmentType)
             {
                 case EquipmentType.WEAPON:
-                    WeaponConfig weaponConfig = equipment.config as WeaponConfig;
+                    WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currAtk = progression.thisLevelAtk + weaponConfig.atk;
                     weapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
@@ -126,7 +121,7 @@ namespace App.Control
                     equipment.gameObject.SetActive(true);
                     return;
                 case EquipmentType.ARMOR:
-                    ArmorConfig armorConfig = equipment.config as ArmorConfig;
+                    ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
                     currHp = progression.thisLevelAtk + armorConfig.hp;
                     currDef = progression.thisLevelDef + armorConfig.def;
                     return;
@@ -140,7 +135,7 @@ namespace App.Control
             switch (equipment.equipmentType)
             {
                 case EquipmentType.WEAPON:
-                    WeaponConfig weaponConfig = equipment.config as WeaponConfig;
+                    WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currAtk = progression.thisLevelAtk;
                     weapon = unarmedWeapon;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
@@ -148,7 +143,7 @@ namespace App.Control
                     equipment.gameObject.SetActive(false);
                     return;
                 case EquipmentType.ARMOR:
-                    ArmorConfig armorConfig = equipment.config as ArmorConfig;
+                    ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
                     currHp = progression.thisLevelHp;
                     currDef = progression.thisLevelDef;
                     return;

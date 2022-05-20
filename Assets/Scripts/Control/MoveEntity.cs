@@ -13,7 +13,7 @@ namespace App.Control
         Animator animator = null;
         NavMeshAgent agent = null;
         CombatEntity combatEntity = null;
-        public AbilityConfig abilityConfig { get; set; }
+        public EntityConfig abilityConfig { get; set; }
 
         void Awake()
         {
@@ -24,7 +24,7 @@ namespace App.Control
             agent.autoBraking = false;
             agent.angularSpeed = 4800;
             agent.acceleration = 80;
-            abilityConfig = combatEntity.abilityConfig;
+            abilityConfig = combatEntity.entityConfig;
             agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(abilityConfig.fleeRadius, 2);
