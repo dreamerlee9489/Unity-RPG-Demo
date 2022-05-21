@@ -1,11 +1,12 @@
 ﻿using App.Manager;
 using App.UI;
 using App.Control;
+using UnityEngine;
 
 namespace App.Items
 {
     public class Weapon : Equipment
-    {
+    {        
         public override void Use(CombatEntity user)
         {
             ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;

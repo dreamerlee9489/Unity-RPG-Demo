@@ -60,7 +60,7 @@ namespace App.Manager
         {
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].Equals(item))
+                if (items[i].Equals(item) && items[i].containerType != ContainerType.EQUIPMENT)
                     return items[i];
             }
             return null;
