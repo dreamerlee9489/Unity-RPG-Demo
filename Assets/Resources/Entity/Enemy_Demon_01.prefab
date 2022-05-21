@@ -62,7 +62,7 @@ Transform:
   m_Children:
   - {fileID: 3758310506710613019}
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3756301658095912441
 GameObject:
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3876947198292762537}
   m_Layer: 0
   m_Name: Chr_Dwarf_Worker_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3876947198292762537
 SkinnedMeshRenderer:
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 3877496438985132695}
   m_Layer: 0
   m_Name: Chr_Demon_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1193,7 +1193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3877496438985132695
 SkinnedMeshRenderer:
@@ -1407,7 +1407,7 @@ GameObject:
   - component: {fileID: 3873373941658364349}
   m_Layer: 0
   m_Name: Chr_Dwarf_Casual_Female_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1425,7 +1425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3873373941658364349
 SkinnedMeshRenderer:
@@ -1564,6 +1564,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3006573216755222817}
+  - {fileID: 3296339880914585945}
   - {fileID: 3758593297610437021}
   - {fileID: 3762398078160473755}
   - {fileID: 3758315464686478325}
@@ -1573,7 +1574,6 @@ Transform:
   - {fileID: 3762281112736934777}
   - {fileID: 3758797855387621503}
   - {fileID: 3762211079844312805}
-  - {fileID: 3048221984712552364}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1658,11 +1658,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPos: {fileID: 505250513981252231}
-  weapon: {fileID: 0}
+  weapon: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
   healthBar: {fileID: 3006573216755222829}
   entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
   progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
+  level: 3
 --- !u!114 &3851642028468238332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,7 +1688,7 @@ GameObject:
   - component: {fileID: 3877296746832162655}
   m_Layer: 0
   m_Name: Chr_Dwarf_King_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1705,7 +1706,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3877296746832162655
 SkinnedMeshRenderer:
@@ -1917,7 +1918,7 @@ GameObject:
   - component: {fileID: 3877062108015591503}
   m_Layer: 0
   m_Name: Chr_Dwarf_Miner_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1935,7 +1936,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3877062108015591503
 SkinnedMeshRenderer:
@@ -2367,7 +2368,7 @@ GameObject:
   - component: {fileID: 3873494018235783275}
   m_Layer: 0
   m_Name: Chr_Dwarf_Soldier_Male_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2385,7 +2386,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3873494018235783275
 SkinnedMeshRenderer:
@@ -2501,7 +2502,7 @@ GameObject:
   - component: {fileID: 3873358769286174627}
   m_Layer: 0
   m_Name: Chr_Dwarf_Soldier_Female_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2519,7 +2520,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3873358769286174627
 SkinnedMeshRenderer:
@@ -2831,7 +2832,7 @@ GameObject:
   - component: {fileID: 3873178994764224977}
   m_Layer: 0
   m_Name: Chr_Dwarf_Casual_Male_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2849,7 +2850,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3873178994764224977
 SkinnedMeshRenderer:
@@ -3077,7 +3078,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3618706137900617341}
   m_Father: {fileID: 3762222105126210421}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3198,7 +3200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &4463320844620271223
+--- !u!1001 &4180291254895896706
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3207,7 +3209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710685163238973912, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Name
-      value: NicknameBar
+      value: NameBar
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Pivot.x
@@ -3219,7 +3221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3239,7 +3241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1500
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3279,7 +3281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.1
+      value: 2.199997
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3295,8 +3297,70 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
---- !u!224 &3048221984712552364 stripped
+--- !u!224 &3296339880914585945 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
-  m_PrefabInstance: {fileID: 4463320844620271223}
+  m_PrefabInstance: {fileID: 4180291254895896706}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8106627931172230444
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 505250513981252231}
+    m_Modifications:
+    - target: {fileID: 826549836822063568, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Demon_Fist
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+--- !u!4 &3618706137900617341 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4807800583254727505, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+  m_PrefabInstance: {fileID: 8106627931172230444}
   m_PrefabAsset: {fileID: 0}

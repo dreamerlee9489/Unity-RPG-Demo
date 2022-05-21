@@ -18,17 +18,17 @@ namespace App.Control
         public EntityConfig entityConfig = null;
         public ProgressionConfig progressionConfig = null;
         public DropListConfig dropListConfig = null;
-        public int level { get; set; }
-        public float currentHp { get; set; }
-        public float currentMp { get; set; }
-        public float currentExp { get; set; }
-        public float currentDef { get; set; }
-        public float currentAtk { get; set; }
-        public float maxHp { get; set; }
-        public float maxMp { get; set; }
-        public float maxExp { get; set; }
-        public float maxDef { get; set; }
-        public float maxAtk { get; set; }
+        public int level = 1;
+        public float currentHP { get; set; }
+        public float currentMP { get; set; }
+        public float currentEXP { get; set; }
+        public float currentDEF { get; set; }
+        public float currentATK { get; set; }
+        public float maxHP { get; set; }
+        public float maxMP { get; set; }
+        public float maxEXP { get; set; }
+        public float maxDEF { get; set; }
+        public float maxATK { get; set; }
         public bool isDead { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
@@ -47,18 +47,17 @@ namespace App.Control
             agent.radius = 0.5f;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
-            level = 1;
             progression = progressionConfig.GetProgressionByLevel(level);
-            maxHp = progression.thisLevelHp;
-            maxMp = progression.thisLevelMp;
-            maxAtk = progression.thisLevelAtk + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-            maxDef = progression.thisLevelDef;
-            maxExp = progression.upLevelExp;
-            currentHp = progression.thisLevelHp;
-            currentMp = progression.thisLevelMp;
-            currentAtk = progression.thisLevelAtk + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-            currentDef = progression.thisLevelDef;
-            currentExp = 0;
+            maxHP = progression.thisLevelHP;
+            maxMP = progression.thisLevelMP;
+            maxATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+            maxDEF = progression.thisLevelDEF;
+            maxEXP = progression.upLevelEXP;
+            currentHP = progression.thisLevelHP;
+            currentMP = progression.thisLevelMP;
+            currentATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+            currentDEF = progression.thisLevelDEF;
+            currentEXP = 0;
         }
 
         void AttackL(float factor) => TakeDamage(combatTarget, factor);
@@ -68,9 +67,9 @@ namespace App.Control
             if (target != null)
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
-                defender.currentHp = Mathf.Max(defender.currentHp - Mathf.Max(currentAtk * factor - defender.currentDef, 1), 0);
-                defender.healthBar.UpdateBar(new Vector3(defender.currentHp / defender.maxHp, 1, 1));
-                if (defender.currentHp <= 0)
+                defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
+                defender.healthBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
+                if (defender.currentHP <= 0)
                 {
                     defender.Death();
                     CancelAction();
@@ -100,31 +99,30 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
-                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentExp / GameManager.Instance.player.maxExp, 1, 1));
-                if (GameManager.Instance.player.currentExp >= GameManager.Instance.player.maxHp)
-                    GameManager.Instance.player.GetExprience(progression.upLevelExp * 1.5f);
+                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.maxEXP, 1, 1));
+                GameManager.Instance.player.GetExprience(progression.upLevelEXP * 0.5f);
             }
         }
 
         public void GetExprience(float exp)
         {
-            currentExp += progression.upLevelExp * 1.5f;
-            if (currentExp >= maxExp)
+            currentEXP += exp;
+            if (currentEXP >= maxEXP)
             {
-                currentExp -= maxExp;
+                currentEXP -= maxEXP;
                 progression = progressionConfig.GetProgressionByLevel(++level);
-                maxHp = progression.thisLevelHp;
-                maxMp = progression.thisLevelMp;
-                maxDef = progression.thisLevelDef;
-                maxAtk = progression.thisLevelAtk + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-                maxExp = progression.upLevelExp;
-                currentHp += progression.thisLevelHp * 0.2f;
-                currentMp += progression.thisLevelMp * 0.2f;
-                currentDef = progression.thisLevelDef;
-                currentAtk = progression.thisLevelAtk + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-                UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currentHp / progression.thisLevelHp, 1, 1));
-                UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currentMp / progression.thisLevelMp, 1, 1));
-                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(currentExp / progression.upLevelExp, 1, 1));
+                maxHP = progression.thisLevelHP;
+                maxMP = progression.thisLevelMP;
+                maxDEF = progression.thisLevelDEF;
+                maxATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+                maxEXP = progression.upLevelEXP;
+                currentHP += progression.thisLevelHP * 0.2f;
+                currentMP += progression.thisLevelMP * 0.2f;
+                currentDEF = progression.thisLevelDEF;
+                currentATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+                UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currentHP / progression.thisLevelHP, 1, 1));
+                UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currentMP / progression.thisLevelMP, 1, 1));
+                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(currentEXP / progression.upLevelEXP, 1, 1));
                 UIManager.Instance.attributePanel.UpdatePanel();
             }
         }
@@ -135,7 +133,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentAtk = progression.thisLevelAtk + weaponConfig.atk;
+                    currentATK = progression.thisLevelATK + weaponConfig.atk;
                     weapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
@@ -143,8 +141,8 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHp = progression.thisLevelAtk + armorConfig.hp;
-                    currentDef = progression.thisLevelDef + armorConfig.def;
+                    currentHP = progression.thisLevelATK + armorConfig.hp;
+                    currentDEF = progression.thisLevelDEF + armorConfig.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
@@ -158,7 +156,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentAtk = progression.thisLevelAtk;
+                    currentATK = progression.thisLevelATK;
                     weapon = null;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.inventory);
@@ -166,8 +164,8 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHp = progression.thisLevelHp;
-                    currentDef = progression.thisLevelDef;
+                    currentHP = progression.thisLevelHP;
+                    currentDEF = progression.thisLevelDEF;
                     break;
                 case EquipmentType.JEWELRY:
                     break;

@@ -12,7 +12,7 @@ namespace App.Control
 			base.Awake();
 			actions.Add("GiveTask_KillUndeadKnight", () =>
             {
-                GiveTask("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, GameManager.Instance.objects["不死骑士"], new Dictionary<string, int>(){
+                GiveTask("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, Resources.LoadAsync("Entity/Enemy_UndeadKnight_01").asset as GameObject, new Dictionary<string, int>(){
                     { "Weapon_Sword_Broad", 1 }, { "Potion_Meat_01", 10 }
                 });
             });
@@ -22,7 +22,7 @@ namespace App.Control
             });
             actions.Add("GiveTask_CollectMeat", () =>
             {
-                GiveTask("CollectMeat", "收集烤牛排",  500, 200, 12, GameManager.Instance.objects["香喷喷的烤牛排"], new Dictionary<string, int>() {
+                GiveTask("CollectMeat", "收集烤牛排",  500, 200, 12, Resources.LoadAsync("Items/Potion_Meat_01").asset as GameObject, new Dictionary<string, int>() {
                     { "Weapon_Axe_Large_01", 1 }
                 });
             });

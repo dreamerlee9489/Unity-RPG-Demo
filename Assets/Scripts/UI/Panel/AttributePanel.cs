@@ -28,11 +28,11 @@ namespace App.UI
         public void UpdatePanel()
         {
             lv.text = player.level.ToString();
-            hp.text = (int)player.currentHp + " / " + (int)player.maxHp;
-            mp.text = (int)player.currentMp + " / " + (int)player.maxMp;
-            exp.text = (int)player.currentExp + " / " + (int)player.maxExp;
-            atk.text = player.currentAtk.ToString();
-            def.text = player.currentDef.ToString();
+            hp.text = (int)player.currentHP + " / " + (int)player.maxHP;
+            mp.text = (int)player.currentMP + " / " + (int)player.maxMP;
+            exp.text = (int)player.currentEXP + " / " + (int)player.maxEXP;
+            atk.text = player.currentATK.ToString();
+            def.text = player.currentDEF.ToString();
         }
     }
 }

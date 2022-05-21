@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 4742267588088852711}
   m_Layer: 0
   m_Name: Chr_Nomad_Male_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,7 +208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4742267588088852711
 SkinnedMeshRenderer:
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 4738036088946545973}
   m_Layer: 0
   m_Name: Chr_Undead_Knight_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4738036088946545973
 SkinnedMeshRenderer:
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 4741788946865443469}
   m_Layer: 0
   m_Name: Chr_Nomad_Male_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,7 +923,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4741788946865443469
 SkinnedMeshRenderer:
@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 4741962385148439443}
   m_Layer: 0
   m_Name: Chr_Hero_Male_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1157,7 +1157,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4741962385148439443
 SkinnedMeshRenderer:
@@ -1369,7 +1369,7 @@ GameObject:
   - component: {fileID: 4741939767959968969}
   m_Layer: 0
   m_Name: Chr_Nomad_Female_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1387,7 +1387,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4741939767959968969
 SkinnedMeshRenderer:
@@ -1568,7 +1568,7 @@ GameObject:
   - component: {fileID: 4742105519514908005}
   m_Layer: 0
   m_Name: Chr_Skeleton_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1586,7 +1586,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4742105519514908005
 SkinnedMeshRenderer:
@@ -1829,7 +1829,7 @@ GameObject:
   - component: {fileID: 4742248447460641991}
   m_Layer: 0
   m_Name: Chr_Hero_Female_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1847,7 +1847,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4742248447460641991
 SkinnedMeshRenderer:
@@ -1982,7 +1982,7 @@ Transform:
   m_Children:
   - {fileID: 4623362971325543353}
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4621628028251547589
 GameObject:
@@ -2028,7 +2028,7 @@ GameObject:
   - component: {fileID: 4737995575565091607}
   m_Layer: 0
   m_Name: Chr_Skeleton_03
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2046,7 +2046,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4737995575565091607
 SkinnedMeshRenderer:
@@ -2218,6 +2218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8712104004270877128}
+  - {fileID: 1716601605930164232}
   - {fileID: 4627405722381696213}
   - {fileID: 4623010175689605525}
   - {fileID: 4627364679615982297}
@@ -2230,7 +2231,6 @@ Transform:
   - {fileID: 4623315890286247547}
   - {fileID: 4627263375148914517}
   - {fileID: 4627011457314186385}
-  - {fileID: 6442602000804619452}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2320,6 +2320,7 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
   progressionConfig: {fileID: 11400000, guid: 345cbffdbca12e541b173926bbfcc9ae, type: 2}
   dropListConfig: {fileID: 11400000, guid: 60d67729e0ab7e04ea3f289eb101c1ba, type: 2}
+  level: 1
 --- !u!114 &5046530981095907722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2472,7 +2473,7 @@ GameObject:
   - component: {fileID: 4741937818087647455}
   m_Layer: 0
   m_Name: Chr_Nomad_Female_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2490,7 +2491,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4741937818087647455
 SkinnedMeshRenderer:
@@ -2801,7 +2802,7 @@ GameObject:
   - component: {fileID: 4742176179035131247}
   m_Layer: 0
   m_Name: Chr_Skeleton_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2819,7 +2820,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4742176179035131247
 SkinnedMeshRenderer:
@@ -3033,7 +3034,7 @@ GameObject:
   - component: {fileID: 4738043612113244971}
   m_Layer: 0
   m_Name: Chr_Nomad_Male_03
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3051,7 +3052,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4627014260419631311}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4738043612113244971
 SkinnedMeshRenderer:
@@ -3348,7 +3349,7 @@ Transform:
   m_Father: {fileID: 4623223156759249933}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5680494286547567975
+--- !u!1001 &31255848906310099
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3357,7 +3358,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710685163238973912, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Name
-      value: NicknameBar
+      value: NameBar
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Pivot.x
@@ -3369,7 +3370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3429,7 +3430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.1
+      value: 2.199997
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3445,10 +3446,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
---- !u!224 &6442602000804619452 stripped
+--- !u!224 &1716601605930164232 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
-  m_PrefabInstance: {fileID: 5680494286547567975}
+  m_PrefabInstance: {fileID: 31255848906310099}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8773909470491140226
 PrefabInstance:

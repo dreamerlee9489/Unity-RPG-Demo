@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 1128079727259287796}
   m_Layer: 0
   m_Name: Character_Soldier_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -720,7 +720,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1128079727259287796
 SkinnedMeshRenderer:
@@ -1014,7 +1014,7 @@ GameObject:
   - component: {fileID: 1128079727259323558}
   m_Layer: 0
   m_Name: Character_Knight_03
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1032,7 +1032,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1128079727259323558
 SkinnedMeshRenderer:
@@ -1768,7 +1768,7 @@ GameObject:
   - component: {fileID: 1128079727259343932}
   m_Layer: 0
   m_Name: Character_Knight_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1786,7 +1786,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1128079727259343932
 SkinnedMeshRenderer:
@@ -2016,7 +2016,7 @@ Transform:
   m_Children:
   - {fileID: 1128079727253984852}
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128079727254265450
 GameObject:
@@ -2095,7 +2095,7 @@ GameObject:
   - component: {fileID: 1128079727259310866}
   m_Layer: 0
   m_Name: Character_Soldier_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2113,7 +2113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1128079727259310866
 SkinnedMeshRenderer:
@@ -2293,7 +2293,7 @@ GameObject:
   - component: {fileID: 1128079727259334412}
   m_Layer: 0
   m_Name: Character_Knight_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2311,7 +2311,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1128079727253933914}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1128079727259334412
 SkinnedMeshRenderer:
@@ -2871,13 +2871,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2482379876315533757}
+  - {fileID: 7906877790083461236}
   - {fileID: 1128079727253992160}
   - {fileID: 1128079727253937046}
   - {fileID: 1128079727253999344}
   - {fileID: 1128079727254008398}
   - {fileID: 1128079727254035334}
   - {fileID: 1128079727254041384}
-  - {fileID: 6628832174340822831}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2967,6 +2967,7 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
   progressionConfig: {fileID: 11400000, guid: 345cbffdbca12e541b173926bbfcc9ae, type: 2}
   dropListConfig: {fileID: 11400000, guid: a3e92c4dd9f2f974a96bda57b8908805, type: 2}
+  level: 1
 --- !u!114 &3761874412725296679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3496,7 +3497,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 82380099191408970, guid: 8acfa5195576ef64eb462364ce8bfb9c, type: 3}
   m_PrefabInstance: {fileID: 2546648270071929079}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5495452206727444212
+--- !u!1001 &8793080783624098223
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3505,7 +3506,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710685163238973912, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Name
-      value: NicknameBar
+      value: NameBar
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Pivot.x
@@ -3517,7 +3518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3577,7 +3578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.1
+      value: 2.199997
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3593,8 +3594,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
---- !u!224 &6628832174340822831 stripped
+--- !u!224 &7906877790083461236 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
-  m_PrefabInstance: {fileID: 5495452206727444212}
+  m_PrefabInstance: {fileID: 8793080783624098223}
   m_PrefabAsset: {fileID: 0}

@@ -53,7 +53,7 @@ namespace App.Control
         protected virtual void Awake()
         {
             index = 0;
-            goods = transform.GetChild(1);
+            goods = transform.GetChild(2);
             GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 

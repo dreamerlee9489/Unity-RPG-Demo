@@ -15,7 +15,7 @@ namespace App.SO
             List<Item> drops = new List<Item>();
             if (dropList.Count > 0)
             {
-                golds += (int)Random.Range(enemyProgression.thisLevelHp * 0.5f, enemyProgression.thisLevelHp * 1.5f);
+                golds += (int)Random.Range(enemyProgression.thisLevelHP * 0.5f, enemyProgression.thisLevelHP * 1.5f);
                 int dropCount = Random.Range(1, MAX_DROP_COUNT);
                 for (int i = 0; i < dropCount; i++)
                     drops.Add(dropList[Random.Range(0, dropList.Count)]);

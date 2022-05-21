@@ -27,10 +27,10 @@ namespace App.Items
         public override void Use(CombatEntity user)
         {
             PotionConfig potionConfig = itemConfig as PotionConfig;
-            user.currentAtk += potionConfig.atk;
-            user.currentDef += potionConfig.def;
-            user.currentHp = Mathf.Min(user.currentHp + potionConfig.hp, user.progression.thisLevelHp);
-            user.healthBar.UpdateBar(new Vector3(user.currentHp / user.progression.thisLevelHp, 1, 1));
+            user.currentATK += potionConfig.atk;
+            user.currentDEF += potionConfig.def;
+            user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.progression.thisLevelHP);
+            user.healthBar.UpdateBar(new Vector3(user.currentHP / user.progression.thisLevelHP, 1, 1));
             RemoveFromInventory();
         }
     }

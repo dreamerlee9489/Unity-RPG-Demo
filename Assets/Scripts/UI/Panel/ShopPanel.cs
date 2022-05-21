@@ -69,9 +69,13 @@ namespace App.UI
                         itemBars[i].count -= itemBars[i].quantity;
                         itemBars[i].quantity = 0;
                         itemBars[i].quantityText.text = "0";
+                    }
+                    for (int i = 0; i < itemBars.Count; i++)
+                    {
                         if(itemBars[i].count == 0)
                         {
                             Destroy(itemBars[i].gameObject);
+                            itemBars[i] = null;
                         }
                     }
                     InventoryManager.Instance.playerData.golds += totalPrice;
@@ -125,7 +129,8 @@ namespace App.UI
             if (itemBars.Count > 0)
             {
                 foreach (var bar in itemBars)
-                    Destroy(bar.gameObject);
+                    if(bar != null)
+                        Destroy(bar.gameObject);
                 itemBars.Clear();
             }
         }
