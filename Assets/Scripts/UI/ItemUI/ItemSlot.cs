@@ -36,7 +36,7 @@ namespace App.UI
                     itemType = ItemType.BOOTS;
                     return;
                 case SlotType.HAND:
-                    itemType = ItemType.HAND;
+                    itemType = ItemType.BRACELET;
                     return;
                 case SlotType.HELMET:
                     itemType = ItemType.HELMET;

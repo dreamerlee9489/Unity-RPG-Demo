@@ -15,6 +15,15 @@ namespace App.Items
             itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
         }
 
+        public override void RemoveFromInventory()
+        {
+            InventoryManager.Instance.Remove(this);
+            ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
+            itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
+            Destroy(this.itemUI.gameObject);
+            Destroy(this.gameObject);
+        }
+
         public override void Use(CombatEntity user)
         {
             PotionConfig potionConfig = itemConfig as PotionConfig;
@@ -22,11 +31,7 @@ namespace App.Items
             user.currentDef += potionConfig.def;
             user.currentHp = Mathf.Min(user.currentHp + potionConfig.hp, user.progression.thisLevelHp);
             user.healthBar.UpdateBar(new Vector3(user.currentHp / user.progression.thisLevelHp, 1, 1));
-            InventoryManager.Instance.Remove(this);
-            ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
-            Destroy(this.itemUI.gameObject);
-            Destroy(this.gameObject);
+            RemoveFromInventory();
         }
     }
 }

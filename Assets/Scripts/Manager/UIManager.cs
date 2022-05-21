@@ -19,6 +19,7 @@ namespace App.Manager
         public MessagePanel messagePanel { get; set; }
         public AttributePanel attributePanel { get; set; }
         public TipPanel tipPanel { get; set; }
+        public ShopPanel shopPanel { get; set; }
 
         void Awake()
         {
@@ -32,6 +33,7 @@ namespace App.Manager
             messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
             attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
             tipPanel = GameObject.Find("TipPanel").GetComponent<TipPanel>();
+            shopPanel = GameObject.Find("ShopPanel").GetComponent<ShopPanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -44,6 +46,7 @@ namespace App.Manager
             messagePanel.gameObject.SetActive(false);
             attributePanel.gameObject.SetActive(false);
             tipPanel.gameObject.SetActive(false);
+            shopPanel.gameObject.SetActive(false);
         }
 
         void Update()
@@ -72,11 +75,10 @@ namespace App.Manager
         public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
-            if(!GameManager.Instance.player.CanAttack(target))
+            if(!GameManager.Instance.player.CanDialogue(target))
             {
                 dialogueTarget = target;
                 GameManager.Instance.player.GetComponent<NavMeshAgent>().destination = target.position;
-                GameManager.Instance.player.transform.LookAt(target);
             }
             else
             {

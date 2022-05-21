@@ -27,22 +27,22 @@ namespace App.UI
                 gameObject.SetActive(false);
         }
 
-        public void Draw(ItemUI itemUI)
+        public void Draw(Item item)
         {
             if (bars.Count == 0)
             {
                 gameObject.SetActive(true);
-                itemName.text = itemUI.item.itemConfig.itemName;
-                description.text = itemUI.item.itemConfig.description;
-                switch (itemUI.item.itemConfig.itemType)
+                itemName.text = item.itemConfig.itemName;
+                description.text = item.itemConfig.description;
+                switch (item.itemConfig.itemType)
                 {
                     case ItemType.WEAPON:
-                        WeaponConfig weaponConfig = itemUI.item.itemConfig as WeaponConfig;
+                        WeaponConfig weaponConfig = item.itemConfig as WeaponConfig;
                         bars.Add(Instantiate(tipBar, transform));
                         bars[0].text = "攻击力：" + (weaponConfig.atk > 0 ? "+" : "-") + weaponConfig.atk.ToString();
                         break;
                     case ItemType.POTION:
-                        PotionConfig potionConfig = itemUI.item.itemConfig as PotionConfig;
+                        PotionConfig potionConfig = item.itemConfig as PotionConfig;
                         if (potionConfig.hp != 0)
                         {
 
@@ -67,7 +67,7 @@ namespace App.UI
                         break;
                     case ItemType.BOOTS:
                     case ItemType.BREAST:
-                    case ItemType.HAND:
+                    case ItemType.BRACELET:
                     case ItemType.HELMET:
                     case ItemType.NECKLACE:
                     case ItemType.PANTS:

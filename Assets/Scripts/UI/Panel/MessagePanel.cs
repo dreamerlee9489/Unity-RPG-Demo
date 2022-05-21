@@ -28,15 +28,16 @@ namespace App.UI
             }
         }
 
-        public void ShowMessage(string msg)
+        public void ShowMessage(string msg, Color color)
         {
-            if (content.childCount > 10)
+            if (content.childCount > 6)
                 Destroy(content.GetChild(0).gameObject);
             Text text = Instantiate(messageBar, content);
+            text.color = color;
             text.text = msg;
-            timer = 10;
-            scrollbar.value = 0f;
             gameObject.SetActive(true);
+            timer = 10;
+            scrollbar.value = 0f;        
         }
     }
 }

@@ -6,7 +6,7 @@ using App.Manager;
 
 namespace App.Items
 {
-    public enum ItemType { NONE, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, HAND, WEAPON, PANTS, POTION, SKILL }
+    public enum ItemType { NONE, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, BRACELET, WEAPON, PANTS, POTION, SKILL }
     public enum EquipmentType { WEAPON, ARMOR, JEWELRY }
     public enum ContainerType { WORLD, ENTITY, BAG, EQUIPMENT, ACTION }
 
@@ -21,6 +21,7 @@ namespace App.Items
         public new Rigidbody rigidbody { get; set; }
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
+        public abstract void RemoveFromInventory();
         public override bool Equals(object other) => itemConfig == (other as Item).itemConfig;
         public override int GetHashCode() => itemConfig.itemName.GetHashCode();
 
@@ -56,7 +57,7 @@ namespace App.Items
                     if (item != null && Equals(item))
                         GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
-                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1");
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + itemConfig.itemName + " * 1", Color.green);
                 AddToInventory();
                 Destroy(gameObject);
                 if(nameBar != null)

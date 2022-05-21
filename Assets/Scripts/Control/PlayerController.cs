@@ -48,7 +48,7 @@ namespace App.Control
                                 break;
                             case "NPC":
                                 ExecuteCommand(2, hit.transform);
-                                agent.stoppingDistance = 1;
+                                agent.stoppingDistance = 1.5f;
                                 break;
                             case "Item":
                                 agent.destination = hit.point;

@@ -47,11 +47,13 @@ namespace App.Control
         protected int index = 0;
         protected List<Task> tasks = new List<Task>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+        public Transform goods { get; set; }
         public DialogueConfig dialogueConfig { get; set; }
 
         protected virtual void Awake()
         {
             index = 0;
+            goods = transform.GetChild(1);
             GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 
@@ -72,7 +74,7 @@ namespace App.Control
             dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
             if(tasks[index].target.GetComponent<Item>() != null)
                 for (int i = 0; i < tasks[index].number; i++)
-                    InventoryManager.Instance.Get(tasks[index].target.GetComponent<Item>()).Use(GetComponent<CombatEntity>());
+                    InventoryManager.Instance.Get(tasks[index].target.GetComponent<Item>()).RemoveFromInventory();
             foreach (var pair in tasks[index].rewards)
             {
                 Item item = null;
@@ -81,7 +83,7 @@ namespace App.Control
                     item = Resources.Load<Item>("Items/" + pair.Key);
                     item.AddToInventory();
                 }
-                UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value);
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
             }
             GameManager.Instance.player.GetExprience(tasks[index].exp);
             InventoryManager.Instance.playerData.golds += tasks[index].bounty;

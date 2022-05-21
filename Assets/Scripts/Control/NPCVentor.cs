@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.SO;
+using App.Manager;
 
 namespace App.Control
 {
@@ -9,7 +10,7 @@ namespace App.Control
 		{
 			base.Awake();
 			actions.Add("OpenShop", () => {
-				Debug.Log("打开商店");
+				UIManager.Instance.shopPanel.BuildPanel(goods);
 			});
             dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_NPC_Vendor_01").asset as DialogueConfig;
 		}

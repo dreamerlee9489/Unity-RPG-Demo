@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u751F\u9508\u7684\u77ED\u5251"
   description: "\u8FD9\u662F\u4E00\u628A\u666E\u901A\u7684\u77ED\u5251"
-  stackable: 0
+  price: 100
   item: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
   itemType: 7

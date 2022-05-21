@@ -220,6 +220,17 @@ namespace App.Control
             return false;
         }
 
+        public bool CanDialogue(Transform target)
+        {
+            if (!target.GetComponent<CombatEntity>().isDead)
+            {
+                Vector3 direction = target.position - transform.position;
+                if (direction.sqrMagnitude <= 2.25f)
+                    return true;
+            }
+            return false;
+        }
+
         public bool HandleMessage(Telegram telegram)
         {
             print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());

@@ -153,7 +153,7 @@ namespace App.UI
             float panelWidth = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect.width;
             float offset = GetComponent<RectTransform>().rect.width + panelWidth;
             UIManager.Instance.tipPanel.transform.position = position.x > offset? position - new Vector3(GetComponent<RectTransform>().rect.width, 0, 0) : position + new Vector3(offset, 0, 0);
-            UIManager.Instance.tipPanel.Draw(this);
+            UIManager.Instance.tipPanel.Draw(item);
         }
 
         public void OnPointerExit(PointerEventData eventData)

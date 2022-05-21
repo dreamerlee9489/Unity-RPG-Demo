@@ -6,11 +6,6 @@ namespace App.Items
 {
     public class Weapon : Equipment
     {
-        public override void AddToInventory()
-        {
-            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.inventory), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
-        }   
-
         public override void Use(CombatEntity user)
         {
             ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;

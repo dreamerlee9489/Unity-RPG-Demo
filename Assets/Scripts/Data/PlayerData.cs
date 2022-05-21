@@ -3,6 +3,6 @@
     public class PlayerData
     {
         public string nickName = "";
-        public int golds = 500;
+        public int golds = 5000;
     }
 }
