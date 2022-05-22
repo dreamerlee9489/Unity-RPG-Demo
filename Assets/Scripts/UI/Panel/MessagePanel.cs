@@ -6,16 +6,13 @@ namespace App.UI
     public class MessagePanel : BasePanel
     {
         float timer = 0;
-        public Transform content = null;
-        public Scrollbar scrollbar = null;
-        public Text messageBar = null;
+        ScrollRect scrollRect { get; set; }
+        public Text messageBar { get; set; }
 
         void Awake()
         {
-            scrollbar.onValueChanged.AddListener((float value) =>
-            {
-                scrollbar.value = value;
-            });
+            scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
+            messageBar = Resources.Load<Text>("UI/MessageBar");
         }
 
         void Update()
@@ -30,14 +27,14 @@ namespace App.UI
 
         public void ShowMessage(string msg, Color color)
         {
-            if (content.childCount > 6)
-                Destroy(content.GetChild(0).gameObject);
-            Text text = Instantiate(messageBar, content);
+            if (scrollRect.content.childCount > 6)
+                Destroy(scrollRect.content.GetChild(0).gameObject);
+            Text text = Instantiate(messageBar, scrollRect.content);
             text.color = color;
             text.text = msg;
             gameObject.SetActive(true);
+            scrollRect.verticalScrollbar.value = 0f;        
             timer = 10;
-            scrollbar.value = 0f;        
         }
     }
 }

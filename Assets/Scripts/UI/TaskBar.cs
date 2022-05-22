@@ -5,6 +5,7 @@ namespace App.UI
 {
     public class TaskBar : MonoBehaviour
     {
-        public Text chName = null, taskProgress = null;
+        public Text chName = null;
+        public Text progress = null;
     }
 }

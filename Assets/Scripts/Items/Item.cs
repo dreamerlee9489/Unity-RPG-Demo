@@ -14,10 +14,10 @@ namespace App.Items
     {
         public ItemConfig itemConfig = null;
         public ContainerType containerType = ContainerType.WORLD;
-        public ItemUI itemUI { get; set; }
-        public NameBar nameBar { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
+        public ItemUI itemUI { get; set; }
+        public NameBar nameBar { get; set; }        
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
         public abstract void RemoveFromInventory();
@@ -28,9 +28,9 @@ namespace App.Items
         {
             collider = GetComponent<Collider>();
             rigidbody = GetComponent<Rigidbody>();
-            rigidbody.isKinematic = false;
             collider.enabled = containerType == ContainerType.WORLD ? true : false;
             rigidbody.useGravity = containerType == ContainerType.WORLD ? true : false;
+            rigidbody.isKinematic = containerType == ContainerType.WORLD ? false : true;
         }
 
         void Update()
@@ -40,7 +40,7 @@ namespace App.Items
                 if(nameBar == null)
                 {
                     nameBar = Instantiate(Resources.Load<NameBar>("UI/NameBar"));
-                    nameBar.text.text = itemConfig.itemName;
+                    nameBar.chName.text = itemConfig.itemName;
                 }
                 nameBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             }

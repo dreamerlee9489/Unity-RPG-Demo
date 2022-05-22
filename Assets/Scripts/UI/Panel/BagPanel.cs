@@ -1,11 +1,17 @@
 ﻿using App.Items;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace App.UI
 {
     public class BagPanel : BasePanel
     {
-        public Transform content = null;
+        public Transform content { get; set; }
+
+        void Awake()
+        {
+            content = gameObject.GetComponentInChildren<ScrollRect>().content;
+        }
 
         public void Draw(ItemUI itemUI)
         {

@@ -7,15 +7,10 @@ using App.Items;
 namespace App.UI
 {
     [System.Serializable]
-    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public abstract class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         Transform originParent = null;
         public Item item { get; set; }
-        protected void UseItem() 
-        { 
-            item.Use(GameManager.Instance.player); 
-            UIManager.Instance.attributePanel.UpdatePanel();
-        }
 
         Transform CheckSlotType(GameObject obj)
         {
@@ -137,15 +132,18 @@ namespace App.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!GameManager.Instance.player.isDead && eventData.pointerId == -2)
-                UseItem();
+            {
+                item.Use(GameManager.Instance.player);
+                UIManager.Instance.attributePanel.UpdatePanel();
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             Vector3 position = eventData.pointerEnter.transform.position;
-            float panelWidth = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect.width;
-            float offset = GetComponent<RectTransform>().rect.width + panelWidth;
-            UIManager.Instance.tipPanel.transform.position = position.x > offset? position - new Vector3(GetComponent<RectTransform>().rect.width, 0, 0) : position + new Vector3(offset, 0, 0);
+            float tipWidth = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect.width;
+            float itemWidth = GetComponent<RectTransform>().rect.width;
+            UIManager.Instance.tipPanel.transform.position = position + (position.x > (tipWidth + itemWidth) ? new Vector3(-itemWidth, 0, 0) : new Vector3(itemWidth, 0, 0));
             UIManager.Instance.tipPanel.Draw(item);
         }
 

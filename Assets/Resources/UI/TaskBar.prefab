@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5353727157497535355}
   - component: {fileID: 5353727157497535354}
   m_Layer: 5
-  m_Name: Name
+  m_Name: chName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chName: {fileID: 5353727157497535354}
-  taskProgress: {fileID: 5353727159041690916}
+  progress: {fileID: 5353727159041690916}
 --- !u!1 &5353727159041690918
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ namespace App.Control
         public float sqrAttackRadius { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
-        public Progression progression { get; set; }
+        public Attribute progression { get; set; }
 
         void Awake()
         {
@@ -73,21 +73,24 @@ namespace App.Control
 
         void Pickup()
         {
-            for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+            if (pickup != null)
             {
-                Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
-                if (temp != null && pickup.Equals(temp))
-                    GameManager.Instance.registeredTasks[i].UpdateProgress(1);
+                for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+                {
+                    Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
+                    if (temp != null && pickup.Equals(temp))
+                        GameManager.Instance.registeredTasks[i].UpdateProgress(1);
+                }
+                pickup.AddToInventory();
+                if (pickup.nameBar != null)
+                {
+                    Destroy(pickup.nameBar.gameObject);
+                    pickup.nameBar = null;
+                }
+                Destroy(pickup.gameObject);
+                animator.SetBool("pickup", false);
+                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
             }
-            pickup.AddToInventory();
-            if (pickup.nameBar != null)
-            {
-                Destroy(pickup.nameBar.gameObject);
-                pickup.nameBar = null;
-            }
-            Destroy(pickup.gameObject);
-            animator.SetBool("pickup", false);
-            UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
         }
 
         void AttackL(float factor) => TakeDamage(target, factor);
@@ -127,7 +130,7 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
-                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.maxEXP, 1, 1));
+                UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.maxEXP, 1, 1));
                 GameManager.Instance.player.GetExprience(progression.upLevelEXP * 0.5f);
             }
         }
@@ -150,7 +153,7 @@ namespace App.Control
                 currentATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
                 UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currentHP / progression.thisLevelHP, 1, 1));
                 UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currentMP / progression.thisLevelMP, 1, 1));
-                UIManager.Instance.hudPanel.xpBar.UpdateBar(new Vector3(currentEXP / progression.upLevelEXP, 1, 1));
+                UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(currentEXP / progression.upLevelEXP, 1, 1));
                 UIManager.Instance.attributePanel.UpdatePanel();
             }
         }

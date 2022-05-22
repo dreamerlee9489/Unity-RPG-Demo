@@ -10,12 +10,12 @@ namespace App.UI
 
     public class SelectBar : MonoBehaviour
     {
-		public List<int> indexs = new List<int>();
-        public Button btnAll = null;
-        public Button btnWeapon = null;
-        public Button btnArmor = null;
-        public Button btnJewelry = null;
-        public Button btnPotion = null;
+		List<int> indexs = new List<int>();
+        public Button btnAll { get; set; }
+        public Button btnWeapon { get; set; }
+        public Button btnArmor { get; set; }
+        public Button btnJewelry { get; set; }
+        public Button btnPotion { get; set; }
 
         void Awake()
         {

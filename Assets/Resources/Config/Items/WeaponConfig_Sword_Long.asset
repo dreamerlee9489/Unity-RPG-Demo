@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 581f0fa192f8a4a448da23e0b96717b1, type: 3}
-  m_Name: WeaponConfig_Sword_Big
+  m_Name: WeaponConfig_Sword_Long
   m_EditorClassIdentifier: 
-  itemName: "\u95EA\u5149\u7684\u91CD\u5251"
-  description: "\u5251\u672F\u5927\u5E08\u7684\u4F69\u5251\uFF0C\u5A01\u529B\u60CA\u4EBA\u3002"
-  price: 2000
-  itemPrefab: {fileID: 4280537347684828990, guid: 7fb27878c02803240b40f4310f3a009d, type: 3}
+  itemName: "\u7834\u65E7\u7684\u957F\u5251"
+  description: "\u8FD9\u662F\u4E00\u628A\u666E\u901A\u7684\u957F\u5251"
+  price: 300
+  item: {fileID: 8027321210737905596, guid: c2959e69625aa2b4ea57295b777da49d, type: 3}
   itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
   itemType: 7
-  atk: 200
+  atk: 50
   animatorController: {fileID: 22100000, guid: f067300e7aa238d4699c98595294d9a2, type: 2}

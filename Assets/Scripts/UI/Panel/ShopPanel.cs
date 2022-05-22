@@ -16,13 +16,14 @@ namespace App.UI
         Button btnShift = null;
         SelectBar selectBar = null;
         List<ItemBar> itemBars = new List<ItemBar>();
-        public bool isSell = false;
-        public ItemBar itemBar = null;
+        public bool isSell { get; set; }
         public Text total { get; set; }
         public Transform goods { get; set; }
+        public ItemBar itemBar { get; set; }
 
         void Awake()
         {
+            itemBar = Resources.Load<ItemBar>("UI/ItemBar");
             btnQuit = transform.GetChild(1).GetComponent<Button>();
             selectBar = transform.GetChild(2).GetComponent<SelectBar>();
             content = transform.GetChild(3).GetChild(0).GetChild(0);

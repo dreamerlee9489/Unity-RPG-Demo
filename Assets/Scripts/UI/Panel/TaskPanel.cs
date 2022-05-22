@@ -1,35 +1,51 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using App.Control;
 
 namespace App.UI
 {
     public class TaskPanel : BasePanel
     {
-        public ScrollRect scrollRect = null;
-        public TaskBar taskBar = null;
+        ScrollRect scrollRect = null;
+        TaskBar taskBar = null;
+        TaskBar tempBar = null;
+
+        void Awake()
+        {
+            scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
+            taskBar = Resources.Load<TaskBar>("UI/TaskBar");
+        }
 
         public void Add(Task task)
         {
-            TaskBar bar = Instantiate(taskBar, scrollRect.content.transform);
-            bar.gameObject.name = bar.chName.text = task.chName;
-            bar.taskProgress.text = task.count + " / " + task.number;
+            TaskBar bar = Instantiate(taskBar, scrollRect.content);
+            bar.chName.text = task.chName;
+            bar.progress.text = task.count + " / " + task.number;
         }
 
         public void UpdateTask(Task task)
         {
-            for (int i = 0; i < scrollRect.content.transform.childCount; i++)
+            for (int i = 0; i < scrollRect.content.childCount; i++)
             {
-                if (scrollRect.content.transform.GetChild(i).name == task.chName)
-                    scrollRect.content.transform.GetChild(i).GetComponent<TaskBar>().taskProgress.text = task.count + " / " + task.number;
+                tempBar = scrollRect.content.GetChild(i).GetComponent<TaskBar>();
+                if (tempBar.chName.text == task.chName)
+                {
+                    tempBar.progress.text = task.count + " / " + task.number;
+                    return;
+                }
             }
         }
 
         public void Remove(Task task)
         {
-            for (int i = 0; i < scrollRect.content.transform.childCount; i++)
+            for (int i = 0; i < scrollRect.content.childCount; i++)
             {
-                if (scrollRect.content.transform.GetChild(i).name == task.chName)
-                    Destroy(scrollRect.content.transform.GetChild(i).gameObject);
+                tempBar = scrollRect.content.GetChild(i).GetComponent<TaskBar>();
+                if (tempBar.chName.text== task.chName)
+                {
+                    Destroy(scrollRect.content.GetChild(i).gameObject);
+                    return;
+                }
             }
         }
     }

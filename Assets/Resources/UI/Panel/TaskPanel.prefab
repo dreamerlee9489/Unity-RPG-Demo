@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 2471365961109195451}
   - component: {fileID: 7410511197516377676}
   m_Layer: 5
-  m_Name: QuestPanel
+  m_Name: TaskPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

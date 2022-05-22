@@ -7,10 +7,11 @@ namespace App.UI
 	{
 		bool isShow = false;
 		float timer = 6;
-		public Image foreground = null;
+		Image foreground = null;
 
 		void Awake()
 		{
+			foreground = transform.GetChild(0).GetChild(0).GetComponent<Image>();
 			if(CompareTag("Enemy") || CompareTag("NPC"))
 				gameObject.SetActive(false);
 		}
