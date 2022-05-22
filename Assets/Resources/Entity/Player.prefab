@@ -2090,7 +2090,7 @@ MonoBehaviour:
   weaponPos: {fileID: 6011459021436415198}
   weaponPrefab: {fileID: 0}
   entityConfig: {fileID: 11400000, guid: 5f4ef19f184b9034a9254b02fb46b21c, type: 2}
-  progressionConfig: {fileID: 11400000, guid: 345cbffdbca12e541b173926bbfcc9ae, type: 2}
+  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
   level: 1
 --- !u!114 &3796356216321399749

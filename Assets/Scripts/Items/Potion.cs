@@ -29,8 +29,8 @@ namespace App.Items
             PotionConfig potionConfig = itemConfig as PotionConfig;
             user.currentATK += potionConfig.atk;
             user.currentDEF += potionConfig.def;
-            user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.progression.thisLevelHP);
-            user.hpBar.UpdateBar(new Vector3(user.currentHP / user.progression.thisLevelHP, 1, 1));
+            user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.attribute.thisLevelHP);
+            user.hpBar.UpdateBar(new Vector3(user.currentHP / user.attribute.thisLevelHP, 1, 1));
             RemoveFromInventory();
         }
     }

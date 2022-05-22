@@ -415,7 +415,7 @@ ModelImporter:
         functionName: SkillB
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
+        floatParameter: 1.5
         intParameter: 0
         messageOptions: 0
       transformMask: []

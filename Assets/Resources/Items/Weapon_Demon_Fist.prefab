@@ -76,5 +76,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 6f0d390508707e04fa48c857b8782cb9, type: 2}
-  containerType: 1
+  containerType: 0
   equipmentType: 0

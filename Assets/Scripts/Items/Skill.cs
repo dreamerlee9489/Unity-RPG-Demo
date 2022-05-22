@@ -1,13 +1,17 @@
 using UnityEngine;
 using App.Control;
+using App.Manager;
+using App.SO;
 
 namespace App.Items
 {
     public class Skill : Item
     {
+        public int level = 1;
+        
         public override void AddToInventory()
         {
-            throw new System.NotImplementedException();
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.inventory), Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform));
         }
 
         public override void RemoveFromInventory()
@@ -17,7 +21,22 @@ namespace App.Items
 
         public override void Use(CombatEntity user)
         {
-            Debug.Log("Use: " + itemConfig.itemName);
+            SkillConfig skillConfig = itemConfig as SkillConfig;
+            switch (skillConfig.skillType)
+            {
+                case SkillType.A:
+                user.GetComponent<Animator>().SetTrigger("skillA");
+                break;
+                case SkillType.B:
+                user.GetComponent<Animator>().SetTrigger("skillB");
+                break;
+                case SkillType.C:
+                user.GetComponent<Animator>().SetTrigger("skillC");
+                break;
+                case SkillType.D:
+                user.GetComponent<Animator>().SetTrigger("skillD");
+                break;
+            }
         }
     }
 }

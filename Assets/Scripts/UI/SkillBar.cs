@@ -1,19 +1,19 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using App.Items;
 using App.Manager;
-using UnityEngine.EventSystems;
 
 namespace App.UI
 {
-	public class ItemBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-	{
+    public class SkillBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    {
 		Image itemIcon = null;
 		Text itemName = null; 
 		Text priceText = null;
 		Button btnMinus = null;
 		Button btnPlus = null;
-		public int count { get; set; }
+		public int total { get; set; }
 		public int quantity { get; set; }
 		public int unitPrice { get; set; }
 		public int totalPrice { get; set; }
@@ -22,7 +22,7 @@ namespace App.UI
 
 		void Awake()
 		{
-			count = UIManager.Instance.shopPanel.isSell ? 1 : 10;
+			total = 10;
 			itemIcon = transform.GetChild(0).GetComponent<Image>();
 			itemName = transform.GetChild(1).GetComponent<Text>();
 			priceText = transform.GetChild(3).GetComponent<Text>();
@@ -34,13 +34,13 @@ namespace App.UI
 				quantity = Mathf.Max(--quantity, 0);
 				totalPrice = quantity * unitPrice;  
 				quantityText.text = quantity.ToString();
-				UIManager.Instance.shopPanel.CountTotalPrice();
+				UIManager.Instance.skillPanel.CountTotalPrice();
 			});
 			btnPlus.onClick.AddListener(() => {
-				quantity = Mathf.Min(++quantity, count);
+				quantity = Mathf.Min(++quantity, total);
 				totalPrice = quantity * unitPrice;  
 				quantityText.text = quantity.ToString();
-				UIManager.Instance.shopPanel.CountTotalPrice();
+				UIManager.Instance.skillPanel.CountTotalPrice();
 			});
 		}
 
@@ -49,7 +49,7 @@ namespace App.UI
 			this.item = item;
 			itemIcon.sprite = item.itemConfig.itemUI.GetComponent<Image>().sprite;
 			itemName.text = item.itemConfig.itemName;
-			unitPrice = (int)(item.itemConfig.price * (UIManager.Instance.shopPanel.isSell ? 0.5f : 1f)); 
+			unitPrice = item.itemConfig.price; 
 			priceText.text = unitPrice.ToString();
 		}
 

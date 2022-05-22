@@ -17,7 +17,7 @@ namespace App.Control
         public Transform weaponPos = null;
         public Weapon weaponPrefab = null;
         public EntityConfig entityConfig = null;
-        public ProgressionConfig progressionConfig = null;
+        public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
         public int level = 1;
         public float currentHP { get; set; }
@@ -35,7 +35,7 @@ namespace App.Control
         public float sqrAttackRadius { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
-        public Attribute progression { get; set; }
+        public Attribute attribute { get; set; }
 
         void Awake()
         {
@@ -46,21 +46,17 @@ namespace App.Control
             agent.radius = 0.5f;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
-            progression = progressionConfig.GetProgressionByLevel(level);
-            maxHP = progression.thisLevelHP;
-            maxMP = progression.thisLevelMP;
-            maxATK = progression.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
-            maxDEF = progression.thisLevelDEF;
-            maxEXP = progression.upLevelEXP;
-            currentHP = progression.thisLevelHP;
-            currentMP = progression.thisLevelMP;
-            currentATK = progression.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
-            currentDEF = progression.thisLevelDEF;
+            attribute = professionConfig.GetAttributeByLevel(level);
+            maxHP = attribute.thisLevelHP;
+            maxMP = attribute.thisLevelMP;
+            maxATK = attribute.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
+            maxDEF = attribute.thisLevelDEF;
+            maxEXP = attribute.upLevelEXP;
+            currentHP = attribute.thisLevelHP;
+            currentMP = attribute.thisLevelMP;
+            currentATK = attribute.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
+            currentDEF = attribute.thisLevelDEF;
             currentEXP = 0;
-        }
-
-        void Start()
-        {
             if (weaponPrefab != null)
             {
                 AttachEquipment(weapon = Instantiate(weaponPrefab, weaponPos));
@@ -68,7 +64,12 @@ namespace App.Control
                 weapon.rigidbody.useGravity = false;
                 weapon.rigidbody.isKinematic = true;
             }
+        }
+
+        void Start()
+        {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
+            LoadSkillTree();
         }
 
         void Pickup()
@@ -95,6 +96,10 @@ namespace App.Control
 
         void AttackL(float factor) => TakeDamage(target, factor);
         void AttackR(float factor) => TakeDamage(target, factor);
+        void SkillA(float factor) => TakeDamage(target, factor);
+        void SkillB(float factor) => TakeDamage(target, factor);
+        void SkillC(float factor) => TakeDamage(target, factor);
+        void SkillD(float factor) => TakeDamage(target, factor);
         void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
@@ -118,7 +123,7 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<Item> drops = dropListConfig.GetDrops(progression, ref InventoryManager.Instance.playerData.golds);
+            List<Item> drops = dropListConfig.GetDrops(attribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
@@ -130,31 +135,18 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
-                UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.maxEXP, 1, 1));
-                GameManager.Instance.player.GetExprience(progression.upLevelEXP * 0.5f);
+                GameManager.Instance.player.GetExprience(attribute.upLevelEXP * 0.5f);
             }
         }
 
-        public void GetExprience(float exp)
+        void LoadSkillTree()
         {
-            currentEXP += exp;
-            if (currentEXP >= maxEXP)
+            if (CompareTag("Player"))
             {
-                currentEXP -= maxEXP;
-                progression = progressionConfig.GetProgressionByLevel(++level);
-                maxHP = progression.thisLevelHP;
-                maxMP = progression.thisLevelMP;
-                maxDEF = progression.thisLevelDEF;
-                maxATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-                maxEXP = progression.upLevelEXP;
-                currentHP += progression.thisLevelHP * 0.2f;
-                currentMP += progression.thisLevelMP * 0.2f;
-                currentDEF = progression.thisLevelDEF;
-                currentATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
-                UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(currentHP / progression.thisLevelHP, 1, 1));
-                UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(currentMP / progression.thisLevelMP, 1, 1));
-                UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(currentEXP / progression.upLevelEXP, 1, 1));
-                UIManager.Instance.attributePanel.UpdatePanel();
+                for (int i = 0; i < professionConfig.skillTree.Count; i++)
+                {
+                    professionConfig.skillTree[i].AddToInventory();
+                }
             }
         }
 
@@ -164,7 +156,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentATK = progression.thisLevelATK + weaponConfig.atk;
+                    currentATK = attribute.thisLevelATK + weaponConfig.atk;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);
@@ -172,8 +164,8 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = progression.thisLevelATK + armorConfig.hp;
-                    currentDEF = progression.thisLevelDEF + armorConfig.def;
+                    currentHP = attribute.thisLevelATK + armorConfig.hp;
+                    currentDEF = attribute.thisLevelDEF + armorConfig.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
@@ -187,7 +179,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentATK = progression.thisLevelATK;
+                    currentATK = attribute.thisLevelATK;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.inventory);
                     equipment.gameObject.SetActive(false);
@@ -195,13 +187,34 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = progression.thisLevelHP;
-                    currentDEF = progression.thisLevelDEF;
+                    currentHP = attribute.thisLevelHP;
+                    currentDEF = attribute.thisLevelDEF;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
             }
             equipment.containerType = containerType;
+        }
+
+        public void GetExprience(float exp)
+        {
+            currentEXP += exp;
+            if (currentEXP >= maxEXP)
+            {
+                currentEXP -= maxEXP;
+                attribute = professionConfig.GetAttributeByLevel(++level);
+                maxHP = attribute.thisLevelHP;
+                maxMP = attribute.thisLevelMP;
+                maxDEF = attribute.thisLevelDEF;
+                maxATK = attribute.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+                maxEXP = attribute.upLevelEXP;
+                currentHP += attribute.thisLevelHP * 0.2f;
+                currentMP += attribute.thisLevelMP * 0.2f;
+                currentDEF = attribute.thisLevelDEF;
+                currentATK = attribute.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+            }
+            UIManager.Instance.hudPanel.UpdatePanel();
+            UIManager.Instance.attributePanel.UpdatePanel();
         }
 
         public void ExecuteAction(Vector3 point) { }

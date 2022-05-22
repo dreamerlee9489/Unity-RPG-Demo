@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using App.Items;
-using App.Manager;
 
 namespace App.UI
 {

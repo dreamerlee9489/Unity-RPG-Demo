@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using App.Manager;
 using App.SO;
 
 namespace App.Control
 {
 	public class NPCGuard : NPCController
 	{
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
 			actions.Add("GiveTask_KillUndeadKnight", () =>
             {
                 GiveTask("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, Resources.LoadAsync("Entity/Enemy_UndeadKnight_01").asset as GameObject, new Dictionary<string, int>(){

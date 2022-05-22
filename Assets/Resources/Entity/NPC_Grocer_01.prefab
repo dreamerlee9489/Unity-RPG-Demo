@@ -2766,9 +2766,9 @@ GameObject:
   - component: {fileID: 1070832523383599716}
   - component: {fileID: 1686827443048662245}
   - component: {fileID: 2915318451938203349}
-  - component: {fileID: 6600216427867215904}
+  - component: {fileID: 4016595420019664832}
   m_Layer: 0
-  m_Name: NPC_Vendor_01
+  m_Name: NPC_Grocer_01
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2881,10 +2881,10 @@ MonoBehaviour:
   weaponPos: {fileID: 4169196262539638726}
   weaponPrefab: {fileID: 0}
   entityConfig: {fileID: 11400000, guid: a18be82e6ab3ade4b9315e4d98b031da, type: 2}
-  progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
+  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
   level: 1
---- !u!114 &6600216427867215904
+--- !u!114 &4016595420019664832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2893,7 +2893,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6697060283858213012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aebfd3e4a8827f44eac8aa418a60c202, type: 3}
+  m_Script: {fileID: 11500000, guid: 8668708e75f7b304abf1719ed8aca6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6697060283858214266
@@ -3524,7 +3524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foreground: {fileID: 8559962296094152129}
 --- !u!1 &8742021327733143037
 GameObject:
   m_ObjectHideFlags: 0

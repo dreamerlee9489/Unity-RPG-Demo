@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04363f0b542d59f4f8a64bba88ea2dbe, type: 3}
+  m_Name: SkillConfig_WarriorD
+  m_EditorClassIdentifier: 
+  itemName: "\u5965\u4E49\xB7\u5200\u5149\u5251\u5F71"
+  description: "\u5BF9\u654C\u65B9\u9020\u6210\u5DE8\u989D\u4F24\u5BB3"
+  price: 400
+  item: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
+  itemUI: {fileID: 1343668645154321579, guid: 8a945dfca9872954888ceb29c6c99fe5, type: 3}
+  itemType: 10
+  skillType: 1
+  hp: 0
+  mp: -150
+  atk: 200
+  def: 0
+  cd: 12

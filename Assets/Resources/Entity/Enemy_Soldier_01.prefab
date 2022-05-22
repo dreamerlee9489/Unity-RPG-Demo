@@ -2963,7 +2963,7 @@ MonoBehaviour:
   weaponPos: {fileID: 2586882191423244814}
   weaponPrefab: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   entityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
-  progressionConfig: {fileID: 11400000, guid: 345cbffdbca12e541b173926bbfcc9ae, type: 2}
+  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: a3e92c4dd9f2f974a96bda57b8908805, type: 2}
   level: 1
 --- !u!114 &3761874412725296679

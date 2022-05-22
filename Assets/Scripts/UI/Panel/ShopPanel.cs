@@ -15,19 +15,19 @@ namespace App.UI
         Button btnTrade = null;
         Button btnShift = null;
         SelectBar selectBar = null;
-        List<ItemBar> itemBars = new List<ItemBar>();
+        ShopBar shopBar = null;
+        List<ShopBar> shopBars = new List<ShopBar>();
         public bool isSell { get; set; }
         public Text total { get; set; }
         public Transform goods { get; set; }
-        public ItemBar itemBar { get; set; }
 
         void Awake()
         {
-            itemBar = Resources.Load<ItemBar>("UI/ItemBar");
-            btnQuit = transform.GetChild(1).GetComponent<Button>();
+            content = gameObject.GetComponentInChildren<ScrollRect>().content;
+            shopBar = Resources.Load<ShopBar>("UI/ShopBar");
             selectBar = transform.GetChild(2).GetComponent<SelectBar>();
-            content = transform.GetChild(3).GetChild(0).GetChild(0);
             total = transform.GetChild(4).GetChild(0).GetComponent<Text>();
+            btnQuit = transform.GetChild(1).GetComponent<Button>();
             btnTrade = transform.GetChild(5).GetComponent<Button>();
             btnShift = transform.GetChild(6).GetComponent<Button>();
             btnQuit.onClick.AddListener(() =>
@@ -40,14 +40,14 @@ namespace App.UI
                 {
                     if(InventoryManager.Instance.playerData.golds >= totalPrice)
                     {
-                        for (int i = 0; i < itemBars.Count; i++)
+                        for (int i = 0; i < shopBars.Count; i++)
                         {
-                            for (int j = 0; j < itemBars[i].quantity; j++)
+                            for (int j = 0; j < shopBars[i].quantity; j++)
                                 goods.GetChild(i).GetComponent<Item>().AddToInventory();
-                            if(itemBars[i].quantity > 0)
-                                UIManager.Instance.messagePanel.ShowMessage("[系统]  你购买了：" + itemBars[i].item.itemConfig.itemName + " * " + itemBars[i].quantity, Color.yellow);
-                            itemBars[i].quantity = 0;
-			                itemBars[i].quantityText.text = "0";
+                            if(shopBars[i].quantity > 0)
+                                UIManager.Instance.messagePanel.ShowMessage("[系统]  你购买了：" + shopBars[i].item.itemConfig.itemName + " * " + shopBars[i].quantity, Color.yellow);
+                            shopBars[i].quantity = 0;
+			                shopBars[i].quantityText.text = "0";
                         }
                         InventoryManager.Instance.playerData.golds -= totalPrice;
                         UIManager.Instance.goldPanel.UpdatePanel();
@@ -61,22 +61,22 @@ namespace App.UI
                 }
                 else
                 {
-                    for (int i = 0; i < itemBars.Count; i++)
+                    for (int i = 0; i < shopBars.Count; i++)
                     {
-                        for (int j = 0; j < itemBars[i].quantity; j++)
-                            InventoryManager.Instance.Get(itemBars[i].item).RemoveFromInventory();
-                        if(itemBars[i].quantity > 0)
-                            UIManager.Instance.messagePanel.ShowMessage("[系统]  你出售了：" + itemBars[i].item.itemConfig.itemName + " * " + itemBars[i].quantity, Color.red);
-                        itemBars[i].count -= itemBars[i].quantity;
-                        itemBars[i].quantity = 0;
-                        itemBars[i].quantityText.text = "0";
+                        for (int j = 0; j < shopBars[i].quantity; j++)
+                            InventoryManager.Instance.Get(shopBars[i].item).RemoveFromInventory();
+                        if(shopBars[i].quantity > 0)
+                            UIManager.Instance.messagePanel.ShowMessage("[系统]  你出售了：" + shopBars[i].item.itemConfig.itemName + " * " + shopBars[i].quantity, Color.red);
+                        shopBars[i].total -= shopBars[i].quantity;
+                        shopBars[i].quantity = 0;
+                        shopBars[i].quantityText.text = "0";
                     }
-                    for (int i = 0; i < itemBars.Count; i++)
+                    for (int i = 0; i < shopBars.Count; i++)
                     {
-                        if(itemBars[i].count == 0)
+                        if(shopBars[i].total == 0)
                         {
-                            Destroy(itemBars[i].gameObject);
-                            itemBars[i] = null;
+                            Destroy(shopBars[i].gameObject);
+                            shopBars[i] = null;
                         }
                     }
                     InventoryManager.Instance.playerData.golds += totalPrice;
@@ -119,40 +119,40 @@ namespace App.UI
 
         int HasItem(Item item)
         {
-            for (int i = 0; i < itemBars.Count; i++)
-                if (itemBars[i].item.Equals(item))
+            for (int i = 0; i < shopBars.Count; i++)
+                if (shopBars[i].item.Equals(item))
                     return i;
             return -1;
         }
 
         void ClearPanel()
         {
-            if (itemBars.Count > 0)
+            if (shopBars.Count > 0)
             {
-                foreach (var bar in itemBars)
+                foreach (var bar in shopBars)
                     if(bar != null)
                         Destroy(bar.gameObject);
-                itemBars.Clear();
+                shopBars.Clear();
             }
         }
 
-        public void BuildPanel(Transform shop)
+        public void BuildPanel(Transform goods)
         {
             ClearPanel();
-            goods = shop;
+            this.goods = goods;
             gameObject.SetActive(true);
-            for (int i = 0; i < goods.childCount; i++)
+            for (int i = 0; i < this.goods.childCount; i++)
             {
-                Item item = goods.GetChild(i).GetComponent<Item>();
+                Item item = this.goods.GetChild(i).GetComponent<Item>();
                 int index = HasItem(item);
                 if (index == -1)
                 {
-                    itemBars.Add(Instantiate(itemBar, content));
-                    itemBars[itemBars.Count - 1].BuildBar(item);
+                    shopBars.Add(Instantiate(shopBar, content));
+                    shopBars[shopBars.Count - 1].BuildBar(item);
                 }
                 else
                 {
-                    itemBars[index].count++;
+                    shopBars[index].total++;
                 }
             }
         }
@@ -166,12 +166,12 @@ namespace App.UI
                 int index = HasItem(item);
                 if (index == -1)
                 {
-                    itemBars.Add(Instantiate(itemBar, content));
-                    itemBars[itemBars.Count - 1].BuildBar(goods.GetChild(items[i]).GetComponent<Item>());
+                    shopBars.Add(Instantiate(shopBar, content));
+                    shopBars[shopBars.Count - 1].BuildBar(goods.GetChild(items[i]).GetComponent<Item>());
                 }
                 else
                 {
-                    itemBars[index].count++;
+                    shopBars[index].total++;
                 }
             }
         }
@@ -179,8 +179,8 @@ namespace App.UI
         public void CountTotalPrice()
         {
             totalPrice = 0;
-            for (int i = 0; i < itemBars.Count; i++)
-                totalPrice += itemBars[i].totalPrice;
+            for (int i = 0; i < shopBars.Count; i++)
+                totalPrice += shopBars[i].totalPrice;
             total.text = totalPrice.ToString();
         }
     }

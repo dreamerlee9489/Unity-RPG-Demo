@@ -37,6 +37,7 @@ namespace App.Control
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                     {
                         combatEntity.CancelAction();
+                        UIManager.Instance.target = null;
                         switch (hit.collider.tag)
                         {
                             case "Terrain":

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 947904154245727677}
   - component: {fileID: 947904154245727676}
   m_Layer: 0
-  m_Name: Skill_KickR
+  m_Name: Skill_WarriorC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,5 +75,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65058e82b76f41540b7fd4714a5cbdc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemConfig: {fileID: 11400000, guid: 4d8f571587a81ff48ac7b0313d015e1f, type: 2}
+  itemConfig: {fileID: 11400000, guid: c22012bdaed01ab469d63c6aa61e73d4, type: 2}
   containerType: 2

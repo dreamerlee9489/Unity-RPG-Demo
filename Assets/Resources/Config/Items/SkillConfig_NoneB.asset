@@ -10,11 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04363f0b542d59f4f8a64bba88ea2dbe, type: 3}
-  m_Name: SkillConfig_KickR
+  m_Name: SkillConfig_NoneB
   m_EditorClassIdentifier: 
   itemName: "\u53F3\u8E22"
-  description: "\u7528\u53F3\u811A\u72E0\u72E0\u7684\u8E39\u654C\u4EBA"
+  description: "\u7528\u53F3\u811A\u72E0\u72E0\u7684\u8E39\u5BF9\u65B9"
   price: 0
-  item: {fileID: 0}
-  itemUI: {fileID: -2144716052617753750, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
+  item: {fileID: 947904154245727676, guid: c6647f8062ac5314592b3e2cb06ab58c, type: 3}
+  itemUI: {fileID: 1343668645154321579, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
   itemType: 10
+  skillType: 1
+  hpAdd: 0
+  mpAdd: 0
+  atkAdd: 0
+  defAdd: 0
+  hpCost: 0
+  mpCost: 0
+  atkCost: 0
+  defCost: 0

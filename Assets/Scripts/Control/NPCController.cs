@@ -46,11 +46,11 @@ namespace App.Control
     {
         protected int index = 0;
         protected List<Task> tasks = new List<Task>();
-        public Dictionary<string, Action> actions = new Dictionary<string, Action>();
         public Transform goods { get; set; }
+        public Dictionary<string, Action> actions = new Dictionary<string, Action>();
         public DialogueConfig dialogueConfig { get; set; }
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             index = 0;
             goods = transform.GetChild(2);

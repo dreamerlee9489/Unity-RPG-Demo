@@ -6,11 +6,11 @@ namespace App.Control
 {
 	public class NPCMaster : NPCController
 	{
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
-			actions.Add("OpenSkillTree", () => {
-				UIManager.Instance.shopPanel.BuildPanel(goods);
+			base.Awake();
+			actions.Add("OpenSkillPanel", () => {
+				UIManager.Instance.skillPanel.BuildPanel(goods);
 			});
             dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_NPC_Warrior_Master").asset as DialogueConfig;
 		}

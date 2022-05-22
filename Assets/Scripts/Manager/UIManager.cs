@@ -8,9 +8,10 @@ namespace App.Manager
     public class UIManager : MonoBehaviour, ICmdReceiver
     {
         static UIManager instance = null;
-        Transform dialogueTarget = null;
         public static UIManager Instance => instance;
+        public Transform target = null;
         public HUDPanel hudPanel { get; set; }
+        public ActionPanel actionPanel { get; set; }
         public BagPanel bagPanel { get; set; }
         public EquipmentPanel equipmentPanel { get; set; }
         public DialoguePanel dialoguePanel { get; set; }
@@ -20,11 +21,13 @@ namespace App.Manager
         public AttributePanel attributePanel { get; set; }
         public TipPanel tipPanel { get; set; }
         public ShopPanel shopPanel { get; set; }
+        public SkillPanel skillPanel { get; set; }
 
         void Awake()
         {
             instance = this;
             hudPanel = GameObject.Find("HUDPanel").GetComponent<HUDPanel>();
+            actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanel>();
             bagPanel = GameObject.Find("BagPanel").GetComponent<BagPanel>();
             equipmentPanel = GameObject.Find("EquipmentPanel").GetComponent<EquipmentPanel>();
             dialoguePanel = GameObject.Find("DialoguePanel").GetComponent<DialoguePanel>();
@@ -34,6 +37,7 @@ namespace App.Manager
             attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
             tipPanel = GameObject.Find("TipPanel").GetComponent<TipPanel>();
             shopPanel = GameObject.Find("ShopPanel").GetComponent<ShopPanel>();
+            skillPanel = GameObject.Find("SkillPanel").GetComponent<SkillPanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -47,12 +51,13 @@ namespace App.Manager
             attributePanel.gameObject.SetActive(false);
             tipPanel.gameObject.SetActive(false);
             shopPanel.gameObject.SetActive(false);
+            skillPanel.gameObject.SetActive(false);
         }
 
         void Update()
         {
-            if(dialogueTarget != null)
-                ExecuteAction(dialogueTarget);
+            if(target != null)
+                ExecuteAction(target);
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
@@ -61,6 +66,8 @@ namespace App.Manager
                 taskPanel.gameObject.SetActive(taskPanel.isOpened = false);
                 messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
                 attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
+                shopPanel.gameObject.SetActive(shopPanel.isOpened = false);
+                skillPanel.gameObject.SetActive(skillPanel.isOpened = false);
             }
             if (Input.GetKeyDown(KeyCode.A))
                 attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
@@ -77,7 +84,7 @@ namespace App.Manager
         {
             if(!GameManager.Instance.player.CanDialogue(target))
             {
-                dialogueTarget = target;
+                this.target = target;
                 GameManager.Instance.player.GetComponent<NavMeshAgent>().destination = target.position;
             }
             else
@@ -85,7 +92,7 @@ namespace App.Manager
                 dialoguePanel.npc = target.GetComponent<NPCController>();
                 target.LookAt(GameManager.Instance.player.transform);
                 dialoguePanel.gameObject.SetActive(true);
-                dialogueTarget = null;
+                this.target = null;
             }
         }
 

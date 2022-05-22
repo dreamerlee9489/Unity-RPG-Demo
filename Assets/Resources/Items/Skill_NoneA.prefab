@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5233016006593782921}
   - component: {fileID: 5233016006593782926}
   m_Layer: 0
-  m_Name: Skill_KickL
+  m_Name: Skill_NoneA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
