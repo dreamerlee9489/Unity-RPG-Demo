@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 8267801869678229136}
   - component: {fileID: 8267801869678229150}
   - component: {fileID: 8267801869678229151}
-  - component: {fileID: 8850955872338454576}
+  - component: {fileID: 1047237376409946449}
   m_Layer: 5
   m_Name: SkillBar
   m_TagString: Untagged
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8850955872338454576
+--- !u!114 &1047237376409946449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

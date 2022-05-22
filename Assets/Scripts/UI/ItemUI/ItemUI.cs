@@ -141,9 +141,9 @@ namespace App.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             Vector3 position = eventData.pointerEnter.transform.position;
-            float tipWidth = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect.width;
-            float itemWidth = GetComponent<RectTransform>().rect.width;
-            UIManager.Instance.tipPanel.transform.position = position + (position.x > (tipWidth + itemWidth) ? new Vector3(-itemWidth, 0, 0) : new Vector3(itemWidth, 0, 0));
+            Rect tipRect = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect;
+            Rect itemRect = GetComponent<RectTransform>().rect;
+            UIManager.Instance.tipPanel.transform.position = position + (position.x * 2 > (tipRect.width + itemRect.width) ? new Vector3(-itemRect.width / 2, tipRect.height / 2, 0) : new Vector3(itemRect.width / 2, tipRect.height / 2, 0));
             UIManager.Instance.tipPanel.Draw(item);
         }
 

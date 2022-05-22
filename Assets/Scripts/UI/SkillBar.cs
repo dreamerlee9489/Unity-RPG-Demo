@@ -22,7 +22,7 @@ namespace App.UI
 
 		void Awake()
 		{
-			total = 10;
+			total = 1;
 			itemIcon = transform.GetChild(0).GetComponent<Image>();
 			itemName = transform.GetChild(1).GetComponent<Text>();
 			priceText = transform.GetChild(3).GetComponent<Text>();

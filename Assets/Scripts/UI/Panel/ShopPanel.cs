@@ -45,7 +45,7 @@ namespace App.UI
                             for (int j = 0; j < shopBars[i].quantity; j++)
                                 goods.GetChild(i).GetComponent<Item>().AddToInventory();
                             if(shopBars[i].quantity > 0)
-                                UIManager.Instance.messagePanel.ShowMessage("[系统]  你购买了：" + shopBars[i].item.itemConfig.itemName + " * " + shopBars[i].quantity, Color.yellow);
+                                UIManager.Instance.messagePanel.ShowMessage("[系统]  你购买了物品：" + shopBars[i].item.itemConfig.itemName + " * " + shopBars[i].quantity, Color.yellow);
                             shopBars[i].quantity = 0;
 			                shopBars[i].quantityText.text = "0";
                         }

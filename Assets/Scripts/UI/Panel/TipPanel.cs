@@ -10,6 +10,7 @@ namespace App.UI
     public class TipPanel : MonoBehaviour
     {
         Text itemName = null;
+        Text itemType = null;
         Text description = null;
         Text tipBar = null;
         List<Text> bars = new List<Text>();
@@ -17,7 +18,8 @@ namespace App.UI
         void Awake()
         {
             itemName = transform.GetChild(0).GetComponent<Text>();
-            description = transform.GetChild(1).GetComponent<Text>();
+            itemType = transform.GetChild(1).GetComponent<Text>();
+            description = transform.GetChild(2).GetComponent<Text>();
             tipBar = Resources.Load<Text>("UI/TipBar");
         }
 
@@ -37,11 +39,13 @@ namespace App.UI
                 switch (item.itemConfig.itemType)
                 {
                     case ItemType.WEAPON:
+                        itemType.text = "武器";
                         WeaponConfig weaponConfig = item.itemConfig as WeaponConfig;
                         bars.Add(Instantiate(tipBar, transform));
                         bars[0].text = "攻击力：" + (weaponConfig.atk > 0 ? "+" : "") + weaponConfig.atk.ToString();
                         break;
                     case ItemType.POTION:
+                        itemType.text = "消耗品";
                         PotionConfig potionConfig = item.itemConfig as PotionConfig;
                         if (potionConfig.hp != 0)
                         {
@@ -65,6 +69,7 @@ namespace App.UI
                         }
                         break;
                     case ItemType.SKILL:
+                        itemType.text = "技能";
                         SkillConfig skillConfig = item.itemConfig as SkillConfig;
                         if(skillConfig.initialHP != 0)
                         {
@@ -85,6 +90,11 @@ namespace App.UI
                         {
                             bars.Add(Instantiate(tipBar, transform));
                             bars[bars.Count - 1].text = "防御力：" + (skillConfig.initialDEF > 0 ? "+" : "") + skillConfig.initialDEF.ToString();
+                        }
+                        if(skillConfig.initialCD != 0)
+                        {
+                            bars.Add(Instantiate(tipBar, transform));
+                            bars[bars.Count - 1].text = "冷却时间：" + skillConfig.initialCD.ToString() + "秒";
                         }
                         break;
                     case ItemType.BOOTS:

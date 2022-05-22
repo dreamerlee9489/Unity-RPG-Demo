@@ -19,8 +19,13 @@ MonoBehaviour:
   itemUI: {fileID: 1343668645154321579, guid: 8a945dfca9872954888ceb29c6c99fe5, type: 3}
   itemType: 10
   skillType: 1
-  hp: 0
-  mp: -150
-  atk: 200
-  def: 0
-  cd: 12
+  initialHP: 0
+  initialMP: -80
+  initialATK: 80
+  initialDEF: 0
+  initialCD: 8
+  factorHP: 0.25
+  factorMP: 0.25
+  factorATK: 0.25
+  factorDEF: 0.25
+  factorCD: -0.25
