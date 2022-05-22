@@ -139,7 +139,7 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            combatEntity.combatTarget = target;
+            combatEntity.target = target;
             animator.SetBool("attack", true);
         }
 
@@ -152,7 +152,7 @@ namespace App.Control.FSM
 
         public override void Exit()
         {
-            combatEntity.combatTarget = null;
+            combatEntity.target = null;
             animator.SetBool("attack", false);
         }
 

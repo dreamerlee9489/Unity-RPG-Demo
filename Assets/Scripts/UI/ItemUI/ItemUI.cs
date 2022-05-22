@@ -11,7 +11,11 @@ namespace App.UI
     {
         Transform originParent = null;
         public Item item { get; set; }
-        protected void UseItem() { item.Use(GameManager.Instance.player); }
+        protected void UseItem() 
+        { 
+            item.Use(GameManager.Instance.player); 
+            UIManager.Instance.attributePanel.UpdatePanel();
+        }
 
         Transform CheckSlotType(GameObject obj)
         {
@@ -37,11 +41,9 @@ namespace App.UI
                         {
                             if (item.itemConfig.itemType != targetSlot.itemUI.item.itemConfig.itemType)
                                 return originParent;
-                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.ACTION);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
-                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
-                        item.containerType = ContainerType.ACTION;
                         return SwapItemUI(targetSlot, target);
                     }
                     else if (targetSlot.slotType == SlotType.BAG)
@@ -52,11 +54,9 @@ namespace App.UI
                         {
                             if (item.itemConfig.itemType != targetSlot.itemUI.item.itemConfig.itemType)
                                 return originParent;
-                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.BAG);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
-                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
-                        item.containerType = ContainerType.BAG;
                         return SwapItemUI(targetSlot, target);
                     }
                     else
@@ -65,17 +65,13 @@ namespace App.UI
                             return originParent;
                         if (item.containerType == ContainerType.EQUIPMENT)
                         {
-                            GameManager.Instance.player.DetachEquipment(item as Equipment);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment, targetSlot.itemUI.item.containerType);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
-                            item.containerType = targetSlot.itemUI.item.containerType;
-                            targetSlot.itemUI.item.containerType = ContainerType.EQUIPMENT;
                         }
                         else
                         {
-                            GameManager.Instance.player.DetachEquipment(targetSlot.itemUI.item as Equipment);
+                            GameManager.Instance.player.DetachEquipment(targetSlot.itemUI.item as Equipment, item.containerType);
                             GameManager.Instance.player.AttachEquipment(item as Equipment);
-                            targetSlot.itemUI.item.containerType = item.containerType;
-                            item.containerType = ContainerType.EQUIPMENT;
                         }
                         return SwapItemUI(targetSlot, target);
                     }
@@ -88,8 +84,7 @@ namespace App.UI
                 else if (targetSlot.slotType == SlotType.ACTION)
                 {
                     if (item.containerType == ContainerType.EQUIPMENT)
-                        GameManager.Instance.player.DetachEquipment(item as Equipment);
-                    item.containerType = ContainerType.ACTION;
+                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.ACTION);
                     return targetSlot.transform;
                 }
                 else if (targetSlot.slotType == SlotType.BAG)
@@ -97,8 +92,7 @@ namespace App.UI
                     if (item.itemConfig.itemType == ItemType.SKILL)
                         return originParent;
                     if (item.containerType == ContainerType.EQUIPMENT)
-                        GameManager.Instance.player.DetachEquipment(item as Equipment);
-                    item.containerType = ContainerType.BAG;
+                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.BAG);
                     return targetSlot.transform;
                 }
                 else
@@ -106,7 +100,6 @@ namespace App.UI
                     if (item.itemConfig.itemType != targetSlot.itemType)
                         return originParent;
                     GameManager.Instance.player.AttachEquipment(item as Equipment);
-                    item.containerType = ContainerType.EQUIPMENT;
                     return targetSlot.transform;
                 }
             }

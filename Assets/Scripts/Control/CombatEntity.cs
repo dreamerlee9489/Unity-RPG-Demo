@@ -12,9 +12,10 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
+        Weapon weapon = null;
+        Item pickup = null;
         public Transform weaponPos = null;
-        public Weapon weapon = null;
-        public HUDBar healthBar = null;
+        public Weapon weaponPrefab = null;
         public EntityConfig entityConfig = null;
         public ProgressionConfig progressionConfig = null;
         public DropListConfig dropListConfig = null;
@@ -32,17 +33,15 @@ namespace App.Control
         public bool isDead { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
-        public Transform combatTarget { get; set; }
+        public Transform target { get; set; }
+        public HUDBar hpBar { get; set; }
         public Progression progression { get; set; }
 
         void Awake()
         {
-            if (!CompareTag("Player"))
-                healthBar = transform.GetChild(0).GetComponent<HUDBar>();
-            GetComponent<Collider>().isTrigger = true;
-            agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
             GetComponent<Collider>().enabled = true;
+            animator = GetComponent<Animator>();
+            agent = GetComponent<NavMeshAgent>();
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.radius = 0.5f;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
@@ -50,39 +49,68 @@ namespace App.Control
             progression = progressionConfig.GetProgressionByLevel(level);
             maxHP = progression.thisLevelHP;
             maxMP = progression.thisLevelMP;
-            maxATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+            maxATK = progression.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
             maxDEF = progression.thisLevelDEF;
             maxEXP = progression.upLevelEXP;
             currentHP = progression.thisLevelHP;
             currentMP = progression.thisLevelMP;
-            currentATK = progression.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+            currentATK = progression.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
             currentDEF = progression.thisLevelDEF;
             currentEXP = 0;
         }
 
-        void AttackL(float factor) => TakeDamage(combatTarget, factor);
-        void AttackR(float factor) => TakeDamage(combatTarget, factor);
+        void Start()
+        {
+            if (weaponPrefab != null)
+            {
+                AttachEquipment(weapon = Instantiate(weaponPrefab, weaponPos));
+                weapon.collider.enabled = false;
+                weapon.rigidbody.useGravity = false;
+                weapon.rigidbody.isKinematic = true;
+            }
+            hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
+        }
+
+        void Pickup()
+        {
+            for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+            {
+                Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
+                if (temp != null && pickup.Equals(temp))
+                    GameManager.Instance.registeredTasks[i].UpdateProgress(1);
+            }
+            pickup.AddToInventory();
+            if (pickup.nameBar != null)
+            {
+                Destroy(pickup.nameBar.gameObject);
+                pickup.nameBar = null;
+            }
+            Destroy(pickup.gameObject);
+            animator.SetBool("pickup", false);
+            UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
+        }
+
+        void AttackL(float factor) => TakeDamage(target, factor);
+        void AttackR(float factor) => TakeDamage(target, factor);
         void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
-                defender.healthBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
+                defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
                 if (defender.currentHP <= 0)
                 {
                     defender.Death();
                     CancelAction();
                 }
             }
-            if (this == GameManager.Instance.player)
-                UIManager.Instance.attributePanel.UpdatePanel();
         }
 
         void Death()
         {
             isDead = true;
-            combatTarget = null;
+            target = null;
             animator.SetBool("attack", false);
             animator.SetBool("death", true);
             agent.radius = 0;
@@ -134,10 +162,10 @@ namespace App.Control
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = progression.thisLevelATK + weaponConfig.atk;
-                    weapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);
+                    weapon = equipment as Weapon;
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
@@ -147,20 +175,20 @@ namespace App.Control
                 case EquipmentType.JEWELRY:
                     break;
             }
-            UIManager.Instance.attributePanel.UpdatePanel();
+            equipment.containerType = ContainerType.EQUIPMENT;
         }
 
-        public void DetachEquipment(Equipment equipment)
+        public void DetachEquipment(Equipment equipment, ContainerType containerType = ContainerType.BAG)
         {
             switch (equipment.equipmentType)
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = progression.thisLevelATK;
-                    weapon = null;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.inventory);
                     equipment.gameObject.SetActive(false);
+                    weapon = null;
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
@@ -170,16 +198,26 @@ namespace App.Control
                 case EquipmentType.JEWELRY:
                     break;
             }
-            UIManager.Instance.attributePanel.UpdatePanel();
+            equipment.containerType = containerType;
         }
 
         public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
+            this.target = target;
+            transform.LookAt(target);
+            if ((pickup = target.GetComponent<Item>()) != null)
             {
-                this.combatTarget = target;
-                transform.LookAt(target);
+                if (CanDialogue(pickup.transform))
+                {
+                    animator.SetBool("pickup", true);
+                    this.target = null;
+                }
+                else
+                    agent.destination = target.position;
+            }
+            else
+            {
                 if (CanAttack(target))
                     animator.SetBool("attack", true);
                 else
@@ -192,8 +230,10 @@ namespace App.Control
 
         public void CancelAction()
         {
-            combatTarget = null;
+            target = null;
+            pickup = null;
             animator.SetBool("attack", false);
+            animator.SetBool("pickup", false);
         }
 
         public bool CanSee(Transform target)
@@ -220,12 +260,9 @@ namespace App.Control
 
         public bool CanDialogue(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
-            {
-                Vector3 direction = target.position - transform.position;
-                if (direction.sqrMagnitude <= 2.25f)
-                    return true;
-            }
+            Vector3 direction = target.position - transform.position;
+            if (direction.sqrMagnitude <= 2.25f)
+                return true;
             return false;
         }
 

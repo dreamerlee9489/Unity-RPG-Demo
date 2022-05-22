@@ -50,11 +50,10 @@ namespace App.Control
         public Transform goods { get; set; }
         public DialogueConfig dialogueConfig { get; set; }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             index = 0;
             goods = transform.GetChild(2);
-            GetComponent<CombatEntity>().healthBar.gameObject.SetActive(false);
         }
 
         protected void GiveTask(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)

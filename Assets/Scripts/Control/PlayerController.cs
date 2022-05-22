@@ -36,6 +36,7 @@ namespace App.Control
                 {
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                     {
+                        combatEntity.CancelAction();
                         switch (hit.collider.tag)
                         {
                             case "Terrain":
@@ -43,7 +44,7 @@ namespace App.Control
                                 break;
                             case "Enemy":
                                 ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = combatEntity.entityConfig.stopDistance + combatEntity.combatTarget.GetComponent<CombatEntity>().entityConfig.stopDistance;
+                                agent.stoppingDistance = combatEntity.entityConfig.stopDistance + combatEntity.target.GetComponent<CombatEntity>().entityConfig.stopDistance;
                                 combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
@@ -51,16 +52,15 @@ namespace App.Control
                                 agent.stoppingDistance = 1.5f;
                                 break;
                             case "Item":
-                                agent.destination = hit.point;
-                                agent.stoppingDistance = 0;
+                                ExecuteCommand(1, hit.transform);
                                 break;
                         }
                     }
                 }
                 if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
-                if (combatEntity.combatTarget != null)
-                    combatEntity.ExecuteAction(combatEntity.combatTarget);
+                if (combatEntity.target != null)
+                    combatEntity.ExecuteAction(combatEntity.target);
             }
         }
 

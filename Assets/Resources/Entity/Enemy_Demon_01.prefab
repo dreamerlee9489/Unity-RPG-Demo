@@ -1658,8 +1658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPos: {fileID: 505250513981252231}
-  weapon: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
-  healthBar: {fileID: 3006573216755222829}
+  weaponPrefab: {fileID: 0}
   entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
   progressionConfig: {fileID: 11400000, guid: 38cc0da06ce2bd94baff56b7cb1f96fc, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
@@ -3189,17 +3188,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 82380099191408970, guid: 8acfa5195576ef64eb462364ce8bfb9c, type: 3}
   m_PrefabInstance: {fileID: 2926726413832388715}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3006573216755222829 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 82380099191408966, guid: 8acfa5195576ef64eb462364ce8bfb9c, type: 3}
-  m_PrefabInstance: {fileID: 2926726413832388715}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4180291254895896706
 PrefabInstance:
   m_ObjectHideFlags: 0

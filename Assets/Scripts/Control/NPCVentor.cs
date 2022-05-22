@@ -6,9 +6,9 @@ namespace App.Control
 {
 	public class NPCVentor : NPCController
 	{
-		protected override void Awake()
+		protected override void Start()
 		{
-			base.Awake();
+			base.Start();
 			actions.Add("OpenShop", () => {
 				UIManager.Instance.shopPanel.BuildPanel(goods);
 			});

@@ -6,9 +6,9 @@ namespace App.Control
 {
 	public class NPCMaster : NPCController
 	{
-		protected override void Awake()
+		protected override void Start()
 		{
-			base.Awake();
+			base.Start();
 			actions.Add("OpenSkillTree", () => {
 				UIManager.Instance.shopPanel.BuildPanel(goods);
 			});

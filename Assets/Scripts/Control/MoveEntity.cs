@@ -45,8 +45,6 @@ namespace App.Control
         public void ExecuteAction(Transform target) { }
         public void ExecuteAction(Vector3 point)
         {
-            if (combatEntity.combatTarget != null)
-                combatEntity.CancelAction();
             agent.isStopped = false;
             agent.destination = point;
             agent.stoppingDistance = abilityConfig.stopDistance;

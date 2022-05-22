@@ -11,7 +11,7 @@ namespace App.UI
 
 		void Awake()
 		{
-			if(CompareTag("Enemy"))
+			if(CompareTag("Enemy") || CompareTag("NPC"))
 				gameObject.SetActive(false);
 		}
 
