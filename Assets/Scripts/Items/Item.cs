@@ -39,7 +39,7 @@ namespace App.Items
             {
                 if(nameBar == null)
                 {
-                    nameBar = Instantiate(Resources.Load<NameBar>("UI/NameBar"));
+                    nameBar = Instantiate(Resources.Load<NameBar>("UI/Bar/NameBar"));
                     nameBar.chName.text = itemConfig.itemName;
                 }
                 nameBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);

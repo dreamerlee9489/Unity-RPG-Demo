@@ -12,7 +12,7 @@ namespace App.UI
         void Awake()
         {
             scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
-            messageBar = Resources.Load<Text>("UI/MessageBar");
+            messageBar = Resources.Load<Text>("UI/Bar/MessageBar");
         }
 
         void Update()

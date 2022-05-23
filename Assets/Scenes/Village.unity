@@ -192,6 +192,14 @@ PrefabInstance:
       propertyPath: professionConfig
       value: 
       objectReference: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
+    - target: {fileID: 7906877790083461194, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906877790083461239, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
 --- !u!224 &251810282 stripped
@@ -422,6 +430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1716601605930164235, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01 (2)
@@ -644,6 +656,14 @@ PrefabInstance:
     - target: {fileID: 1128079727254294964, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: m_Name
       value: Enemy_Soldier_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906877790083461194, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906877790083461239, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
@@ -939,6 +959,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1716601605930164235, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716601605930164278, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01 (1)
@@ -1233,6 +1261,10 @@ PrefabInstance:
       propertyPath: professionConfig
       value: 
       objectReference: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
+    - target: {fileID: 7906877790083461239, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
 --- !u!1001 &1414858051
@@ -2084,11 +2116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1275680057709217736, guid: 508911d012e77174da44aa27da89fa23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1275680057709217736, guid: 508911d012e77174da44aa27da89fa23, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1275680057709217736, guid: 508911d012e77174da44aa27da89fa23, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2104,7 +2136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1275680057709217736, guid: 508911d012e77174da44aa27da89fa23, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -140.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1275680057757112122, guid: 508911d012e77174da44aa27da89fa23, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2320,6 +2352,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4126567606218619665, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 7239271153561498324, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
       propertyPath: m_Name
       value: NPC_Guard_01
@@ -2377,6 +2413,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3296339880914585946, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3756886435451815105, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
       propertyPath: m_Name
       value: Enemy_Demon_01
@@ -2482,6 +2522,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8224513414252274520, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8224513414252274533, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
 --- !u!1001 &3960429962274361029
@@ -2517,11 +2565,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429962711213812, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429962711213812, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429962711213812, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2533,15 +2581,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429962711213812, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -33.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2557,7 +2605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963050562350, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -106.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963114599598, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_Pivot.x
@@ -2649,11 +2697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2661,7 +2709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960429963281699529, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9da63ce9afa665e41bdd613ffab5ec74, type: 3}
@@ -2672,6 +2720,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 363451536160535184, guid: 985badc1c56165f4b999c7e0fd851931, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 6697060283857979002, guid: 985badc1c56165f4b999c7e0fd851931, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2729,6 +2781,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1716601605930164235, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01
@@ -3015,6 +3071,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4991977569925214490, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3045,7 +3105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 440
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3923,9 +3983,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1988207487171778231, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359752865134989715, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 3402823263417860003, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: level
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318686677981440837, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 7328611324416038850, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_Name

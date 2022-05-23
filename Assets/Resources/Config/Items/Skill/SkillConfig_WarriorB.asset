@@ -10,24 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04363f0b542d59f4f8a64bba88ea2dbe, type: 3}
-  m_Name: SkillConfig_WarriorD
+  m_Name: SkillConfig_WarriorB
   m_EditorClassIdentifier: 
-  itemName: "\u5965\u4E49\xB7\u5200\u5149\u5251\u5F71"
-  description: "\u5BF9\u654C\u65B9\u9020\u6210\u5DE8\u989D\u4F24\u5BB3"
+  itemName: "\u81F4\u6B8B\u6253\u51FB"
+  description: "\u5BF9\u654C\u65B9\u9020\u6210\u5927\u91CF\u4F24\u5BB3"
   itemLevel: 0
-  itemPrice: 400
-  itemPrefab: {fileID: 947904154245727676, guid: d8ecbb38fd5280642bbb1bc9dae7dac7, type: 3}
+  itemPrice: 200
+  itemPrefab: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
   itemUI: {fileID: 1343668645154321579, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
   itemType: 10
   skillType: 1
+  controlType: 1
+  controlRate: 0.5
   initialHP: 0
-  initialMP: -80
-  initialATK: 80
+  initialMP: -40
+  initialATK: 40
   initialDEF: 0
-  initialCD: 8
+  initialCD: 6
+  initialControlTime: 2
   factorHP: 0.25
   factorMP: 0.25
   factorATK: 0.25
   factorDEF: 0.25
   factorCD: -0.25
-  levelRequires: 040000000b00000012000000
+  factorControlTime: 0.25
+  playerLevelRequires: 0100000004000000070000000a0000000d000000

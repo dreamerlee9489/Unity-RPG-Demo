@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using App.Items;
 using App.Manager;
+using App.SO;
 
 namespace App.UI
 {
@@ -10,32 +11,57 @@ namespace App.UI
         protected override void Awake()
         {
             base.Awake();
+            shopBarPrefab = Resources.Load<ShopBar>("UI/Bar/SkillShopBar");
             shopType = ShopType.SKILL;
             content = gameObject.GetComponentInChildren<ScrollRect>().content;
             btnTrade.onClick.AddListener(() =>
             {
-                if (InventoryManager.Instance.playerData.golds >= totalPrice)
+                if (InventoryManager.Instance.playerData.golds >= total)
                 {
                     for (int i = 0; i < shopBars.Count; i++)
                     {
                         if (shopBars[i].count > 0)
                         {
-                            goods.GetChild(i).GetComponent<Skill>().AddToInventory();
-                            UIManager.Instance.messagePanel.ShowMessage("[系统]  你学习了技能：" + shopBars[i].item.itemConfig.itemName + " * " + shopBars[i].count, Color.yellow);
+                            int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).playerLevelRequires[shopBars[i].count - 1];
+                            Skill playerSkill = (shopBars[i] as SkillShopBar).playerSkill;
+                            if(shopBars[i].count <= playerSkill.level)
+                            {
+                                hint.text = "你的等级尚且无法学习该技能。";
+                                return;
+                            }
+                            if(levelRequire <= GameManager.Instance.player.level)
+                            {
+                                for(int j = 0; j < shopBars[i].count; j++)
+                                    goods.GetChild(i).GetComponent<Skill>().AddToInventory();
+                                InventoryManager.Instance.playerData.golds -= total;
+                                UIManager.Instance.goldPanel.UpdatePanel();
+                                total = 0;
+                                totalText.text = "0";
+                                shopBars[i].count = (shopBars[i] as SkillShopBar).playerSkill.level;
+                                shopBars[i].countText.text = shopBars[i].count.ToString();
+                                UIManager.Instance.messagePanel.ShowMessage("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
+                            }
+                            else
+                            {
+                                hint.text = "你的等级尚且无法学习该技能。";
+                                return;
+                            }
                         }
-                        shopBars[i].count = 0;
-                        shopBars[i].countText.text = "0";
                     }
-                    InventoryManager.Instance.playerData.golds -= totalPrice;
-                    UIManager.Instance.goldPanel.UpdatePanel();
-                    totalPrice = 0;
-                    total.text = "0";
                 }
                 else
                 {
-                    UIManager.Instance.messagePanel.ShowMessage("[系统]  余额不足，无法购买。", Color.red);
+                    hint.text = "金币不足，无法学习。";
                 }
             });
+        }
+
+        void OnEnable()
+        {
+            total = 0;
+            totalText.text = "0";
+            hint.text = "";
+            CountTotalPrice();
         }
 
         public override void BuildPanel(Transform goods)
@@ -47,6 +73,17 @@ namespace App.UI
                 shopBars.Add(Instantiate(shopBarPrefab, content));
                 shopBars[shopBars.Count - 1].BuildBar(item, this);
             }
+        }
+
+        public Skill GetPlayerSkill(Skill skill)
+        {
+            for (int i = 0; i < shopBars.Count; i++)
+            {
+                Skill result = (shopBars[i] as SkillShopBar).playerSkill;
+                if(result.Equals(skill))
+                    return result;
+            }
+            return null;
         }
     }
 }

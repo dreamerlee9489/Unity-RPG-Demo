@@ -25,7 +25,7 @@ namespace App.UI
             itemType = transform.GetChild(1).GetComponent<Text>();
             itemPrice = itemType.transform.GetChild(0).GetComponent<Text>();
             description = transform.GetChild(2).GetComponent<Text>();
-            tipBarPrefab = Resources.Load<Text>("UI/TipBar");
+            tipBarPrefab = Resources.Load<Text>("UI/Bar/TipBar");
         }
 
         void Update()
@@ -81,7 +81,7 @@ namespace App.UI
                     case ItemType.SKILL:
                         itemType.text = "技能";
                         itemPrice.text = "不可出售";
-                        itemLevel.text = "等级：" + InventoryManager.Instance.GetSkill(item as Skill).level;
+                        itemLevel.text = "等级：" + (item.CompareTag("Player") ? (item as Skill).level : UIManager.Instance.skillShopPanel.GetPlayerSkill(item as Skill).level + 1);
                         SkillConfig skillConfig = itemConfig as SkillConfig;
                         if(skillConfig.initialHP != 0)
                         {

@@ -13,7 +13,7 @@ namespace App.UI
         void Awake()
         {
             scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
-            taskBar = Resources.Load<TaskBar>("UI/TaskBar");
+            taskBar = Resources.Load<TaskBar>("UI/Bar/TaskBar");
         }
 
         public void Add(Task task)
@@ -23,7 +23,7 @@ namespace App.UI
             bar.progress.text = task.count + " / " + task.number;
         }
 
-        public void UpdateTask(Task task)
+        public void UpdatePanel(Task task)
         {
             for (int i = 0; i < scrollRect.content.childCount; i++)
             {

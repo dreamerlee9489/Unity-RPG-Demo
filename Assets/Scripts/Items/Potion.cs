@@ -20,6 +20,12 @@ namespace App.Items
             InventoryManager.Instance.Remove(this);
             ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
             itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
+            for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+            {
+                Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
+                if (temp != null && Equals(temp))
+                    GameManager.Instance.registeredTasks[i].UpdateProgress(-1);
+            }
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);
         }

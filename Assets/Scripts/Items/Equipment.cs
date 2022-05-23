@@ -1,5 +1,4 @@
 using App.Manager;
-using UnityEngine;
 
 namespace App.Items
 {

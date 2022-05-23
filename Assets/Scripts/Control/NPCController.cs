@@ -13,7 +13,6 @@ namespace App.Control
         public string name = "", chName = "";
         public string description = "";
         public int count = 0, number = 1;
-        public bool isCompleted = false;
         public int bounty = 0;
         public float exp = 0;
         public GameObject target { get; set; }
@@ -35,20 +34,19 @@ namespace App.Control
         public void UpdateProgress(int count)
         {
             this.count += count;
-            UIManager.Instance.taskPanel.UpdateTask(this);
-            if (this.count >= this.number && !isCompleted)
-                npc.CompleteTask();
+            UIManager.Instance.taskPanel.UpdatePanel(this);
+            npc.dialogueConfig = this.count >= number ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + npc.tasks[npc.index].name + "_Submit").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + npc.tasks[npc.index].name + "_Accept").asset as DialogueConfig;
         }
     }
 
     [RequireComponent(typeof(MoveEntity))]
     public abstract class NPCController : MonoBehaviour
     {
-        protected int index = 0;
-        protected List<Task> tasks = new List<Task>();
-        public Transform goods { get; set; }
+        public int index = 0;
+        public List<Task> tasks = new List<Task>();
         public Dictionary<string, Action> actions = new Dictionary<string, Action>();
         public DialogueConfig dialogueConfig { get; set; }
+        public Transform goods { get; set; }
 
         protected virtual void Awake()
         {
@@ -89,12 +87,6 @@ namespace App.Control
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
             index++;
-        }
-
-        public void CompleteTask()
-        {
-            tasks[index].isCompleted = true;
-            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Submit").asset as DialogueConfig;
         }
 
         public void ActionTrigger(string action)

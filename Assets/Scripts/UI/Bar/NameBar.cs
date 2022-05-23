@@ -12,6 +12,12 @@ namespace App.Control
 			chName = transform.GetChild(0).GetComponent<Text>();
 			if(transform.parent != null)
 			{
+				if(CompareTag("Player"))
+					chName.color = Color.green;
+				else if(CompareTag("Enemy"))
+					chName.color = Color.red;
+				else
+					chName.color = Color.yellow;
 				chName.text = transform.parent.GetComponent<CombatEntity>().entityConfig.nickName;
 				chName.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 2.4f, 0);
 			}

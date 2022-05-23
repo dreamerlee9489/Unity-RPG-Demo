@@ -37,6 +37,7 @@ namespace App.Manager
             item.collider.enabled = false;
             item.rigidbody.useGravity = false;
             item.rigidbody.isKinematic = true;
+            item.tag = "Player";
         }
 
         public void Remove(Item item)
