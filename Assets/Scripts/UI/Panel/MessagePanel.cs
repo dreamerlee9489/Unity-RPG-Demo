@@ -32,9 +32,9 @@ namespace App.UI
             Text text = Instantiate(messageBar, scrollRect.content);
             text.color = color;
             text.text = msg;
-            gameObject.SetActive(true);
-            scrollRect.verticalScrollbar.value = 0f;        
             timer = 10;
+            scrollRect.verticalScrollbar.value = 0f;        
+            gameObject.SetActive(true);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace App.Items
         public override void AddToInventory()
         {
             ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.inventory), Instantiate(itemConfig.itemUI, itemSlot.icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, itemSlot.icons.transform));
             itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
         }
 

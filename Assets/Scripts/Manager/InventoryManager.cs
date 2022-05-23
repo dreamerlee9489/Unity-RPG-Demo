@@ -10,12 +10,18 @@ namespace App.Manager
     public class InventoryManager
     {
         static InventoryManager instance = new InventoryManager();
-        InventoryManager() { inventory = GameManager.Instance.player.GetComponent<PlayerController>().inventory; }
         public static InventoryManager Instance => instance;
         public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
         public PlayerData playerData = new PlayerData();
-        public Transform inventory { get; set; }
+        public Transform bag { get; set; }
+        public Transform skills { get; set; }
+
+        InventoryManager()
+        {
+            bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
+            skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+        }
 
         public void Add(Item item, ItemUI itemUI)
         {
@@ -56,14 +62,32 @@ namespace App.Manager
             return count;
         }
 
-        public Item Get(Item item)
+        public Item GetItem(Item item)
+        {
+            int index = HasItem(item);
+            return index != -1 ? items[index] : null;
+        }
+
+        public int HasItem(Item item)
         {
             for (int i = 0; i < items.Count; i++)
-            {
                 if (items[i].Equals(item) && items[i].containerType != ContainerType.EQUIPMENT)
-                    return items[i];
-            }
-            return null;
+                    return i;
+            return -1;
+        }
+
+        public int HasSkill(Skill skill)
+        {
+            for (int i = 0; i < skills.childCount; i++)
+                if ((skills.GetChild(i).GetComponent<Skill>()).Equals(skill))
+                    return i;
+            return -1;
+        }
+
+        public Skill GetSkill(Skill skill)
+        {
+            int index = HasSkill(skill);
+            return index != -1 ? skills.GetChild(index).GetComponent<Skill>() : null;
         }
     }
 }

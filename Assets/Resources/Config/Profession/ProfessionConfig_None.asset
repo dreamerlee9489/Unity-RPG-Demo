@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ProfessionConfig_None
   m_EditorClassIdentifier: 
   professionType: 0
+  weaponType: 0
   initialHP: 100
   initialMP: 100
   initialATK: 10
@@ -23,6 +24,4 @@ MonoBehaviour:
   factorATK: 0.5
   factorDEF: 0.5
   factorEXP: 1
-  skillTree:
-  - {fileID: 5233016006593782926, guid: d65dd4af135eca846b6d56b88a306618, type: 3}
-  - {fileID: 947904154245727676, guid: c6647f8062ac5314592b3e2cb06ab58c, type: 3}
+  skillTree: []

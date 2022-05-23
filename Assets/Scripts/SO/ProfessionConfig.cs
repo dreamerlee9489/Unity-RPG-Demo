@@ -15,6 +15,7 @@ namespace App.SO
     public class ProfessionConfig : ScriptableObject
     {
         public ProfessionType professionType = ProfessionType.NONE;
+        public WeaponType weaponType = WeaponType.NONE;
         public float initialHP = 100, initialMP = 100, initialATK = 10, initialDEF = 2, initialEXP = 100;
         public float factorHP = 0.25f, factorMP = 0.25f, factorATK = 0.5f, factorDEF = 0.5f, factorEXP = 1f;
         public List<Skill> skillTree = new List<Skill>();

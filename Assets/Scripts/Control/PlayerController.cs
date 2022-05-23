@@ -15,7 +15,8 @@ namespace App.Control
         MoveEntity moveEntity = null;
         CombatEntity combatEntity = null;
         List<Command> commands = new List<Command>();
-        public Transform inventory = null;
+        public Transform bag = null;
+        public Transform skills = null;
 
         void Start()
         {

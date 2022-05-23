@@ -20,8 +20,8 @@ namespace App.Manager
         public MessagePanel messagePanel { get; set; }
         public AttributePanel attributePanel { get; set; }
         public TipPanel tipPanel { get; set; }
-        public ShopPanel shopPanel { get; set; }
-        public SkillPanel skillPanel { get; set; }
+        public ItemShopPanel itemShopPanel { get; set; }
+        public SkillShopPanel skillShopPanel { get; set; }
 
         void Awake()
         {
@@ -36,8 +36,8 @@ namespace App.Manager
             messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
             attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
             tipPanel = GameObject.Find("TipPanel").GetComponent<TipPanel>();
-            shopPanel = GameObject.Find("ShopPanel").GetComponent<ShopPanel>();
-            skillPanel = GameObject.Find("SkillPanel").GetComponent<SkillPanel>();
+            itemShopPanel = GameObject.Find("ItemShopPanel").GetComponent<ItemShopPanel>();
+            skillShopPanel = GameObject.Find("SkillShopPanel").GetComponent<SkillShopPanel>();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -50,8 +50,8 @@ namespace App.Manager
             messagePanel.gameObject.SetActive(false);
             attributePanel.gameObject.SetActive(false);
             tipPanel.gameObject.SetActive(false);
-            shopPanel.gameObject.SetActive(false);
-            skillPanel.gameObject.SetActive(false);
+            itemShopPanel.gameObject.SetActive(false);
+            skillShopPanel.gameObject.SetActive(false);
         }
 
         void Update()
@@ -66,8 +66,8 @@ namespace App.Manager
                 taskPanel.gameObject.SetActive(taskPanel.isOpened = false);
                 messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
                 attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
-                shopPanel.gameObject.SetActive(shopPanel.isOpened = false);
-                skillPanel.gameObject.SetActive(skillPanel.isOpened = false);
+                itemShopPanel.gameObject.SetActive(itemShopPanel.isOpened = false);
+                skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = false);
             }
             if (Input.GetKeyDown(KeyCode.A))
                 attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
@@ -77,6 +77,8 @@ namespace App.Manager
                 equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = !equipmentPanel.isOpened);
             if (Input.GetKeyDown(KeyCode.Q))
                 taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
+            if (Input.GetKeyDown(KeyCode.S))
+                skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
         }
 
         public void ExecuteAction(Vector3 point) { }

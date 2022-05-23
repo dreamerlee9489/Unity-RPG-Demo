@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 581f0fa192f8a4a448da23e0b96717b1, type: 3}
-  m_Name: WeaponConfig_Demo_Fist
+  m_Name: WeaponConfig_None_Demo
   m_EditorClassIdentifier: 
   itemName: "\u5DE8\u9B54\u7684\u94C1\u62F3"
   description: 
-  price: 0
-  item: {fileID: 0}
-  itemUI: {fileID: 0}
+  itemLevel: 0
+  itemPrice: 999
+  itemPrefab: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
+  itemUI: {fileID: -3276126370694680293, guid: 0f7cf912e68dec24687aeeef9776d7b8, type: 3}
   itemType: 7
+  weaponType: 0
   atk: 100
   animatorController: {fileID: 9100000, guid: b798abf01ca03a544a1ca4e1c27b85b7, type: 2}

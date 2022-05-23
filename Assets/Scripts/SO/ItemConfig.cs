@@ -8,8 +8,9 @@ namespace App.SO
     {
         public string itemName = "";
         public string description = "";
-        public int price = 999;
-        public Item item = null;
+        public int itemLevel = 0;
+        public int itemPrice = 999;
+        public Item itemPrefab = null;
         public ItemUI itemUI = null;
         public ItemType itemType = ItemType.WEAPON;
     }

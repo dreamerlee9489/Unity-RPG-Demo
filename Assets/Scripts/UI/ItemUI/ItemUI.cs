@@ -143,7 +143,20 @@ namespace App.UI
             Vector3 position = eventData.pointerEnter.transform.position;
             Rect tipRect = UIManager.Instance.tipPanel.transform.GetComponent<RectTransform>().rect;
             Rect itemRect = GetComponent<RectTransform>().rect;
-            UIManager.Instance.tipPanel.transform.position = position + (position.x * 2 > (tipRect.width + itemRect.width) ? new Vector3(-itemRect.width / 2, tipRect.height / 2, 0) : new Vector3(itemRect.width / 2, tipRect.height / 2, 0));
+            if (position.x > tipRect.width)
+            {
+                if (position.y < tipRect.height)
+                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(-itemRect.width, tipRect.height / 2, 0);
+                else
+                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(-itemRect.width, -tipRect.height / 2, 0);
+            }
+            else
+            {
+                if (position.y < tipRect.height)
+                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(itemRect.width / 2 + tipRect.width, tipRect.height / 2, 0);
+                else
+                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(itemRect.width / 2 + tipRect.width, -tipRect.height / 2, 0);
+            }
             UIManager.Instance.tipPanel.Draw(item);
         }
 

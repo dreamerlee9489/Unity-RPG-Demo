@@ -5,7 +5,7 @@ using App.Control;
 namespace App.Items
 {
     public class Weapon : Equipment
-    {        
+    {              
         public override void Use(CombatEntity user)
         {
             ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;

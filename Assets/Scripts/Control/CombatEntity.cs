@@ -12,10 +12,10 @@ namespace App.Control
     {
         Animator animator = null;
         NavMeshAgent agent = null;
-        Weapon weapon = null;
         Item pickup = null;
+        Weapon initialWeapon = null;
         public Transform weaponPos = null;
-        public Weapon weaponPrefab = null;
+        public Weapon initialWeaponPrefab = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
@@ -35,6 +35,7 @@ namespace App.Control
         public float sqrAttackRadius { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
+        public Weapon currentWeapon { get; set; }
         public Attribute attribute { get; set; }
 
         void Awake()
@@ -47,23 +48,20 @@ namespace App.Control
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             attribute = professionConfig.GetAttributeByLevel(level);
+            AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
+            currentWeapon.collider.enabled = false;
+            currentWeapon.rigidbody.useGravity = false;
+            currentWeapon.rigidbody.isKinematic = true;
             maxHP = attribute.thisLevelHP;
             maxMP = attribute.thisLevelMP;
-            maxATK = attribute.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
+            maxATK = attribute.thisLevelATK + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
             maxDEF = attribute.thisLevelDEF;
             maxEXP = attribute.upLevelEXP;
             currentHP = attribute.thisLevelHP;
             currentMP = attribute.thisLevelMP;
-            currentATK = attribute.thisLevelATK + (weaponPrefab == null ? 0 : (weaponPrefab.itemConfig as WeaponConfig).atk);
+            currentATK = attribute.thisLevelATK + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
             currentDEF = attribute.thisLevelDEF;
             currentEXP = 0;
-            if (weaponPrefab != null)
-            {
-                AttachEquipment(weapon = Instantiate(weaponPrefab, weaponPos));
-                weapon.collider.enabled = false;
-                weapon.rigidbody.useGravity = false;
-                weapon.rigidbody.isKinematic = true;
-            }
         }
 
         void Start()
@@ -94,12 +92,7 @@ namespace App.Control
             }
         }
 
-        void AttackL(float factor) => TakeDamage(target, factor);
-        void AttackR(float factor) => TakeDamage(target, factor);
-        void SkillA(float factor) => TakeDamage(target, factor);
-        void SkillB(float factor) => TakeDamage(target, factor);
-        void SkillC(float factor) => TakeDamage(target, factor);
-        void SkillD(float factor) => TakeDamage(target, factor);
+        void Attack() => TakeDamage(target);
         void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
@@ -139,14 +132,21 @@ namespace App.Control
             }
         }
 
-        void LoadSkillTree()
+        public void LoadSkillTree()
         {
             if (CompareTag("Player"))
             {
                 for (int i = 0; i < professionConfig.skillTree.Count; i++)
-                {
                     professionConfig.skillTree[i].AddToInventory();
-                }
+            }
+        }
+
+        public void UnloadSkillTree()
+        {
+            if (CompareTag("Player"))
+            {
+                for (int i = 0; i < professionConfig.skillTree.Count; i++)
+                    professionConfig.skillTree[i].RemoveFromInventory();
             }
         }
 
@@ -160,7 +160,7 @@ namespace App.Control
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);
-                    weapon = equipment as Weapon;
+                    currentWeapon = equipment as Weapon;
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
@@ -181,9 +181,9 @@ namespace App.Control
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = attribute.thisLevelATK;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
-                    equipment.transform.SetParent(InventoryManager.Instance.inventory);
+                    equipment.transform.SetParent(InventoryManager.Instance.bag);
                     equipment.gameObject.SetActive(false);
-                    weapon = null;
+                    currentWeapon = initialWeapon;
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
@@ -206,12 +206,12 @@ namespace App.Control
                 maxHP = attribute.thisLevelHP;
                 maxMP = attribute.thisLevelMP;
                 maxDEF = attribute.thisLevelDEF;
-                maxATK = attribute.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+                maxATK = attribute.thisLevelATK + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
                 maxEXP = attribute.upLevelEXP;
                 currentHP += attribute.thisLevelHP * 0.2f;
                 currentMP += attribute.thisLevelMP * 0.2f;
                 currentDEF = attribute.thisLevelDEF;
-                currentATK = attribute.thisLevelATK + (weapon == null ? 0 : (weapon.itemConfig as WeaponConfig).atk);
+                currentATK = attribute.thisLevelATK + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
             }
             UIManager.Instance.hudPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
@@ -250,6 +250,10 @@ namespace App.Control
             pickup = null;
             animator.SetBool("attack", false);
             animator.SetBool("pickup", false);
+            animator.ResetTrigger("skillA");
+            animator.ResetTrigger("skillB");
+            animator.ResetTrigger("skillC");
+            animator.ResetTrigger("skillD");
         }
 
         public bool CanSee(Transform target)

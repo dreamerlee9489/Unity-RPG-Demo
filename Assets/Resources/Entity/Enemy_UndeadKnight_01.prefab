@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPos: {fileID: 1193622632476590618}
-  weaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
+  initialWeaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
   professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: 60d67729e0ab7e04ea3f289eb101c1ba, type: 2}

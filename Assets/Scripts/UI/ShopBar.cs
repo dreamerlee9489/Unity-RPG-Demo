@@ -3,55 +3,87 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using App.Items;
 using App.Manager;
+using App.SO;
+using App.Control;
 
 namespace App.UI
 {
-	public class ShopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-	{
-		Image itemIcon = null;
-		Text itemName = null; 
-		Text priceText = null;
-		Button btnMinus = null;
-		Button btnPlus = null;
-		public int total { get; set; }
-		public int quantity { get; set; }
-		public int unitPrice { get; set; }
-		public int totalPrice { get; set; }
-		public Text quantityText { get; set; }
-		public Item item { get; set; }
+    public class ShopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    {
+        Image itemIcon = null;
+        Text itemName = null;
+        Text priceText = null;
+        Button btnMinus = null;
+        Button btnPlus = null;
+        ShopPanel shopPanel = null;
+        public int inventory { get; set; }
+        public int count { get; set; }
+        public int unitPrice { get; set; }
+        public int totalPrice { get; set; }
+        public Text countText { get; set; }
+        public Item item { get; set; }
 
-		void Awake()
-		{
-			total = UIManager.Instance.shopPanel.isSell ? 1 : 10;
-			itemIcon = transform.GetChild(0).GetComponent<Image>();
-			itemName = transform.GetChild(1).GetComponent<Text>();
-			priceText = transform.GetChild(3).GetComponent<Text>();
-			btnMinus = transform.GetChild(4).GetComponent<Button>();
-			quantityText = transform.GetChild(5).GetComponent<Text>();
-			btnPlus = transform.GetChild(6).GetComponent<Button>();
-			quantityText.text = "0";
-			btnMinus.onClick.AddListener(() => {
-				quantity = Mathf.Max(--quantity, 0);
-				totalPrice = quantity * unitPrice;  
-				quantityText.text = quantity.ToString();
-				UIManager.Instance.shopPanel.CountTotalPrice();
-			});
-			btnPlus.onClick.AddListener(() => {
-				quantity = Mathf.Min(++quantity, total);
-				totalPrice = quantity * unitPrice;  
-				quantityText.text = quantity.ToString();
-				UIManager.Instance.shopPanel.CountTotalPrice();
-			});
-		}
+        void Awake()
+        {
+            inventory = UIManager.Instance.itemShopPanel.isSell ? 1 : 10;
+            itemIcon = transform.GetChild(0).GetComponent<Image>();
+            itemName = transform.GetChild(1).GetComponent<Text>();
+            priceText = transform.GetChild(3).GetComponent<Text>();
+            btnMinus = transform.GetChild(4).GetComponent<Button>();
+            countText = transform.GetChild(5).GetComponent<Text>();
+            btnPlus = transform.GetChild(6).GetComponent<Button>();
+            btnMinus.onClick.AddListener(() =>
+            {
+                count = Mathf.Max(--count, 0);
+                totalPrice = count * unitPrice;
+                countText.text = count.ToString();
+                UIManager.Instance.itemShopPanel.CountTotalPrice();
+            });
+            btnPlus.onClick.AddListener(() =>
+            {
+                count = Mathf.Min(++count, inventory);
+                totalPrice = count * unitPrice;
+                countText.text = count.ToString();
+                UIManager.Instance.itemShopPanel.CountTotalPrice();
+            });
+        }
 
-		public void BuildBar(Item item)
-		{
-			this.item = item;
-			itemIcon.sprite = item.itemConfig.itemUI.GetComponent<Image>().sprite;
-			itemName.text = item.itemConfig.itemName;
-			unitPrice = (int)(item.itemConfig.price * (UIManager.Instance.shopPanel.isSell ? 0.5f : 1f)); 
-			priceText.text = unitPrice.ToString();
-		}
+        void Start()
+        {
+            inventory = GetInventory();
+            countText.text = InitialCount().ToString();
+        }
+
+        int GetInventory()
+        {
+            if(shopPanel.shopType == ShopType.SKILL)
+                return inventory = (item.itemConfig as SkillConfig).levelRequires.Count;
+            return inventory;
+        }
+
+        int InitialCount()
+        {
+            if(shopPanel.shopType == ShopType.SKILL)
+            {
+                for (int i = 0; i < InventoryManager.Instance.skills.childCount; i++)
+                {
+                    Skill skill = InventoryManager.Instance.skills.GetChild(i).GetComponent<Skill>();
+                    if (skill.Equals(item))
+                        return count = skill.level + 1;
+                }
+            }
+            return count = 0;
+        }
+
+        public void BuildBar(Item item, ShopPanel shopPanel)
+        {
+            this.item = item;
+            this.shopPanel = shopPanel;
+            itemIcon.sprite = item.itemConfig.itemUI.GetComponent<Image>().sprite;
+            itemName.text = item.itemConfig.itemName;
+            unitPrice = (int)(item.itemConfig.itemPrice * (UIManager.Instance.itemShopPanel.isSell ? 0.5f : 1f));
+            priceText.text = unitPrice.ToString();
+        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {

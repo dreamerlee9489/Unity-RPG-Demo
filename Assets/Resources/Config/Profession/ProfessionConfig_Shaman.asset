@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af4b2273f864ad8469297ef11f7e7aff, type: 3}
-  m_Name: ProfessionConfig_Warrior
+  m_Name: ProfessionConfig_Shaman
   m_EditorClassIdentifier: 
-  professionType: 0
+  professionType: 4
+  weaponType: 4
   initialHP: 100
   initialMP: 100
   initialATK: 10

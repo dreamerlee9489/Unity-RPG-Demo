@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4b2273f864ad8469297ef11f7e7aff, type: 3}
   m_Name: ProfessionConfig_Mage
   m_EditorClassIdentifier: 
-  initialHp: 100
-  initialMp: 200
-  initialAtk: 20
-  initialDef: 2
-  hpFactor: 0.25
-  mpFactor: 0.5
-  atkFactor: 0.5
-  defFactor: 0.25
+  professionType: 3
+  weaponType: 4
+  initialHP: 100
+  initialMP: 100
+  initialATK: 10
+  initialDEF: 2
+  initialEXP: 100
+  factorHP: 0.25
+  factorMP: 0.25
+  factorATK: 0.5
+  factorDEF: 0.5
+  factorEXP: 1
+  skillTree: []

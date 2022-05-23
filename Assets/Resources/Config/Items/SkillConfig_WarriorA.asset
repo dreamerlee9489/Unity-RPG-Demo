@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u4E00\u5200\u65A9"
   description: "\u5BF9\u654C\u65B9\u9020\u6210\u4E00\u5B9A\u4F24\u5BB3"
-  price: 100
-  item: {fileID: 5233016006593782926, guid: 6c3c8adf5bd58d84fb4fe103dc438fd4, type: 3}
-  itemUI: {fileID: 1343668645154321579, guid: 8a945dfca9872954888ceb29c6c99fe5, type: 3}
+  itemLevel: 0
+  itemPrice: 100
+  itemPrefab: {fileID: 5233016006593782926, guid: 6c3c8adf5bd58d84fb4fe103dc438fd4, type: 3}
+  itemUI: {fileID: 1343668645154321579, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
   itemType: 10
   skillType: 0
   initialHP: 0
@@ -29,3 +30,4 @@ MonoBehaviour:
   factorATK: 0.25
   factorDEF: 0.25
   factorCD: 0.25
+  levelRequires: 0100000003000000050000000700000009000000

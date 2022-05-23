@@ -25,24 +25,24 @@ namespace App.UI
             btnJewelry = transform.GetChild(3).GetComponent<Button>();
             btnPotion = transform.GetChild(4).GetComponent<Button>();
 			btnAll.onClick.AddListener(() => {
-				UIManager.Instance.shopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.shopPanel.goods, GoodsType.ALL));
-				UIManager.Instance.shopPanel.total.text = "0";
+				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.ALL));
+				UIManager.Instance.itemShopPanel.total.text = "0";
 			});
 			btnWeapon.onClick.AddListener(() => {
-				UIManager.Instance.shopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.shopPanel.goods, GoodsType.WEAPON));
-				UIManager.Instance.shopPanel.total.text = "0";
+				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.WEAPON));
+				UIManager.Instance.itemShopPanel.total.text = "0";
 			});
 			btnArmor.onClick.AddListener(() => {
-				UIManager.Instance.shopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.shopPanel.goods, GoodsType.ARMOR));
-				UIManager.Instance.shopPanel.total.text = "0";
+				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.ARMOR));
+				UIManager.Instance.itemShopPanel.total.text = "0";
 			});
 			btnJewelry.onClick.AddListener(() => {
-				UIManager.Instance.shopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.shopPanel.goods, GoodsType.JEWELRY));
-				UIManager.Instance.shopPanel.total.text = "0";
+				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.JEWELRY));
+				UIManager.Instance.itemShopPanel.total.text = "0";
 			});
 			btnPotion.onClick.AddListener(() => {
-				UIManager.Instance.shopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.shopPanel.goods, GoodsType.POTION));
-				UIManager.Instance.shopPanel.total.text = "0";
+				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.POTION));
+				UIManager.Instance.itemShopPanel.total.text = "0";
 			});
         }
 

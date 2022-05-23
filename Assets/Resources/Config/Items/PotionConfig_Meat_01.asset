@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u9999\u55B7\u55B7\u7684\u70E4\u725B\u6392"
   description: "\u8FD9\u662F\u4E00\u5757\u9999\u55B7\u55B7\u7684\u70E4\u725B\u6392\uFF0C\u5403\u6389\u5B83\u53EF\u4EE5\u8BA9\u4F60\u7CBE\u529B\u5145\u6C9B\u3002"
-  price: 100
-  item: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
+  itemLevel: 1
+  itemPrice: 100
+  itemPrefab: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
   itemUI: {fileID: -2144716052617753750, guid: 30bd806fae3602743be0fad2f47fb311, type: 3}
   itemType: 9
-  hp: 200
-  mp: 10
+  hp: 50
+  mp: 50
   atk: 0
   def: 0

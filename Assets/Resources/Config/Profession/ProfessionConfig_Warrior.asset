@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af4b2273f864ad8469297ef11f7e7aff, type: 3}
-  m_Name: ProfessionConfig_Archer
+  m_Name: ProfessionConfig_Warrior
   m_EditorClassIdentifier: 
-  professionType: 0
+  professionType: 1
+  weaponType: 1
   initialHP: 100
   initialMP: 100
   initialATK: 10
@@ -23,4 +24,8 @@ MonoBehaviour:
   factorATK: 0.5
   factorDEF: 0.5
   factorEXP: 1
-  skillTree: []
+  skillTree:
+  - {fileID: 5233016006593782926, guid: 6c3c8adf5bd58d84fb4fe103dc438fd4, type: 3}
+  - {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
+  - {fileID: 947904154245727676, guid: d62b3b6042646034194dc6dec30fb73b, type: 3}
+  - {fileID: 947904154245727676, guid: d8ecbb38fd5280642bbb1bc9dae7dac7, type: 3}

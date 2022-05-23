@@ -9,8 +9,8 @@ namespace App.Control
 		protected override void Awake()
 		{
 			base.Awake();
-			actions.Add("OpenShopPanel", () => {
-				UIManager.Instance.shopPanel.BuildPanel(goods);
+			actions.Add("OpenItemShopPanel", () => {
+				UIManager.Instance.itemShopPanel.BuildPanel(goods);
 			});
             dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_NPC_Grocer_01").asset as DialogueConfig;
 		}

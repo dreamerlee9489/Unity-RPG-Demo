@@ -73,7 +73,7 @@ namespace App.Control
             dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
             if(tasks[index].target.GetComponent<Item>() != null)
                 for (int i = 0; i < tasks[index].number; i++)
-                    InventoryManager.Instance.Get(tasks[index].target.GetComponent<Item>()).RemoveFromInventory();
+                    InventoryManager.Instance.GetItem(tasks[index].target.GetComponent<Item>()).RemoveFromInventory();
             foreach (var pair in tasks[index].rewards)
             {
                 Item item = null;

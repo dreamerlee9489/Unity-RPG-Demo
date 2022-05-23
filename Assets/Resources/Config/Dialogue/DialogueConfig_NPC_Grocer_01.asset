@@ -17,6 +17,6 @@ MonoBehaviour:
     hasNext: 0
     options:
     - dialogue: "\u597D\u7684\u3002"
-      action: OpenShopPanel
+      action: OpenItemShopPanel
     - dialogue: "\u4E0D\u611F\u5174\u8DA3\u3002"
       action: 
