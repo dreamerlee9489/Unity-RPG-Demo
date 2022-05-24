@@ -18,9 +18,9 @@ namespace App.UI
 
         public void UpdatePanel()
         {
-            UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentHP / GameManager.Instance.player.attribute.thisLevelHP, 1, 1));
-            UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentMP / GameManager.Instance.player.attribute.thisLevelMP, 1, 1));
-            UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.attribute.upLevelEXP, 1, 1));
+            UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentHP / GameManager.Instance.player.attribute.hp, 1, 1));
+            UIManager.Instance.hudPanel.mpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentMP / GameManager.Instance.player.attribute.mp, 1, 1));
+            UIManager.Instance.hudPanel.expBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.attribute.exp, 1, 1));
         }
     }
 }

@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   description: 
-  price: 999
-  item: {fileID: 0}
+  itemLevel: 0
+  itemPrice: 999
+  cd: 0
+  itemPrefab: {fileID: 0}
   itemUI: {fileID: 0}
   itemType: 7
   weaponType: 0
-  atk: 10
+  atk: 0
   animatorController: {fileID: 9100000, guid: b798abf01ca03a544a1ca4e1c27b85b7, type: 2}

@@ -107,12 +107,18 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor;
+            combatEntity.target = target;
+            agent.speed = combatEntity.maxSpeed;
         }
 
         public override void Execute()
         {
-            if (combatEntity.CanSee(target))
+            if(combatEntity.target == null)
+            {
+                Exit();
+                owner.currentState = null;
+            }
+            else if (combatEntity.CanSee(target))
             {
                 if (combatEntity.CanAttack(target))
                     owner.ChangeState(new Attack(owner, target));
@@ -145,9 +151,17 @@ namespace App.Control.FSM
 
         public override void Execute()
         {
-            owner.transform.LookAt(target);
-            if (!combatEntity.CanAttack(target))
-                owner.ChangeState(new Idle(owner, target));
+            if(combatEntity.target == null)
+            {
+                Exit();
+                owner.currentState = null;
+            }
+            else
+            {
+                owner.transform.LookAt(target);
+                if (!combatEntity.CanAttack(target))
+                    owner.ChangeState(new Idle(owner, target));
+            }
         }
 
         public override void Exit()
@@ -168,7 +182,6 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor;
         }
 
         public override void Execute()

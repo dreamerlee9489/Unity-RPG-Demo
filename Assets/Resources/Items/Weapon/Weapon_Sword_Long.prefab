@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4918f23473ad57d43987dfbcd6b67c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cdTimer: 0
   itemConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
   containerType: 0
   equipmentType: 0

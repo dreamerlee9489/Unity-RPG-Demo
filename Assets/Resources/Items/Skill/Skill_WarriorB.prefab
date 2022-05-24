@@ -43,10 +43,10 @@ BoxCollider:
   m_GameObject: {fileID: 947904154245727679}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 2}
+  m_Center: {x: 1, y: 0, z: 0}
 --- !u!54 &947904154245727677
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65058e82b76f41540b7fd4714a5cbdc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cdTimer: 0
   itemConfig: {fileID: 11400000, guid: ce16d6f7d4aef6a4a99fe5ddb1161a8a, type: 2}
   containerType: 1
-  skillLevel: 0
+  level: 0

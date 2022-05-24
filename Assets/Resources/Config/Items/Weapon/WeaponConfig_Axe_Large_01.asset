@@ -16,9 +16,10 @@ MonoBehaviour:
   description: "\u6765\u81EA\u8BFA\u514B\u8428\u65AF\u7684\u94C1\u65A7"
   itemLevel: 3
   itemPrice: 300
+  cd: 0
   itemPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   itemUI: {fileID: -3276126370694680293, guid: 0f7cf912e68dec24687aeeef9776d7b8, type: 3}
   itemType: 7
   weaponType: 2
-  atk: 20
+  atk: 30
   animatorController: {fileID: 22100000, guid: 063f0a2447483e54d8febb2bda658235, type: 2}

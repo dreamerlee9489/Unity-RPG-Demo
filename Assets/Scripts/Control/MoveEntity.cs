@@ -45,14 +45,14 @@ namespace App.Control
         public void ExecuteAction(Transform target) { }
         public void ExecuteAction(Vector3 point)
         {
-            agent.isStopped = false;
-            agent.destination = point;
             agent.stoppingDistance = abilityConfig.stopDistance;
+            agent.destination = point;
         }
 
         public void CancelAction()
         {
-            agent.isStopped = true;
+            agent.stoppingDistance = abilityConfig.stopDistance;
+            agent.destination = transform.position;
         }
 
         public float Seek(Vector3 position)

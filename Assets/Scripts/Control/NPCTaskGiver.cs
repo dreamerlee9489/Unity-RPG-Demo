@@ -92,7 +92,7 @@ namespace App.Control
                     item = Resources.Load<Item>("Items/" + pair.Key);
                     item.AddToInventory();
                 }
-                UIManager.Instance.messagePanel.ShowMessage("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
+                UIManager.Instance.messagePanel.Print("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
             }
             GameManager.Instance.player.GetExprience(tasks[index].exp);
             InventoryManager.Instance.playerData.golds += tasks[index].bounty;

@@ -8,18 +8,21 @@ using App.UI;
 
 namespace App.Control
 {
+    public enum CampType { BLUE, RED }
+
     public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
-        Animator animator = null;
-        NavMeshAgent agent = null;
         Item pickup = null;
         Weapon initialWeapon = null;
+        public int level = 1;
         public Transform weaponPos = null;
+        public Animator animator = null;
+        public NavMeshAgent agent = null;
         public Weapon initialWeaponPrefab = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
-        public int level = 1;
+        public CampType campType = CampType.BLUE;
         public float currentHP { get; set; }
         public float currentMP { get; set; }
         public float currentEXP { get; set; }
@@ -28,15 +31,15 @@ namespace App.Control
         public float maxHP { get; set; }
         public float maxMP { get; set; }
         public float maxEXP { get; set; }
-        public float maxDEF { get; set; }
-        public float maxATK { get; set; }
-        public bool isDead { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
+        public float maxSpeed { get; set; }
+        public bool isDead { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
         public Weapon currentWeapon { get; set; }
-        public Attribute attribute { get; set; }
+        public ProfessionAttribute attribute { get; set; }
+        public Skill currentSkill { get; set; }
 
         void Awake()
         {
@@ -47,27 +50,28 @@ namespace App.Control
             agent.radius = 0.5f;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+            maxSpeed = entityConfig.runSpeed * entityConfig.runFactor;
+            agent.speed = maxSpeed;
             attribute = professionConfig.GetAttributeByLevel(level);
             AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
             currentWeapon.collider.enabled = false;
             currentWeapon.rigidbody.useGravity = false;
             currentWeapon.rigidbody.isKinematic = true;
-            maxHP = attribute.thisLevelHP;
-            maxMP = attribute.thisLevelMP;
-            maxATK = attribute.thisLevelATK + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
-            maxDEF = attribute.thisLevelDEF;
-            maxEXP = attribute.upLevelEXP;
-            currentHP = attribute.thisLevelHP;
-            currentMP = attribute.thisLevelMP;
-            currentATK = attribute.thisLevelATK + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
-            currentDEF = attribute.thisLevelDEF;
+            maxHP = attribute.hp;
+            maxMP = attribute.mp;
+            maxEXP = attribute.exp;
+            currentHP = attribute.hp;
+            currentMP = attribute.mp;
+            currentATK = attribute.atk + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
+            currentDEF = attribute.def;
             currentEXP = 0;
         }
 
         void Start()
         {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            LoadSkillTree();
+            if(CompareTag("Enemy"))
+                campType = CampType.RED;
         }
 
         void Pickup()
@@ -88,7 +92,7 @@ namespace App.Control
                 }
                 Destroy(pickup.gameObject);
                 animator.SetBool("pickup", false);
-                UIManager.Instance.messagePanel.ShowMessage("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
+                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
             }
         }
 
@@ -97,6 +101,8 @@ namespace App.Control
         {
             if (target != null)
             {
+                if(currentSkill != null)
+                    currentSkill.gameObject.SetActive(true);
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
@@ -128,7 +134,7 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.registeredTasks[i].UpdateProgress(1);
                 }
-                GameManager.Instance.player.GetExprience(attribute.upLevelEXP * 0.5f);
+                GameManager.Instance.player.GetExprience(attribute.exp * 0.5f);
             }
         }
 
@@ -156,7 +162,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentATK = attribute.thisLevelATK + weaponConfig.atk;
+                    currentATK = attribute.atk + weaponConfig.atk;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);
@@ -164,8 +170,8 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = attribute.thisLevelATK + armorConfig.hp;
-                    currentDEF = attribute.thisLevelDEF + armorConfig.def;
+                    currentHP = attribute.atk + armorConfig.hp;
+                    currentDEF = attribute.def + armorConfig.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
@@ -179,7 +185,7 @@ namespace App.Control
             {
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
-                    currentATK = attribute.thisLevelATK;
+                    currentATK = attribute.atk;
                     animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.bag);
                     equipment.gameObject.SetActive(false);
@@ -187,8 +193,8 @@ namespace App.Control
                     break;
                 case EquipmentType.ARMOR:
                     ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = attribute.thisLevelHP;
-                    currentDEF = attribute.thisLevelDEF;
+                    currentHP = attribute.hp;
+                    currentDEF = attribute.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
@@ -203,15 +209,13 @@ namespace App.Control
             {
                 currentEXP -= maxEXP;
                 attribute = professionConfig.GetAttributeByLevel(++level);
-                maxHP = attribute.thisLevelHP;
-                maxMP = attribute.thisLevelMP;
-                maxDEF = attribute.thisLevelDEF;
-                maxATK = attribute.thisLevelATK + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
-                maxEXP = attribute.upLevelEXP;
-                currentHP += attribute.thisLevelHP * 0.2f;
-                currentMP += attribute.thisLevelMP * 0.2f;
-                currentDEF = attribute.thisLevelDEF;
-                currentATK = attribute.thisLevelATK + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
+                maxHP = attribute.hp;
+                maxMP = attribute.mp;
+                maxEXP = attribute.exp;
+                currentHP += attribute.hp * 0.2f;
+                currentMP += attribute.mp * 0.2f;
+                currentDEF = attribute.def;
+                currentATK = attribute.atk + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
             }
             UIManager.Instance.hudPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
@@ -256,6 +260,7 @@ namespace App.Control
             animator.ResetTrigger("skillD");
         }
 
+        public float SetMaxSpeed(float factor) => maxSpeed = entityConfig.runSpeed * entityConfig.runFactor * factor;
         public bool CanSee(Transform target)
         {
             if (!target.GetComponent<CombatEntity>().isDead)

@@ -29,7 +29,7 @@ namespace App.Control
             {
                 if (combatEntity.CanSee(player))
                 {
-                    agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor;
+                    agent.speed = combatEntity.maxSpeed;
                     return true;
                 }
                 agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;

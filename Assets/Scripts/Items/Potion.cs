@@ -10,16 +10,14 @@ namespace App.Items
     {
         public override void AddToInventory()
         {
-            ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, itemSlot.icons.transform));
-            itemSlot.count.text = itemSlot.count.text == "" ? "1" : (int.Parse(itemSlot.count.text) + 1).ToString();
+            ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
+            InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
+            tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
         }
 
         public override void RemoveFromInventory()
         {
             InventoryManager.Instance.Remove(this);
-            ItemSlot itemSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
             for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
             {
                 Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
@@ -28,16 +26,26 @@ namespace App.Items
             }
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);
+            itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
+            itemSlot.itemUI = itemSlot.icons.childCount > 0 ? itemSlot.icons.GetChild(0).GetComponent<ItemUI>() : null; 
         }
 
         public override void Use(CombatEntity user)
         {
-            PotionConfig potionConfig = itemConfig as PotionConfig;
-            user.currentATK += potionConfig.atk;
-            user.currentDEF += potionConfig.def;
-            user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.attribute.thisLevelHP);
-            user.hpBar.UpdateBar(new Vector3(user.currentHP / user.attribute.thisLevelHP, 1, 1));
-            RemoveFromInventory();
+            if (cdTimer < itemConfig.cd)
+                UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
+            else
+            {
+                collider.enabled = true;
+                PotionConfig potionConfig = itemConfig as PotionConfig;
+                user.currentATK += potionConfig.atk;
+                user.currentDEF += potionConfig.def;
+                user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.attribute.hp);
+                user.hpBar.UpdateBar(new Vector3(user.currentHP / user.attribute.hp, 1, 1));
+                RemoveFromInventory();
+                for (int i = 0; i < itemSlot.transform.GetChild(0).childCount; i++)
+                    itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = 0;
+            }
         }
     }
 }

@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Soldier_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1128079727254294964, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4584058774185601089, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: professionConfig
       value: 
@@ -269,7 +273,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.3857443, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -430,18 +434,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1716601605930164235, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4622678920358887016, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
-      propertyPath: professionConfig
-      value: 
-      objectReference: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
     - target: {fileID: 4627014260419631311, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -971,6 +967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4622678920358887016, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: professionConfig
       value: 
@@ -1256,6 +1256,10 @@ PrefabInstance:
     - target: {fileID: 1128079727254294964, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: m_Name
       value: Enemy_Soldier_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128079727254294964, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4584058774185601089, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
       propertyPath: professionConfig
@@ -2421,6 +2425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Demon_01
       objectReference: {fileID: 0}
+    - target: {fileID: 3756886435451815105, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3762264174449391839, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -2788,6 +2796,10 @@ PrefabInstance:
     - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_Name
       value: Enemy_UndeadKnight_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621647554842674533, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4627014260419631311, guid: 3269ef14bd0cc314cb371a2067243ae8, type: 3}
       propertyPath: m_RootOrder
@@ -3967,6 +3979,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3402823263417860002, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402823263417860005, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402823263417860005, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402823263417860005, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402823263417860005, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7328611324416038850, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_Name
       value: NPC_WarriorMaster
@@ -4014,6 +4046,66 @@ PrefabInstance:
     - target: {fileID: 7328611324416276796, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564917737872537, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564917737872540, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564917737872540, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564917737872540, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564917737872540, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564918809933296, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564918809933296, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564918809933296, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564918809933296, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564918809933301, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564919184313402, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564919184313407, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564919184313407, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564919184313407, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674564919184313407, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49382720be75e8442971450a42b94574, type: 3}

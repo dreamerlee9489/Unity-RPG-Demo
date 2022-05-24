@@ -77,6 +77,11 @@ namespace App.UI
                             bars.Add(Instantiate(tipBarPrefab, transform));
                             bars[bars.Count - 1].text = "防御力：" + (potionConfig.def > 0 ? "+" : "") + potionConfig.def.ToString();
                         }
+                        if(potionConfig.cd != 0)
+                        {
+                            bars.Add(Instantiate(tipBarPrefab, transform));
+                            bars[bars.Count - 1].text = "冷却时间：" + potionConfig.cd.ToString() + "秒";
+                        }
                         break;
                     case ItemType.SKILL:
                         itemType.text = "技能";
@@ -104,10 +109,10 @@ namespace App.UI
                             bars.Add(Instantiate(tipBarPrefab, transform));
                             bars[bars.Count - 1].text = "防御力：" + (skillConfig.initialDEF > 0 ? "+" : "") + skillConfig.initialDEF.ToString();
                         }
-                        if(skillConfig.initialCD != 0)
+                        if(skillConfig.cd != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "冷却时间：" + skillConfig.initialCD.ToString() + "秒";
+                            bars[bars.Count - 1].text = "冷却时间：" + skillConfig.cd.ToString() + "秒";
                         }
                         break;
                     case ItemType.BOOTS:

@@ -21,7 +21,7 @@ namespace App.UI
                 countText.text = count.ToString();
                 shopPanel.CountTotalPrice();
                 if(count == minLevel)
-					UIManager.Instance.messagePanel.ShowMessage("已到达当前技能等级", Color.red);
+					UIManager.Instance.messagePanel.Print("已到达当前技能等级最低限制", Color.red);
             });
             btnPlus.onClick.AddListener(() =>
             {
@@ -30,7 +30,7 @@ namespace App.UI
                 countText.text = count.ToString();
                 shopPanel.CountTotalPrice();
                 if(count == maxLevel)
-					UIManager.Instance.messagePanel.ShowMessage("当前等级无法学习更高级的技能", Color.red);
+					UIManager.Instance.messagePanel.Print("当前等级无法学习更高级的技能", Color.red);
             });
         }
 
@@ -45,9 +45,7 @@ namespace App.UI
 			for (int i = 0; i < (shopItem.itemConfig as SkillConfig).levelRequires.Count; i++)
 			{
 				if((shopItem.itemConfig as SkillConfig).levelRequires[i] <= GameManager.Instance.player.level)
-                {
                     maxLevel = i + 1;
-                }
                 else 
                     break;
 			}

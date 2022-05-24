@@ -31,7 +31,7 @@ namespace App.UI
                             for (int j = 0; j < shopBars[i].count; j++)
                                 goods.GetChild(i).GetComponent<Item>().AddToInventory();
                             if (shopBars[i].count > 0)
-                                UIManager.Instance.messagePanel.ShowMessage("[系统]  你购买了物品：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.yellow);
+                                UIManager.Instance.messagePanel.Print("[系统]  你购买了物品：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.yellow);
                             shopBars[i].count = 0;
                             shopBars[i].countText.text = "0";
                         }
@@ -52,7 +52,7 @@ namespace App.UI
                         for (int j = 0; j < shopBars[i].count; j++)
                             InventoryManager.Instance.GetItem(shopBars[i].shopItem).RemoveFromInventory();
                         if (shopBars[i].count > 0)
-                            UIManager.Instance.messagePanel.ShowMessage("[系统]  你出售了：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.red);
+                            UIManager.Instance.messagePanel.Print("[系统]  你出售了：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.red);
                         (shopBars[i] as ItemShopBar).inventory -= shopBars[i].count;
                         shopBars[i].count = 0;
                         shopBars[i].countText.text = "0";

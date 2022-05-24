@@ -25,7 +25,7 @@ namespace App.UI
             }
         }
 
-        public void ShowMessage(string msg, Color color)
+        public void Print(string msg, Color color)
         {
             if (scrollRect.content.childCount > 6)
                 Destroy(scrollRect.content.GetChild(0).gameObject);

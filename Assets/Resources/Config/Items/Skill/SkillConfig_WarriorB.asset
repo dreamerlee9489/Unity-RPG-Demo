@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: SkillConfig_WarriorB
   m_EditorClassIdentifier: 
   itemName: "\u81F4\u6B8B\u6253\u51FB"
-  description: "\u5BF9\u654C\u65B9\u9020\u6210\u5927\u91CF\u4F24\u5BB3"
+  description: "\u4F7F\u5BF9\u65B9\u79FB\u52A8\u901F\u5EA6\u964D\u4F4E\u5E76\u9020\u6210\u8F83\u9AD8\u4F24\u5BB3"
   itemLevel: 0
   itemPrice: 200
+  cd: 6
   itemPrefab: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
   itemUI: {fileID: 1343668645154321579, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
   itemType: 10
@@ -23,15 +24,13 @@ MonoBehaviour:
   controlType: 1
   controlRate: 0.5
   initialHP: 0
-  initialMP: -40
-  initialATK: 40
+  initialMP: 0
+  initialATK: 20
   initialDEF: 0
-  initialCD: 6
-  initialControlTime: 2
+  initialControlTime: 6
   factorHP: 0.25
   factorMP: 0.25
   factorATK: 0.25
   factorDEF: 0.25
-  factorCD: -0.25
   factorControlTime: 0.25
   levelRequires: 0100000004000000070000000a0000000d000000

@@ -11,11 +11,13 @@ namespace App.UI
         public SlotType slotType = SlotType.BAG;
         public ItemType itemType { get; set; }
         public ItemUI itemUI { get; set; }
-        public Transform icons = null;
-        public Text count = null;
+        public Transform icons { get; set; }
+        public Text count { get; set; }
 
         void Awake()
         {
+            icons = transform.GetChild(0);
+            count = transform.GetChild(1).GetComponent<Text>();
             ResetItemType();
         }
 

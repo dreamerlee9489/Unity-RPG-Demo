@@ -29,14 +29,14 @@ namespace App.Manager
             itemUIs.Add(itemUI);
             item.itemUI = itemUI;
             itemUI.item = item;
-            ItemSlot itemSlot = itemUI.transform.parent.parent.GetComponent<ItemSlot>();
-            itemSlot.itemUI = itemUI;
-            itemSlot.itemType = item.itemConfig.itemType;
+            item.itemSlot = itemUI.transform.parent.parent.GetComponent<ItemSlot>();
+            item.itemSlot.itemUI = itemUI;
+            item.itemSlot.itemType = item.itemConfig.itemType;
             item.gameObject.SetActive(false);
             item.containerType = ContainerType.BAG;
             item.collider.enabled = false;
-            item.rigidbody.useGravity = false;
-            item.rigidbody.isKinematic = true;
+            item.rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+            item.cdTimer = item.itemConfig.cd;
             item.tag = "Player";
         }
 
