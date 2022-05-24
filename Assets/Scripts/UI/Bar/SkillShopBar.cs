@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using App.Items;
 using App.Manager;
 using App.SO;
@@ -8,7 +9,7 @@ namespace App.UI
 	public class SkillShopBar : ShopBar
 	{
 		int minLevel = 0, maxLevel = 0;
-		public Skill playerSkill { get; set; }
+		public Skill skill { get; set; }
 
 		protected override void Awake()
         {
@@ -16,20 +17,20 @@ namespace App.UI
             btnMinus.onClick.AddListener(() =>
             {
                 count = Mathf.Max(--count, minLevel);
-                total = count * price;
+                total = (count - minLevel) * price;
                 countText.text = count.ToString();
                 shopPanel.CountTotalPrice();
                 if(count == minLevel)
-					UIManager.Instance.messagePanel.ShowMessage("已达到当前等级最低限制", Color.red);
+					UIManager.Instance.messagePanel.ShowMessage("已到达当前技能等级", Color.red);
             });
             btnPlus.onClick.AddListener(() =>
             {
                 count = Mathf.Min(++count, maxLevel);
-                total = count * price;
+                total = (count - minLevel) * price;
                 countText.text = count.ToString();
                 shopPanel.CountTotalPrice();
                 if(count == maxLevel)
-					UIManager.Instance.messagePanel.ShowMessage("已达到当前等级最高限制", Color.red);
+					UIManager.Instance.messagePanel.ShowMessage("当前等级无法学习更高级的技能", Color.red);
             });
         }
 
@@ -39,20 +40,21 @@ namespace App.UI
             {
                 Skill skill = InventoryManager.Instance.skills.GetChild(i).GetComponent<Skill>();
                 if (skill.Equals(shopItem))
-                    this.playerSkill = skill;
+                    this.skill = skill;
             }
-			for (int i = 0; i < (shopItem.itemConfig as SkillConfig).playerLevelRequires.Count; i++)
+			for (int i = 0; i < (shopItem.itemConfig as SkillConfig).levelRequires.Count; i++)
 			{
-				if((shopItem.itemConfig as SkillConfig).playerLevelRequires[i] > GameManager.Instance.player.level)
-                    break;
-                else 
+				if((shopItem.itemConfig as SkillConfig).levelRequires[i] <= GameManager.Instance.player.level)
+                {
                     maxLevel = i + 1;
+                }
+                else 
+                    break;
 			}
-            count = minLevel = (shopItem.itemConfig as SkillConfig).playerLevelRequires[playerSkill.level] > GameManager.Instance.player.level ? playerSkill.level : playerSkill.level + 1;
-			countText.text = minLevel.ToString();
-            total = count * price;
+            count = minLevel = skill == null ? 0 : skill.level;
+            total = (count - minLevel) * price;
+			countText.text = count.ToString();
             UIManager.Instance.skillShopPanel.CountTotalPrice();
-            Debug.Log(playerSkill.level + "-" + minLevel + "-" + minLevel);
 		}
 		
 		public override void BuildBar(Item item, ShopPanel shopPanel)

@@ -81,7 +81,8 @@ namespace App.UI
                     case ItemType.SKILL:
                         itemType.text = "技能";
                         itemPrice.text = "不可出售";
-                        itemLevel.text = "等级：" + (item.CompareTag("Player") ? (item as Skill).level : UIManager.Instance.skillShopPanel.GetPlayerSkill(item as Skill).level + 1);
+                        Skill skill = UIManager.Instance.skillShopPanel.GetPlayerSkill(item as Skill);
+                        itemLevel.text = "等级：" + (skill == null ? 1 : skill.level + 1);
                         SkillConfig skillConfig = itemConfig as SkillConfig;
                         if(skillConfig.initialHP != 0)
                         {

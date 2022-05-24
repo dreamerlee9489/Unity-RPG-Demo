@@ -14,6 +14,7 @@ namespace App.SO
     [CreateAssetMenu(fileName = "ProfessionConfig_", menuName = "Unity RPG Project/ProfessionConfig", order = 7)]
     public class ProfessionConfig : ScriptableObject
     {
+        public string professionName = "";
         public ProfessionType professionType = ProfessionType.NONE;
         public WeaponType weaponType = WeaponType.NONE;
         public float initialHP = 100, initialMP = 100, initialATK = 10, initialDEF = 2, initialEXP = 100;

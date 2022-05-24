@@ -3067,13 +3067,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4991977569916362108, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4991977569925214490, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
-      propertyPath: m_MovementType
-      value: 2
+      propertyPath: m_VerticalScrollbarVisibility
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_Pivot.x
@@ -3105,7 +3101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 440
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570048229248, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3164,19 +3160,7 @@ PrefabInstance:
       value: MessagePanel
       objectReference: {fileID: 0}
     - target: {fileID: 4991977570277787192, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991977570277787192, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991977570277787199, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
-      propertyPath: m_ChildControlWidth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991977570277787199, guid: d2608742c8208914998e8e420a6ecbf8, type: 3}
-      propertyPath: m_ChildForceExpandHeight
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3983,25 +3967,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1988207487171778231, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: m_TagString
-      value: NPC
-      objectReference: {fileID: 0}
-    - target: {fileID: 2359752865134989715, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: m_TagString
-      value: NPC
-      objectReference: {fileID: 0}
-    - target: {fileID: 3402823263417860003, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: level
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7318686677981440837, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: m_TagString
-      value: NPC
-      objectReference: {fileID: 0}
     - target: {fileID: 7328611324416038850, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_Name
-      value: NPC_Warrior_Master
+      value: NPC_WarriorMaster
       objectReference: {fileID: 0}
     - target: {fileID: 7328611324416276796, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_RootOrder
@@ -4046,18 +4014,6 @@ PrefabInstance:
     - target: {fileID: 7328611324416276796, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7674564917737872538, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: level
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7674564918809933302, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: level
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7674564919184313401, guid: 49382720be75e8442971450a42b94574, type: 3}
-      propertyPath: level
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49382720be75e8442971450a42b94574, type: 3}

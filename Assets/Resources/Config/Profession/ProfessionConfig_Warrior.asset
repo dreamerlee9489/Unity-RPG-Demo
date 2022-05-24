@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4b2273f864ad8469297ef11f7e7aff, type: 3}
   m_Name: ProfessionConfig_Warrior
   m_EditorClassIdentifier: 
+  professionName: 
   professionType: 1
   weaponType: 1
   initialHP: 100

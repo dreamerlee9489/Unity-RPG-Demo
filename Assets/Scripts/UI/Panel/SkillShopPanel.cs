@@ -22,14 +22,13 @@ namespace App.UI
                     {
                         if (shopBars[i].count > 0)
                         {
-                            int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).playerLevelRequires[shopBars[i].count - 1];
-                            Skill playerSkill = (shopBars[i] as SkillShopBar).playerSkill;
-                            if(shopBars[i].count <= playerSkill.level)
+                            int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).levelRequires[shopBars[i].count - 1];
+                            Skill skill = (shopBars[i] as SkillShopBar).skill;
+                            if(skill != null && shopBars[i].count <= skill.level)
                             {
-                                hint.text = "你的等级尚且无法学习该技能。";
-                                return;
+                                UIManager.Instance.messagePanel.ShowMessage("你的等级尚且无法学习该技能。", Color.red);
                             }
-                            if(levelRequire <= GameManager.Instance.player.level)
+                            else if(levelRequire <= GameManager.Instance.player.level)
                             {
                                 for(int j = 0; j < shopBars[i].count; j++)
                                     goods.GetChild(i).GetComponent<Skill>().AddToInventory();
@@ -37,14 +36,13 @@ namespace App.UI
                                 UIManager.Instance.goldPanel.UpdatePanel();
                                 total = 0;
                                 totalText.text = "0";
-                                shopBars[i].count = (shopBars[i] as SkillShopBar).playerSkill.level;
-                                shopBars[i].countText.text = shopBars[i].count.ToString();
+                                // shopBars[i].count = (shopBars[i] as SkillShopBar).skill.level;
+                                // shopBars[i].countText.text = shopBars[i].count.ToString();
                                 UIManager.Instance.messagePanel.ShowMessage("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
                             }
                             else
                             {
-                                hint.text = "你的等级尚且无法学习该技能。";
-                                return;
+                                UIManager.Instance.messagePanel.ShowMessage("你的等级尚且无法学习该技能。", Color.red);
                             }
                         }
                     }
@@ -79,8 +77,8 @@ namespace App.UI
         {
             for (int i = 0; i < shopBars.Count; i++)
             {
-                Skill result = (shopBars[i] as SkillShopBar).playerSkill;
-                if(result.Equals(skill))
+                Skill result = (shopBars[i] as SkillShopBar).skill;
+                if(result != null && result.Equals(skill))
                     return result;
             }
             return null;

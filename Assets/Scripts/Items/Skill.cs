@@ -12,10 +12,14 @@ namespace App.Items
         public override void AddToInventory()
         {
             int index = InventoryManager.Instance.HasSkill(this);
-            if(index == -1)
-                InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills), Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform));
+            if(index != -1)
+                InventoryManager.Instance.skills.GetChild(index).GetComponent<Skill>().level++;
             else
-                InventoryManager.Instance.items[index].GetComponent<Skill>().level++;
+            {
+                Skill skill = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills).GetComponent<Skill>();
+                skill.level = 1;
+                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform));
+            }
         }
 
         public override void RemoveFromInventory() {}

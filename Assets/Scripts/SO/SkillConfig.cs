@@ -18,7 +18,7 @@ namespace App.SO
         public float controlRate = 0.5f;
         public float initialHP = 0, initialMP = 0, initialATK = 0, initialDEF = 0, initialCD = 0, initialControlTime = 2;
         public float factorHP = 0.25f, factorMP = 0.25f, factorATK = 0.25f, factorDEF = 0.25f, factorCD = 0.25f, factorControlTime = 0.25f;
-        public List<int> playerLevelRequires = new List<int>();
+        public List<int> levelRequires = new List<int>();
 
         public SkillAttribute GetSkillAttributeByLevel(int level)
         {

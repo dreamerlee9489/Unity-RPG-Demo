@@ -34,4 +34,4 @@ MonoBehaviour:
   factorDEF: 0.25
   factorCD: 0.25
   factorControlTime: 0.25
-  playerLevelRequires: 0100000004000000070000000a0000000d000000
+  levelRequires: 0100000004000000070000000a0000000d000000
