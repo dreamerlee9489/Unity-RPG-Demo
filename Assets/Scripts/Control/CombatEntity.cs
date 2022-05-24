@@ -35,6 +35,7 @@ namespace App.Control
         public float sqrAttackRadius { get; set; }
         public float maxSpeed { get; set; }
         public bool isDead { get; set; }
+        public bool immovable { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
         public Weapon currentWeapon { get; set; }

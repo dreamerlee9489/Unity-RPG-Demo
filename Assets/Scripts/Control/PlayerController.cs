@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using App.Manager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using App.Manager;
 
 namespace App.Control
 {
@@ -55,6 +55,7 @@ namespace App.Control
                                 break;
                             case "Item":
                                 ExecuteCommand(1, hit.transform);
+                                agent.stoppingDistance = 1.5f;
                                 break;
                         }
                     }
@@ -62,7 +63,12 @@ namespace App.Control
                 if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
                 if (combatEntity.target != null)
-                    combatEntity.ExecuteAction(combatEntity.target);
+                {
+                    if(!combatEntity.immovable)
+                        combatEntity.ExecuteAction(combatEntity.target);
+                    else
+                        combatEntity.CancelAction();
+                }                    
             }
         }
 

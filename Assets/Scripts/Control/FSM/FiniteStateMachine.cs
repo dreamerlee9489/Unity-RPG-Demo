@@ -21,10 +21,13 @@ namespace App.Control.FSM
         {
             if (!GetComponent<CombatEntity>().isDead)
             {
-                if (globalState != null)
-                    globalState.Execute();
-                if (currentState != null)
-                    currentState.Execute();
+                if(!GetComponent<CombatEntity>().immovable)
+                {
+                    if (globalState != null)
+                        globalState.Execute();
+                    if (currentState != null)
+                        currentState.Execute();
+                }
             }
             else
             {

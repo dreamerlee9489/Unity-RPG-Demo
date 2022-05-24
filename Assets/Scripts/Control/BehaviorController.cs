@@ -60,8 +60,16 @@ namespace App.Control
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                combatEntity.ExecuteAction(player);
-                return Status.RUNNING;
+                if(!combatEntity.immovable)
+                {
+                    combatEntity.ExecuteAction(player);
+                    return Status.RUNNING;
+                }
+                else
+                {
+                    combatEntity.CancelAction();
+                    return Status.FAILURE;
+                }
             }));
         }
 

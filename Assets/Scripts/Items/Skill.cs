@@ -47,8 +47,7 @@ namespace App.Items
                             break;
                         case ControlType.KNOCK:
                             target.agent.isStopped = false;
-                            target.agent.angularSpeed = 4800;
-                            target.agent.acceleration = 80;
+                            target.immovable = false;
                             UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "站起来了。", Color.green);
                             break;
                         case ControlType.SPEED:
@@ -58,8 +57,7 @@ namespace App.Items
                         case ControlType.STUNN:
                             target.animator.SetBool("stunned", false);
                             target.agent.isStopped = false;
-                            target.agent.angularSpeed = 4800;
-                            target.agent.acceleration = 80;
+                            target.immovable = false;
                             UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "解除了眩晕。", Color.green);
                             break;
                     }
@@ -88,8 +86,8 @@ namespace App.Items
                     case ControlType.KNOCK:
                         target.animator.SetTrigger("knock");
                         target.agent.isStopped = true;
-                        target.agent.angularSpeed = 0;
-                        target.agent.acceleration = 0;
+                        target.immovable = true;
+                        target.animator.SetBool("attack", false);
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被击倒", Color.green);
                         break;
                     case ControlType.SPEED:
@@ -99,8 +97,8 @@ namespace App.Items
                     case ControlType.STUNN:
                         target.animator.SetBool("stunned", true);
                         target.agent.isStopped = true;
-                        target.agent.angularSpeed = 0;
-                        target.agent.acceleration = 0;
+                        target.immovable = true;
+                        target.animator.SetBool("attack", false);
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被眩晕", Color.green);
                         break;
                 }
