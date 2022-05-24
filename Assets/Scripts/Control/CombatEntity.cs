@@ -102,11 +102,11 @@ namespace App.Control
         {
             if (target != null)
             {
-                if(currentSkill != null)
-                    currentSkill.gameObject.SetActive(true);
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
+                if(currentSkill != null)
+                    currentSkill.gameObject.SetActive(true);
                 if (defender.currentHP <= 0)
                 {
                     defender.Death();

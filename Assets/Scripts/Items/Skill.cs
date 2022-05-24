@@ -62,6 +62,8 @@ namespace App.Items
                             break;
                     }
                     gameObject.SetActive(false);
+                    target = null;
+                    user.currentSkill = null;    
                     user.currentHP = Mathf.Max(user.currentHP - skillAttribute.hp, 0);
                     user.currentMP = Mathf.Max(user.currentMP - skillAttribute.mp, 0);
                     user.currentATK -= skillAttribute.atk;
@@ -103,14 +105,6 @@ namespace App.Items
                         break;
                 }
             }
-        }
-
-        void OnDisable()
-        {
-            target = null;
-            collider.enabled = false;
-            if(user != null)
-                user.currentSkill = null;    
         }
 
         public override void AddToInventory()
