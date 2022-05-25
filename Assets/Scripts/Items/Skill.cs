@@ -1,6 +1,6 @@
 using UnityEngine;
-using App.Control;
-using App.Manager;
+using App.AI;
+using App.Enviorment;
 using App.SO;
 
 namespace App.Items

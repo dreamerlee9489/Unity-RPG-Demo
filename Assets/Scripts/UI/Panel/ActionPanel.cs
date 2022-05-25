@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using App.Items;
-using App.Manager;
+using App.Enviorment;
 namespace App.UI
 {
 	public class ActionPanel : BasePanel

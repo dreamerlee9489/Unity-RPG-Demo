@@ -2090,13 +2090,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   weaponPos: {fileID: 6011459021436415198}
-  animator: {fileID: 0}
-  agent: {fileID: 0}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   entityConfig: {fileID: 11400000, guid: 5f4ef19f184b9034a9254b02fb46b21c, type: 2}
   professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
-  campType: 0
 --- !u!114 &3796356216321399749
 MonoBehaviour:
   m_ObjectHideFlags: 0

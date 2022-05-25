@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using App.Items;
-using App.Manager;
+using App.Enviorment;
 
 namespace App.UI
 {

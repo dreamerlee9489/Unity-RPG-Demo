@@ -1,13 +1,12 @@
 using UnityEngine.UI;
-using App.Manager;
-using App.Control;
+using App.Enviorment;
+using App.AI;
 
 namespace App.UI
 {
     public class AttributePanel : BasePanel
     {
         Text lv = null, hp = null, mp = null, atk = null, def = null, exp = null;
-        CombatEntity player = null;
 
         void Awake()
         {
@@ -21,18 +20,17 @@ namespace App.UI
 
         void Start()
         {
-            player = GameManager.Instance.player;
 			UpdatePanel();
         }
 
         public void UpdatePanel()
         {
-            lv.text = player.level.ToString();
-            hp.text = (int)player.currentHP + " / " + (int)player.maxHP;
-            mp.text = (int)player.currentMP + " / " + (int)player.maxMP;
-            exp.text = (int)player.currentEXP + " / " + (int)player.maxEXP;
-            atk.text = player.currentATK.ToString();
-            def.text = player.currentDEF.ToString();
+            lv.text = GameManager.Instance.player.level.ToString();
+            hp.text = (int)GameManager.Instance.player.currentHP + " / " + (int)GameManager.Instance.player.maxHP;
+            mp.text = (int)GameManager.Instance.player.currentMP + " / " + (int)GameManager.Instance.player.maxMP;
+            exp.text = (int)GameManager.Instance.player.currentEXP + " / " + (int)GameManager.Instance.player.maxEXP;
+            atk.text = GameManager.Instance.player.currentATK.ToString();
+            def.text = GameManager.Instance.player.currentDEF.ToString();
         }
     }
 }

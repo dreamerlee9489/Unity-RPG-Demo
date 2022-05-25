@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using App.SO;
 using App.Items;
-using App.Manager;
+using App.Enviorment;
 
 namespace App.UI
 {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using App.Control;
+using App.AI;
 
 namespace App.SO
 {
