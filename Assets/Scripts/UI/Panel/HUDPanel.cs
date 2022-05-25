@@ -16,6 +16,13 @@ namespace App.UI
             expBar = transform.GetChild(2).GetComponent<HUDBar>();
         }
 
+        void Start()
+        {
+            hpBar.foreground.color = Color.red;
+            mpBar.foreground.color = Color.blue;
+            expBar.foreground.color = Color.yellow;
+        }
+
         public void UpdatePanel()
         {
             UIManager.Instance.hudPanel.hpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentHP / GameManager.Instance.player.professionAttribute.hp, 1, 1));

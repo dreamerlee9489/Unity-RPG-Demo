@@ -15,8 +15,8 @@ namespace App.Enviorment
 			if(GameManager.Instance.targetPortal == portalName)
 			{
 				GameManager.Instance.player.transform.position = point.position;
-				GameManager.Instance.player.gameObject.SetActive(true);
 				GameManager.Instance.player.transform.forward = point.forward;
+				GameManager.Instance.player.gameObject.SetActive(true);
 			}
 		}
 
@@ -26,7 +26,7 @@ namespace App.Enviorment
 			{
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player.gameObject.SetActive(false);
-				SceneManager.LoadScene(targetScene);
+				SceneManager.LoadSceneAsync(targetScene);
 			}
 		}
 	}

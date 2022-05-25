@@ -1,7 +1,7 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 using App.Enviorment;
 using App.AI;
 
@@ -9,8 +9,9 @@ namespace App.UI
 {
 	public class StartPanel : MonoBehaviour
 	{
+		public string targetScene = "Village";
 		public string targetPortal = "Entrance";
-		Button btnStart { get; set; }
+		Button btnStart = null;
 
 		void Start()
 		{
@@ -21,8 +22,9 @@ namespace App.UI
 				UIManager.Instance.goldPanel.gameObject.SetActive(true);
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player"));
+				GameManager.Instance.transform.GetChild(0).GetChild(0).GetComponent<CinemachineVirtualCamera>().Follow = GameManager.Instance.player.transform;
 				GameManager.Instance.player.gameObject.SetActive(false);
-				SceneManager.LoadScene(1);
+				SceneManager.LoadSceneAsync(targetScene);
 				gameObject.SetActive(false);
 			});
 		}
