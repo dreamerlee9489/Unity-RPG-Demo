@@ -79,11 +79,11 @@ namespace App.Control
         {
             if (pickup != null)
             {
-                for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
                 {
-                    Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
+                    Item temp = GameManager.Instance.ongoingTasks[i].target.GetComponent<Item>();
                     if (temp != null && pickup.Equals(temp))
-                        GameManager.Instance.registeredTasks[i].UpdateProgress(1);
+                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
                 pickup.AddToInventory();
                 if (pickup.nameBar != null)
@@ -129,11 +129,11 @@ namespace App.Control
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
             if (CompareTag("Enemy"))
             {
-                for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
                 {
-                    CombatEntity entity = GameManager.Instance.registeredTasks[i].target.GetComponent<CombatEntity>();
+                    CombatEntity entity = GameManager.Instance.ongoingTasks[i].target.GetComponent<CombatEntity>();
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
-                        GameManager.Instance.registeredTasks[i].UpdateProgress(1);
+                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
             }

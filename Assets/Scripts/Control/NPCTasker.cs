@@ -69,7 +69,7 @@ namespace App.Control
         protected void GiveTask(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
         {
             tasks.Add(new Task(thisName, chName, bounty, exp, number, target, this, rewards));
-            GameManager.Instance.registeredTasks.Add(tasks[index]);
+            GameManager.Instance.ongoingTasks.Add(tasks[index]);
             UIManager.Instance.taskPanel.Add(tasks[index]);
             dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + thisName + "_Accept").asset as DialogueConfig;
             if (target.GetComponent<Item>() != null)
@@ -78,7 +78,7 @@ namespace App.Control
 
         protected void GiveReward(string nextName = null)
         {
-            GameManager.Instance.registeredTasks.Remove(tasks[index]);
+            GameManager.Instance.ongoingTasks.Remove(tasks[index]);
             UIManager.Instance.taskPanel.Remove(tasks[index]);
             dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
             if(tasks[index].target.GetComponent<Item>() != null)

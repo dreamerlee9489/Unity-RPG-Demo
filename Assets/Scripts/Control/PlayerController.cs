@@ -57,6 +57,9 @@ namespace App.Control
                                 ExecuteCommand(1, hit.transform);
                                 agent.stoppingDistance = 1.5f;
                                 break;
+                            case "Portal":
+                                ExecuteCommand(0, hit.transform.position);
+                                break;
                         }
                     }
                 }

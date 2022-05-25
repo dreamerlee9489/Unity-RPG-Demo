@@ -8,7 +8,7 @@ TagManager:
   - Enemy
   - NPC
   - Item
-  - QuestTarget
+  - Portal
   layers:
   - Default
   - TransparentFX

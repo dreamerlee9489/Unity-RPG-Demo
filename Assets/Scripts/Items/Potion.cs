@@ -18,11 +18,11 @@ namespace App.Items
         public override void RemoveFromInventory()
         {
             InventoryManager.Instance.Remove(this);
-            for (int i = 0; i < GameManager.Instance.registeredTasks.Count; i++)
+            for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
             {
-                Item temp = GameManager.Instance.registeredTasks[i].target.GetComponent<Item>();
+                Item temp = GameManager.Instance.ongoingTasks[i].target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
-                    GameManager.Instance.registeredTasks[i].UpdateProgress(-1);
+                    GameManager.Instance.ongoingTasks[i].UpdateProgress(-1);
             }
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);

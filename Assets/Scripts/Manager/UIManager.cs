@@ -9,7 +9,8 @@ namespace App.Manager
     {
         static UIManager instance = null;
         public static UIManager Instance => instance;
-        public Transform target = null;
+        public Transform target { get; set; }
+        public StartPanel startPanel { get; set; }
         public HUDPanel hudPanel { get; set; }
         public ActionPanel actionPanel { get; set; }
         public BagPanel bagPanel { get; set; }
@@ -26,6 +27,7 @@ namespace App.Manager
         void Awake()
         {
             instance = this;
+            startPanel = GameObject.Find("StartPanel").GetComponent<StartPanel>();
             hudPanel = GameObject.Find("HUDPanel").GetComponent<HUDPanel>();
             actionPanel = GameObject.Find("ActionPanel").GetComponent<ActionPanel>();
             bagPanel = GameObject.Find("BagPanel").GetComponent<BagPanel>();

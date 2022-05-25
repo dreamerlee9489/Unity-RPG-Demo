@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using App.Control.BT;
+using App.Manager;
 
 namespace App.Control
 {
@@ -21,7 +22,11 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             moveEntity = GetComponent<MoveEntity>();
             combatEntity = GetComponent<CombatEntity>();
-            player = GameObject.FindWithTag("Player").transform;
+        }
+
+        void Start()
+        {
+            player = GameManager.Instance.player.transform;
             Sequence retreat = new Sequence();
             Parallel wander = new Parallel();
             Parallel chase = new Parallel();
