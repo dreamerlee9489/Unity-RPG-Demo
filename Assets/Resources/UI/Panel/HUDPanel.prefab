@@ -293,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: XP
       objectReference: {fileID: 0}
+    - target: {fileID: 8845866850974441156, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8845866850974441211, guid: 8041c0fe1d012bf4fbea623407776d59, type: 3}
       propertyPath: m_Color.b
       value: 0

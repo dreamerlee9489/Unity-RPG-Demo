@@ -15,7 +15,7 @@ namespace App.UI
         protected ShopBar shopBarPrefab = null;
         protected List<ShopBar> shopBars = new List<ShopBar>();
         public ShopType shopType = ShopType.ITEM;
-        public Text totalText { get; set; }
+        public Text txtTotal { get; set; }
         public Text hint { get; set; }
         public Transform goods { get; set; }
 
@@ -24,9 +24,8 @@ namespace App.UI
             content = gameObject.GetComponentInChildren<ScrollRect>().content;
             btnQuit = transform.GetChild(1).GetComponent<Button>();
             btnTrade = transform.GetChild(2).GetComponent<Button>();
-            totalText = transform.GetChild(3).GetChild(0).GetComponent<Text>();
-            hint = transform.GetChild(4).GetComponent<Text>();
-            hint.text = "";
+            txtTotal = transform.GetChild(3).GetChild(0).GetComponent<Text>();
+            hint = transform.GetChild(transform.childCount - 1).GetComponent<Text>();
             btnQuit.onClick.AddListener(() => { gameObject.SetActive(false); });
         }
 
@@ -53,7 +52,7 @@ namespace App.UI
             total = 0;
             for (int i = 0; i < shopBars.Count; i++)
                 total += shopBars[i].total;
-            totalText.text = total.ToString();
+            txtTotal.text = total.ToString();
         }
     }
 }

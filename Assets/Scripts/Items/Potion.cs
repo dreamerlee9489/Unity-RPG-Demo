@@ -40,8 +40,8 @@ namespace App.Items
                 PotionConfig potionConfig = itemConfig as PotionConfig;
                 user.currentATK += potionConfig.atk;
                 user.currentDEF += potionConfig.def;
-                user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.attribute.hp);
-                user.hpBar.UpdateBar(new Vector3(user.currentHP / user.attribute.hp, 1, 1));
+                user.currentHP = Mathf.Min(user.currentHP + potionConfig.hp, user.professionAttribute.hp);
+                user.hpBar.UpdateBar(new Vector3(user.currentHP / user.professionAttribute.hp, 1, 1));
                 RemoveFromInventory();
                 for (int i = 0; i < itemSlot.transform.GetChild(0).childCount; i++)
                     itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = 0;

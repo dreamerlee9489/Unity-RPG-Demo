@@ -26,23 +26,23 @@ namespace App.UI
             btnPotion = transform.GetChild(4).GetComponent<Button>();
 			btnAll.onClick.AddListener(() => {
 				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.ALL));
-				UIManager.Instance.itemShopPanel.totalText.text = "0";
+				UIManager.Instance.itemShopPanel.txtTotal.text = "0";
 			});
 			btnWeapon.onClick.AddListener(() => {
 				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.WEAPON));
-				UIManager.Instance.itemShopPanel.totalText.text = "0";
+				UIManager.Instance.itemShopPanel.txtTotal.text = "0";
 			});
 			btnArmor.onClick.AddListener(() => {
 				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.ARMOR));
-				UIManager.Instance.itemShopPanel.totalText.text = "0";
+				UIManager.Instance.itemShopPanel.txtTotal.text = "0";
 			});
 			btnJewelry.onClick.AddListener(() => {
 				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.JEWELRY));
-				UIManager.Instance.itemShopPanel.totalText.text = "0";
+				UIManager.Instance.itemShopPanel.txtTotal.text = "0";
 			});
 			btnPotion.onClick.AddListener(() => {
 				UIManager.Instance.itemShopPanel.ShowFiltered(GoodsFilter(UIManager.Instance.itemShopPanel.goods, GoodsType.POTION));
-				UIManager.Instance.itemShopPanel.totalText.text = "0";
+				UIManager.Instance.itemShopPanel.txtTotal.text = "0";
 			});
         }
 

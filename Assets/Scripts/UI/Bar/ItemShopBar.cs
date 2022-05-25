@@ -1,7 +1,6 @@
 using UnityEngine;
 using App.Items;
 using App.Manager;
-using UnityEngine.UI;
 
 namespace App.UI
 {
@@ -15,19 +14,27 @@ namespace App.UI
 			inventory = UIManager.Instance.itemShopPanel.isSell ? 1 : 10;
             btnMinus.onClick.AddListener(() =>
             {
-                count = Mathf.Max(--count, 0);
-                total = count * price;
-                countText.text = count.ToString();
-                shopPanel.CountTotalPrice();
-                shopPanel.hint.text = "";
+                if(count != 0)
+                {
+                    count = Mathf.Max(--count, 0);
+                    total = count * price;
+                    countText.text = count.ToString();
+                    shopPanel.CountTotalPrice();
+                    shopPanel.hint.text = "";
+                }
             });
             btnPlus.onClick.AddListener(() =>
             {
-                count = Mathf.Min(++count, inventory);
-                total = count * price;
-                countText.text = count.ToString();
-                shopPanel.CountTotalPrice();
-                shopPanel.hint.text = "";
+                if(count == inventory)
+                    shopPanel.hint.text = (shopPanel as ItemShopPanel).isSell ? "已达到你的库存上限" : "已达到单次购买数量最大限制";
+                else
+                {
+                    count = Mathf.Min(++count, inventory);
+                    total = count * price;
+                    countText.text = count.ToString();
+                    shopPanel.CountTotalPrice();
+                    shopPanel.hint.text = "";
+                }
             });
         }
 

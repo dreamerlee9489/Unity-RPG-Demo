@@ -52,7 +52,7 @@ namespace App.Control
         public void CancelAction()
         {
             agent.stoppingDistance = abilityConfig.stopDistance;
-            agent.destination = transform.position;
+            agent.destination = transform.position + transform.forward;
         }
 
         public float Seek(Vector3 position)

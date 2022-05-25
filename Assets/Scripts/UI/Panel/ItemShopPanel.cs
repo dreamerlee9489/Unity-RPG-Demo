@@ -18,13 +18,15 @@ namespace App.UI
             base.Awake();
             shopBarPrefab = Resources.Load<ShopBar>("UI/Bar/ItemShopBar");
             shopType = ShopType.ITEM;
-            selectBar = transform.GetChild(5).GetComponent<SelectBar>();
-            btnShift = transform.GetChild(6).GetComponent<Button>();
+            selectBar = transform.GetChild(4).GetComponent<SelectBar>();
+            btnShift = transform.GetChild(5).GetComponent<Button>();
             btnTrade.onClick.AddListener(() =>
             {
                 if (!isSell)
                 {
-                    if (InventoryManager.Instance.playerData.golds >= total)
+                    if (InventoryManager.Instance.playerData.golds < total)
+                        hint.text = "金币不足，无法购买";
+                    else
                     {
                         for (int i = 0; i < shopBars.Count; i++)
                         {
@@ -38,11 +40,7 @@ namespace App.UI
                         InventoryManager.Instance.playerData.golds -= total;
                         UIManager.Instance.goldPanel.UpdatePanel();
                         total = 0;
-                        totalText.text = "0";
-                    }
-                    else
-                    {
-                        hint.text = "金币不足，无法购买。";
+                        txtTotal.text = "0";
                     }
                 }
                 else
@@ -52,7 +50,7 @@ namespace App.UI
                         for (int j = 0; j < shopBars[i].count; j++)
                             InventoryManager.Instance.GetItem(shopBars[i].shopItem).RemoveFromInventory();
                         if (shopBars[i].count > 0)
-                            UIManager.Instance.messagePanel.Print("[系统]  你出售了：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.red);
+                            UIManager.Instance.messagePanel.Print("[系统]  你出售了物品：" + shopBars[i].shopItem.itemConfig.itemName + " * " + shopBars[i].count, Color.yellow);
                         (shopBars[i] as ItemShopBar).inventory -= shopBars[i].count;
                         shopBars[i].count = 0;
                         shopBars[i].countText.text = "0";
@@ -68,7 +66,7 @@ namespace App.UI
                     InventoryManager.Instance.playerData.golds += total;
                     UIManager.Instance.goldPanel.UpdatePanel();
                     total = 0;
-                    totalText.text = "0";
+                    txtTotal.text = "0";
                 }
             });
             btnShift.onClick.AddListener(() =>
@@ -80,7 +78,7 @@ namespace App.UI
                     btnShift.transform.GetChild(0).GetComponent<Text>().text = "切换到购买";
                     btnTrade.transform.GetChild(0).GetComponent<Text>().text = "出售";
                     total = 0;
-                    totalText.text = "0";
+                    txtTotal.text = "0";
                 }
                 else
                 {
@@ -89,7 +87,7 @@ namespace App.UI
                     btnShift.transform.GetChild(0).GetComponent<Text>().text = "切换到出售";
                     btnTrade.transform.GetChild(0).GetComponent<Text>().text = "购买";
                     total = 0;
-                    totalText.text = "0";
+                    txtTotal.text = "0";
                 }
             });
         }
@@ -100,7 +98,7 @@ namespace App.UI
             btnShift.transform.GetChild(0).GetComponent<Text>().text = "切换到出售";
             btnTrade.transform.GetChild(0).GetComponent<Text>().text = "购买";
             total = 0;
-            totalText.text = "0";
+            txtTotal.text = "0";
             hint.text = "";
         }
 

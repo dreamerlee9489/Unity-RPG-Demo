@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8267801868071044124}
   - component: {fileID: 8267801868071044125}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8267801868107052118}
   - component: {fileID: 8267801868107052119}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: itemName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 8267801869008055786}
   - component: {fileID: 8267801869008055787}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 8267801869571524157}
   - component: {fileID: 8267801869571524158}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: btnPlus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 8267801869700479227}
   - component: {fileID: 8267801869700479228}
   m_Layer: 5
-  m_Name: Image
+  m_Name: goldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 8267801869867946348}
   - component: {fileID: 8267801869867946349}
   m_Layer: 5
-  m_Name: Image
+  m_Name: itemIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 8267801870007716031}
   - component: {fileID: 8267801870007716016}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: btnMinus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

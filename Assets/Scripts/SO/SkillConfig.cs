@@ -8,11 +8,6 @@ namespace App.SO
     public class SkillAttribute
     {
         public float hp = 0, mp = 0, atk = 0, def = 0, cd = 0, controlTime = 0, controlRate = 0.5f;
-
-        public override string ToString()
-        {
-            return "hp=" + hp + " mp=" + mp + " atk=" + atk + " def=" + def + " cd=" + cd + " ctrlTime=" + controlTime;
-        }
     }
 
     [CreateAssetMenu(fileName = "SkillConfig_", menuName = "Unity RPG Project/SkillConfig", order = 6)]
@@ -25,7 +20,7 @@ namespace App.SO
         public float factorHP = 0.25f, factorMP = 0.25f, factorATK = 0.25f, factorDEF = 0.25f, factorControlTime = 0.25f;
         public List<int> levelRequires = new List<int>();
 
-        public SkillAttribute GetSkillAttributeByLevel(int level)
+        public SkillAttribute GetSkillAttribute(int level)
         {
             SkillAttribute skillAttribute = new SkillAttribute();
             skillAttribute.hp = initialHP + factorHP * (level - 1);

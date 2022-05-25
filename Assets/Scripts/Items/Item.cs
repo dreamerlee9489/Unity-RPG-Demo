@@ -13,9 +13,9 @@ namespace App.Items
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
     {
-        public float cdTimer = 0;
         public ItemConfig itemConfig = null;
         public ContainerType containerType = ContainerType.WORLD;
+        public float cdTimer { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
         public ItemUI itemUI { get; set; }

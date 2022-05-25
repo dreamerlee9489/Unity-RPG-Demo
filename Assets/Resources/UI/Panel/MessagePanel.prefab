@@ -121,7 +121,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4991977569916362083}
   m_HandleRect: {fileID: 4991977569916362108}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 4991977569459341953}
   m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 1
+  m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:

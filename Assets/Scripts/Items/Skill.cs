@@ -48,17 +48,17 @@ namespace App.Items
                         case ControlType.KNOCK:
                             target.agent.isStopped = false;
                             target.immovable = false;
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "站起来了。", Color.green);
+                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "站起来了", Color.green);
                             break;
                         case ControlType.SPEED:
                             target.SetMaxSpeed(1);
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "的速度恢复正常。", Color.green);
+                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "的速度恢复正常", Color.green);
                             break;
                         case ControlType.STUNN:
                             target.animator.SetBool("stunned", false);
                             target.agent.isStopped = false;
                             target.immovable = false;
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "解除了眩晕。", Color.green);
+                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "解除了眩晕", Color.green);
                             break;
                     }
                     gameObject.SetActive(false);
@@ -89,7 +89,6 @@ namespace App.Items
                         target.animator.SetTrigger("knock");
                         target.agent.isStopped = true;
                         target.immovable = true;
-                        target.animator.SetBool("attack", false);
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被击倒", Color.green);
                         break;
                     case ControlType.SPEED:
@@ -100,7 +99,6 @@ namespace App.Items
                         target.animator.SetBool("stunned", true);
                         target.agent.isStopped = true;
                         target.immovable = true;
-                        target.animator.SetBool("attack", false);
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被眩晕", Color.green);
                         break;
                 }
@@ -129,7 +127,7 @@ namespace App.Items
             else
             {
                 skillConfig = itemConfig as SkillConfig;
-                skillAttribute = skillConfig.GetSkillAttributeByLevel(level);
+                skillAttribute = skillConfig.GetSkillAttribute(level);
                 professWeaponType = user.professionConfig.weaponType;
                 currentWeaponType = (user.currentWeapon.itemConfig as WeaponConfig).weaponType;
                 if (professWeaponType == currentWeaponType)

@@ -38,7 +38,7 @@ namespace App.Control
         }
     }
     
-	public class NPCTaskGiver : NPCController
+	public class NPCTasker : NPCController
 	{
 		protected override void Awake()
 		{

@@ -1,8 +1,7 @@
-using System.Diagnostics;
+using UnityEngine;
 using App.Items;
 using App.Manager;
 using App.SO;
-using UnityEngine;
 
 namespace App.UI
 {
@@ -16,21 +15,29 @@ namespace App.UI
             base.Awake();
             btnMinus.onClick.AddListener(() =>
             {
-                count = Mathf.Max(--count, minLevel);
-                total = (count - minLevel) * price;
-                countText.text = count.ToString();
-                shopPanel.CountTotalPrice();
                 if(count == minLevel)
-					UIManager.Instance.messagePanel.Print("已到达当前技能等级最低限制", Color.red);
+                    shopPanel.hint.text = "已到达当前技能等级";
+                else
+                {
+                    count = Mathf.Max(--count, minLevel);
+                    total = (count - minLevel) * price;
+                    countText.text = count.ToString();
+                    shopPanel.CountTotalPrice();
+                    shopPanel.hint.text = "";
+                }
             });
             btnPlus.onClick.AddListener(() =>
             {
-                count = Mathf.Min(++count, maxLevel);
-                total = (count - minLevel) * price;
-                countText.text = count.ToString();
-                shopPanel.CountTotalPrice();
                 if(count == maxLevel)
-					UIManager.Instance.messagePanel.Print("当前等级无法学习更高级的技能", Color.red);
+					shopPanel.hint.text = "当前等级无法学习更高级的技能";
+                else
+                {
+                    count = Mathf.Min(++count, maxLevel);
+                    total = (count - minLevel) * price;
+                    countText.text = count.ToString();
+                    shopPanel.CountTotalPrice();
+                    shopPanel.hint.text = "";
+                }
             });
         }
 

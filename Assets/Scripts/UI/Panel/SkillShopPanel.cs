@@ -16,7 +16,9 @@ namespace App.UI
             content = gameObject.GetComponentInChildren<ScrollRect>().content;
             btnTrade.onClick.AddListener(() =>
             {
-                if (InventoryManager.Instance.playerData.golds >= total)
+                if(InventoryManager.Instance.playerData.golds < total)
+                    hint.text = "金币不足，无法学习";
+                else
                 {
                     for (int i = 0; i < shopBars.Count; i++)
                     {
@@ -24,32 +26,24 @@ namespace App.UI
                         {
                             int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).levelRequires[shopBars[i].count - 1];
                             Skill skill = (shopBars[i] as SkillShopBar).skill;
-                            if(skill != null && shopBars[i].count <= skill.level)
+                            if(skill == null || shopBars[i].count > skill.level)
                             {
-                                UIManager.Instance.messagePanel.Print("你的等级尚且无法学习该技能。", Color.red);
-                            }
-                            else if(levelRequire <= GameManager.Instance.player.level)
-                            {
-                                for(int j = 0; j < shopBars[i].count; j++)
-                                    goods.GetChild(i).GetComponent<Skill>().AddToInventory();
-                                InventoryManager.Instance.playerData.golds -= total;
-                                UIManager.Instance.goldPanel.UpdatePanel();
-                                total = 0;
-                                totalText.text = "0";
-                                // shopBars[i].count = (shopBars[i] as SkillShopBar).skill.level;
-                                // shopBars[i].countText.text = shopBars[i].count.ToString();
-                                UIManager.Instance.messagePanel.Print("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
-                            }
-                            else
-                            {
-                                UIManager.Instance.messagePanel.Print("你的等级尚且无法学习该技能。", Color.red);
+                                if(levelRequire > GameManager.Instance.player.level)
+                                    hint.text = "你的等级尚且无法学习该技能";
+                                else
+                                {
+                                    for(int j = 0; j < shopBars[i].count; j++)
+                                        goods.GetChild(i).GetComponent<Skill>().AddToInventory();
+                                    InventoryManager.Instance.playerData.golds -= total;
+                                    UIManager.Instance.goldPanel.UpdatePanel();
+                                    total = 0;
+                                    txtTotal.text = "0";
+                                    gameObject.SetActive(false);
+                                    UIManager.Instance.messagePanel.Print("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    hint.text = "金币不足，无法学习。";
                 }
             });
         }
@@ -57,9 +51,8 @@ namespace App.UI
         void OnEnable()
         {
             total = 0;
-            totalText.text = "0";
+            txtTotal.text = "0";
             hint.text = "";
-            CountTotalPrice();
         }
 
         public override void BuildPanel(Transform goods)

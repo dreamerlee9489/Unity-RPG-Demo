@@ -21,7 +21,7 @@ namespace App.SO
         public float factorHP = 0.25f, factorMP = 0.25f, factorATK = 0.5f, factorDEF = 0.5f, factorEXP = 1f;
         public List<Skill> skillTree = new List<Skill>();
 
-        public ProfessionAttribute GetAttributeByLevel(int level)
+        public ProfessionAttribute GetProfessionAttribute(int level)
         {
             ProfessionAttribute attribute = new ProfessionAttribute();
             attribute.hp = level == 1 ? initialHP : initialHP * Mathf.Pow(1 + factorHP, level - 1);
