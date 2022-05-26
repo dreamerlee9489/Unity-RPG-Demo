@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using App.Enviorment;
+using App.Manager;
 using App.Items;
 
 namespace App.UI

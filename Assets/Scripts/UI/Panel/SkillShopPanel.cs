@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using App.Items;
-using App.Enviorment;
+using App.Manager;
 using App.SO;
 
 namespace App.UI

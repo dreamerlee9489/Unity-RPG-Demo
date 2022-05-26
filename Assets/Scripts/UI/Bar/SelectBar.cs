@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using App.Items;
-using App.Enviorment;
+using App.Manager;
 
 namespace App.UI
 {

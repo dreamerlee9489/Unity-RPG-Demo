@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.AI
+namespace App.Control
 {
     public class NameBar : MonoBehaviour
     {

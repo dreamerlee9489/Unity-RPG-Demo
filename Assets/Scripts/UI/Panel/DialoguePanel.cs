@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using App.SO;
-using App.AI;
+using App.Control;
 
 namespace App.UI
 {

@@ -1,5 +1,5 @@
 using UnityEngine.UI;
-using App.Enviorment;
+using App.Manager;
 
 namespace App.UI
 {

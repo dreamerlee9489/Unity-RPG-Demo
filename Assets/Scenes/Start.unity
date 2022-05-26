@@ -198,6 +198,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1744436968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 833642766038937021, guid: dec6bf711eae9e94ea60729bc74bb267, type: 3}
+  m_PrefabInstance: {fileID: 6100478919937433368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1744436971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744436968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7933a04c006c3488a6ea4904763d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2118665582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1235,7 +1252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688494879184, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688494879184, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1243,7 +1260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688494879184, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688494879184, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1259,7 +1276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688517646587, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 740
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688517646587, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1267,7 +1284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688517646587, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688517646587, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1283,7 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688623102236, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3580468688623102236, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1375,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580468689126219041, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 740
       objectReference: {fileID: 0}
     - target: {fileID: 3580468689126219041, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1508,6 +1525,10 @@ PrefabInstance:
     - target: {fileID: 7237530400843269988, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421164210848371577, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8499268390490544737, guid: beb8079c3bbf7da4696e75fdcabfe007, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1610,7 +1631,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 833642766038937019, guid: dec6bf711eae9e94ea60729bc74bb267, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dec6bf711eae9e94ea60729bc74bb267, type: 3}
 --- !u!4 &6849534571528202586
 Transform:

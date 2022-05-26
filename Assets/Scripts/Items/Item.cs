@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using App.SO;
-using App.AI;
+using App.Control;
 using App.UI;
-using UnityEngine.UI;
 
 namespace App.Items
 {

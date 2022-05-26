@@ -1,6 +1,6 @@
 using UnityEngine.UI;
-using App.Enviorment;
-using App.AI;
+using App.Manager;
+using App.Control;
 
 namespace App.UI
 {

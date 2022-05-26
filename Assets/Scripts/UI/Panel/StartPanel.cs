@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cinemachine;
-using App.Enviorment;
-using App.AI;
+using App.Manager;
+using App.Control;
 
 namespace App.UI
 {

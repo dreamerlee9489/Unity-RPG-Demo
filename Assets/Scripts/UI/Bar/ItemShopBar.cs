@@ -1,6 +1,6 @@
 using UnityEngine;
 using App.Items;
-using App.Enviorment;
+using App.Manager;
 
 namespace App.UI
 {

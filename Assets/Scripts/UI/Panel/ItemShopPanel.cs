@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using App.Items;
-using App.Enviorment;
-using App.AI;
+using App.Manager;
+using App.Control;
 
 namespace App.UI
 {

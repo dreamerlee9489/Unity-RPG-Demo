@@ -1,6 +1,6 @@
-﻿using App.Enviorment;
+﻿using App.Manager;
 using App.UI;
-using App.AI;
+using App.Control;
 
 namespace App.Items
 {
