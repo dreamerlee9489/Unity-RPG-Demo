@@ -520,6 +520,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Soldier_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1128079727254294964, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b52e2ddec7c964e45abdc2919eb00b40, type: 3}
 --- !u!1 &1012548140
@@ -531,6 +535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1012548141}
+  - component: {fileID: 1012548142}
   m_Layer: 0
   m_Name: Enviorment
   m_TagString: Untagged
@@ -555,6 +560,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1012548142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012548140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4da22c923da3b4690a6108733d2481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapItemDatas: []
 --- !u!1001 &1069648968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1125,6 +1143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Guard_01
       objectReference: {fileID: 0}
+    - target: {fileID: 7239271153561498324, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7239271153561660474, guid: 5717fa997a7d6254289165a9452896dd, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1287,6 +1309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Grocer_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6697060283858213012, guid: 985badc1c56165f4b999c7e0fd851931, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 985badc1c56165f4b999c7e0fd851931, type: 3}
 --- !u!1001 &4622678919804830815
@@ -1360,6 +1386,10 @@ PrefabInstance:
     - target: {fileID: 7328611324416038850, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_Name
       value: NPC_WarriorMaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328611324416038850, guid: 49382720be75e8442971450a42b94574, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7328611324416276796, guid: 49382720be75e8442971450a42b94574, type: 3}
       propertyPath: m_RootOrder

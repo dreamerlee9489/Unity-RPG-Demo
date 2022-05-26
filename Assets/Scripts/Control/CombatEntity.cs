@@ -91,6 +91,7 @@ namespace App.Control
                     Destroy(pickup.nameBar.gameObject);
                     pickup.nameBar = null;
                 }
+                MapManager.Instance.mapItemDatas.Remove(pickup.itemData.name);
                 Destroy(pickup.gameObject);
                 animator.SetBool("pickup", false);
                 UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);

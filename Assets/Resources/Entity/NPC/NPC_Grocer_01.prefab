@@ -2880,13 +2880,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   weaponPos: {fileID: 4169196262539638726}
-  animator: {fileID: 0}
-  agent: {fileID: 0}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   entityConfig: {fileID: 11400000, guid: a18be82e6ab3ade4b9315e4d98b031da, type: 2}
   professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
-  campType: 0
 --- !u!114 &4016595420019664832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3527,6 +3524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 0}
 --- !u!1 &8742021327733143037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,6 +3669,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6903753464820103625}
     m_Modifications:
+    - target: {fileID: 8027321210737905596, guid: c2959e69625aa2b4ea57295b777da49d, type: 3}
+      propertyPath: containerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8067381186771117887, guid: c2959e69625aa2b4ea57295b777da49d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3733,6 +3735,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6903753464820103625}
     m_Modifications:
+    - target: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
+      propertyPath: containerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5576695866394176425, guid: bfc36770153c3334a916e17c437d180b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3795,6 +3801,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6903753464820103625}
     m_Modifications:
+    - target: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
+      propertyPath: containerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7920242198917560751, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3857,6 +3867,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6903753464820103625}
     m_Modifications:
+    - target: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
+      propertyPath: containerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 568775892525449110, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
       propertyPath: m_Name
       value: Weapon_Sword_Broad

@@ -101,8 +101,8 @@ namespace App.Manager
             }
             else
             {
-                dialoguePanel.npc = target.GetComponent<NPCController>();
                 target.LookAt(GameManager.Instance.player.transform);
+                dialoguePanel.npc = target.GetComponent<NPCController>();
                 dialoguePanel.gameObject.SetActive(true);
                 this.target = null;
             }
