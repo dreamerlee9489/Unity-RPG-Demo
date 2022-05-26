@@ -2,16 +2,18 @@
 using App.SO;
 using App.Control;
 using App.UI;
+using App.Manager;
 
 namespace App.Items
 {
     public enum ItemType { NONE, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, BRACELET, WEAPON, PANTS, POTION, SKILL }
     public enum EquipmentType { WEAPON, ARMOR, JEWELRY }
-    public enum ContainerType { WORLD, BAG, EQUIPMENT, ACTION }
+    public enum ContainerType { WORLD, BAG, EQUIPMENT, ACTION, SKILL }
 
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
     {
+        public int level = 0;
         public ItemConfig itemConfig = null;
         public ContainerType containerType = ContainerType.WORLD;
         public float cdTimer { get; set; }
@@ -23,6 +25,8 @@ namespace App.Items
         public abstract void AddToInventory();
         public abstract void RemoveFromInventory();
         public abstract void Use(CombatEntity user);
+        public abstract void LoadToContainer(int level, ContainerType containerType);
+
         public override bool Equals(object other) => itemConfig == (other as Item).itemConfig;
         public override int GetHashCode() => itemConfig.itemName.GetHashCode();
 
@@ -32,9 +36,10 @@ namespace App.Items
             rigidbody = GetComponent<Rigidbody>();
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezePositionY;
+            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
             collider.enabled = containerType == ContainerType.WORLD ? true : false;
             cdTimer = itemConfig.cd;
+            level = itemConfig.itemLevel;
        }
 
         protected virtual void Update()

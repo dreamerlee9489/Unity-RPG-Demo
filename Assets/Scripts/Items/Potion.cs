@@ -1,13 +1,35 @@
 ﻿using UnityEngine;
-using App.SO;
 using App.Manager;
 using App.Control;
+using App.SO;
 using App.UI;
 
 namespace App.Items
 {
     public class Potion : Item
     {
+        public override void LoadToContainer(int level, ContainerType containerType)
+        {
+            switch (containerType)
+            {
+                case ContainerType.WORLD:
+                    break;
+                case ContainerType.BAG:
+                    ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
+                    Item item = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag);
+                    item.level = level;
+                    InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
+                    tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
+                    break;
+                case ContainerType.EQUIPMENT:
+                    break;
+                case ContainerType.ACTION:
+                    break;
+                case ContainerType.SKILL:
+                    break;
+            }
+        }
+
         public override void AddToInventory()
         {
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
@@ -27,7 +49,7 @@ namespace App.Items
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);
             itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();
-            itemSlot.itemUI = itemSlot.icons.childCount > 0 ? itemSlot.icons.GetChild(0).GetComponent<ItemUI>() : null; 
+            itemSlot.itemUI = itemSlot.icons.childCount > 0 ? itemSlot.icons.GetChild(0).GetComponent<ItemUI>() : null;
         }
 
         public override void Use(CombatEntity user)

@@ -2,6 +2,7 @@ using UnityEngine;
 using App.Control;
 using App.Manager;
 using App.SO;
+using App.UI;
 
 namespace App.Items
 {
@@ -14,12 +15,11 @@ namespace App.Items
         WeaponType professWeaponType = WeaponType.NONE;
         WeaponType currentWeaponType = WeaponType.NONE;
         float controlTimer = 0;
-        public int level = 0;
 
         protected override void Awake()
         {
             base.Awake();
-            gameObject.SetActive(containerType == ContainerType.BAG ? false : true);
+            gameObject.SetActive(false);
         }
 
         void OnEnable()
@@ -105,6 +105,26 @@ namespace App.Items
             }
         }
 
+        public override void LoadToContainer(int level, ContainerType containerType)
+        {
+            switch (containerType)
+            {
+                case ContainerType.WORLD:
+                    break;
+                case ContainerType.BAG:
+                    break;
+                case ContainerType.EQUIPMENT:
+                    break;
+                case ContainerType.ACTION:
+                    break;
+                case ContainerType.SKILL:                    
+                    Skill skill = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills).GetComponent<Skill>();
+                    skill.level = level;
+                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
+                    break;
+            }
+        }
+        
         public override void AddToInventory()
         {
             int index = InventoryManager.Instance.HasSkill(this);
@@ -114,7 +134,7 @@ namespace App.Items
             {
                 Skill skill = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills).GetComponent<Skill>();
                 skill.level = 1;
-                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform));
+                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
             }
         }
 

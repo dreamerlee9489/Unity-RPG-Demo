@@ -95,7 +95,7 @@ namespace App.Control
                 UIManager.Instance.messagePanel.Print("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
             }
             GameManager.Instance.player.GetExprience(tasks[index].exp);
-            InventoryManager.Instance.playerData.golds += tasks[index].bounty;
+            InventoryManager.Instance.golds += tasks[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
             index++;

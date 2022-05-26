@@ -4,6 +4,11 @@ namespace App.Items
 {
     public class Shield : Equipment
     {
+        public override void LoadToContainer(int level, ContainerType containerType)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void AddToInventory()
         {
             throw new System.NotImplementedException();

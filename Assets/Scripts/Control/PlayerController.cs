@@ -72,7 +72,7 @@ namespace App.Control
                         combatEntity.ExecuteAction(combatEntity.target);
                     else
                         combatEntity.CancelAction();
-                }                    
+                }                 
             }
         }
 

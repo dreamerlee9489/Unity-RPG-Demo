@@ -123,7 +123,7 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<Item> drops = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.playerData.golds);
+            List<Item> drops = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));

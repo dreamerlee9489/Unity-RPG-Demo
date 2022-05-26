@@ -43,7 +43,7 @@ namespace App.Manager
             startPanel.gameObject.SetActive(true);
             hudPanel.gameObject.SetActive(false);
             actionPanel.gameObject.SetActive(false);
-			goldPanel.gameObject.SetActive(false);
+            goldPanel.gameObject.SetActive(false);
             bagPanel.gameObject.SetActive(false);
             equipmentPanel.gameObject.SetActive(false);
             dialoguePanel.gameObject.SetActive(false);
@@ -58,7 +58,7 @@ namespace App.Manager
 
         void Update()
         {
-            if(target != null)
+            if (target != null)
                 ExecuteAction(target);
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -81,12 +81,20 @@ namespace App.Manager
                 taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
             if (Input.GetKeyDown(KeyCode.K))
                 skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                InventoryManager.Instance.SaveData();
+            }
+            if (Input.GetKeyUp(KeyCode.L))
+            {
+                InventoryManager.Instance.LoadData();
+            }
         }
 
         public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
-            if(!GameManager.Instance.player.CanDialogue(target))
+            if (!GameManager.Instance.player.CanDialogue(target))
             {
                 this.target = target;
                 GameManager.Instance.player.GetComponent<NavMeshAgent>().destination = target.position;

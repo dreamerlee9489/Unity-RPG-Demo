@@ -9,6 +9,11 @@ namespace App.Items
             throw new System.NotImplementedException();
         }
 
+        public override void LoadToContainer(int level, ContainerType containerType)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void RemoveFromInventory()
         {
             throw new System.NotImplementedException();

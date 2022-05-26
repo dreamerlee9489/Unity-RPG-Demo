@@ -28,6 +28,7 @@ namespace App.Manager
         {
             if (!Directory.Exists(DATA_DIR))
                 Directory.CreateDirectory(DATA_DIR);
+            Debug.Log(DATA_DIR);
             using (MemoryStream ms = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(ms, data);

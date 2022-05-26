@@ -75,7 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65058e82b76f41540b7fd4714a5cbdc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cdTimer: 0
   itemConfig: {fileID: 11400000, guid: ce16d6f7d4aef6a4a99fe5ddb1161a8a, type: 2}
-  containerType: 1
+  containerType: 4
   level: 0

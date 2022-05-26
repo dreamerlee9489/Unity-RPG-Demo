@@ -10,9 +10,10 @@ namespace App.Manager
     public class InventoryManager
     {
         static InventoryManager instance = null;
+        public int golds = 5000;
         public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
-        public PlayerData playerData = new PlayerData();
+        public List<ItemData> itemDatas = new List<ItemData>();
         public Transform bag { get; set; }
         public Transform skills { get; set; }
 
@@ -22,17 +23,49 @@ namespace App.Manager
             skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
         }
 
-        public static InventoryManager Instance 
+        public static InventoryManager Instance
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                     instance = new InventoryManager();
                 return instance;
             }
         }
 
-        public void Add(Item item, ItemUI itemUI)
+        public void SaveData()
+        {
+            for (int i = 0; i < items.Count; i++)
+                itemDatas.Add(new ItemData(items[i].GetType().Name + "/" + items[i].itemConfig.itemPrefab.name, items[i].level, items[i].containerType));
+            BinaryManager.Instance.SaveData(itemDatas, GetType().Name);
+        }
+
+        public void LoadData()
+        {
+            itemDatas = BinaryManager.Instance.LoadData(GetType().Name) as List<ItemData>;
+            for (int i = 0; i < itemDatas.Count; i++)
+            {
+                switch (itemDatas[i].containerType)
+                {              
+                    case ContainerType.WORLD:
+                        break;
+                    case ContainerType.BAG:
+                        Resources.Load<Item>(itemDatas[i].path).LoadToContainer(itemDatas[i].level, ContainerType.BAG);
+                        break;
+                    case ContainerType.EQUIPMENT:
+                        Resources.Load<Item>(itemDatas[i].path).LoadToContainer(itemDatas[i].level, ContainerType.EQUIPMENT);
+                        break;
+                    case ContainerType.ACTION:
+                        Resources.Load<Item>(itemDatas[i].path).LoadToContainer(itemDatas[i].level, ContainerType.ACTION);
+                        break;
+                    case ContainerType.SKILL:
+                        Resources.Load<Item>(itemDatas[i].path).LoadToContainer(itemDatas[i].level, ContainerType.SKILL);
+                        break;
+                }
+            }
+        }
+
+        public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
         {
             items.Add(item);
             itemUIs.Add(itemUI);
@@ -41,10 +74,10 @@ namespace App.Manager
             item.itemSlot = itemUI.transform.parent.parent.GetComponent<ItemSlot>();
             item.itemSlot.itemUI = itemUI;
             item.itemSlot.itemType = item.itemConfig.itemType;
+            item.containerType = containerType;
             item.gameObject.SetActive(false);
-            item.containerType = ContainerType.BAG;
             item.collider.enabled = false;
-            item.rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+            item.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             item.cdTimer = item.itemConfig.cd;
         }
 
