@@ -9,12 +9,12 @@ namespace App.UI
 
 		void Start()
 		{
-			goldText.text = InventoryManager.Instance.golds.ToString();
+			goldText.text = InventoryManager.Instance.playerData.golds.ToString();
 		}
 
 		public void UpdatePanel()
 		{
-			goldText.text = InventoryManager.Instance.golds.ToString();
+			goldText.text = InventoryManager.Instance.playerData.golds.ToString();
 		}
 	}
 }

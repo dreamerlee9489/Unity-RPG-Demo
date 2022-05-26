@@ -10,7 +10,6 @@ namespace App.Manager
     public class BinaryManager
     {
         static BinaryManager instance = null;
-        BinaryManager() {}
         static byte key = 123;
         public static string DATA_DIR = Application.persistentDataPath + "/Bin/";
 
@@ -26,9 +25,9 @@ namespace App.Manager
 
         public void SaveData(object data, string fileName)
         {
+            Debug.Log(DATA_DIR);
             if (!Directory.Exists(DATA_DIR))
                 Directory.CreateDirectory(DATA_DIR);
-            Debug.Log(DATA_DIR);
             using (MemoryStream ms = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(ms, data);
@@ -39,7 +38,7 @@ namespace App.Manager
             }
         }
 
-        public object LoadData(string fileName)
+        public T LoadData<T>(string fileName) where T : class
         {
             if (File.Exists(DATA_DIR + fileName + ".bin"))
             {
@@ -48,10 +47,10 @@ namespace App.Manager
                     bytes[i] ^= key;
                 using (MemoryStream ms = new MemoryStream(bytes))
                 {
-                    return new BinaryFormatter().Deserialize(ms);
+                    return new BinaryFormatter().Deserialize(ms) as T;
                 }
             }
-            return null;
+            return default(T);
         }
 
         /// <summary>
@@ -105,7 +104,7 @@ namespace App.Manager
                         }
                     }
                     //Invoke()传入的对象必须是调用者(字典对象)
-                    object dic = table.GetType().GetField("pairs").GetValue(table);
+                    object dic = table.GetType().GetField("tuples").GetValue(table);
                     dic.GetType().GetMethod("Add").Invoke(dic, new object[] { obj.GetType().GetField(keyName).GetValue(obj), obj });
                 }
             }

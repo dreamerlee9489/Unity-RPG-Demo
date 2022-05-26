@@ -24,7 +24,7 @@ namespace App.UI
             {
                 if (!isSell)
                 {
-                    if (InventoryManager.Instance.golds < total)
+                    if (InventoryManager.Instance.playerData.golds < total)
                         hint.text = "金币不足，无法购买";
                     else
                     {
@@ -37,7 +37,7 @@ namespace App.UI
                             shopBars[i].count = 0;
                             shopBars[i].countText.text = "0";
                         }
-                        InventoryManager.Instance.golds -= total;
+                        InventoryManager.Instance.playerData.golds -= total;
                         UIManager.Instance.goldPanel.UpdatePanel();
                         total = 0;
                         txtTotal.text = "0";
@@ -63,7 +63,7 @@ namespace App.UI
                             shopBars[i] = null;
                         }
                     }
-                    InventoryManager.Instance.golds += total;
+                    InventoryManager.Instance.playerData.golds += total;
                     UIManager.Instance.goldPanel.UpdatePanel();
                     total = 0;
                     txtTotal.text = "0";

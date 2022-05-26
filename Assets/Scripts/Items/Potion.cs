@@ -54,7 +54,7 @@ namespace App.Items
 
         public override void Use(CombatEntity user)
         {
-            if (cdTimer < itemConfig.cd)
+            if (cdTimer > 0)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
             else
             {
@@ -66,7 +66,7 @@ namespace App.Items
                 user.hpBar.UpdateBar(new Vector3(user.currentHP / user.professionAttribute.hp, 1, 1));
                 RemoveFromInventory();
                 for (int i = 0; i < itemSlot.transform.GetChild(0).childCount; i++)
-                    itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = 0;
+                    itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = itemConfig.cd;
             }
         }
     }

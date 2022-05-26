@@ -2,7 +2,6 @@ using UnityEngine;
 using App.Control;
 using App.Manager;
 using App.SO;
-using App.UI;
 
 namespace App.Items
 {
@@ -22,10 +21,9 @@ namespace App.Items
             gameObject.SetActive(false);
         }
 
-        void OnEnable()
+        void Start()
         {
             collider.enabled = true;
-            controlTimer = skillAttribute.controlTime;
             user.currentHP = Mathf.Min(user.currentHP + skillAttribute.hp, user.maxHP);
             user.currentMP = Mathf.Min(user.currentMP + skillAttribute.mp, user.maxMP);
             user.currentATK += skillAttribute.atk;
@@ -37,9 +35,9 @@ namespace App.Items
         {
             if (target != null)
             {
-                if (controlTimer < skillAttribute.controlTime)
-                    controlTimer = Mathf.Min(controlTimer + Time.deltaTime, skillAttribute.controlTime);
-                if (controlTimer == skillAttribute.controlTime)
+                if (controlTimer > 0)
+                    controlTimer = Mathf.Max(controlTimer - Time.deltaTime, 0);
+                else
                 {
                     switch (skillConfig.controlType)
                     {
@@ -61,13 +59,13 @@ namespace App.Items
                             UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "解除了眩晕", Color.green);
                             break;
                     }
-                    gameObject.SetActive(false);
                     target = null;
                     user.currentSkill = null;    
                     user.currentHP = Mathf.Max(user.currentHP - skillAttribute.hp, 0);
                     user.currentMP = Mathf.Max(user.currentMP - skillAttribute.mp, 0);
                     user.currentATK -= skillAttribute.atk;
                     user.currentDEF -= skillAttribute.def;
+                    gameObject.SetActive(false);
                     UIManager.Instance.attributePanel.UpdatePanel();
                 }
             }
@@ -79,8 +77,8 @@ namespace App.Items
             if (temp != null && temp.campType != user.campType)
             {
                 target = temp;
-                controlTimer = 0;
                 collider.enabled = false;
+                controlTimer = skillAttribute.controlTime;
                 switch (skillConfig.controlType)
                 {
                     case ControlType.NONE:
@@ -142,7 +140,7 @@ namespace App.Items
 
         public override void Use(CombatEntity user)
         {
-            if (cdTimer < itemConfig.cd)
+            if (cdTimer > 0)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
             else
             {
@@ -154,9 +152,9 @@ namespace App.Items
                 {
                     if (level > 0)
                     {
-                        cdTimer = 0;
                         this.user = user;
                         user.currentSkill = this;
+                        cdTimer = itemConfig.cd;
                         switch (skillConfig.skillType)
                         {
                             case SkillType.A:

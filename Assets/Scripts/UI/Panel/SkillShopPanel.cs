@@ -16,7 +16,7 @@ namespace App.UI
             content = gameObject.GetComponentInChildren<ScrollRect>().content;
             btnTrade.onClick.AddListener(() =>
             {
-                if(InventoryManager.Instance.golds < total)
+                if(InventoryManager.Instance.playerData.golds < total)
                     hint.text = "金币不足，无法学习";
                 else
                 {
@@ -34,7 +34,7 @@ namespace App.UI
                                 {
                                     for(int j = 0; j < shopBars[i].count; j++)
                                         goods.GetChild(i).GetComponent<Skill>().AddToInventory();
-                                    InventoryManager.Instance.golds -= total;
+                                    InventoryManager.Instance.playerData.golds -= total;
                                     UIManager.Instance.goldPanel.UpdatePanel();
                                     total = 0;
                                     txtTotal.text = "0";

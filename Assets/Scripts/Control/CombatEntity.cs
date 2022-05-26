@@ -123,7 +123,7 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<Item> drops = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.golds);
+            List<Item> drops = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var item in drops)
                 Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
@@ -170,9 +170,6 @@ namespace App.Control
                     currentWeapon = equipment as Weapon;
                     break;
                 case EquipmentType.ARMOR:
-                    ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = professionAttribute.atk + armorConfig.hp;
-                    currentDEF = professionAttribute.def + armorConfig.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
@@ -193,9 +190,6 @@ namespace App.Control
                     currentWeapon = initialWeapon;
                     break;
                 case EquipmentType.ARMOR:
-                    ArmorConfig armorConfig = equipment.itemConfig as ArmorConfig;
-                    currentHP = professionAttribute.hp;
-                    currentDEF = professionAttribute.def;
                     break;
                 case EquipmentType.JEWELRY:
                     break;
