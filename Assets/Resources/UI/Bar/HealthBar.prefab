@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 82380099191408966}
   m_Layer: 5
   m_Name: HealthBar
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0e681492391c343ac650071b96bc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 0}
 --- !u!1 &82380100287017594
 GameObject:
   m_ObjectHideFlags: 0

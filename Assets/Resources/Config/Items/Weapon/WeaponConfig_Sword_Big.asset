@@ -16,7 +16,8 @@ MonoBehaviour:
   description: "\u5251\u672F\u5927\u5E08\u7684\u4F69\u5251\uFF0C\u5A01\u529B\u60CA\u4EBA\u3002"
   itemLevel: 10
   itemPrice: 999
-  itemPrefab: {fileID: 4280537347684828990, guid: 7fb27878c02803240b40f4310f3a009d, type: 3}
+  cd: 0
+  item: {fileID: 4280537347684828990, guid: 7fb27878c02803240b40f4310f3a009d, type: 3}
   itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
   itemType: 7
   weaponType: 1

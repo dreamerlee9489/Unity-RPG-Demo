@@ -5,6 +5,7 @@ using App.SO;
 using App.Manager;
 using App.Items;
 using App.UI;
+using App.Data;
 
 namespace App.Control
 {
@@ -71,7 +72,7 @@ namespace App.Control
         void Start()
         {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            if(CompareTag("Enemy"))
+            if (CompareTag("Enemy"))
                 campType = CampType.RED;
         }
 
@@ -91,10 +92,10 @@ namespace App.Control
                     Destroy(pickup.nameBar.gameObject);
                     pickup.nameBar = null;
                 }
-                MapManager.Instance.mapItemDatas.Remove(pickup.itemData.name);
-                Destroy(pickup.gameObject);
-                animator.SetBool("pickup", false);
+                MapManager.Instance.mapData.pickupItems.Add(pickup.name, new ItemData(pickup.GetType().Name + "/" + pickup.itemConfig.item.name, pickup.level, pickup.containerType));
                 UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
+                animator.SetBool("pickup", false);
+                Destroy(pickup.gameObject);
             }
         }
 
@@ -106,7 +107,7 @@ namespace App.Control
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
-                if(currentSkill != null)
+                if (currentSkill != null)
                     currentSkill.gameObject.SetActive(true);
                 if (defender.currentHP <= 0)
                 {
@@ -136,6 +137,7 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
+                MapManager.Instance.mapData.deadEnemies.Add(name, new EntityData("Enemy/" + entityConfig.entity.name));
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
             }
         }

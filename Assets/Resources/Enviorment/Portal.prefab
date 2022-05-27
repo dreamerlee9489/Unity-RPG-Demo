@@ -279,9 +279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45940ec5c38520b42995d93348105ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalName: 
-  targetScene: 
-  targetPortal: 
+  portalName: Entrance
+  targetScene: Canyon
+  targetPortal: Entrance
   point: {fileID: 3491792195243145443}
 --- !u!1 &3491792195243145468
 GameObject:

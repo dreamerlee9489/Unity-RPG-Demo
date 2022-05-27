@@ -12,9 +12,9 @@ namespace App.Control
 			chName = transform.GetChild(0).GetComponent<Text>();
 			if(transform.parent != null)
 			{
-				if(CompareTag("Player"))
+				if(transform.parent.CompareTag("Player"))
 					chName.color = Color.green;
-				else if(CompareTag("Enemy"))
+				else if(transform.parent.CompareTag("Enemy"))
 					chName.color = Color.red;
 				else
 					chName.color = Color.yellow;

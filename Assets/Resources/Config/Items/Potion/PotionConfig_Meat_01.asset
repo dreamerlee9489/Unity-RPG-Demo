@@ -17,7 +17,7 @@ MonoBehaviour:
   itemLevel: 1
   itemPrice: 100
   cd: 4
-  itemPrefab: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
+  item: {fileID: 4894443189379409699, guid: bfc36770153c3334a916e17c437d180b, type: 3}
   itemUI: {fileID: -2144716052617753750, guid: 30bd806fae3602743be0fad2f47fb311, type: 3}
   itemType: 9
   hp: 200

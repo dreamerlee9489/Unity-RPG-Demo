@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3876947198292762537}
   m_Layer: 0
   m_Name: Chr_Dwarf_Worker_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 3877496438985132695}
   m_Layer: 0
   m_Name: Chr_Demon_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1407,7 +1407,7 @@ GameObject:
   - component: {fileID: 3873373941658364349}
   m_Layer: 0
   m_Name: Chr_Dwarf_Casual_Female_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1659,13 +1659,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   weaponPos: {fileID: 505250513981252231}
-  animator: {fileID: 0}
-  agent: {fileID: 0}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
   entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
   professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
-  campType: 0
 --- !u!114 &3851642028468238332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,7 +1687,7 @@ GameObject:
   - component: {fileID: 3877296746832162655}
   m_Layer: 0
   m_Name: Chr_Dwarf_King_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1920,7 +1917,7 @@ GameObject:
   - component: {fileID: 3877062108015591503}
   m_Layer: 0
   m_Name: Chr_Dwarf_Miner_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2370,7 +2367,7 @@ GameObject:
   - component: {fileID: 3873494018235783275}
   m_Layer: 0
   m_Name: Chr_Dwarf_Soldier_Male_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2504,7 +2501,7 @@ GameObject:
   - component: {fileID: 3873358769286174627}
   m_Layer: 0
   m_Name: Chr_Dwarf_Soldier_Female_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2834,7 +2831,7 @@ GameObject:
   - component: {fileID: 3873178994764224977}
   m_Layer: 0
   m_Name: Chr_Dwarf_Casual_Male_01
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3203,7 +3200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973912, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1710685163238973915, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_Pivot.x

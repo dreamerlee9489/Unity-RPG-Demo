@@ -12,7 +12,7 @@ namespace App.UI
 		void Awake()
 		{
 			foreground = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-			if(CompareTag("Enemy") || CompareTag("NPC"))
+			if(transform.parent.CompareTag("Enemy") || transform.parent.CompareTag("NPC"))
 				gameObject.SetActive(false);
 		}
 
@@ -29,7 +29,7 @@ namespace App.UI
 
 		public void UpdateBar(Vector3 scale)
 		{
-			if(CompareTag("Enemy"))
+			if(transform.parent.CompareTag("Enemy"))
 			{
 				timer = 6;
 				if(!isShow)

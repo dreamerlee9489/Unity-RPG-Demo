@@ -116,7 +116,7 @@ namespace App.Items
                 case ContainerType.ACTION:
                     break;
                 case ContainerType.SKILL:                    
-                    Skill skill = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills).GetComponent<Skill>();
+                    Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                     skill.level = level;
                     InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
                     break;
@@ -130,7 +130,7 @@ namespace App.Items
                 InventoryManager.Instance.skills.GetChild(index).GetComponent<Skill>().level++;
             else
             {
-                Skill skill = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.skills).GetComponent<Skill>();
+                Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                 skill.level = 1;
                 InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
             }

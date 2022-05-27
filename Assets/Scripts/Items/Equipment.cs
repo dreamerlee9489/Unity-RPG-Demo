@@ -8,7 +8,7 @@ namespace App.Items
 
         public override void AddToInventory()
         {
-            InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
         }
         
         public override void RemoveFromInventory()
@@ -25,10 +25,10 @@ namespace App.Items
                 case ContainerType.WORLD:
                     break;
                 case ContainerType.BAG:
-                    InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+                    InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     break;
                 case ContainerType.EQUIPMENT:
-                    Item item = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag);
+                    Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
                     InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     item.Use(GameManager.Instance.player);

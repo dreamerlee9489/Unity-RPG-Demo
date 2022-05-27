@@ -16,7 +16,7 @@ namespace App.Items
                     break;
                 case ContainerType.BAG:
                     ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-                    Item item = Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag);
+                    Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
                     InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
                     tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
@@ -33,7 +33,7 @@ namespace App.Items
         public override void AddToInventory()
         {
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            InventoryManager.Instance.Add(Instantiate(itemConfig.itemPrefab, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
             tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
         }
 

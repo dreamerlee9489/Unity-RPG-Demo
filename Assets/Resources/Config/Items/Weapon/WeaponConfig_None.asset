@@ -15,9 +15,9 @@ MonoBehaviour:
   itemName: 
   description: 
   itemLevel: 0
-  itemPrice: 999
+  itemPrice: 0
   cd: 0
-  itemPrefab: {fileID: 0}
+  item: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   itemUI: {fileID: 0}
   itemType: 7
   weaponType: 0

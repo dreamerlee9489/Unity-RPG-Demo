@@ -11,7 +11,7 @@ namespace App.SO
         public int itemLevel = 0;
         public int itemPrice = 999;
         public float cd = 0;
-        public Item itemPrefab = null;
+        public Item item = null;
         public ItemUI itemUI = null;
         public ItemType itemType = ItemType.WEAPON;
     }

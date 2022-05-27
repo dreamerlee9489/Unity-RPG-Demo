@@ -54,7 +54,7 @@ namespace App.Control
                                 ExecuteCommand(2, hit.transform);
                                 agent.stoppingDistance = 1.5f;
                                 break;
-                            case "Item":
+                            case "Drop":
                                 ExecuteCommand(1, hit.transform);
                                 agent.stoppingDistance = 1.5f;
                                 break;

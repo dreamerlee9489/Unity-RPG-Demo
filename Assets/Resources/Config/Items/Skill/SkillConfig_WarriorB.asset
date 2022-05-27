@@ -17,7 +17,7 @@ MonoBehaviour:
   itemLevel: 0
   itemPrice: 200
   cd: 6
-  itemPrefab: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
+  item: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
   itemUI: {fileID: 1343668645154321579, guid: 89001920ecfb5344398c7460c727eea3, type: 3}
   itemType: 10
   skillType: 1
