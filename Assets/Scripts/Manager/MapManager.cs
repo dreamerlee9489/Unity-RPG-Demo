@@ -19,12 +19,9 @@ namespace App.Manager
         void Awake()
         {
             instance = this;
-            mapData = new MapData();
             entities = GameObject.FindObjectsOfType<CombatEntity>().ToDictionary(entity => entity.name);
-            List<ItemData> itemDatas = BinaryManager.Instance.LoadData<List<ItemData>>(SceneManager.GetActiveScene().name + "Map0");
-            Dictionary<string, EntityData> entityDatas = BinaryManager.Instance.LoadData<Dictionary<string, EntityData>>(SceneManager.GetActiveScene().name + "Map1");
-            mapData.mapItemDatas = itemDatas == null ? new List<ItemData>() : itemDatas;
-            mapData.mapEntityDatas = entityDatas == null ? new Dictionary<string, EntityData>() : entityDatas;
+            MapData tempMapData = BinaryManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name + "Map");
+            mapData = tempMapData == null ? new MapData() : tempMapData;
             for (int i = 0; i < mapData.mapItemDatas.Count; i++)
             {
                 Item item = Instantiate(Resources.Load<Item>(mapData.mapItemDatas[i].path), new Vector3(mapData.mapItemDatas[i].position.x, 0.1f, mapData.mapItemDatas[i].position.z), Quaternion.Euler(90, 90, 90));
@@ -39,8 +36,7 @@ namespace App.Manager
 
         void OnDestroy()
         {
-            BinaryManager.Instance.SaveData(mapData.mapItemDatas, SceneManager.GetActiveScene().name + "Map0");
-            BinaryManager.Instance.SaveData(mapData.mapEntityDatas, SceneManager.GetActiveScene().name + "Map1");
+            BinaryManager.Instance.SaveData(mapData, SceneManager.GetActiveScene().name + "Map");
         }
     }
 }
