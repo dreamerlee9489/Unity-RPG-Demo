@@ -4,10 +4,7 @@ namespace App.Data
 	public class EntityData
 	{
 		public string path = "";
+        public Vector position;
         public EntityData() {}
-        public EntityData(string path)
-        {
-            this.path = "Entity/" + path;
-        }
 	}
 }

@@ -26,22 +26,24 @@ namespace App.Manager
             }
         }
 
-        public T LoadData<T>(string fileName, JsonType type = JsonType.LitJson)
+        public T LoadData<T>(string fileName, JsonType type = JsonType.LitJson) where T : class
         {
             switch (type)
             {
                 case JsonType.LitJson:
                     if (File.Exists(Application.persistentDataPath + "/" + fileName + ".json"))
                         return JsonMapper.ToObject<T>(File.ReadAllText(Application.persistentDataPath + "/" + fileName + ".json"));
-                    else
+                    else if(File.Exists(Application.streamingAssetsPath + "/" + fileName + ".json"))
                         return JsonMapper.ToObject<T>(File.ReadAllText(Application.streamingAssetsPath + "/" + fileName + ".json"));
+                    return null;
                 case JsonType.JsonUtlity:
                     if (File.Exists(Application.persistentDataPath + "/" + fileName + ".json"))
                         return JsonUtility.FromJson<T>(File.ReadAllText(Application.persistentDataPath + "/" + fileName + ".json"));
-                    else
+                    else if(File.Exists(Application.streamingAssetsPath + "/" + fileName + ".json"))
                         return JsonUtility.FromJson<T>(File.ReadAllText(Application.streamingAssetsPath + "/" + fileName + ".json"));
+                    return null;
                 default:
-                    return default(T);
+                    return null;
             }
         }
     }

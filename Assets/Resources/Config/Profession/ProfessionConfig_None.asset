@@ -15,9 +15,9 @@ MonoBehaviour:
   professionName: 
   professionType: 0
   weaponType: 0
-  initialHP: 300
+  initialHP: 1000
   initialMP: 100
-  initialATK: 10
+  initialATK: 1000
   initialDEF: 2
   initialEXP: 100
   factorHP: 0.25

@@ -9,7 +9,6 @@ namespace App.Data
         public int golds = 5000;
         public string sceneName = "";
         public Vector position;
-        public Vector rotation;
         public List<ItemData> itemDatas = new List<ItemData>();
         public PlayerData() {}
     }

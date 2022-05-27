@@ -5,27 +5,36 @@ namespace App.Data
     [System.Serializable]
     public struct Vector
     {
-        public float x, y, z, w;
-        public Vector(float x, float y, float z, float w)
+        public float x, y, z;
+
+        public Vector(float x, float y, float z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
-            this.w = w;
         }
+        
         public Vector(Vector3 vector3)
         {
             x = vector3.x;
             y = vector3.y;
             z = vector3.z;
-            w = 0;
         }
-        public Vector(Quaternion quaternion)
+
+        public override bool Equals(object obj)
         {
-            x = quaternion.x;
-            y = quaternion.y;
-            z = quaternion.z;
-            w = quaternion.w;
+            Vector vector = (Vector)obj;
+            return x == vector.x && y == vector.y && z == vector.z;
+        }
+
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "(" + x + ", " + y + ", " + z + ")";
         }
     }
 }

@@ -5,8 +5,8 @@ namespace App.Data
     [System.Serializable]
     public class MapData
     {
-        public Dictionary<string, ItemData> pickupItems = new Dictionary<string, ItemData>();
-        public Dictionary<string, EntityData> deadEnemies = new Dictionary<string, EntityData>();
+        public List<ItemData> newDropItemDatas = new List<ItemData>();
+        public List<ItemData> pickedupItemDatas = new List<ItemData>();
         public MapData() {}
     }
 }

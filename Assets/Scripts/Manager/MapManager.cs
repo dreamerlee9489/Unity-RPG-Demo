@@ -1,50 +1,45 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using App.Data;
+using App.Items;
 
 namespace App.Manager
 {
     public class MapManager : MonoBehaviour
     {
         static MapManager instance = null;
-        public Dictionary<string, GameObject> dropItems = null;
-        public Dictionary<string, GameObject> enemies = null;
-        public MapData mapData = null;
         public static MapManager Instance => instance;
+        public List<ItemData> dropItemDatas = null;
+        public List<EntityData> deadEnemies = null;
 
         void Awake()
         {
             instance = this;
-            dropItems = GameObject.FindGameObjectsWithTag("Drop").ToDictionary(item => item.name);
-            enemies = GameObject.FindGameObjectsWithTag("Enemy").ToDictionary(enemy => enemy.name);
-        }
-
-        void Start()
-        {
-            MapData tempData = BinaryManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name);
-            if (tempData != null)
-            {
-                mapData = tempData;
-                foreach (var item in tempData.pickupItems)
-                {
-                    Destroy(dropItems[item.Key].gameObject);
-                }
-                foreach (var item in tempData.deadEnemies)
-                {
-                    Destroy(enemies[item.Key].gameObject);
-                }
-            }
+            List<ItemData> itemDatas = JsonManager.Instance.LoadData<List<ItemData>>(SceneManager.GetActiveScene().name + "Map0");
+            if (itemDatas == null)
+                dropItemDatas = new List<ItemData>();
             else
             {
-                mapData = new MapData();
+                dropItemDatas = itemDatas;
+                for (int i = 0; i < dropItemDatas.Count; i++)
+                {
+                    Item item = Instantiate(Resources.Load<Item>(dropItemDatas[i].path), new Vector3(dropItemDatas[i].position.x, 0.1f, dropItemDatas[i].position.z), Quaternion.Euler(90, 90, 90));
+                    item.itemData = new ItemData();
+                    item.itemData.id = dropItemDatas[i].id;
+                    item.itemData.path = dropItemDatas[i].path;
+                    item.itemData.position = dropItemDatas[i].position;
+                    item.itemData.containerType = dropItemDatas[i].containerType;
+                    item.itemData.level = dropItemDatas[i].level;
+                }
             }
         }
 
         void OnDestroy()
         {
-            BinaryManager.Instance.SaveData(mapData, SceneManager.GetActiveScene().name);
+            JsonManager.Instance.SaveData(dropItemDatas, SceneManager.GetActiveScene().name + "Map0");
         }
     }
 }

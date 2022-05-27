@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -54,7 +54,7 @@ namespace App.Control
                                 ExecuteCommand(2, hit.transform);
                                 agent.stoppingDistance = 1.5f;
                                 break;
-                            case "Drop":
+                            case "DropItem":
                                 ExecuteCommand(1, hit.transform);
                                 agent.stoppingDistance = 1.5f;
                                 break;
@@ -68,11 +68,11 @@ namespace App.Control
                     CancelCommand();
                 if (combatEntity.target != null)
                 {
-                    if(!combatEntity.immovable)
+                    if (!combatEntity.immovable)
                         combatEntity.ExecuteAction(combatEntity.target);
                     else
                         combatEntity.CancelAction();
-                }                 
+                }
             }
         }
 

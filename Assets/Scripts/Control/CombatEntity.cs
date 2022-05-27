@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
@@ -76,29 +77,6 @@ namespace App.Control
                 campType = CampType.RED;
         }
 
-        void Pickup()
-        {
-            if (pickup != null)
-            {
-                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
-                {
-                    Item temp = GameManager.Instance.ongoingTasks[i].target.GetComponent<Item>();
-                    if (temp != null && pickup.Equals(temp))
-                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
-                }
-                pickup.AddToInventory();
-                if (pickup.nameBar != null)
-                {
-                    Destroy(pickup.nameBar.gameObject);
-                    pickup.nameBar = null;
-                }
-                MapManager.Instance.mapData.pickupItems.Add(pickup.name, new ItemData(pickup.GetType().Name + "/" + pickup.itemConfig.item.name, pickup.level, pickup.containerType));
-                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
-                animator.SetBool("pickup", false);
-                Destroy(pickup.gameObject);
-            }
-        }
-
         void Attack() => TakeDamage(target);
         void TakeDamage(Transform target, float factor = 1)
         {
@@ -125,10 +103,19 @@ namespace App.Control
             animator.SetBool("death", true);
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<Item> drops = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.playerData.golds);
+            List<Item> dropItems = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
-            foreach (var item in drops)
-                Instantiate(item, transform.position + Vector3.up * 2 + Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
+            foreach (var dropItem in dropItems)
+            {
+                Item item = Instantiate(dropItem, transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
+                item.itemData = new ItemData();
+                item.itemData.id = Guid.NewGuid().ToString();
+                item.itemData.path = "Items/" + item.GetType().Name + "/" + item.itemConfig.item.name;
+                item.itemData.position = new Vector(item.transform.position);
+                item.itemData.containerType = ContainerType.WORLD;
+                item.itemData.level = item.level;
+                MapManager.Instance.dropItemDatas.Add(item.itemData);
+            }
             if (CompareTag("Enemy"))
             {
                 for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
@@ -137,8 +124,30 @@ namespace App.Control
                     if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
                         GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
-                MapManager.Instance.mapData.deadEnemies.Add(name, new EntityData("Enemy/" + entityConfig.entity.name));
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
+            }
+        }
+
+        void Pickup()
+        {
+            if (pickup != null)
+            {
+                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
+                {
+                    Item temp = GameManager.Instance.ongoingTasks[i].target.GetComponent<Item>();
+                    if (temp != null && pickup.Equals(temp))
+                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
+                }
+                MapManager.Instance.dropItemDatas.Remove(pickup.itemData);
+                pickup.AddToInventory();
+                if (pickup.nameBar != null)
+                {
+                    Destroy(pickup.nameBar.gameObject);
+                    pickup.nameBar = null;
+                }
+                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
+                animator.SetBool("pickup", false);
+                Destroy(pickup.gameObject);
             }
         }
 

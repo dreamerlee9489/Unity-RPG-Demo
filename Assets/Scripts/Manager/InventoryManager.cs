@@ -107,7 +107,14 @@ namespace App.Manager
             playerData.sceneName = SceneManager.GetActiveScene().name;
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
             for (int i = 0; i < items.Count; i++)
-                playerData.itemDatas.Add(new ItemData(items[i].GetType().Name + "/" + items[i].itemConfig.item.name, items[i].level, items[i].containerType));
+            {
+                ItemData itemData = new ItemData();
+                itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
+                itemData.level = items[i].level;
+                itemData.position = new Vector(items[i].transform.position);
+                itemData.containerType = items[i].containerType;
+                playerData.itemDatas.Add(itemData);
+            }
             BinaryManager.Instance.SaveData(playerData, "PlayerData");
         }
 
