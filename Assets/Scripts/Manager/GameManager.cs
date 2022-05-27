@@ -9,8 +9,6 @@ namespace App.Manager
     {
         static GameManager instance = null;
         public static GameManager Instance => instance;
-        public event Action onSavingData = null;
-        public event Action onLoadingData = null;
         public CombatEntity player { get; set; }
         public List<Task> ongoingTasks { get; set; }
         public string targetPortal { get; set; }

@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 5816280762068305477}
   initialWeaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
@@ -360,8 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4da22c923da3b4690a6108733d2481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemDatas: []
-  deadEnemies: []
+  mapItemDatas: []
 --- !u!1 &1755893932
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,11 +4832,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 3
   weaponPos: {fileID: 3685226465651680956}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
   entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
-  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
+  professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
 --- !u!114 &95779956817572809
 MonoBehaviour:
@@ -20267,11 +20264,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 334427851787588423}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   entityConfig: {fileID: 11400000, guid: a18be82e6ab3ade4b9315e4d98b031da, type: 2}
-  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
+  professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
 --- !u!65 &1596501563114956150
 BoxCollider:
@@ -22014,11 +22010,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 3684491089117309846}
   initialWeaponPrefab: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   entityConfig: {fileID: 11400000, guid: 46fc001bb2ed3764e988d38d40e8a87e, type: 2}
-  professionConfig: {fileID: 11400000, guid: 882b63488e287fa489b1e1c135c6782a, type: 2}
+  professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
 --- !u!4 &2586882190634754400
 Transform:
@@ -23063,7 +23058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 2586882192239817383}
   initialWeaponPrefab: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   entityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
@@ -23129,7 +23123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 2586882190634754400}
   initialWeaponPrefab: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   entityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
@@ -23195,7 +23188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 2586882191214921895}
   initialWeaponPrefab: {fileID: -2252623228695839510, guid: d2f9858dc3ea86647b26b62a85a4438e, type: 3}
   entityConfig: {fileID: 11400000, guid: 6d51d7c6a90b7b04083593fc310d2ffb, type: 2}
@@ -25315,7 +25307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 1193622632907284621}
   initialWeaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
@@ -25333,7 +25324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 1193622633126809170}
   initialWeaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
@@ -30752,7 +30742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 10
   weaponPos: {fileID: 1081552247754719253}
   initialWeaponPrefab: {fileID: 4280537347684828990, guid: 7fb27878c02803240b40f4310f3a009d, type: 3}
   entityConfig: {fileID: 11400000, guid: 81cabdf4e22301447a8f40576daf0d33, type: 2}

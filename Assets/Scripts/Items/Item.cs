@@ -34,6 +34,12 @@ namespace App.Items
         {
             collider = GetComponent<Collider>();
             rigidbody = GetComponent<Rigidbody>();
+            itemData = new ItemData();
+            itemData.id = System.Guid.NewGuid().ToString();
+            itemData.path = "Items/" + GetType().Name + "/" + itemConfig.item.name;
+            itemData.position = new Vector(transform.position);
+            itemData.containerType = ContainerType.WORLD;
+            itemData.level = level;
         }
 
         void Start()

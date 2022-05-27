@@ -10,18 +10,18 @@ using App.Data;
 
 namespace App.Control
 {
-    public enum CampType { BLUE, RED }
+    public enum CampType { BLUE, YELLOW, RED }
 
     public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
         Item pickup = null;
         Weapon initialWeapon = null;
-        public int level = 1;
         public Transform weaponPos = null;
         public Weapon initialWeaponPrefab = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
+        public int level { get; set; }
         public float currentHP { get; set; }
         public float currentMP { get; set; }
         public float currentEXP { get; set; }
@@ -43,6 +43,7 @@ namespace App.Control
         public Skill currentSkill { get; set; }
         public CampType campType { get; set; }
         public ProfessionAttribute professionAttribute { get; set; }
+        public EntityData entityData { get; set; }
 
         void Awake()
         {
@@ -55,26 +56,72 @@ namespace App.Control
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             maxSpeed = entityConfig.runSpeed * entityConfig.runFactor;
             agent.speed = maxSpeed;
+            level = 1;
             professionAttribute = professionConfig.GetProfessionAttribute(level);
+            maxHP = professionAttribute.hp;
+            maxMP = professionAttribute.mp;
+            maxEXP = professionAttribute.exp;
             AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
             currentWeapon.collider.enabled = false;
             currentWeapon.rigidbody.useGravity = false;
             currentWeapon.rigidbody.isKinematic = true;
-            maxHP = professionAttribute.hp;
-            maxMP = professionAttribute.mp;
-            maxEXP = professionAttribute.exp;
-            currentHP = professionAttribute.hp;
-            currentMP = professionAttribute.mp;
-            currentATK = professionAttribute.atk + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
-            currentDEF = professionAttribute.def;
-            currentEXP = 0;
+            if(CompareTag("Player"))
+                campType = CampType.BLUE;
+            else if (CompareTag("Enemy"))
+                campType = CampType.RED;
+            else
+                campType = CampType.YELLOW;
         }
 
         void Start()
         {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            if (CompareTag("Enemy"))
-                campType = CampType.RED;
+            if(MapManager.Instance.mapData.mapEntityDatas.ContainsKey(name))
+            {
+                gameObject.SetActive(false);
+                currentHP = MapManager.Instance.mapData.mapEntityDatas[name].currentHP;
+                currentMP = MapManager.Instance.mapData.mapEntityDatas[name].currentMP;
+                currentATK = MapManager.Instance.mapData.mapEntityDatas[name].currentATK;
+                currentDEF = MapManager.Instance.mapData.mapEntityDatas[name].currentDEF;
+                currentEXP = MapManager.Instance.mapData.mapEntityDatas[name].currentEXP;
+                transform.position = new Vector3(MapManager.Instance.mapData.mapEntityDatas[name].position.x, MapManager.Instance.mapData.mapEntityDatas[name].position.y, MapManager.Instance.mapData.mapEntityDatas[name].position.z);
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                currentHP = professionAttribute.hp;
+                currentMP = professionAttribute.mp;
+                currentATK = professionAttribute.atk + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
+                currentDEF = professionAttribute.def;
+                currentEXP = 0;
+                entityData = new EntityData();
+                entityData.position = new Vector(transform.position);
+                entityData.currentHP = currentHP;
+                entityData.currentMP = currentMP;
+                MapManager.Instance.mapData.mapEntityDatas.Add(name, entityData);
+            }
+            if(currentHP == 0)
+            {
+                isDead = true;
+                target = null;
+                animator.SetBool("attack", false);
+                animator.SetBool("death", true);
+                agent.radius = 0;
+                GetComponent<Collider>().enabled = false;
+            }
+            UIManager.Instance.hudPanel.UpdatePanel();
+            UIManager.Instance.attributePanel.UpdatePanel();
+        }
+
+        void OnDestroy()
+        {
+            EntityData temp = MapManager.Instance.mapData.mapEntityDatas[name];
+            temp.currentHP = currentHP;
+            temp.currentMP = currentMP;
+            temp.currentATK = currentATK;
+            temp.currentDEF = currentDEF;
+            temp.currentEXP = currentEXP;
+            temp.position = new Vector(transform.position);
         }
 
         void Attack() => TakeDamage(target);
@@ -87,7 +134,7 @@ namespace App.Control
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
                 if (currentSkill != null)
                     currentSkill.gameObject.SetActive(true);
-                if (defender.currentHP <= 0)
+                if (defender.currentHP == 0)
                 {
                     defender.Death();
                     CancelAction();
@@ -108,13 +155,7 @@ namespace App.Control
             foreach (var dropItem in dropItems)
             {
                 Item item = Instantiate(dropItem, transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
-                item.itemData = new ItemData();
-                item.itemData.id = Guid.NewGuid().ToString();
-                item.itemData.path = "Items/" + item.GetType().Name + "/" + item.itemConfig.item.name;
-                item.itemData.position = new Vector(item.transform.position);
-                item.itemData.containerType = ContainerType.WORLD;
-                item.itemData.level = item.level;
-                MapManager.Instance.dropItemDatas.Add(item.itemData);
+                MapManager.Instance.mapData.mapItemDatas.Add(item.itemData);
             }
             if (CompareTag("Enemy"))
             {
@@ -138,7 +179,7 @@ namespace App.Control
                     if (temp != null && pickup.Equals(temp))
                         GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
-                MapManager.Instance.dropItemDatas.Remove(pickup.itemData);
+                MapManager.Instance.mapData.mapItemDatas.Remove(pickup.itemData);
                 pickup.AddToInventory();
                 if (pickup.nameBar != null)
                 {
