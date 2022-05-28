@@ -19,11 +19,11 @@ namespace App.Manager
 
         InventoryManager()
         {
-            playerData = new PlayerData();
             items = new List<Item>();
             itemUIs = new List<ItemUI>();
             bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
             skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+            playerData = GameManager.Instance.player.GetComponent<PlayerController>().playerData;
         }
 
         public static InventoryManager Instance
@@ -47,8 +47,6 @@ namespace App.Manager
             item.itemSlot.itemType = item.itemConfig.itemType;
             item.containerType = containerType;
             item.gameObject.SetActive(false);
-            item.collider.enabled = false;
-            item.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         public void Remove(Item item)
@@ -102,7 +100,7 @@ namespace App.Manager
             return index != -1 ? skills.GetChild(index).GetComponent<Skill>() : null;
         }
 
-        public void SaveData()
+        public void Save()
         {
             playerData.sceneName = SceneManager.GetActiveScene().name;
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
@@ -115,12 +113,12 @@ namespace App.Manager
                 itemData.containerType = items[i].containerType;
                 playerData.itemDatas.Add(itemData);
             }
-            BinaryManager.Instance.SaveData(playerData, "PlayerData");
+            JsonManager.Instance.SaveData(playerData, "PlayerData_" + playerData.nickName);
+            JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
         }
 
-        public void LoadData()
+        public void Load(PlayerData playerData)
         {
-            playerData = BinaryManager.Instance.LoadData<PlayerData>("PlayerData");
             for (int i = 0; i < playerData.itemDatas.Count; i++)
             {
                 switch (playerData.itemDatas[i].containerType)

@@ -6,28 +6,23 @@ namespace App.Control.FSM
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public class FiniteStateMachine : MonoBehaviour
     {
-        Transform player = null;
         public State currentState { get; set; }
         public State previousState { get; set; }
         public State globalState { get; set; }
 
         void Start()
         {
-            player = GameManager.Instance.player.transform;
-            currentState = new Idle(this, player);
+            currentState = new Idle(GetComponent<CombatEntity>(), GameManager.Instance.player);
         }
 
         void Update()
         {
             if (!GetComponent<CombatEntity>().isDead)
             {
-                if(!GetComponent<CombatEntity>().immovable)
-                {
-                    if (globalState != null)
-                        globalState.Execute();
-                    if (currentState != null)
-                        currentState.Execute();
-                }
+                if (globalState != null)
+                    globalState.Execute();
+                if (currentState != null)
+                    currentState.Execute();
             }
             else
             {

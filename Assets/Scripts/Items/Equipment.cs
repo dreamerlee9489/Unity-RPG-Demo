@@ -1,10 +1,26 @@
 using App.Manager;
+using UnityEngine;
 
 namespace App.Items
 {
     public abstract class Equipment : Item
     {
         public EquipmentType equipmentType = EquipmentType.WEAPON;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            level = itemData.level = itemConfig.itemLevel;
+        }
+
+        void Start()
+        {
+            rigidbody.useGravity = true;
+            rigidbody.isKinematic = false;
+            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            collider.enabled = containerType == ContainerType.WORLD ? true : false;
+            tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
+        }
 
         public override void AddToInventory()
         {

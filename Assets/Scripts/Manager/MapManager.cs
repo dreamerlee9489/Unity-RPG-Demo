@@ -19,7 +19,7 @@ namespace App.Manager
         {
             instance = this;
             entities = GameObject.FindObjectsOfType<CombatEntity>().ToDictionary(entity => entity.name);
-            MapData tempMapData = BinaryManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name + "MapData");
+            MapData tempMapData = JsonManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
             mapData = tempMapData == null ? new MapData() : tempMapData;
             for (int i = 0; i < mapData.mapItemDatas.Count; i++)
             {
@@ -30,11 +30,6 @@ namespace App.Manager
                 item.itemData.containerType = mapData.mapItemDatas[i].containerType;
                 item.itemData.level = mapData.mapItemDatas[i].level;
             }
-        }
-
-        void OnDestroy()
-        {
-            BinaryManager.Instance.SaveData(mapData, SceneManager.GetActiveScene().name + "MapData");
         }
     }
 }

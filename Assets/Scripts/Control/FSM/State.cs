@@ -8,17 +8,15 @@ namespace App.Control.FSM
     {
         protected Animator animator = null;
         protected NavMeshAgent agent = null;
-        protected Transform target = null;
         protected MoveEntity moveEntity = null;
-        protected CombatEntity combatEntity = null;
-        protected FiniteStateMachine owner = null;
+        protected CombatEntity owner = null;
+        protected CombatEntity target = null;
 
-        public State(FiniteStateMachine owner, Transform target)
+        public State(CombatEntity owner, CombatEntity target)
         {
             animator = owner.GetComponent<Animator>();
             agent = owner.GetComponent<NavMeshAgent>();
             moveEntity = owner.GetComponent<MoveEntity>();
-            combatEntity = owner.GetComponent<CombatEntity>();
             this.owner = owner;
             this.target = target;
         }
@@ -33,26 +31,20 @@ namespace App.Control.FSM
     {
         float idleTimer = 0;
 
-        public Idle(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
+        public Idle(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
-            agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;
+            agent.speed = owner.entityConfig.walkSpeed * owner.entityConfig.walkFactor;
         }
 
         public override void Execute()
         {
             idleTimer += Time.deltaTime;
             if(idleTimer > 4)
-            {
-                owner.ChangeState(new Patrol(owner, target));
-                idleTimer = 0;
-            }
-            else if (combatEntity.CanSee(target))
-            {
-                owner.ChangeState(new Pursuit(owner, target));
-                idleTimer = 0;
-            }
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Patrol(owner, target));
+            else if (owner.CanSee(target.transform))
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Pursuit(owner, target));
         }
 
         public override void Exit()
@@ -69,17 +61,17 @@ namespace App.Control.FSM
     {
         float wanderTimer = 6f;
 
-        public Patrol(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
+        public Patrol(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
-            agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;
+            agent.speed = owner.entityConfig.walkSpeed * owner.entityConfig.walkFactor;
         }
 
         public override void Execute()
         {
-            if (combatEntity.CanSee(target))
-                owner.ChangeState(new Pursuit(owner, target));
+            if (owner.CanSee(target.transform))
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Pursuit(owner, target));
             else
             {
                 wanderTimer += Time.deltaTime;
@@ -103,25 +95,25 @@ namespace App.Control.FSM
 
     public class Pursuit : State
     {
-        public Pursuit(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
+        public Pursuit(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
-            combatEntity.target = target;
-            agent.speed = combatEntity.maxSpeed;
+            owner.target = target.transform;
+            agent.speed = owner.entityConfig.runSpeed * owner.entityConfig.runFactor * owner.speedRate;
         }
 
         public override void Execute()
         {
-            if (combatEntity.CanSee(target))
-            {
-                if (combatEntity.CanAttack(target))
-                    owner.ChangeState(new Attack(owner, target));
-                moveEntity.Seek(target.position);
-                owner.transform.LookAt(target);
-            }
+            if (!owner.CanSee(target.transform))
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
             else
-                owner.ChangeState(new Idle(owner, target));
+            {
+                if (owner.CanAttack(target.transform))
+                    owner.GetComponent<FiniteStateMachine>().ChangeState(new Attack(owner, target));
+                moveEntity.Seek(target.transform.position);
+                owner.transform.LookAt(target.transform);
+            }            
         }
 
         public override void Exit()
@@ -136,7 +128,7 @@ namespace App.Control.FSM
 
     public class Attack : State
     {
-        public Attack(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
+        public Attack(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
@@ -145,15 +137,15 @@ namespace App.Control.FSM
 
         public override void Execute()
         {
-            owner.transform.LookAt(target);
-            if (!combatEntity.CanAttack(target))
-                owner.ChangeState(new Idle(owner, target));
+            owner.transform.LookAt(target.transform);
+            if (!owner.CanAttack(target.transform))
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
         {
             animator.SetBool("attack", false);
-            combatEntity.target = null;
+            owner.target = null;
         }
 
         public override bool OnMessage(Telegram telegram)
@@ -162,22 +154,65 @@ namespace App.Control.FSM
         }
     }
 
-    public class RunAway : State
+    public class Stunned : State
     {
-        public RunAway(FiniteStateMachine owner, Transform target) : base(owner, target) => Enter();
+        public float duration = 0, timer = 0;
+
+        public Stunned(CombatEntity owner, CombatEntity target, float duration) : base(owner, target)
+        {
+            this.duration = duration;
+        }
 
         public override void Enter()
         {
+            animator.SetBool("stunned", true);
+            agent.isStopped = true;
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            timer += Time.deltaTime;
+            if(timer >= duration)
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
         {
+            animator.SetBool("stunned", false);
+            agent.isStopped = false;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
             throw new System.NotImplementedException();
+        }
+    }
+
+    public class Knocked : State
+    {
+        float duration = 5.533f, timer = 0;
+
+        public Knocked(CombatEntity owner, CombatEntity target) : base(owner, target)
+        {
+        }
+
+        public override void Enter()
+        {
+            animator.SetTrigger("knocked");
+            agent.isStopped = true;
+        }
+
+        public override void Execute()
+        {
+            timer += Time.deltaTime;
+            if(timer >= duration)
+                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
+        }
+
+        public override void Exit()
+        {
+            animator.ResetTrigger("knocked");
+            agent.isStopped = false;
         }
 
         public override bool OnMessage(Telegram telegram)

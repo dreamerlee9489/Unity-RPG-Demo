@@ -15,7 +15,7 @@ namespace App.Items
     {
         public ItemConfig itemConfig = null;
         public ContainerType containerType = ContainerType.WORLD;
-        public int level { get; set; }
+        public int level = 0;
         public float cdTimer { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }
@@ -38,18 +38,7 @@ namespace App.Items
             itemData.id = System.Guid.NewGuid().ToString();
             itemData.path = "Items/" + GetType().Name + "/" + itemConfig.item.name;
             itemData.position = new Vector(transform.position);
-            itemData.containerType = ContainerType.WORLD;
-            itemData.level = level;
-        }
-
-        void Start()
-        {
-            level = itemConfig.itemLevel;
-            rigidbody.useGravity = true;
-            rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
-            collider.enabled = containerType == ContainerType.WORLD ? true : false;
-            tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";
+            itemData.containerType = containerType;
         }
 
         protected virtual void Update()

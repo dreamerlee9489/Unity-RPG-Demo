@@ -1,5 +1,4 @@
 using UnityEngine;
-using App.UI;
 
 namespace App.SO
 {

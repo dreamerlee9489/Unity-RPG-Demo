@@ -54,6 +54,9 @@ namespace App.Manager
 
         /// <summary>
         /// 加载Excel表
+        /// 第二行指定key
+        /// 第三行指定变量名
+        /// 第四行指定变量类型
         /// </summary>
         /// <typeparam name="T1">表类型</typeparam>
         /// <typeparam name="T2">表容器类型</typeparam>

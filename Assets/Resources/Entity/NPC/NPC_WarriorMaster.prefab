@@ -1951,7 +1951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 10
   weaponPos: {fileID: 7540252720796484627}
   initialWeaponPrefab: {fileID: 4280537347684828990, guid: 7fb27878c02803240b40f4310f3a009d, type: 3}
   entityConfig: {fileID: 11400000, guid: 81cabdf4e22301447a8f40576daf0d33, type: 2}
@@ -3475,7 +3474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 947904154245727679, guid: d8ecbb38fd5280642bbb1bc9dae7dac7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8ecbb38fd5280642bbb1bc9dae7dac7, type: 3}
@@ -3561,7 +3560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233016006593782927, guid: 6c3c8adf5bd58d84fb4fe103dc438fd4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c3c8adf5bd58d84fb4fe103dc438fd4, type: 3}
@@ -3647,7 +3646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 947904154245727679, guid: d62b3b6042646034194dc6dec30fb73b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62b3b6042646034194dc6dec30fb73b, type: 3}
@@ -3733,7 +3732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 947904154245727679, guid: 791c3382f453b024e98a6907aae74d78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791c3382f453b024e98a6907aae74d78, type: 3}

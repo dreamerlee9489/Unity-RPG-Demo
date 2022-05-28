@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using App.Manager;
 
 namespace App.Control
 {
@@ -10,17 +11,24 @@ namespace App.Control
 		void Awake()
 		{
 			chName = transform.GetChild(0).GetComponent<Text>();
+		}
+
+		void Start()
+		{
 			if(transform.parent != null)
 			{
 				if(transform.parent.CompareTag("Player"))
+				{
 					chName.color = Color.green;
-				else if(transform.parent.CompareTag("Enemy"))
-					chName.color = Color.red;
+					chName.text = InventoryManager.Instance.playerData.nickName;
+				}
 				else
-					chName.color = Color.yellow;
-				chName.text = transform.parent.GetComponent<CombatEntity>().entityConfig.nickName;
+				{
+					chName.color = transform.parent.CompareTag("Enemy") ? Color.red : Color.yellow;
+					chName.text = transform.parent.GetComponent<CombatEntity>().entityConfig.nickName;
+				}
 				chName.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 2.4f, 0);
-			}
+			}	
 		}
 
         void LateUpdate()

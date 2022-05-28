@@ -8,6 +8,21 @@ namespace App.Items
 {
     public class Potion : Item
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            level = itemData.level = itemConfig.itemLevel;
+        }
+        
+        void Start()
+        {
+            rigidbody.useGravity = true;
+            rigidbody.isKinematic = false;
+            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            collider.enabled = containerType == ContainerType.WORLD ? true : false;
+            tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
+        }
+
         public override void LoadToContainer(int level, ContainerType containerType)
         {
             switch (containerType)
@@ -32,6 +47,7 @@ namespace App.Items
 
         public override void AddToInventory()
         {
+            Debug.Log("add potion");
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
             InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
             tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();

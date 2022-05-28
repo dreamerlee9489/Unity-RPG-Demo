@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.Control;
+using App.Control.FSM;
 using App.Manager;
 using App.SO;
 
@@ -8,95 +9,60 @@ namespace App.Items
     public class Skill : Item
     {
         CombatEntity user = null;
-        CombatEntity target = null;
         SkillConfig skillConfig = null;
         SkillAttribute skillAttribute = null;
         WeaponType professWeaponType = WeaponType.NONE;
         WeaponType currentWeaponType = WeaponType.NONE;
-        float controlTimer = 0;
 
         protected override void Awake()
         {
             base.Awake();
-            gameObject.SetActive(false);
-        }
-
-        void Start()
-        {
-            collider.enabled = true;
-            user.currentHP = Mathf.Min(user.currentHP + skillAttribute.hp, user.maxHP);
-            user.currentMP = Mathf.Min(user.currentMP + skillAttribute.mp, user.maxMP);
-            user.currentATK += skillAttribute.atk;
-            user.currentDEF += skillAttribute.def;
-            UIManager.Instance.attributePanel.UpdatePanel();
+            collider.enabled = false;
+            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         protected override void Update()
         {
-            if (target != null)
+            if (cdTimer > 0)
             {
-                if (controlTimer > 0)
-                    controlTimer = Mathf.Max(controlTimer - Time.deltaTime, 0);
-                else
+                cdTimer = Mathf.Max(cdTimer - Time.deltaTime, 0);
+                if (cdTimer < skillAttribute.cd - skillAttribute.controlTime)
                 {
-                    switch (skillConfig.controlType)
-                    {
-                        case ControlType.NONE:
-                            break;
-                        case ControlType.KNOCK:
-                            target.agent.isStopped = false;
-                            target.immovable = false;
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "站起来了", Color.green);
-                            break;
-                        case ControlType.SPEED:
-                            target.SetMaxSpeed(1);
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "的速度恢复正常", Color.green);
-                            break;
-                        case ControlType.STUNN:
-                            target.animator.SetBool("stunned", false);
-                            target.agent.isStopped = false;
-                            target.immovable = false;
-                            UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "解除了眩晕", Color.green);
-                            break;
-                    }
-                    target = null;
-                    user.currentSkill = null;    
                     user.currentHP = Mathf.Max(user.currentHP - skillAttribute.hp, 0);
                     user.currentMP = Mathf.Max(user.currentMP - skillAttribute.mp, 0);
                     user.currentATK -= skillAttribute.atk;
                     user.currentDEF -= skillAttribute.def;
-                    gameObject.SetActive(false);
-                    UIManager.Instance.attributePanel.UpdatePanel();
                 }
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                collider.enabled = false;
             }
         }
 
         void OnTriggerEnter(Collider other)
         {
-            CombatEntity temp = other.GetComponent<CombatEntity>();
-            if (temp != null && temp.campType != user.campType)
+            CombatEntity target = other.GetComponent<CombatEntity>();
+            if (target != null && target.campType != user.campType)
             {
-                target = temp;
                 collider.enabled = false;
-                controlTimer = skillAttribute.controlTime;
                 switch (skillConfig.controlType)
                 {
                     case ControlType.NONE:
                         break;
                     case ControlType.KNOCK:
-                        target.animator.SetTrigger("knock");
-                        target.agent.isStopped = true;
-                        target.immovable = true;
+                        target.GetComponent<FiniteStateMachine>().ChangeState(new Knocked(target, user));
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被击倒", Color.green);
                         break;
                     case ControlType.SPEED:
-                        target.SetMaxSpeed(skillAttribute.controlRate);
+                        target.SetMaxSpeed(skillAttribute.controlRate, skillAttribute.controlTime);
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "的速度" + (skillAttribute.controlRate > 1 ? "提升了" + (1 - skillAttribute.controlRate * 100) : ("降低了" + skillAttribute.controlRate * 100)) + "%", Color.green);
                         break;
                     case ControlType.STUNN:
-                        target.animator.SetBool("stunned", true);
-                        target.agent.isStopped = true;
-                        target.immovable = true;
+                        target.GetComponent<FiniteStateMachine>().ChangeState(new Stunned(target, user, skillAttribute.controlTime));
                         UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被眩晕", Color.green);
                         break;
                 }
@@ -115,14 +81,14 @@ namespace App.Items
                     break;
                 case ContainerType.ACTION:
                     break;
-                case ContainerType.SKILL:                    
+                case ContainerType.SKILL:
                     Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                     skill.level = level;
                     InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
                     break;
             }
         }
-        
+
         public override void AddToInventory()
         {
             int index = InventoryManager.Instance.HasSkill(this);
@@ -136,7 +102,9 @@ namespace App.Items
             }
         }
 
-        public override void RemoveFromInventory() { }
+        public override void RemoveFromInventory()
+        {
+        }
 
         public override void Use(CombatEntity user)
         {
@@ -153,8 +121,13 @@ namespace App.Items
                     if (level > 0)
                     {
                         this.user = user;
-                        user.currentSkill = this;
+                        user.currentHP = Mathf.Min(user.currentHP + skillAttribute.hp, user.maxHP);
+                        user.currentMP = Mathf.Min(user.currentMP + skillAttribute.mp, user.maxMP);
+                        user.currentATK += skillAttribute.atk;
+                        user.currentDEF += skillAttribute.def;
                         cdTimer = itemConfig.cd;
+                        gameObject.SetActive(true);
+                        collider.enabled = true;
                         switch (skillConfig.skillType)
                         {
                             case SkillType.A:

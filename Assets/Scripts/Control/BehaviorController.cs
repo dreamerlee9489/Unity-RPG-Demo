@@ -34,7 +34,7 @@ namespace App.Control
             {
                 if (combatEntity.CanSee(player))
                 {
-                    agent.speed = combatEntity.maxSpeed;
+                    agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor * combatEntity.speedRate;
                     return true;
                 }
                 agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;
@@ -65,16 +65,8 @@ namespace App.Control
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                if(!combatEntity.immovable)
-                {
-                    combatEntity.ExecuteAction(player);
+                combatEntity.ExecuteAction(player);
                     return Status.RUNNING;
-                }
-                else
-                {
-                    combatEntity.CancelAction();
-                    return Status.FAILURE;
-                }
             }));
         }
 

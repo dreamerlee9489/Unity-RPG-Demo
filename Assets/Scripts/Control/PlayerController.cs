@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using App.Manager;
+using App.Data;
 
 namespace App.Control
 {
@@ -17,6 +18,7 @@ namespace App.Control
         List<Command> commands = new List<Command>();
         public Transform bag = null;
         public Transform skills = null;
+        public PlayerData playerData = null;
 
         void Awake()
         {
@@ -27,6 +29,7 @@ namespace App.Control
             commands.Add(new MoveCommand(moveEntity));
             commands.Add(new CombatCommand(combatEntity));
             commands.Add(new DialogueCommand(UIManager.Instance));
+            playerData = new PlayerData();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -40,6 +43,10 @@ namespace App.Control
         {
             if (!combatEntity.isDead)
             {
+                if (combatEntity.target != null)
+                    combatEntity.ExecuteAction(combatEntity.target);
+                if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
+                    CancelCommand();
                 if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
@@ -69,15 +76,6 @@ namespace App.Control
                                 break;
                         }
                     }
-                }
-                if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
-                    CancelCommand();
-                if (combatEntity.target != null)
-                {
-                    if (!combatEntity.immovable)
-                        combatEntity.ExecuteAction(combatEntity.target);
-                    else
-                        combatEntity.CancelAction();
                 }
             }
         }

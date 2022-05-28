@@ -58,32 +58,35 @@ namespace App.Manager
 
         void Update()
         {
-            if (target != null)
-                ExecuteAction(target);
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (!startPanel.gameObject.activeSelf)
             {
-                bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
-                equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = false);
-                dialoguePanel.gameObject.SetActive(dialoguePanel.isOpened = false);
-                taskPanel.gameObject.SetActive(taskPanel.isOpened = false);
-                messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
-                attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
-                itemShopPanel.gameObject.SetActive(itemShopPanel.isOpened = false);
-                skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = false);
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-                attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
-            if (Input.GetKeyDown(KeyCode.B))
-                bagPanel.gameObject.SetActive(bagPanel.isOpened = !bagPanel.isOpened);
-            if (Input.GetKeyDown(KeyCode.E))
-                equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = !equipmentPanel.isOpened);
-            if (Input.GetKeyDown(KeyCode.Q))
-                taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
-            if (Input.GetKeyDown(KeyCode.K))
-                skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
-            if (Input.GetKeyUp(KeyCode.L))
-            {
-                InventoryManager.Instance.LoadData();
+                if (target != null)
+                    ExecuteAction(target);
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
+                    equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = false);
+                    dialoguePanel.gameObject.SetActive(dialoguePanel.isOpened = false);
+                    taskPanel.gameObject.SetActive(taskPanel.isOpened = false);
+                    messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
+                    attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
+                    itemShopPanel.gameObject.SetActive(itemShopPanel.isOpened = false);
+                    skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = false);
+                }
+                if (Input.GetKeyDown(KeyCode.A))
+                    attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
+                if (Input.GetKeyDown(KeyCode.B))
+                    bagPanel.gameObject.SetActive(bagPanel.isOpened = !bagPanel.isOpened);
+                if (Input.GetKeyDown(KeyCode.E))
+                    equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = !equipmentPanel.isOpened);
+                if (Input.GetKeyDown(KeyCode.Q))
+                    taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
+                if (Input.GetKeyDown(KeyCode.K))
+                    skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
+                if (Input.GetKeyDown(KeyCode.S))
+                    InventoryManager.Instance.Save();
+                if (Input.GetKeyDown(KeyCode.L))
+                    InventoryManager.Instance.Load(InventoryManager.Instance.playerData);
             }
         }
 

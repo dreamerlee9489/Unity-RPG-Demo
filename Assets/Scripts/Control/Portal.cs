@@ -8,10 +8,11 @@ namespace App.Manager
 		public string portalName = "";
 		public string targetScene = "";
 		public string targetPortal = "";
-		public Transform point = null;
+		Transform point = null;
 
 		void Awake()
 		{
+			point = transform.GetChild(0);
 			if(GameManager.Instance.targetPortal == portalName)
 			{
 				GameManager.Instance.player.transform.position = point.position;
@@ -30,7 +31,8 @@ namespace App.Manager
 						entity.Value.SaveEntityData();
 					MapManager.Instance.entities.Clear();
 				}
-				InventoryManager.Instance.SaveData();
+				InventoryManager.Instance.Save();
+				JsonManager.Instance.SaveData(MapManager.Instance.mapData, SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player.gameObject.SetActive(false);
 				SceneManager.LoadSceneAsync(targetScene);

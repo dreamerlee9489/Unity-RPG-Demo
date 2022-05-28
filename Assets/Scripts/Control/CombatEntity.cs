@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
@@ -14,6 +13,7 @@ namespace App.Control
 
     public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
+        float duration = 0, timer = 0;
         Item pickup = null;
         Weapon initialWeapon = null;
         public Transform weaponPos = null;
@@ -32,15 +32,13 @@ namespace App.Control
         public float maxEXP { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
-        public float maxSpeed { get; set; }
+        public float speedRate { get; set; }
         public bool isDead { get; set; }
-        public bool immovable { get; set; }
         public Animator animator { get; set; }
         public NavMeshAgent agent { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
         public Weapon currentWeapon { get; set; }
-        public Skill currentSkill { get; set; }
         public CampType campType { get; set; }
         public ProfessionAttribute professionAttribute { get; set; }
         public EntityData entityData { get; set; }
@@ -52,17 +50,17 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.radius = 0.5f;
+            agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
-            maxSpeed = entityConfig.runSpeed * entityConfig.runFactor;
-            agent.speed = maxSpeed;
+            speedRate = 1;
             level = 1;
             professionAttribute = professionConfig.GetProfessionAttribute(level);
             AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
             maxHP = professionAttribute.hp;
             maxMP = professionAttribute.mp;
             maxEXP = professionAttribute.exp;
-            if(CompareTag("Player"))
+            if (CompareTag("Player"))
                 campType = CampType.BLUE;
             else if (CompareTag("Enemy"))
                 campType = CampType.RED;
@@ -73,7 +71,7 @@ namespace App.Control
         void Start()
         {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            if(MapManager.Instance.mapData.mapEntityDatas.ContainsKey(name))
+            if (MapManager.Instance.mapData.mapEntityDatas.ContainsKey(name))
             {
                 gameObject.SetActive(false);
                 LoadEntityData();
@@ -92,8 +90,23 @@ namespace App.Control
                 entityData.currentMP = currentMP;
                 MapManager.Instance.mapData.mapEntityDatas.Add(name, entityData);
             }
-            if(currentHP <= 0)
+            if (currentHP <= 0)
                 Death();
+        }
+
+        void Update()
+        {
+            if(speedRate != 1)
+            {
+                if(timer < duration)
+                    timer += Time.deltaTime;
+                else
+                {
+                    speedRate = 1;
+                    timer = duration = 0;
+                    agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
+                }
+            }
         }
 
         void Attack() => TakeDamage(target);
@@ -101,8 +114,6 @@ namespace App.Control
         {
             if (target != null)
             {
-                if (currentSkill != null)
-                    currentSkill.gameObject.SetActive(true);
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
@@ -308,10 +319,22 @@ namespace App.Control
             animator.ResetTrigger("skillD");
         }
 
-        public float SetMaxSpeed(float factor) => maxSpeed = entityConfig.runSpeed * entityConfig.runFactor * factor;
+        public bool HandleMessage(Telegram telegram)
+        {
+            print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
+            return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
+        }
+
+        public void SetMaxSpeed(float speedRate, float duration)
+        {
+            this.speedRate = speedRate;
+            this.duration = duration;
+            agent.speed = entityConfig.runSpeed * entityConfig.runFactor * speedRate;
+        }
+
         public bool CanSee(Transform target)
         {
-            if (target != null && !target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrViewRadius)
@@ -322,7 +345,7 @@ namespace App.Control
 
         public bool CanAttack(Transform target)
         {
-            if (target != null && !target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0)
@@ -337,12 +360,6 @@ namespace App.Control
             if (direction.sqrMagnitude <= 2.25f)
                 return true;
             return false;
-        }
-
-        public bool HandleMessage(Telegram telegram)
-        {
-            print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
-            return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
         }
     }
 }
