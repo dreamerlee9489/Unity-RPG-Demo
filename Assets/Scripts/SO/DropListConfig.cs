@@ -10,7 +10,7 @@ namespace App.SO
         public const int MAX_DROP_COUNT = 3;
         public List<Item> dropList = new List<Item>();
 
-        public List<Item> GetDrops(ProfessionAttribute enemyProgression, ref int golds)
+        public List<Item> GetDropItems(ProfessionAttribute enemyProgression, ref int golds)
         {
             List<Item> drops = new List<Item>();
             if (dropList.Count > 0)

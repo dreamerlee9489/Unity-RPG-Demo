@@ -30,6 +30,12 @@ namespace App.Control
             DontDestroyOnLoad(gameObject);
         }
 
+        void Start()
+        {
+            UIManager.Instance.hudPanel.UpdatePanel();
+            UIManager.Instance.attributePanel.UpdatePanel();
+        }
+
         void Update()
         {
             if (!combatEntity.isDead)

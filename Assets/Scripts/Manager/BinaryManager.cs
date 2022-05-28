@@ -25,7 +25,6 @@ namespace App.Manager
 
         public void SaveData(object data, string fileName)
         {
-            Debug.Log(DATA_DIR);
             if (!Directory.Exists(DATA_DIR))
                 Directory.CreateDirectory(DATA_DIR);
             using (MemoryStream ms = new MemoryStream())

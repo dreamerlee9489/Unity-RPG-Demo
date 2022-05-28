@@ -14,7 +14,6 @@ namespace App.Manager
 
         public void SaveData(object data, string fileName, JsonType type = JsonType.LitJson)
         {
-            Debug.Log(Application.persistentDataPath);
             switch (type)
             {
                 case JsonType.LitJson:

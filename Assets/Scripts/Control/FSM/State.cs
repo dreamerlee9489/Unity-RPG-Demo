@@ -113,12 +113,7 @@ namespace App.Control.FSM
 
         public override void Execute()
         {
-            if(combatEntity.target == null)
-            {
-                Exit();
-                owner.currentState = null;
-            }
-            else if (combatEntity.CanSee(target))
+            if (combatEntity.CanSee(target))
             {
                 if (combatEntity.CanAttack(target))
                     owner.ChangeState(new Attack(owner, target));
@@ -145,21 +140,20 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            combatEntity.target = target;
             animator.SetBool("attack", true);
         }
 
         public override void Execute()
         {
             owner.transform.LookAt(target);
-                if (!combatEntity.CanAttack(target))
-                    owner.ChangeState(new Idle(owner, target));
+            if (!combatEntity.CanAttack(target))
+                owner.ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
         {
-            combatEntity.target = null;
             animator.SetBool("attack", false);
+            combatEntity.target = null;
         }
 
         public override bool OnMessage(Telegram telegram)

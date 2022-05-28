@@ -81,10 +81,6 @@ namespace App.Manager
                 taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
             if (Input.GetKeyDown(KeyCode.K))
                 skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
-            if (Input.GetKeyUp(KeyCode.S))
-            {
-                InventoryManager.Instance.SaveData();
-            }
             if (Input.GetKeyUp(KeyCode.L))
             {
                 InventoryManager.Instance.LoadData();

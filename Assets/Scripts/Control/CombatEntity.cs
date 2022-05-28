@@ -58,13 +58,10 @@ namespace App.Control
             agent.speed = maxSpeed;
             level = 1;
             professionAttribute = professionConfig.GetProfessionAttribute(level);
+            AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
             maxHP = professionAttribute.hp;
             maxMP = professionAttribute.mp;
             maxEXP = professionAttribute.exp;
-            AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
-            currentWeapon.collider.enabled = false;
-            currentWeapon.rigidbody.useGravity = false;
-            currentWeapon.rigidbody.isKinematic = true;
             if(CompareTag("Player"))
                 campType = CampType.BLUE;
             else if (CompareTag("Enemy"))
@@ -79,12 +76,7 @@ namespace App.Control
             if(MapManager.Instance.mapData.mapEntityDatas.ContainsKey(name))
             {
                 gameObject.SetActive(false);
-                currentHP = MapManager.Instance.mapData.mapEntityDatas[name].currentHP;
-                currentMP = MapManager.Instance.mapData.mapEntityDatas[name].currentMP;
-                currentATK = MapManager.Instance.mapData.mapEntityDatas[name].currentATK;
-                currentDEF = MapManager.Instance.mapData.mapEntityDatas[name].currentDEF;
-                currentEXP = MapManager.Instance.mapData.mapEntityDatas[name].currentEXP;
-                transform.position = new Vector3(MapManager.Instance.mapData.mapEntityDatas[name].position.x, MapManager.Instance.mapData.mapEntityDatas[name].position.y, MapManager.Instance.mapData.mapEntityDatas[name].position.z);
+                LoadEntityData();
                 gameObject.SetActive(true);
             }
             else
@@ -100,28 +92,8 @@ namespace App.Control
                 entityData.currentMP = currentMP;
                 MapManager.Instance.mapData.mapEntityDatas.Add(name, entityData);
             }
-            if(currentHP == 0)
-            {
-                isDead = true;
-                target = null;
-                animator.SetBool("attack", false);
-                animator.SetBool("death", true);
-                agent.radius = 0;
-                GetComponent<Collider>().enabled = false;
-            }
-            UIManager.Instance.hudPanel.UpdatePanel();
-            UIManager.Instance.attributePanel.UpdatePanel();
-        }
-
-        void OnDestroy()
-        {
-            EntityData temp = MapManager.Instance.mapData.mapEntityDatas[name];
-            temp.currentHP = currentHP;
-            temp.currentMP = currentMP;
-            temp.currentATK = currentATK;
-            temp.currentDEF = currentDEF;
-            temp.currentEXP = currentEXP;
-            temp.position = new Vector(transform.position);
+            if(currentHP <= 0)
+                Death();
         }
 
         void Attack() => TakeDamage(target);
@@ -129,14 +101,15 @@ namespace App.Control
         {
             if (target != null)
             {
+                if (currentSkill != null)
+                    currentSkill.gameObject.SetActive(true);
                 CombatEntity defender = target.GetComponent<CombatEntity>();
                 defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
-                if (currentSkill != null)
-                    currentSkill.gameObject.SetActive(true);
-                if (defender.currentHP == 0)
+                if (defender.currentHP <= 0)
                 {
                     defender.Death();
+                    defender.Drop();
                     CancelAction();
                 }
             }
@@ -148,9 +121,14 @@ namespace App.Control
             target = null;
             animator.SetBool("attack", false);
             animator.SetBool("death", true);
+            agent.isStopped = true;
             agent.radius = 0;
             GetComponent<Collider>().enabled = false;
-            List<Item> dropItems = dropListConfig.GetDrops(professionAttribute, ref InventoryManager.Instance.playerData.golds);
+        }
+
+        void Drop()
+        {
+            List<Item> dropItems = dropListConfig.GetDropItems(professionAttribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var dropItem in dropItems)
             {
@@ -190,6 +168,28 @@ namespace App.Control
                 animator.SetBool("pickup", false);
                 Destroy(pickup.gameObject);
             }
+        }
+
+        public void SaveEntityData()
+        {
+            EntityData entityData = MapManager.Instance.mapData.mapEntityDatas[name];
+            entityData.currentHP = currentHP;
+            entityData.currentMP = currentMP;
+            entityData.currentATK = currentATK;
+            entityData.currentDEF = currentDEF;
+            entityData.currentEXP = currentEXP;
+            entityData.position = new Vector(transform.position);
+        }
+
+        public void LoadEntityData()
+        {
+            EntityData entityData = MapManager.Instance.mapData.mapEntityDatas[name];
+            currentHP = entityData.currentHP;
+            currentMP = entityData.currentMP;
+            currentATK = entityData.currentATK;
+            currentDEF = entityData.currentDEF;
+            currentEXP = entityData.currentEXP;
+            transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
         }
 
         public void LoadSkillTree()
@@ -311,7 +311,7 @@ namespace App.Control
         public float SetMaxSpeed(float factor) => maxSpeed = entityConfig.runSpeed * entityConfig.runFactor * factor;
         public bool CanSee(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
+            if (target != null && !target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrViewRadius)
@@ -322,10 +322,10 @@ namespace App.Control
 
         public bool CanAttack(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
+            if (target != null && !target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
-                if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0.5f)
+                if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0)
                     return true;
             }
             return false;

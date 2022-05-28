@@ -24,6 +24,13 @@ namespace App.Manager
 		{
 			if(other.CompareTag("Player"))
 			{
+				if(MapManager.Instance.entities.Count > 0)
+				{
+					foreach (var entity in MapManager.Instance.entities)
+						entity.Value.SaveEntityData();
+					MapManager.Instance.entities.Clear();
+				}
+				InventoryManager.Instance.SaveData();
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player.gameObject.SetActive(false);
 				SceneManager.LoadSceneAsync(targetScene);
