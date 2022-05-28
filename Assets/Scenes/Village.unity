@@ -440,7 +440,6 @@ MonoBehaviour:
   portalName: BirthPoint
   targetScene: 
   targetPortal: 
-  point: {fileID: 1281097388}
 --- !u!1 &1755893932
 GameObject:
   m_ObjectHideFlags: 0
@@ -10670,6 +10669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: ce16d6f7d4aef6a4a99fe5ddb1161a8a, type: 2}
   containerType: 4
+  level: 0
 --- !u!54 &947904153688840349
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10704,7 +10704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &947904154119604280
 Transform:
   m_ObjectHideFlags: 0
@@ -10751,7 +10751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &947904154119604286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10782,6 +10782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: c22012bdaed01ab469d63c6aa61e73d4, type: 2}
   containerType: 4
+  level: 0
 --- !u!114 &947904154760278512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10796,6 +10797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 5fdaf84397c9ca44aaf0a210a3c60de5, type: 2}
   containerType: 4
+  level: 0
 --- !u!54 &947904154760278513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10830,7 +10832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &947904154760278518
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22357,7 +22359,6 @@ MonoBehaviour:
   portalName: Entrance
   targetScene: Canyon
   targetPortal: Entrance
-  point: {fileID: 341263600}
 --- !u!1 &2831897525483239377
 GameObject:
   m_ObjectHideFlags: 0
@@ -22533,6 +22534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 229cbd7324b081544982ba5114b5108c, type: 2}
   containerType: 1
+  level: 0
   equipmentType: 0
 --- !u!114 &3761874411510212238
 MonoBehaviour:
@@ -30352,7 +30354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5233016006841580453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30367,6 +30369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 1a8c2aac0b9f5bd45b8f01a382621cbb, type: 2}
   containerType: 4
+  level: 0
 --- !u!114 &5455211451984228672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30681,6 +30684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 0c7aa73b44e776b409db5fd02276c140, type: 2}
   containerType: 1
+  level: 0
 --- !u!4 &5816280762068305477
 Transform:
   m_ObjectHideFlags: 0
@@ -30724,6 +30728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: e2c6683d3b38043428d525922ccd9af9, type: 2}
   containerType: 1
+  level: 0
   equipmentType: 0
 --- !u!4 &6097904752090338270
 Transform:
@@ -38052,6 +38057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemConfig: {fileID: 11400000, guid: 2141fbd92da999d4da0bd41b60c1cab0, type: 2}
   containerType: 1
+  level: 0
   equipmentType: 0
 --- !u!23 &8399689770271702147
 MeshRenderer:

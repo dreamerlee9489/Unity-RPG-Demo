@@ -5,14 +5,17 @@ namespace App.Manager
 {
 	public class Portal : MonoBehaviour
 	{
+		Transform point = null;
+		static MapManager mapManager = null;
 		public string portalName = "";
 		public string targetScene = "";
 		public string targetPortal = "";
-		Transform point = null;
 
 		void Awake()
 		{
 			point = transform.GetChild(0);
+			if(mapManager == null)
+				mapManager = GameObject.FindObjectOfType<MapManager>();
 			if(GameManager.Instance.targetPortal == portalName)
 			{
 				GameManager.Instance.player.transform.position = point.position;
@@ -25,14 +28,9 @@ namespace App.Manager
 		{
 			if(other.CompareTag("Player"))
 			{
-				if(MapManager.Instance.entities.Count > 0)
-				{
-					foreach (var entity in MapManager.Instance.entities)
-						entity.Value.SaveEntityData();
-					MapManager.Instance.entities.Clear();
-				}
+				foreach (var entity in mapManager.entities)
+					entity.Value.SaveEntityData();
 				InventoryManager.Instance.Save();
-				JsonManager.Instance.SaveData(MapManager.Instance.mapData, SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player.gameObject.SetActive(false);
 				SceneManager.LoadSceneAsync(targetScene);

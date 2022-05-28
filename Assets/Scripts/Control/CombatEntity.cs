@@ -16,6 +16,7 @@ namespace App.Control
         float duration = 0, timer = 0;
         Item pickup = null;
         Weapon initialWeapon = null;
+        static MapManager mapManager = null;
         public Transform weaponPos = null;
         public Weapon initialWeaponPrefab = null;
         public EntityConfig entityConfig = null;
@@ -60,6 +61,8 @@ namespace App.Control
             maxHP = professionAttribute.hp;
             maxMP = professionAttribute.mp;
             maxEXP = professionAttribute.exp;
+            if(mapManager == null)
+                mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Player"))
                 campType = CampType.BLUE;
             else if (CompareTag("Enemy"))
@@ -71,7 +74,7 @@ namespace App.Control
         void Start()
         {
             hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            if (MapManager.Instance.mapData.mapEntityDatas.ContainsKey(name))
+            if (mapManager.mapData.mapEntityDatas.ContainsKey(name))
             {
                 gameObject.SetActive(false);
                 LoadEntityData();
@@ -88,7 +91,7 @@ namespace App.Control
                 entityData.position = new Vector(transform.position);
                 entityData.currentHP = currentHP;
                 entityData.currentMP = currentMP;
-                MapManager.Instance.mapData.mapEntityDatas.Add(name, entityData);
+                mapManager.mapData.mapEntityDatas.Add(name, entityData);
             }
             if (currentHP <= 0)
                 Death();
@@ -144,7 +147,7 @@ namespace App.Control
             foreach (var dropItem in dropItems)
             {
                 Item item = Instantiate(dropItem, transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
-                MapManager.Instance.mapData.mapItemDatas.Add(item.itemData);
+                mapManager.mapData.mapItemDatas.Add(item.itemData);
             }
             if (CompareTag("Enemy"))
             {
@@ -168,7 +171,7 @@ namespace App.Control
                     if (temp != null && pickup.Equals(temp))
                         GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
-                MapManager.Instance.mapData.mapItemDatas.Remove(pickup.itemData);
+                mapManager.mapData.mapItemDatas.Remove(pickup.itemData);
                 pickup.AddToInventory();
                 if (pickup.nameBar != null)
                 {
@@ -183,7 +186,7 @@ namespace App.Control
 
         public void SaveEntityData()
         {
-            EntityData entityData = MapManager.Instance.mapData.mapEntityDatas[name];
+            EntityData entityData = mapManager.mapData.mapEntityDatas[name];
             entityData.currentHP = currentHP;
             entityData.currentMP = currentMP;
             entityData.currentATK = currentATK;
@@ -194,7 +197,7 @@ namespace App.Control
 
         public void LoadEntityData()
         {
-            EntityData entityData = MapManager.Instance.mapData.mapEntityDatas[name];
+            EntityData entityData = mapManager.mapData.mapEntityDatas[name];
             currentHP = entityData.currentHP;
             currentMP = entityData.currentMP;
             currentATK = entityData.currentATK;

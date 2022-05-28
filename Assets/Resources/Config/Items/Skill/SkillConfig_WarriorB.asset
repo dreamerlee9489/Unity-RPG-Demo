@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u81F4\u6B8B\u6253\u51FB"
   description: "\u4F7F\u5BF9\u65B9\u79FB\u52A8\u901F\u5EA6\u964D\u4F4E\u5E76\u9020\u6210\u8F83\u9AD8\u4F24\u5BB3"
-  itemLevel: 0
+  itemLevel: 1
   itemPrice: 200
   cd: 6
   item: {fileID: 947904154245727676, guid: 791c3382f453b024e98a6907aae74d78, type: 3}

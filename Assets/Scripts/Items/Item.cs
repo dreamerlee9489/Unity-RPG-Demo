@@ -8,7 +8,7 @@ namespace App.Items
 {
     public enum ItemType { NONE, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, BRACELET, WEAPON, PANTS, POTION, SKILL }
     public enum EquipmentType { WEAPON, ARMOR, JEWELRY }
-    public enum ContainerType { WORLD, BAG, EQUIPMENT, ACTION, SKILL }
+    public enum ContainerType { WORLD, BAG, EQUIPMENT, ACTION }
 
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
@@ -26,7 +26,7 @@ namespace App.Items
         public abstract void Use(CombatEntity user);
         public abstract void AddToInventory();
         public abstract void RemoveFromInventory();
-        public abstract void LoadToContainer(int level, ContainerType containerType);
+        public abstract void LoadToContainer(ItemData itemData);
         public override bool Equals(object other) => itemConfig == (other as Item).itemConfig;
         public override int GetHashCode() => name.GetHashCode() ^ transform.GetHashCode();
 

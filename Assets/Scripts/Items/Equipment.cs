@@ -1,5 +1,6 @@
-using App.Manager;
 using UnityEngine;
+using App.Data;
+using App.Manager;
 
 namespace App.Items
 {
@@ -34,9 +35,9 @@ namespace App.Items
             Destroy(this.gameObject);
         }
 
-        public override void LoadToContainer(int level, ContainerType containerType)
+        public override void LoadToContainer(ItemData itemData)
         {
-            switch (containerType)
+            switch (itemData.containerType)
             {
                 case ContainerType.WORLD:
                     break;
@@ -50,8 +51,6 @@ namespace App.Items
                     item.Use(GameManager.Instance.player);
                     break;
                 case ContainerType.ACTION:
-                    break;
-                case ContainerType.SKILL:
                     break;
             }
         }

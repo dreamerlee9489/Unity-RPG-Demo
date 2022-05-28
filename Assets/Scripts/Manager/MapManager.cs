@@ -10,14 +10,11 @@ namespace App.Manager
 {
     public class MapManager : MonoBehaviour
     {
-        static MapManager instance = null;
-        public static MapManager Instance => instance;
-        public Dictionary<string, CombatEntity> entities = new Dictionary<string, CombatEntity>();
         public MapData mapData = null;
+        public Dictionary<string, CombatEntity> entities = null;
 
         void Awake()
         {
-            instance = this;
             entities = GameObject.FindObjectsOfType<CombatEntity>().ToDictionary(entity => entity.name);
             MapData tempMapData = JsonManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
             mapData = tempMapData == null ? new MapData() : tempMapData;
@@ -30,6 +27,11 @@ namespace App.Manager
                 item.itemData.containerType = mapData.mapItemDatas[i].containerType;
                 item.itemData.level = mapData.mapItemDatas[i].level;
             }
+        }
+
+        void OnDestroy()
+        {
+            JsonManager.Instance.SaveData(mapData, SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
         }
     }
 }

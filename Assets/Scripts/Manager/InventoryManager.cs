@@ -46,6 +46,7 @@ namespace App.Manager
             item.itemSlot.itemUI = itemUI;
             item.itemSlot.itemType = item.itemConfig.itemType;
             item.containerType = containerType;
+            item.cdTimer = item.itemConfig.cd;
             item.gameObject.SetActive(false);
         }
 
@@ -102,16 +103,16 @@ namespace App.Manager
 
         public void Save()
         {
+            playerData.itemDatas.Clear();
             playerData.sceneName = SceneManager.GetActiveScene().name;
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
             for (int i = 0; i < items.Count; i++)
             {
-                ItemData itemData = new ItemData();
-                itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
-                itemData.level = items[i].level;
-                itemData.position = new Vector(items[i].transform.position);
-                itemData.containerType = items[i].containerType;
-                playerData.itemDatas.Add(itemData);
+                items[i].itemData = new ItemData();
+                items[i].itemData.level = items[i].level;
+                items[i].itemData.containerType = items[i].containerType;
+                items[i].itemData.path = "Items/" + GetType().Name + "/" + items[i].itemConfig.item.name;
+                playerData.itemDatas.Add(items[i].itemData);
             }
             JsonManager.Instance.SaveData(playerData, "PlayerData_" + playerData.nickName);
             JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
@@ -120,29 +121,14 @@ namespace App.Manager
         public void Load(PlayerData playerData)
         {
             for (int i = 0; i < playerData.itemDatas.Count; i++)
-            {
-                switch (playerData.itemDatas[i].containerType)
-                {
-                    case ContainerType.WORLD:
-                        break;
-                    case ContainerType.BAG:
-                        Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i].level, ContainerType.BAG);
-                        break;
-                    case ContainerType.EQUIPMENT:
-                        Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i].level, ContainerType.EQUIPMENT);
-                        break;
-                    case ContainerType.ACTION:
-                        Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i].level, ContainerType.ACTION);
-                        break;
-                    case ContainerType.SKILL:
-                        Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i].level, ContainerType.SKILL);
-                        break;
-                }
-            }
-            GameManager.Instance.player.transform.position = new Vector3(playerData.position.x, playerData.position.y, playerData.position.z);
+                Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i]);
+            GameManager.Instance.player.GetComponent<PlayerController>().playerData = playerData;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
+            GameManager.Instance.player.gameObject.SetActive(false);
+            GameManager.Instance.player.transform.position = new Vector3(playerData.position.x, playerData.position.y, playerData.position.z);
             SceneManager.LoadSceneAsync(playerData.sceneName);
+            GameManager.Instance.player.gameObject.SetActive(true);
         }
     }
 }

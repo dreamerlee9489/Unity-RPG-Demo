@@ -14,13 +14,11 @@ namespace App.UI
 
         void Update()
         {
-            if (item.cdTimer == 0)
-                GetComponent<Image>().fillAmount = 1;
-            else
+            if(item.cdTimer < item.itemConfig.cd)
             {
-                item.cdTimer = Mathf.Max(item.cdTimer - Time.deltaTime, 0);
+                item.cdTimer = Mathf.Min(item.cdTimer + Time.deltaTime, item.itemConfig.cd);
                 GetComponent<Image>().fillAmount = item.cdTimer / item.itemConfig.cd;
-            }                
+            }             
         }
 
         Transform CheckSlotType(GameObject obj)

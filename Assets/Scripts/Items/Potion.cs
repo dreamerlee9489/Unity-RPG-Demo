@@ -3,6 +3,7 @@ using App.Manager;
 using App.Control;
 using App.SO;
 using App.UI;
+using App.Data;
 
 namespace App.Items
 {
@@ -23,9 +24,9 @@ namespace App.Items
             tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
         }
 
-        public override void LoadToContainer(int level, ContainerType containerType)
+        public override void LoadToContainer(ItemData itemData)
         {
-            switch (containerType)
+            switch (itemData.containerType)
             {
                 case ContainerType.WORLD:
                     break;
@@ -40,14 +41,11 @@ namespace App.Items
                     break;
                 case ContainerType.ACTION:
                     break;
-                case ContainerType.SKILL:
-                    break;
             }
         }
 
         public override void AddToInventory()
         {
-            Debug.Log("add potion");
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
             InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
             tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
@@ -70,7 +68,7 @@ namespace App.Items
 
         public override void Use(CombatEntity user)
         {
-            if (cdTimer > 0)
+            if (cdTimer < itemConfig.cd)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
             else
             {
@@ -82,7 +80,7 @@ namespace App.Items
                 user.hpBar.UpdateBar(new Vector3(user.currentHP / user.professionAttribute.hp, 1, 1));
                 RemoveFromInventory();
                 for (int i = 0; i < itemSlot.transform.GetChild(0).childCount; i++)
-                    itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = itemConfig.cd;
+                    itemSlot.transform.GetChild(0).GetChild(i).GetComponent<ItemUI>().item.cdTimer = 0;
             }
         }
     }

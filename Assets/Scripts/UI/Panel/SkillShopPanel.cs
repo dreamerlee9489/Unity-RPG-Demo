@@ -36,8 +36,6 @@ namespace App.UI
                                         goods.GetChild(i).GetComponent<Skill>().AddToInventory();
                                     InventoryManager.Instance.playerData.golds -= total;
                                     UIManager.Instance.goldPanel.UpdatePanel();
-                                    total = 0;
-                                    txtTotal.text = "0";
                                     gameObject.SetActive(false);
                                     UIManager.Instance.messagePanel.Print("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
                                 }

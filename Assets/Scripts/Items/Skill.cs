@@ -3,6 +3,7 @@ using App.Control;
 using App.Control.FSM;
 using App.Manager;
 using App.SO;
+using App.Data;
 
 namespace App.Items
 {
@@ -17,7 +18,6 @@ namespace App.Items
         protected override void Awake()
         {
             base.Awake();
-            collider.enabled = false;
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
@@ -25,21 +25,14 @@ namespace App.Items
 
         protected override void Update()
         {
-            if (cdTimer > 0)
+            if(cdTimer < skillConfig.cd)
             {
-                cdTimer = Mathf.Max(cdTimer - Time.deltaTime, 0);
-                if (cdTimer < skillAttribute.cd - skillAttribute.controlTime)
-                {
-                    user.currentHP = Mathf.Max(user.currentHP - skillAttribute.hp, 0);
-                    user.currentMP = Mathf.Max(user.currentMP - skillAttribute.mp, 0);
-                    user.currentATK -= skillAttribute.atk;
-                    user.currentDEF -= skillAttribute.def;
-                }
+                cdTimer = Mathf.Min(cdTimer + Time.deltaTime, skillConfig.cd);
             }
             else
             {
-                gameObject.SetActive(false);
                 collider.enabled = false;
+                gameObject.SetActive(false);
             }
         }
 
@@ -69,9 +62,9 @@ namespace App.Items
             }
         }
 
-        public override void LoadToContainer(int level, ContainerType containerType)
+        public override void LoadToContainer(ItemData itemData)
         {
-            switch (containerType)
+            switch (itemData.containerType)
             {
                 case ContainerType.WORLD:
                     break;
@@ -80,11 +73,9 @@ namespace App.Items
                 case ContainerType.EQUIPMENT:
                     break;
                 case ContainerType.ACTION:
-                    break;
-                case ContainerType.SKILL:
                     Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                     skill.level = level;
-                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
+                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
                     break;
             }
         }
@@ -97,8 +88,7 @@ namespace App.Items
             else
             {
                 Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
-                skill.level = 1;
-                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.SKILL);
+                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
             }
         }
 
@@ -108,7 +98,7 @@ namespace App.Items
 
         public override void Use(CombatEntity user)
         {
-            if (cdTimer > 0)
+            if (cdTimer < itemConfig.cd)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
             else
             {
@@ -121,11 +111,7 @@ namespace App.Items
                     if (level > 0)
                     {
                         this.user = user;
-                        user.currentHP = Mathf.Min(user.currentHP + skillAttribute.hp, user.maxHP);
-                        user.currentMP = Mathf.Min(user.currentMP + skillAttribute.mp, user.maxMP);
-                        user.currentATK += skillAttribute.atk;
-                        user.currentDEF += skillAttribute.def;
-                        cdTimer = itemConfig.cd;
+                        cdTimer = 0;
                         gameObject.SetActive(true);
                         collider.enabled = true;
                         switch (skillConfig.skillType)
