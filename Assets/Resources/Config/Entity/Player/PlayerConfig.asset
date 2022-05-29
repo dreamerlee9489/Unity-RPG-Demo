@@ -15,6 +15,7 @@ MonoBehaviour:
   nickName: "\u5192\u9669\u5BB6"
   description: 
   entity: {fileID: 3796356216321399748, guid: 5600cce0224ec9a4fa84d1ec3c9457c8, type: 3}
+  weapon: {fileID: 1079825095577929054, guid: 9f629ab231b00fc44b94607371e395c4, type: 3}
   walkSpeed: 1.558401
   runSpeed: 5.662316
   walkFactor: 1

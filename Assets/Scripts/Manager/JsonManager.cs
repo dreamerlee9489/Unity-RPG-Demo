@@ -25,7 +25,7 @@ namespace App.Manager
             }
         }
 
-        public T LoadData<T>(string fileName, JsonType type = JsonType.LitJson) where T : class
+        public T LoadData<T>(string fileName, JsonType type = JsonType.LitJson) where T : class, new()
         {
             switch (type)
             {

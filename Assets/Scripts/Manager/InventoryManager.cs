@@ -10,31 +10,13 @@ namespace App.Manager
 {
     public class InventoryManager
     {
-        static InventoryManager instance = null;
+        static InventoryManager instance = new InventoryManager();
+        public static InventoryManager Instance => instance;
         public Transform bag = null;
         public Transform skills = null;
         public PlayerData playerData = null;
-        public List<Item> items = null;
-        public List<ItemUI> itemUIs = null;
-
-        InventoryManager()
-        {
-            items = new List<Item>();
-            itemUIs = new List<ItemUI>();
-            bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
-            skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
-            playerData = GameManager.Instance.player.GetComponent<PlayerController>().playerData;
-        }
-
-        public static InventoryManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new InventoryManager();
-                return instance;
-            }
-        }
+        public List<Item> items = new List<Item>();
+        public List<ItemUI> itemUIs = new List<ItemUI>();
 
         public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
         {
@@ -111,10 +93,10 @@ namespace App.Manager
                 items[i].itemData = new ItemData();
                 items[i].itemData.level = items[i].level;
                 items[i].itemData.containerType = items[i].containerType;
-                items[i].itemData.path = "Items/" + GetType().Name + "/" + items[i].itemConfig.item.name;
+                items[i].itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
                 playerData.itemDatas.Add(items[i].itemData);
             }
-            JsonManager.Instance.SaveData(playerData, "PlayerData_" + playerData.nickName);
+            JsonManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
         }
 
@@ -122,13 +104,8 @@ namespace App.Manager
         {
             for (int i = 0; i < playerData.itemDatas.Count; i++)
                 Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i]);
-            GameManager.Instance.player.GetComponent<PlayerController>().playerData = playerData;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
-            GameManager.Instance.player.gameObject.SetActive(false);
-            GameManager.Instance.player.transform.position = new Vector3(playerData.position.x, playerData.position.y, playerData.position.z);
-            SceneManager.LoadSceneAsync(playerData.sceneName);
-            GameManager.Instance.player.gameObject.SetActive(true);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace App.Control
         Weapon initialWeapon = null;
         static MapManager mapManager = null;
         public Transform weaponPos = null;
-        public Weapon initialWeaponPrefab = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
@@ -54,13 +53,8 @@ namespace App.Control
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+            initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
             speedRate = 1;
-            level = 1;
-            professionAttribute = professionConfig.GetProfessionAttribute(level);
-            AttachEquipment(currentWeapon = initialWeapon = Instantiate(initialWeaponPrefab, weaponPos));
-            maxHP = professionAttribute.hp;
-            maxMP = professionAttribute.mp;
-            maxEXP = professionAttribute.exp;
             if(mapManager == null)
                 mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Player"))
@@ -73,25 +67,56 @@ namespace App.Control
 
         void Start()
         {
-            hpBar = CompareTag("Player") ? UIManager.Instance.hudPanel.hpBar : transform.GetChild(0).GetComponent<HUDBar>();
-            if (mapManager.mapData.mapEntityDatas.ContainsKey(name))
+            if(CompareTag("Player"))
             {
-                gameObject.SetActive(false);
-                LoadEntityData();
-                gameObject.SetActive(true);
+                hpBar = UIManager.Instance.hudPanel.hpBar;
+                PlayerData playerData = JsonManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName + "_PlayerData");
+                if(playerData == null)
+                {
+                    level = 1;
+                    currentEXP = 0;
+                    professionAttribute = professionConfig.GetProfessionAttribute(level);
+                    maxEXP = professionAttribute.exp;
+                    currentHP = maxHP = professionAttribute.hp;
+                    currentMP = maxMP = professionAttribute.mp;
+                    AttachEquipment(currentWeapon = initialWeapon);
+                }
+                else
+                {
+                    level = playerData.level;
+                    currentEXP = playerData.currentEXP;
+                    professionAttribute = professionConfig.GetProfessionAttribute(level);
+                    maxEXP = professionAttribute.exp;
+                    maxHP = professionAttribute.hp;
+                    maxMP = professionAttribute.mp;
+                    currentHP = playerData.currentHP;
+                    currentMP = playerData.currentMP;
+                }
             }
             else
             {
-                currentHP = professionAttribute.hp;
-                currentMP = professionAttribute.mp;
-                currentATK = professionAttribute.atk + (initialWeaponPrefab.itemConfig as WeaponConfig).atk;
-                currentDEF = professionAttribute.def;
-                currentEXP = 0;
-                entityData = new EntityData();
-                entityData.position = new Vector(transform.position);
-                entityData.currentHP = currentHP;
-                entityData.currentMP = currentMP;
-                mapManager.mapData.mapEntityDatas.Add(name, entityData);
+                hpBar = transform.GetChild(0).GetComponent<HUDBar>();
+                professionAttribute = professionConfig.GetProfessionAttribute(level = entityConfig.level);
+                maxHP = professionAttribute.hp;
+                maxMP = professionAttribute.mp;
+                AttachEquipment(currentWeapon = initialWeapon);
+                if (mapManager.mapData.mapEntityDatas.ContainsKey(name))
+                {
+                    EntityData entityData = mapManager.mapData.mapEntityDatas[name];
+                    currentHP = entityData.currentHP;
+                    currentMP = entityData.currentMP;
+                    gameObject.SetActive(false);
+                    transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
+                    gameObject.SetActive(true);
+                }
+                else
+                {
+                    EntityData entityData = new EntityData();
+                    entityData.currentHP = currentHP = maxHP;
+                    entityData.currentMP = currentMP = maxMP;
+                    entityData.position = new Vector(transform.position);
+                    mapManager.mapData.mapEntityDatas.Add(name, entityData);
+                }
             }
             if (currentHP <= 0)
                 Death();
@@ -189,9 +214,6 @@ namespace App.Control
             EntityData entityData = mapManager.mapData.mapEntityDatas[name];
             entityData.currentHP = currentHP;
             entityData.currentMP = currentMP;
-            entityData.currentATK = currentATK;
-            entityData.currentDEF = currentDEF;
-            entityData.currentEXP = currentEXP;
             entityData.position = new Vector(transform.position);
         }
 
@@ -200,9 +222,6 @@ namespace App.Control
             EntityData entityData = mapManager.mapData.mapEntityDatas[name];
             currentHP = entityData.currentHP;
             currentMP = entityData.currentMP;
-            currentATK = entityData.currentATK;
-            currentDEF = entityData.currentDEF;
-            currentEXP = entityData.currentEXP;
             transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
         }
 
@@ -231,6 +250,7 @@ namespace App.Control
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk + weaponConfig.atk;
+                    currentDEF = professionAttribute.def;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);

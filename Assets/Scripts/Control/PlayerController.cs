@@ -18,7 +18,6 @@ namespace App.Control
         List<Command> commands = new List<Command>();
         public Transform bag = null;
         public Transform skills = null;
-        public PlayerData playerData = null;
 
         void Awake()
         {
@@ -29,7 +28,6 @@ namespace App.Control
             commands.Add(new MoveCommand(moveEntity));
             commands.Add(new CombatCommand(combatEntity));
             commands.Add(new DialogueCommand(UIManager.Instance));
-            playerData = new PlayerData();
             DontDestroyOnLoad(gameObject);
         }
 

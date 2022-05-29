@@ -13,11 +13,17 @@ namespace App.Manager
         public MapData mapData = null;
         public Dictionary<string, CombatEntity> entities = null;
 
+        public string accessPath
+        {
+            get { return InventoryManager.Instance.playerData.nickName + "_MapData_" + SceneManager.GetActiveScene().name; }
+            private set {}
+        }
+
         void Awake()
         {
-            entities = GameObject.FindObjectsOfType<CombatEntity>().ToDictionary(entity => entity.name);
-            MapData tempMapData = JsonManager.Instance.LoadData<MapData>(SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
-            mapData = tempMapData == null ? new MapData() : tempMapData;
+            entities = GameObject.FindGameObjectsWithTag("Enemy").Select(enemy => enemy.GetComponent<CombatEntity>()).ToDictionary(entity => entity.name);
+            MapData temp = JsonManager.Instance.LoadData<MapData>(accessPath);
+            mapData = temp == null ? new MapData() : temp;
             for (int i = 0; i < mapData.mapItemDatas.Count; i++)
             {
                 Item item = Instantiate(Resources.Load<Item>(mapData.mapItemDatas[i].path), new Vector3(mapData.mapItemDatas[i].position.x, mapData.mapItemDatas[i].position.y, mapData.mapItemDatas[i].position.z), Quaternion.Euler(90, 90, 90));
@@ -31,7 +37,7 @@ namespace App.Manager
 
         void OnDestroy()
         {
-            JsonManager.Instance.SaveData(mapData, SceneManager.GetActiveScene().name + "MapData_" + InventoryManager.Instance.playerData.nickName);
+            JsonManager.Instance.SaveData(mapData, accessPath);
         }
     }
 }

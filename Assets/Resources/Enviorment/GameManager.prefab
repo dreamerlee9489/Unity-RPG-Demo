@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7933a04c006c3488a6ea4904763d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 9220047975185751864}
 --- !u!1001 &2250120466341455525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,10 +103,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6975574913362950557, guid: 55cfe432989656f419b5e2c6a11e4e4f, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 2.0122807
+      value: 2.4728851
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55cfe432989656f419b5e2c6a11e4e4f, type: 3}
+--- !u!114 &9220047975185751864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6975574913362950557, guid: 55cfe432989656f419b5e2c6a11e4e4f, type: 3}
+  m_PrefabInstance: {fileID: 2250120466341455525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9220047975811573070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6975574912577602539, guid: 55cfe432989656f419b5e2c6a11e4e4f, type: 3}

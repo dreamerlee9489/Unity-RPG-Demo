@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nickName: "\u5DE8\u9B54"
   description: 
+  level: 3
   entity: {fileID: 3851642028468238323, guid: a264f5a6133c718469b1ec8ec6ae45d2, type: 3}
+  weapon: {fileID: 1079825095577929054, guid: f864f99867b1c5448b8007935dcfed47, type: 3}
   walkSpeed: 1.558401
   runSpeed: 5.662316
   walkFactor: 1.2

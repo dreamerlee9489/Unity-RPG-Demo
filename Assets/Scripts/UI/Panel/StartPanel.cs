@@ -33,29 +33,35 @@ namespace App.UI
             btnBack = newPanel.GetChild(2).GetComponent<Button>();
             newPanel.gameObject.SetActive(false);
             btnContinue.onClick.AddListener(() => {
-                UIManager.Instance.hudPanel.gameObject.SetActive(true);
-                UIManager.Instance.actionPanel.gameObject.SetActive(true);
-                UIManager.Instance.goldPanel.gameObject.SetActive(true);
-                GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
-                GameManager.Instance.transform.GetChild(0).GetChild(0).GetComponent<CinemachineVirtualCamera>().Follow = GameManager.Instance.player.transform;
-                GameManager.Instance.player.gameObject.SetActive(false);
-                InventoryManager.Instance.Load(JsonManager.Instance.LoadData<PlayerData>("CurrentPlayerData"));
-                gameObject.SetActive(false);
+                PlayerData playerData = JsonManager.Instance.LoadData<PlayerData>("CurrentPlayerData");
+                if(playerData != null)
+                {
+                    GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
+                    GameManager.Instance.virtualCamera.Follow = GameManager.Instance.player.transform;
+                    GameManager.Instance.EnterScene(playerData.sceneName, playerData.position);
+                    InventoryManager.Instance.playerData = playerData;
+                    InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
+                    InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+                    UIManager.Instance.hudPanel.gameObject.SetActive(true);
+                    UIManager.Instance.actionPanel.gameObject.SetActive(true);
+                    UIManager.Instance.goldPanel.gameObject.SetActive(true);
+                    gameObject.SetActive(false);
+                }
             });
             btnNew.onClick.AddListener(() => {
                 optionsPanel.gameObject.SetActive(false);
                 newPanel.gameObject.SetActive(true);
             });
             btnCreate.onClick.AddListener(() => {
+                GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
+                GameManager.Instance.virtualCamera.Follow = GameManager.Instance.player.transform;
+                GameManager.Instance.EnterScene("Village", "BirthPoint");
+                InventoryManager.Instance.playerData = new PlayerData(inputField.text == "" ? "冒险家" : inputField.text, 5000);
+                InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
+                InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
                 UIManager.Instance.hudPanel.gameObject.SetActive(true);
                 UIManager.Instance.actionPanel.gameObject.SetActive(true);
                 UIManager.Instance.goldPanel.gameObject.SetActive(true);
-                GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
-                GameManager.Instance.player.GetComponent<PlayerController>().playerData.nickName = inputField.text == "" ? "冒险家" : inputField.text;
-                GameManager.Instance.transform.GetChild(0).GetChild(0).GetComponent<CinemachineVirtualCamera>().Follow = GameManager.Instance.player.transform;
-                GameManager.Instance.player.gameObject.SetActive(false);
-                GameManager.Instance.targetPortal = "BirthPoint";
-                SceneManager.LoadSceneAsync("Village");
                 gameObject.SetActive(false);
             });
             btnBack.onClick.AddListener(() => {

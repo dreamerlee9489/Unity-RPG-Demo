@@ -5,18 +5,17 @@ namespace App.Manager
 {
 	public class Portal : MonoBehaviour
 	{
-		Transform point = null;
 		static MapManager mapManager = null;
-		public string portalName = "";
 		public string targetScene = "";
 		public string targetPortal = "";
+		public Transform point = null;
 
 		void Awake()
 		{
 			point = transform.GetChild(0);
 			if(mapManager == null)
 				mapManager = GameObject.FindObjectOfType<MapManager>();
-			if(GameManager.Instance.targetPortal == portalName)
+			if(GameManager.Instance.targetPortal == name)
 			{
 				GameManager.Instance.player.transform.position = point.position;
 				GameManager.Instance.player.transform.forward = point.forward;
