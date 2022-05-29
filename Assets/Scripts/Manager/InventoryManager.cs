@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 using App.Items;
 using App.UI;
 using App.Data;
-using App.Control;
 
 namespace App.Manager
 {
@@ -86,6 +85,10 @@ namespace App.Manager
         public void Save()
         {
             playerData.itemDatas.Clear();
+            playerData.level = GameManager.Instance.player.level;
+            playerData.currentHP = GameManager.Instance.player.currentHP;
+            playerData.currentMP = GameManager.Instance.player.currentMP;
+            playerData.currentEXP = GameManager.Instance.player.currentEXP;
             playerData.sceneName = SceneManager.GetActiveScene().name;
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
             for (int i = 0; i < items.Count; i++)
@@ -106,6 +109,7 @@ namespace App.Manager
                 Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i]);
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
+            UIManager.Instance.hudPanel.UpdatePanel();
         }
     }
 }
