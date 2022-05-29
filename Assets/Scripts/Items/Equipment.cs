@@ -25,6 +25,12 @@ namespace App.Items
 
         public override void AddToInventory()
         {
+            for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+            {
+                Item temp = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<Item>();
+                if (temp != null && Equals(temp))
+                    InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
+            }
             InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
         }
         

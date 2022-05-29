@@ -10,8 +10,8 @@ namespace App.Manager
 {
     public class MapManager : MonoBehaviour
     {
+        Dictionary<string, CombatEntity> entities = null;
         public MapData mapData = null;
-        public Dictionary<string, CombatEntity> entities = null;
 
         public string accessPath
         {
@@ -33,10 +33,18 @@ namespace App.Manager
                 item.itemData.containerType = mapData.mapItemDatas[i].containerType;
                 item.itemData.level = mapData.mapItemDatas[i].level;
             }
+            GameManager.Instance.onSavingData += SaveData;
         }
 
         void OnDestroy()
         {
+            GameManager.Instance.onSavingData -= SaveData;
+        }
+
+        void SaveData()
+        {
+            foreach (var entity in entities)
+				entity.Value.SaveEntityData();
             JsonManager.Instance.SaveData(mapData, accessPath);
         }
     }

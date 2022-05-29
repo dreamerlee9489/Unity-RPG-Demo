@@ -91,7 +91,7 @@ namespace App.Control
                     maxMP = professionAttribute.mp;
                     currentHP = playerData.currentHP;
                     currentMP = playerData.currentMP;
-                    InventoryManager.Instance.Load(playerData);
+                    InventoryManager.Instance.LoadData(playerData);
                 }
             }
             else
@@ -177,11 +177,11 @@ namespace App.Control
             }
             if (CompareTag("Enemy"))
             {
-                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
+                for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
                 {
-                    CombatEntity entity = GameManager.Instance.ongoingTasks[i].target.GetComponent<CombatEntity>();
-                    if (entity != null && entity.entityConfig.nickName == entityConfig.nickName)
-                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
+                    CombatEntity target = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<CombatEntity>();
+                    if (target != null && target.entityConfig.nickName == entityConfig.nickName)
+                        InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
             }
@@ -191,12 +191,6 @@ namespace App.Control
         {
             if (pickup != null)
             {
-                for (int i = 0; i < GameManager.Instance.ongoingTasks.Count; i++)
-                {
-                    Item temp = GameManager.Instance.ongoingTasks[i].target.GetComponent<Item>();
-                    if (temp != null && pickup.Equals(temp))
-                        GameManager.Instance.ongoingTasks[i].UpdateProgress(1);
-                }
                 mapManager.mapData.mapItemDatas.Remove(pickup.itemData);
                 pickup.AddToInventory();
                 if (pickup.nameBar != null)

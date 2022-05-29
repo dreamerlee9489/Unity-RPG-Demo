@@ -62,10 +62,9 @@ namespace App.UI
                             shopBars[i] = null;
                         }
                     }
+                    gameObject.SetActive(false);
                     InventoryManager.Instance.playerData.golds += total;
                     UIManager.Instance.goldPanel.UpdatePanel();
-                    total = 0;
-                    txtTotal.text = "0";
                 }
             });
             btnShift.onClick.AddListener(() =>

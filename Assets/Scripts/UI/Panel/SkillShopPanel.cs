@@ -16,7 +16,7 @@ namespace App.UI
             content = gameObject.GetComponentInChildren<ScrollRect>().content;
             btnTrade.onClick.AddListener(() =>
             {
-                if(InventoryManager.Instance.playerData.golds < total)
+                if (InventoryManager.Instance.playerData.golds < total)
                     hint.text = "金币不足，无法学习";
                 else
                 {
@@ -26,22 +26,22 @@ namespace App.UI
                         {
                             int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).levelRequires[shopBars[i].count - 1];
                             Skill skill = (shopBars[i] as SkillShopBar).skill;
-                            if(skill == null || shopBars[i].count > skill.level)
+                            if (skill == null || shopBars[i].count > skill.level)
                             {
-                                if(levelRequire > GameManager.Instance.player.level)
+                                if (levelRequire > GameManager.Instance.player.level)
                                     hint.text = "你的等级尚且无法学习该技能";
                                 else
                                 {
-                                    for(int j = 0; j < shopBars[i].count; j++)
+                                    for (int j = 0; j < shopBars[i].count; j++)
                                         goods.GetChild(i).GetComponent<Skill>().AddToInventory();
-                                    InventoryManager.Instance.playerData.golds -= total;
-                                    UIManager.Instance.goldPanel.UpdatePanel();
-                                    gameObject.SetActive(false);
                                     UIManager.Instance.messagePanel.Print("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
                                 }
                             }
                         }
                     }
+                    InventoryManager.Instance.playerData.golds -= total;
+                    UIManager.Instance.goldPanel.UpdatePanel();
+                    gameObject.SetActive(false);
                 }
             });
         }
@@ -69,7 +69,7 @@ namespace App.UI
             for (int i = 0; i < shopBars.Count; i++)
             {
                 Skill result = (shopBars[i] as SkillShopBar).skill;
-                if(result != null && result.Equals(skill))
+                if (result != null && result.Equals(skill))
                     return result;
             }
             return null;

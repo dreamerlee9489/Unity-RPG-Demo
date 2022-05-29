@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using App.SO;
@@ -11,79 +12,105 @@ namespace App.Control
     {
         public string name = "", chName = "";
         public string description = "";
+        public string npcName = "";
+        public string targetPath = "";
+        public int bounty = 0, exp = 0;
         public int count = 0, number = 1;
-        public int bounty = 0;
-        public float exp = 0;
-        public GameObject target { get; set; }
-        public NPCController npc { get; set; }
-        public Dictionary<string, int> rewards { get; set; }
+        public bool accepted = false;
+        public Dictionary<string, int> rewards = null;
+        GameObject target = null;
 
-        public Task(string name, string chName, int bounty, float exp, int number, GameObject target, NPCController npc, Dictionary<string, int> rewards = null)
+        public Task() {}
+        public Task(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number, Dictionary<string, int> rewards = null)
         {
             this.name = name;
             this.chName = chName;
+            this.npcName = npcName;
+            this.targetPath = targetPath;
             this.bounty = bounty;
             this.exp = exp;
             this.number = number;
-            this.target = target;
-            this.npc = npc;
             this.rewards = rewards;
+            target = Resources.LoadAsync(targetPath).asset as GameObject;
         }
 
+        public GameObject GetTarget() 
+        { 
+            if(target == null)
+                target = Resources.LoadAsync(targetPath).asset as GameObject;
+            return target; 
+        }
         public void UpdateProgress(int count)
         {
             this.count += count;
             UIManager.Instance.taskPanel.UpdatePanel(this);
-            npc.dialogueConfig = this.count >= number ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + npc.tasks[npc.index].name + "_Submit").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + npc.tasks[npc.index].name + "_Accept").asset as DialogueConfig;
         }
     }
-    
-	public class NPCTasker : NPCController
-	{
-		protected override void Awake()
-		{
+
+    public class NPCTasker : NPCController
+    {
+        public int index = 0;
+        public List<Task> tasks = new List<Task>();
+
+        protected override void Awake()
+        {
             base.Awake();
-			actions.Add("GiveTask_KillUndeadKnight", () =>
-            {
-                GiveTask("KillUndeadKnight", "消灭不死骑士", 500, 100, 1, Resources.LoadAsync("Entity/Enemy/Enemy_UndeadKnight_01").asset as GameObject, new Dictionary<string, int>(){
+            tasks.Add(new Task("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
-                });
+            }));
+            tasks.Add(new Task("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12, new Dictionary<string, int>() {
+                    { "Weapon/Weapon_Axe_Large_01", 1 }
+            }));
+            actions.Add("GiveTask_KillUndeadKnight", () =>
+            {
+                GiveTask(tasks[0]);
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
-                GiveReward("CollectMeat");
+                GiveReward();
             });
             actions.Add("GiveTask_CollectMeat", () =>
             {
-                GiveTask("CollectMeat", "收集烤牛排",  500, 200, 12, Resources.LoadAsync("Items/Potion/Potion_Meat_01").asset as GameObject, new Dictionary<string, int>() {
-                    { "Weapon/Weapon_Axe_Large_01", 1 }
-                });
+                GiveTask(tasks[1]);
             });
             actions.Add("GiveReward_CollectMeat", () =>
             {
                 GiveReward();
             });
-            dialogueConfig = index == 0 ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_KillUndeadKnight_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Start").asset as DialogueConfig;
-		}
-
-        protected void GiveTask(string thisName, string chName, int bounty, int exp, int number, GameObject target, Dictionary<string, int> rewards)
-        {
-            tasks.Add(new Task(thisName, chName, bounty, exp, number, target, this, rewards));
-            GameManager.Instance.ongoingTasks.Add(tasks[index]);
-            UIManager.Instance.taskPanel.Add(tasks[index]);
-            dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + thisName + "_Accept").asset as DialogueConfig;
-            if (target.GetComponent<Item>() != null)
-                tasks[index].UpdateProgress(InventoryManager.Instance.Count(target.GetComponent<Item>()));
+            for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+            {
+                if (InventoryManager.Instance.ongoingTasks[i].npcName == nickName)
+                {
+                    for (int j = 0; j < tasks.Count; j++)
+                    {
+                        if (tasks[j].name == InventoryManager.Instance.ongoingTasks[i].name)
+                        {
+                            index = j;
+                            tasks[index] = InventoryManager.Instance.ongoingTasks[i];
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
 
-        protected void GiveReward(string nextName = null)
+        protected void GiveTask(Task task)
         {
-            GameManager.Instance.ongoingTasks.Remove(tasks[index]);
+            task.accepted = true;
+            InventoryManager.Instance.ongoingTasks.Add(task);
+            UIManager.Instance.taskPanel.Add(task);
+            if (task.GetTarget().GetComponent<Item>() != null)
+                task.UpdateProgress(InventoryManager.Instance.Count(task.GetTarget().GetComponent<Item>()));
+        }
+
+        protected void GiveReward()
+        {
+            InventoryManager.Instance.ongoingTasks.Remove(tasks[index]);
             UIManager.Instance.taskPanel.Remove(tasks[index]);
-            dialogueConfig = nextName != null ? Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + nextName + "_Start").asset as DialogueConfig : Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
-            if(tasks[index].target.GetComponent<Item>() != null)
+            if (tasks[index].GetTarget().GetComponent<Item>() != null)
                 for (int i = 0; i < tasks[index].number; i++)
-                    InventoryManager.Instance.GetItem(tasks[index].target.GetComponent<Item>()).RemoveFromInventory();
+                    InventoryManager.Instance.GetItem(tasks[index].GetTarget().GetComponent<Item>()).RemoveFromInventory();
             foreach (var pair in tasks[index].rewards)
             {
                 Item item = null;
@@ -100,5 +127,23 @@ namespace App.Control
             UIManager.Instance.attributePanel.UpdatePanel();
             index++;
         }
-	}
+
+        public void CheckTaskProgress()
+        {
+            if (index == tasks.Count)
+                dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
+            else
+            {
+                if (!tasks[index].accepted)
+                    dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Pending").asset as DialogueConfig;
+                else
+                {
+                    if (tasks[index].count < tasks[index].number)
+                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Undone").asset as DialogueConfig;
+                    else
+                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Completed").asset as DialogueConfig;
+                }
+            }
+        }
+    }
 }

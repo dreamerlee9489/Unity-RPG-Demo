@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using App.Control;
 
 namespace App.Data
 {   
@@ -7,6 +8,7 @@ namespace App.Data
     {
         public string nickName = "冒险家";
         public string sceneName = "";
+        public string professionPath = "";
         public int level = 1;
         public int golds = 5000;
 		public float currentHP = 0;
@@ -14,6 +16,7 @@ namespace App.Data
         public float currentEXP = 0;
         public Vector position;
         public List<ItemData> itemDatas = new List<ItemData>();
+        public List<Task> ongoingTasks = new List<Task>();
         public PlayerData() {}
         public PlayerData(string nickName, int golds)
         {

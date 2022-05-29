@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using App.Items;
 using App.UI;
 using App.Data;
+using App.SO;
+using App.Control;
 
 namespace App.Manager
 {
@@ -16,7 +18,9 @@ namespace App.Manager
         public PlayerData playerData = null;
         public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
-
+        public List<Task> ongoingTasks = new List<Task>();
+        InventoryManager() { GameManager.Instance.onSavingData += SaveData; }
+        
         public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
         {
             items.Add(item);
@@ -82,14 +86,15 @@ namespace App.Manager
             return index != -1 ? skills.GetChild(index).GetComponent<Skill>() : null;
         }
 
-        public void Save()
+        public void SaveData()
         {
             playerData.itemDatas.Clear();
+            playerData.sceneName = SceneManager.GetActiveScene().name;
+            playerData.professionPath = "Config/Profession/" + GameManager.Instance.player.professionConfig.name;
             playerData.level = GameManager.Instance.player.level;
             playerData.currentHP = GameManager.Instance.player.currentHP;
             playerData.currentMP = GameManager.Instance.player.currentMP;
             playerData.currentEXP = GameManager.Instance.player.currentEXP;
-            playerData.sceneName = SceneManager.GetActiveScene().name;
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
             for (int i = 0; i < items.Count; i++)
             {
@@ -99,14 +104,22 @@ namespace App.Manager
                 items[i].itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
                 playerData.itemDatas.Add(items[i].itemData);
             }
+            playerData.ongoingTasks.Clear();
+            playerData.ongoingTasks.AddRange(ongoingTasks);
             JsonManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
         }
 
-        public void Load(PlayerData playerData)
+        public void LoadData(PlayerData playerData)
         {
             for (int i = 0; i < playerData.itemDatas.Count; i++)
                 Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i]);
+            for (int i = 0; i < playerData.ongoingTasks.Count; i++)
+            {
+                ongoingTasks.Add(playerData.ongoingTasks[i]);
+                UIManager.Instance.taskPanel.Add(playerData.ongoingTasks[i]);
+            }
+            GameManager.Instance.player.professionConfig = Resources.Load<ProfessionConfig>(playerData.professionPath);
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
             UIManager.Instance.hudPanel.UpdatePanel();

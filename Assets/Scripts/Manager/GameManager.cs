@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -10,16 +11,16 @@ namespace App.Manager
     public class GameManager : MonoBehaviour
     {
         static GameManager instance = null;
-        public static GameManager Instance => instance;
-        public CinemachineVirtualCamera virtualCamera = null;
+        public Action onSavingData = null;
         public string targetPortal { get; set; }
         public CombatEntity player { get; set; }
-        public List<Task> ongoingTasks { get; set; }
+        public CinemachineVirtualCamera virtualCamera { get; set; }
+        public static GameManager Instance => instance;
 
         void Awake()
         {
             instance = this;
-            ongoingTasks = new List<Task>();
+            virtualCamera = transform.GetChild(0).GetChild(0).GetComponent<CinemachineVirtualCamera>();
             DontDestroyOnLoad(gameObject);
         }
 

@@ -8,18 +8,15 @@ namespace App.Control
     [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
     public abstract class NPCController : MonoBehaviour
     {
-        public int index { get; set; }
-        public List<Task> tasks { get; set; }
-        public Dictionary<string, Action> actions { get; set; }
-        public DialogueConfig dialogueConfig { get; set; }
+        protected string nickName = "";
         public Transform goods { get; set; }
+        public DialogueConfig dialogueConfig { get; set; }
+        public Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
         protected virtual void Awake()
         {
-            index = 0;
-            tasks = new List<Task>();
-            actions = new Dictionary<string, Action>();
             goods = transform.GetChild(2);
+            nickName = GetComponent<CombatEntity>().entityConfig.nickName;
         }
 
         public void ActionTrigger(string action)

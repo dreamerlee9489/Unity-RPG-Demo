@@ -23,6 +23,7 @@ namespace App.Manager
         public TipPanel tipPanel { get; set; }
         public ItemShopPanel itemShopPanel { get; set; }
         public SkillShopPanel skillShopPanel { get; set; }
+        public PausePanel pausePanel { get; set; }
 
         void Awake()
         {
@@ -40,6 +41,7 @@ namespace App.Manager
             tipPanel = GameObject.Find("TipPanel").GetComponent<TipPanel>();
             itemShopPanel = GameObject.Find("ItemShopPanel").GetComponent<ItemShopPanel>();
             skillShopPanel = GameObject.Find("SkillShopPanel").GetComponent<SkillShopPanel>();
+            pausePanel = GameObject.Find("PausePanel").GetComponent<PausePanel>();
             startPanel.gameObject.SetActive(true);
             hudPanel.gameObject.SetActive(false);
             actionPanel.gameObject.SetActive(false);
@@ -53,6 +55,7 @@ namespace App.Manager
             tipPanel.gameObject.SetActive(false);
             itemShopPanel.gameObject.SetActive(false);
             skillShopPanel.gameObject.SetActive(false);
+            pausePanel.gameObject.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
 
@@ -72,6 +75,7 @@ namespace App.Manager
                     attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
                     itemShopPanel.gameObject.SetActive(itemShopPanel.isOpened = false);
                     skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = false);
+                    pausePanel.gameObject.SetActive(pausePanel.isOpened = true);
                 }
                 if (Input.GetKeyDown(KeyCode.A))
                     attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
@@ -83,10 +87,8 @@ namespace App.Manager
                     taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
                 if (Input.GetKeyDown(KeyCode.K))
                     skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
-                if (Input.GetKeyDown(KeyCode.S))
-                    InventoryManager.Instance.Save();
-                if (Input.GetKeyDown(KeyCode.L))
-                    InventoryManager.Instance.Load(InventoryManager.Instance.playerData);
+                if (Input.GetKeyDown(KeyCode.P))
+                    pausePanel.gameObject.SetActive(pausePanel.isOpened = !pausePanel.isOpened);
             }
         }
 
@@ -100,6 +102,7 @@ namespace App.Manager
             }
             else
             {
+                GameManager.Instance.player.transform.LookAt(target);
                 target.LookAt(GameManager.Instance.player.transform);
                 dialoguePanel.npc = target.GetComponent<NPCController>();
                 dialoguePanel.gameObject.SetActive(true);

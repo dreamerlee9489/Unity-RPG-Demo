@@ -8,7 +8,7 @@ namespace App.Manager
 		static MapManager mapManager = null;
 		public string targetScene = "";
 		public string targetPortal = "";
-		public Transform point = null;
+		public Transform point { get; set; }
 
 		void Awake()
 		{
@@ -27,9 +27,7 @@ namespace App.Manager
 		{
 			if(other.CompareTag("Player"))
 			{
-				foreach (var entity in mapManager.entities)
-					entity.Value.SaveEntityData();
-				InventoryManager.Instance.Save();
+				GameManager.Instance.onSavingData();
 				GameManager.Instance.targetPortal = targetPortal;
 				GameManager.Instance.player.gameObject.SetActive(false);
 				SceneManager.LoadSceneAsync(targetScene);
