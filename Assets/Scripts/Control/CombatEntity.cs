@@ -91,6 +91,7 @@ namespace App.Control
                     maxMP = professionAttribute.mp;
                     currentHP = playerData.currentHP;
                     currentMP = playerData.currentMP;
+                    InventoryManager.Instance.Load(playerData);
                 }
             }
             else

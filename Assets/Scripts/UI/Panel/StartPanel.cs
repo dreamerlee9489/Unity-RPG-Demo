@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using Cinemachine;
 using App.Manager;
 using App.Control;
 using App.Data;

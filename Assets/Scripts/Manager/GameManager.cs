@@ -35,6 +35,7 @@ namespace App.Manager
             player.gameObject.SetActive(false);
             player.transform.position = new Vector3(position.x, position.y, position.z);
             SceneManager.LoadSceneAsync(sceneName);            
+            player.gameObject.SetActive(true);
         }
     }
 }
