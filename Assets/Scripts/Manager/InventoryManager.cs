@@ -6,11 +6,13 @@ using App.UI;
 using App.Data;
 using App.SO;
 using App.Control;
+using System.IO;
 
 namespace App.Manager
 {
     public class InventoryManager
     {
+        public static string PLAYER_NAMES_PATH = Application.persistentDataPath + "/PlayerNames.txt";
         static InventoryManager instance = new InventoryManager();
         public static InventoryManager Instance => instance;
         public Transform bag = null;
@@ -20,7 +22,7 @@ namespace App.Manager
         public List<ItemUI> itemUIs = new List<ItemUI>();
         public List<Task> ongoingTasks = new List<Task>();
         InventoryManager() { GameManager.Instance.onSavingData += SaveData; }
-        
+
         public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
         {
             items.Add(item);
@@ -108,6 +110,17 @@ namespace App.Manager
             playerData.ongoingTasks.AddRange(ongoingTasks);
             JsonManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
+            if(File.Exists(PLAYER_NAMES_PATH))
+            {
+                using(StreamReader reader = File.OpenText(PLAYER_NAMES_PATH))
+                {
+                    string name = "";
+                    while((name = reader.ReadLine()) == playerData.nickName)
+                        return;
+                }
+            } 
+            using (StreamWriter sw = File.CreateText(PLAYER_NAMES_PATH))
+                sw.WriteLine(playerData.nickName);
         }
 
         public void LoadData(PlayerData playerData)
