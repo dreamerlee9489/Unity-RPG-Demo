@@ -9,18 +9,17 @@ using App.Data;
 
 namespace App.Control
 {
-    public enum CampType { BLUE, YELLOW, RED }
+    public enum CampType { BLUE, RED }
 
     public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
         float duration = 0, timer = 0;
-        Item pickup = null;
         Weapon initialWeapon = null;
-        static MapManager mapManager = null;
         public Transform weaponPos = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
+        public static MapManager mapManager = null;
         public int level { get; set; }
         public float currentHP { get; set; }
         public float currentMP { get; set; }
@@ -57,12 +56,8 @@ namespace App.Control
             speedRate = 1;
             if(mapManager == null)
                 mapManager = GameObject.FindObjectOfType<MapManager>();
-            if (CompareTag("Player"))
-                campType = CampType.BLUE;
-            else if (CompareTag("Enemy"))
+            if (CompareTag("Enemy"))
                 campType = CampType.RED;
-            else
-                campType = CampType.YELLOW;
         }
 
         void Start()
@@ -187,23 +182,6 @@ namespace App.Control
             }
         }
 
-        void Pickup()
-        {
-            if (pickup != null)
-            {
-                mapManager.mapData.mapItemDatas.Remove(pickup.itemData);
-                pickup.AddToInventory();
-                if (pickup.nameBar != null)
-                {
-                    Destroy(pickup.nameBar.gameObject);
-                    pickup.nameBar = null;
-                }
-                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
-                animator.SetBool("pickup", false);
-                Destroy(pickup.gameObject);
-            }
-        }
-
         public void SaveEntityData()
         {
             EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
@@ -302,35 +280,22 @@ namespace App.Control
         public void ExecuteAction(Transform target)
         {
             this.target = target;
-            transform.LookAt(target);
-            if ((pickup = target.GetComponent<Item>()) != null)
+            if (CanAttack(target))
             {
-                if (CanDialogue(pickup.transform))
-                {
-                    animator.SetBool("pickup", true);
-                    this.target = null;
-                }
-                else
-                    agent.destination = target.position;
+                transform.LookAt(target);
+                animator.SetBool("attack", true);
             }
             else
             {
-                if (CanAttack(target))
-                    animator.SetBool("attack", true);
-                else
-                {
-                    agent.destination = target.position;
-                    animator.SetBool("attack", false);
-                }
+                agent.destination = target.position;
+                animator.SetBool("attack", false);
             }
         }
 
         public void CancelAction()
         {
             target = null;
-            pickup = null;
             animator.SetBool("attack", false);
-            animator.SetBool("pickup", false);
             animator.ResetTrigger("skillA");
             animator.ResetTrigger("skillB");
             animator.ResetTrigger("skillC");
@@ -369,14 +334,6 @@ namespace App.Control
                 if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0)
                     return true;
             }
-            return false;
-        }
-
-        public bool CanDialogue(Transform target)
-        {
-            Vector3 direction = target.position - transform.position;
-            if (direction.sqrMagnitude <= 2.25f)
-                return true;
             return false;
         }
     }

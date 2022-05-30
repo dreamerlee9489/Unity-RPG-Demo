@@ -60,10 +60,10 @@ namespace App.UI
             {
                 if(File.Exists(InventoryManager.PLAYER_NAMES_PATH))
                 {
-                    using(StreamReader sr = File.OpenText(InventoryManager.PLAYER_NAMES_PATH))
+                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_NAMES_PATH))
                     {
                         string name = "";
-                        while((name = sr.ReadLine()) != null)
+                        while((name = reader.ReadLine()) != null)
                         {
                             Button btn = Instantiate(btnRecord, recordPanel.content);
                             btn.transform.GetChild(0).GetComponent<Text>().text = name;

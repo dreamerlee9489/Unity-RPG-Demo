@@ -95,10 +95,10 @@ namespace App.Manager
         public void ExecuteAction(Vector3 point) { }
         public void ExecuteAction(Transform target)
         {
-            if (!GameManager.Instance.player.CanDialogue(target))
+            if (!GameManager.Instance.player.GetComponent<MoveEntity>().CanDialogue(target))
             {
                 this.target = target;
-                GameManager.Instance.player.GetComponent<NavMeshAgent>().destination = target.position;
+                GameManager.Instance.player.agent.destination = target.position;
             }
             else
             {

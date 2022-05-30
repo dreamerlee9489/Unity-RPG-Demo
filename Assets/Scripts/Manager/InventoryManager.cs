@@ -115,11 +115,14 @@ namespace App.Manager
                 using(StreamReader reader = File.OpenText(PLAYER_NAMES_PATH))
                 {
                     string name = "";
-                    while((name = reader.ReadLine()) == playerData.nickName)
-                        return;
+                    while((name = reader.ReadLine()) != null)
+                    {
+                        if(name == playerData.nickName)
+                            return;
+                    }
                 }
             } 
-            using (StreamWriter sw = File.CreateText(PLAYER_NAMES_PATH))
+            using (StreamWriter sw = File.AppendText(PLAYER_NAMES_PATH))
                 sw.WriteLine(playerData.nickName);
         }
 

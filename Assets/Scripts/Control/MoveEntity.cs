@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using App.SO;
+using App.Items;
+using App.Manager;
 
 namespace App.Control
 {
@@ -13,6 +15,7 @@ namespace App.Control
         Animator animator = null;
         NavMeshAgent agent = null;
         CombatEntity combatEntity = null;
+        Item pickup = null;
         public EntityConfig abilityConfig { get; set; }
 
         void Awake()
@@ -32,6 +35,8 @@ namespace App.Control
 
         void Update()
         {
+            if(pickup != null)
+                ExecuteAction(pickup.transform);
             animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
         }
 
@@ -42,7 +47,40 @@ namespace App.Control
             return obstacle.transform.position + toObstacle * distAway;
         }
 
-        public void ExecuteAction(Transform target) { }
+        void Pickup()
+        {
+            if (pickup != null)
+            {
+                CombatEntity.mapManager.mapData.mapItemDatas.Remove(pickup.itemData);
+                pickup.AddToInventory();
+                if (pickup.nameBar != null)
+                {
+                    Destroy(pickup.nameBar.gameObject);
+                    pickup.nameBar = null;
+                }
+                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + pickup.itemConfig.itemName + " * 1", Color.green);
+                animator.SetBool("pickup", false);
+                Destroy(pickup.gameObject);
+                pickup = null;
+            }
+        }
+
+        public void ExecuteAction(Transform target) 
+        {
+            if(pickup == null)
+            {
+                pickup = target.GetComponent<Item>();
+                Debug.Log(pickup.name);
+            }
+            if (!CanDialogue(target))
+                agent.destination = target.position;
+            else
+            {
+                transform.LookAt(target);
+                animator.SetBool("pickup", true);
+            }
+        }
+
         public void ExecuteAction(Vector3 point)
         {
             agent.stoppingDistance = abilityConfig.stopDistance;
@@ -51,8 +89,18 @@ namespace App.Control
 
         public void CancelAction()
         {
+            pickup = null;
+            animator.SetBool("pickup", false);
             agent.stoppingDistance = abilityConfig.stopDistance;
             agent.destination = transform.position + transform.forward;
+        }
+
+        public bool CanDialogue(Transform target)
+        {
+            Vector3 direction = target.position - transform.position;
+            if (direction.sqrMagnitude <= 2.25f)
+                return true;
+            return false;
         }
 
         public float Seek(Vector3 position)

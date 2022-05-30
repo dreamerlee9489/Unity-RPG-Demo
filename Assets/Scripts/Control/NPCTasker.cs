@@ -78,7 +78,7 @@ namespace App.Control
             {
                 GiveReward();
             });
-            NPCData data = JsonManager.Instance.LoadData<NPCData>("NPCData_" + name);
+            NPCData data = JsonManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
             index = data == null ? 0 : data.index;
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
@@ -125,7 +125,7 @@ namespace App.Control
             data.currentHP = GetComponent<CombatEntity>().currentHP;
             data.currentMP = GetComponent<CombatEntity>().currentMP;
             data.position = new Vector(transform.position);
-            JsonManager.Instance.SaveData(data, "NPCData_" + name);
+            JsonManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
         }
 
         public void CheckTaskProgress()
