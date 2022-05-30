@@ -41,7 +41,7 @@ namespace App.Control
         public Weapon currentWeapon { get; set; }
         public CampType campType { get; set; }
         public ProfessionAttribute professionAttribute { get; set; }
-        public EntityData entityData { get; set; }
+        public EnemyData entityData { get; set; }
 
         void Awake()
         {
@@ -101,9 +101,9 @@ namespace App.Control
                 maxHP = professionAttribute.hp;
                 maxMP = professionAttribute.mp;
                 AttachEquipment(currentWeapon = initialWeapon);
-                if (mapManager.mapData.mapEntityDatas.ContainsKey(name))
+                if (mapManager.mapData.mapEnemyDatas.ContainsKey(name))
                 {
-                    EntityData entityData = mapManager.mapData.mapEntityDatas[name];
+                    EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
                     currentHP = entityData.currentHP;
                     currentMP = entityData.currentMP;
                     gameObject.SetActive(false);
@@ -112,11 +112,11 @@ namespace App.Control
                 }
                 else
                 {
-                    EntityData entityData = new EntityData();
+                    EnemyData entityData = new EnemyData();
                     entityData.currentHP = currentHP = maxHP;
                     entityData.currentMP = currentMP = maxMP;
                     entityData.position = new Vector(transform.position);
-                    mapManager.mapData.mapEntityDatas.Add(name, entityData);
+                    mapManager.mapData.mapEnemyDatas.Add(name, entityData);
                 }
             }
             if (currentHP <= 0)
@@ -206,7 +206,7 @@ namespace App.Control
 
         public void SaveEntityData()
         {
-            EntityData entityData = mapManager.mapData.mapEntityDatas[name];
+            EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
             entityData.currentHP = currentHP;
             entityData.currentMP = currentMP;
             entityData.position = new Vector(transform.position);
@@ -214,7 +214,7 @@ namespace App.Control
 
         public void LoadEntityData()
         {
-            EntityData entityData = mapManager.mapData.mapEntityDatas[name];
+            EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
             currentHP = entityData.currentHP;
             currentMP = entityData.currentMP;
             transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);

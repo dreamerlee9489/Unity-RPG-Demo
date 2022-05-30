@@ -4,6 +4,7 @@ using UnityEngine;
 using App.SO;
 using App.Manager;
 using App.Items;
+using App.Data;
 
 namespace App.Control
 {
@@ -77,19 +78,13 @@ namespace App.Control
             {
                 GiveReward();
             });
+            NPCData data = JsonManager.Instance.LoadData<NPCData>("NPCData_" + name);
+            index = data == null ? 0 : data.index;
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
                 if (InventoryManager.Instance.ongoingTasks[i].npcName == nickName)
                 {
-                    for (int j = 0; j < tasks.Count; j++)
-                    {
-                        if (tasks[j].name == InventoryManager.Instance.ongoingTasks[i].name)
-                        {
-                            index = j;
-                            tasks[index] = InventoryManager.Instance.ongoingTasks[i];
-                            break;
-                        }
-                    }
+                    tasks[index] = InventoryManager.Instance.ongoingTasks[i];
                     break;
                 }
             }
@@ -125,7 +120,12 @@ namespace App.Control
             InventoryManager.Instance.playerData.golds += tasks[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
-            index++;
+            NPCData data = new NPCData();
+            data.index = ++index;
+            data.currentHP = GetComponent<CombatEntity>().currentHP;
+            data.currentMP = GetComponent<CombatEntity>().currentMP;
+            data.position = new Vector(transform.position);
+            JsonManager.Instance.SaveData(data, "NPCData_" + name);
         }
 
         public void CheckTaskProgress()

@@ -6,7 +6,7 @@ namespace App.Data
     public class MapData
     {
         public List<ItemData> mapItemDatas = new List<ItemData>();
-        public Dictionary<string, EntityData> mapEntityDatas = new Dictionary<string, EntityData>();
+        public Dictionary<string, EnemyData> mapEnemyDatas = new Dictionary<string, EnemyData>();
         public MapData() {}
     }
 }
