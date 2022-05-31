@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 using App.Control;
 using App.UI;
 
@@ -24,6 +23,7 @@ namespace App.Manager
         public ItemShopPanel itemShopPanel { get; set; }
         public SkillShopPanel skillShopPanel { get; set; }
         public PausePanel pausePanel { get; set; }
+        public AudioSource audioSource { get; set; }
 
         void Awake()
         {
@@ -56,6 +56,7 @@ namespace App.Manager
             itemShopPanel.gameObject.SetActive(false);
             skillShopPanel.gameObject.SetActive(false);
             pausePanel.gameObject.SetActive(false);
+            audioSource = GetComponent<AudioSource>();
             DontDestroyOnLoad(gameObject);
         }
 

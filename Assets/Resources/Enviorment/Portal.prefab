@@ -265,8 +265,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 3, z: 4}
-  m_Center: {x: -2.5000005, y: 1.5, z: 0}
+  m_Size: {x: 5, y: 5, z: 4}
+  m_Center: {x: -2.5000005, y: 2.5, z: 0}
 --- !u!114 &1675111454699410802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,10 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45940ec5c38520b42995d93348105ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalName: Entrance
   targetScene: Canyon
   targetPortal: Entrance
-  point: {fileID: 3491792195243145443}
 --- !u!1 &3491792195243145468
 GameObject:
   m_ObjectHideFlags: 0

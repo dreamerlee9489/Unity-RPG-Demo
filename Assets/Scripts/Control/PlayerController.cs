@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using App.Manager;
-using App.Data;
 
 namespace App.Control
 {
@@ -58,7 +57,7 @@ namespace App.Control
                                 break;
                             case "Enemy":
                                 ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = 0.3f;
+                                agent.stoppingDistance = 1f + 0.3f * combatEntity.target.localScale.x;
                                 combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
@@ -70,7 +69,8 @@ namespace App.Control
                                 agent.stoppingDistance = 1f;
                                 break;
                             case "Portal":
-                                ExecuteCommand(0, hit.transform.position);
+                                ExecuteCommand(0, hit.transform.position + new Vector3(-2.5f, 0, 0));
+                                agent.stoppingDistance = 1f;
                                 break;
                         }
                     }

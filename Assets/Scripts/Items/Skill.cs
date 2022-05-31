@@ -47,16 +47,13 @@ namespace App.Items
                     case ControlType.NONE:
                         break;
                     case ControlType.KNOCK:
-                        target.GetComponent<FiniteStateMachine>().ChangeState(new Knocked(target, user));
-                        UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被击倒", Color.green);
+                        target.GetComponent<FiniteStateMachine>()?.ChangeState(new Knocked(target, user));
                         break;
                     case ControlType.SPEED:
                         target.SetMaxSpeed(skillAttribute.controlRate, skillAttribute.controlTime);
-                        UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "的速度" + (skillAttribute.controlRate > 1 ? "提升了" + (1 - skillAttribute.controlRate * 100) : ("降低了" + skillAttribute.controlRate * 100)) + "%", Color.green);
                         break;
                     case ControlType.STUNN:
-                        target.GetComponent<FiniteStateMachine>().ChangeState(new Stunned(target, user, skillAttribute.controlTime));
-                        UIManager.Instance.messagePanel.Print(target.entityConfig.nickName + "被眩晕", Color.green);
+                        target.GetComponent<FiniteStateMachine>()?.ChangeState(new Stunned(target, user, skillAttribute.controlTime));
                         break;
                 }
             }

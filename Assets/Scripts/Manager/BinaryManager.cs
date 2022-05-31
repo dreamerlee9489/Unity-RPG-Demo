@@ -11,7 +11,7 @@ namespace App.Manager
     {
         static BinaryManager instance = null;
         static byte key = 123;
-        public static string DATA_DIR = Application.persistentDataPath + "/Bin/";
+        public static string DATA_DIR = Application.persistentDataPath + "/Binary/";
 
         public static BinaryManager Instance
         {
@@ -45,11 +45,9 @@ namespace App.Manager
                 for (int i = 0; i < bytes.Length; i++)
                     bytes[i] ^= key;
                 using (MemoryStream ms = new MemoryStream(bytes))
-                {
                     return new BinaryFormatter().Deserialize(ms) as T;
-                }
             }
-            return default(T);
+            return null;
         }
 
         /// <summary>

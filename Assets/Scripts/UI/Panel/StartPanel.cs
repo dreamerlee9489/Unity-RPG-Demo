@@ -9,6 +9,11 @@ namespace App.UI
 {
     public class StartPanel : MonoBehaviour
     {
+        InputField inputField = null;
+        Button btnCreateSure = null;
+        Button btnCreateBack = null;
+        Button btnRecordBack = null;
+        Button btnRecord = null;
         public Transform optionsPanel = null;
         public Transform createPanel = null;
         public ScrollRect recordPanel = null;
@@ -16,11 +21,6 @@ namespace App.UI
         public Button btnCreate = null;
         public Button btnLoad = null;
         public Button btnExit = null;
-        InputField inputField = null;
-        Button btnCreateSure = null;
-        Button btnCreateBack = null;
-        Button btnRecordBack = null;
-        Button btnRecord = null;
 
         void Start()
         {
@@ -35,7 +35,7 @@ namespace App.UI
             btnRecordBack = recordPanel.transform.GetChild(2).GetComponent<Button>();
             btnContinue.onClick.AddListener(() =>
             {
-                PlayerData playerData = JsonManager.Instance.LoadData<PlayerData>("CurrentPlayerData");
+                PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>("CurrentPlayerData");
                 if (playerData != null)
                 {
                     GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
@@ -44,6 +44,8 @@ namespace App.UI
                     InventoryManager.Instance.playerData = playerData;
                     InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
                     InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+                    UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                    UIManager.Instance.audioSource.Play();
                     UIManager.Instance.hudPanel.gameObject.SetActive(true);
                     UIManager.Instance.actionPanel.gameObject.SetActive(true);
                     UIManager.Instance.goldPanel.gameObject.SetActive(true);
@@ -67,13 +69,15 @@ namespace App.UI
                             Button btn = Instantiate(btnRecord, recordPanel.content);
                             btn.transform.GetChild(0).GetComponent<Text>().text = name;
                             btn.onClick.AddListener(() => {
-                                PlayerData playerData = JsonManager.Instance.LoadData<PlayerData>(btn.transform.GetChild(0).GetComponent<Text>().text + "_PlayerData");
+                                PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>(btn.transform.GetChild(0).GetComponent<Text>().text + "_PlayerData");
                                 GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
                                 GameManager.Instance.virtualCamera.Follow = GameManager.Instance.player.transform;
                                 GameManager.Instance.EnterScene(playerData.sceneName, playerData.position);
                                 InventoryManager.Instance.playerData = playerData;
                                 InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
                                 InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+                                UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                                UIManager.Instance.audioSource.Play();
                                 UIManager.Instance.hudPanel.gameObject.SetActive(true);
                                 UIManager.Instance.actionPanel.gameObject.SetActive(true);
                                 UIManager.Instance.goldPanel.gameObject.SetActive(true);
@@ -107,12 +111,16 @@ namespace App.UI
                         }
                     }
                 } 
+                UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                UIManager.Instance.audioSource.Play();
                 InventoryManager.Instance.playerData = new PlayerData(playerName, 5000);
                 GameManager.Instance.player = Instantiate(Resources.Load<CombatEntity>("Entity/Player/Player"));
                 GameManager.Instance.virtualCamera.Follow = GameManager.Instance.player.transform;
                 GameManager.Instance.EnterScene("Village", "BirthPoint");
                 InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
                 InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
+                UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                UIManager.Instance.audioSource.Play();
                 UIManager.Instance.hudPanel.gameObject.SetActive(true);
                 UIManager.Instance.actionPanel.gameObject.SetActive(true);
                 UIManager.Instance.goldPanel.gameObject.SetActive(true);

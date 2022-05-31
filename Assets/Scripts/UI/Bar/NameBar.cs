@@ -7,10 +7,12 @@ namespace App.Control
     public class NameBar : MonoBehaviour
     {
 		public Text chName { get; set; }
+		public Text damage { get; set; }
 
 		void Awake()
 		{
 			chName = transform.GetChild(0).GetComponent<Text>();
+			damage = transform.GetChild(1).GetComponent<Text>();
 		}
 
 		void Start()

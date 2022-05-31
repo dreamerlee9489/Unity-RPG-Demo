@@ -48,7 +48,7 @@ namespace App.Items
         {
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
-                Item temp = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<Item>();
+                Item temp = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
                     InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
             }
@@ -62,7 +62,7 @@ namespace App.Items
             InventoryManager.Instance.Remove(this);
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
-                Item temp = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<Item>();
+                Item temp = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
                     InventoryManager.Instance.ongoingTasks[i].UpdateProgress(-1);
             }

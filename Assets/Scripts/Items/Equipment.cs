@@ -28,7 +28,7 @@ namespace App.Items
             InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
-                Item temp = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<Item>();
+                Item temp = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
                     InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
             }

@@ -35,8 +35,10 @@ namespace App.Control
         public bool isDead { get; set; }
         public Animator animator { get; set; }
         public NavMeshAgent agent { get; set; }
+        public AudioSource audioSource { get; set; }
         public Transform target { get; set; }
         public HUDBar hpBar { get; set; }
+        public NameBar nameBar { get; set; }
         public Weapon currentWeapon { get; set; }
         public CampType campType { get; set; }
         public ProfessionAttribute professionAttribute { get; set; }
@@ -47,8 +49,11 @@ namespace App.Control
             GetComponent<Collider>().enabled = true;
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
+            audioSource = GetComponent<AudioSource>();
+            nameBar = transform.GetChild(1).GetComponent<NameBar>();
+            audioSource.playOnAwake = false;
             agent.stoppingDistance = entityConfig.stopDistance;
-            agent.radius = 0.1f;
+            agent.radius = 0.3f;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             speedRate = 1;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
@@ -65,7 +70,7 @@ namespace App.Control
             if(CompareTag("Player"))
             {
                 hpBar = UIManager.Instance.hudPanel.hpBar;
-                PlayerData playerData = JsonManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName + "_PlayerData");
+                PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName + "_PlayerData");
                 if(playerData == null)
                 {
                     level = 1;
@@ -115,7 +120,15 @@ namespace App.Control
                 }
             }
             if (currentHP <= 0)
-                Death();
+            {
+                isDead = true;
+                target = null;
+                animator.SetBool("attack", false);
+                animator.SetBool("death", true);
+                agent.isStopped = true;
+                agent.radius = 0;
+                GetComponent<Collider>().enabled = false;
+            }
         }
 
         void Update()
@@ -129,7 +142,7 @@ namespace App.Control
                     speedRate = 1;
                     timer = duration = 0;
                     agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
-                    UIManager.Instance.messagePanel.Print(GetComponent<CombatEntity>().entityConfig.nickName + "的速度恢复正常", Color.green);
+                    UIManager.Instance.messagePanel.Print(GetComponent<CombatEntity>().entityConfig.nickName + "的速度恢复正常。", Color.green);
                 }
             }
         }
@@ -140,8 +153,18 @@ namespace App.Control
             if (target != null)
             {
                 CombatEntity defender = target.GetComponent<CombatEntity>();
-                defender.currentHP = Mathf.Max(defender.currentHP - Mathf.Max(currentATK * factor - defender.currentDEF, 1), 0);
+                int crit = Random.Range(0f, 1f) < 0.2f ? 2 : 1;
+                float damage = Mathf.Max((currentATK * factor - defender.currentDEF) * crit, 1);
+                defender.currentHP = Mathf.Max(defender.currentHP - damage, 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
+                defender.nameBar.damage.GetComponent<Animation>().Stop();
+                defender.nameBar.damage.text = damage.ToString();
+                defender.nameBar.damage.GetComponent<Animation>().Play();
+                if(crit != 1)
+                {
+                    defender.audioSource.clip = Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
+                    defender.audioSource.Play();
+                }
                 if (defender.currentHP <= 0)
                 {
                     defender.Death();
@@ -155,6 +178,8 @@ namespace App.Control
         {
             isDead = true;
             target = null;
+            audioSource.clip = Resources.LoadAsync("Audio/Death/death" + Random.Range(1, 6)).asset as AudioClip;
+            audioSource.Play();
             animator.SetBool("attack", false);
             animator.SetBool("death", true);
             agent.isStopped = true;
@@ -175,7 +200,7 @@ namespace App.Control
             {
                 for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
                 {
-                    CombatEntity target = InventoryManager.Instance.ongoingTasks[i].GetTarget().GetComponent<CombatEntity>();
+                    CombatEntity target = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<CombatEntity>();
                     if (target != null && target.entityConfig.nickName == entityConfig.nickName)
                         InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
@@ -207,32 +232,6 @@ namespace App.Control
             animator.ResetTrigger("skillB");
             animator.ResetTrigger("skillC");
             animator.ResetTrigger("skillD");
-        }
-
-        public void SaveEntityData()
-        {
-            EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
-            entityData.currentHP = currentHP;
-            entityData.currentMP = currentMP;
-            entityData.position = new Vector(transform.position);
-        }
-
-        public void LoadSkillTree()
-        {
-            if (CompareTag("Player"))
-            {
-                for (int i = 0; i < professionConfig.skillTree.Count; i++)
-                    professionConfig.skillTree[i].AddToInventory();
-            }
-        }
-
-        public void UnloadSkillTree()
-        {
-            if (CompareTag("Player"))
-            {
-                for (int i = 0; i < professionConfig.skillTree.Count; i++)
-                    professionConfig.skillTree[i].RemoveFromInventory();
-            }
         }
 
         public void AttachEquipment(Equipment equipment)
@@ -306,6 +305,7 @@ namespace App.Control
             this.speedRate = speedRate;
             this.duration = duration;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor * speedRate;
+            UIManager.Instance.messagePanel.Print(entityConfig.nickName + "的速度" + (speedRate > 1 ? "提升了" + (1 - speedRate * 100) : ("降低了" + speedRate * 100)) + "%。", Color.green);
         }
 
         public bool CanSee(Transform target)
@@ -324,7 +324,7 @@ namespace App.Control
             if (!target.GetComponent<CombatEntity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
-                if (direction.sqrMagnitude <= sqrAttackRadius && Vector3.Dot(transform.forward, direction.normalized) > 0)
+                if (direction.sqrMagnitude <= sqrAttackRadius)
                     return true;
             }
             return false;

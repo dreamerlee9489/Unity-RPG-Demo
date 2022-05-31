@@ -108,8 +108,8 @@ namespace App.Manager
             }
             playerData.ongoingTasks.Clear();
             playerData.ongoingTasks.AddRange(ongoingTasks);
-            JsonManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
-            JsonManager.Instance.SaveData(playerData, "CurrentPlayerData");
+            BinaryManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
+            BinaryManager.Instance.SaveData(playerData, "CurrentPlayerData");
             if(File.Exists(PLAYER_NAMES_PATH))
             {
                 using(StreamReader reader = File.OpenText(PLAYER_NAMES_PATH))

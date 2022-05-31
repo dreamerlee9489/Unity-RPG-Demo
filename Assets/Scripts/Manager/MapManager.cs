@@ -22,7 +22,7 @@ namespace App.Manager
         void Awake()
         {
             enemies = GameObject.FindGameObjectsWithTag("Enemy").Select(enemy => enemy.GetComponent<CombatEntity>()).ToDictionary(entity => entity.name);
-            MapData temp = JsonManager.Instance.LoadData<MapData>(accessPath);
+            MapData temp = BinaryManager.Instance.LoadData<MapData>(accessPath);
             mapData = temp == null ? new MapData() : temp;
             for (int i = 0; i < mapData.mapItemDatas.Count; i++)
             {
@@ -50,7 +50,7 @@ namespace App.Manager
                 entityData.currentMP = enemy.Value.currentMP;
                 entityData.position = new Vector(enemy.Value.transform.position);
             }
-            JsonManager.Instance.SaveData(mapData, accessPath);
+            BinaryManager.Instance.SaveData(mapData, accessPath);
         }
     }
 }

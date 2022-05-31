@@ -19,9 +19,19 @@ namespace App.Control
         public int count = 0, number = 1;
         public bool accepted = false;
         public Dictionary<string, int> rewards = null;
-        GameObject target = null;
+        [System.NonSerialized] GameObject target = null;
+        
+        public GameObject Target
+        {
+            get
+            {
+                if(target == null)
+                    target = Resources.LoadAsync(targetPath).asset as GameObject;
+                return target;
+            }
+        }
 
-        public Task() {}
+        public Task() { }      
         public Task(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number, Dictionary<string, int> rewards = null)
         {
             this.name = name;
@@ -35,12 +45,6 @@ namespace App.Control
             target = Resources.LoadAsync(targetPath).asset as GameObject;
         }
 
-        public GameObject GetTarget() 
-        { 
-            if(target == null)
-                target = Resources.LoadAsync(targetPath).asset as GameObject;
-            return target; 
-        }
         public void UpdateProgress(int count)
         {
             this.count += count;
@@ -79,7 +83,7 @@ namespace App.Control
             {
                 GiveReward();
             });
-            NPCData data = JsonManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
+            NPCData data = BinaryManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
             index = data == null ? 0 : data.index;
             for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
             {
@@ -96,17 +100,17 @@ namespace App.Control
             task.accepted = true;
             InventoryManager.Instance.ongoingTasks.Add(task);
             UIManager.Instance.taskPanel.Add(task);
-            if (task.GetTarget().GetComponent<Item>() != null)
-                task.UpdateProgress(InventoryManager.Instance.Count(task.GetTarget().GetComponent<Item>()));
+            if (task.Target.GetComponent<Item>() != null)
+                task.UpdateProgress(InventoryManager.Instance.Count(task.Target.GetComponent<Item>()));
         }
 
         protected void GiveReward()
         {
             InventoryManager.Instance.ongoingTasks.Remove(tasks[index]);
             UIManager.Instance.taskPanel.Remove(tasks[index]);
-            if (tasks[index].GetTarget().GetComponent<Item>() != null)
+            if (tasks[index].Target.GetComponent<Item>() != null)
                 for (int i = 0; i < tasks[index].number; i++)
-                    InventoryManager.Instance.GetItem(tasks[index].GetTarget().GetComponent<Item>()).RemoveFromInventory();
+                    InventoryManager.Instance.GetItem(tasks[index].Target.GetComponent<Item>()).RemoveFromInventory();
             foreach (var pair in tasks[index].rewards)
             {
                 Item item = null;
@@ -126,7 +130,7 @@ namespace App.Control
             data.currentHP = GetComponent<CombatEntity>().currentHP;
             data.currentMP = GetComponent<CombatEntity>().currentMP;
             data.position = new Vector(transform.position);
-            JsonManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
+            BinaryManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
         }
 
         public void CheckTaskProgress()
