@@ -26,7 +26,7 @@ namespace App.Control
             animator.applyRootMotion = false;
             agent.autoBraking = false;
             agent.angularSpeed = 4800;
-            agent.acceleration = 80;
+            agent.acceleration = 120;
             abilityConfig = combatEntity.entityConfig;
             agent.speed = abilityConfig.runSpeed * abilityConfig.runFactor;
             initPos = transform.position;
@@ -68,10 +68,7 @@ namespace App.Control
         public void ExecuteAction(Transform target) 
         {
             if(pickup == null)
-            {
                 pickup = target.GetComponent<Item>();
-                Debug.Log(pickup.name);
-            }
             if (!CanDialogue(target))
                 agent.destination = target.position;
             else
@@ -98,7 +95,7 @@ namespace App.Control
         public bool CanDialogue(Transform target)
         {
             Vector3 direction = target.position - transform.position;
-            if (direction.sqrMagnitude <= 2.25f)
+            if (direction.sqrMagnitude <= 1f)
                 return true;
             return false;
         }

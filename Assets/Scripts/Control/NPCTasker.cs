@@ -50,12 +50,13 @@ namespace App.Control
 
     public class NPCTasker : NPCController
     {
-        public int index = 0;
-        public List<Task> tasks = new List<Task>();
+        public int index { get; set; }
+        public List<Task> tasks { get; set; }
 
         protected override void Awake()
         {
             base.Awake();
+            tasks = new List<Task>();
             tasks.Add(new Task("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
             }));

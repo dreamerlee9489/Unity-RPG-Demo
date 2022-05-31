@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using App.Manager;
@@ -98,10 +97,13 @@ namespace App.UI
                     using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_NAMES_PATH))
                     {
                         string name = "";
-                        while((name = reader.ReadLine()) == playerName)
+                        while((name = reader.ReadLine()) != null)
                         {
-                            Debug.Log("用户名已存在!");
-                            return;
+                            if(name == playerName)
+                            {
+                                Debug.Log("用户名已存在!");
+                                return;
+                            }
                         }
                     }
                 } 
@@ -123,6 +125,8 @@ namespace App.UI
             });
             btnRecordBack.onClick.AddListener(() =>
             {
+                for (int i = 0; i < recordPanel.content.childCount; i++)
+                    Destroy(recordPanel.content.GetChild(i).gameObject);
                 recordPanel.gameObject.SetActive(false);
                 optionsPanel.gameObject.SetActive(true);
             });

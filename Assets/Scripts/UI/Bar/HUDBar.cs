@@ -7,7 +7,7 @@ namespace App.UI
 	{
 		bool isShow = false;
 		float timer = 6;
-		public Image foreground = null;
+		public Image foreground { get; set; }
 
 		void Awake()
 		{

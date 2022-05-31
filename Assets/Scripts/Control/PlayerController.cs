@@ -57,18 +57,17 @@ namespace App.Control
                                 ExecuteCommand(0, hit.point);
                                 break;
                             case "Enemy":
-                                Debug.Log("Enemy");
                                 ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = combatEntity.entityConfig.stopDistance;
+                                agent.stoppingDistance = 0.3f;
                                 combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
                                 ExecuteCommand(2, hit.transform);
-                                agent.stoppingDistance = 1.5f;
+                                agent.stoppingDistance = 1f;
                                 break;
                             case "DropItem":
                                 ExecuteCommand(0, hit.transform);
-                                agent.stoppingDistance = 1.5f;
+                                agent.stoppingDistance = 1f;
                                 break;
                             case "Portal":
                                 ExecuteCommand(0, hit.transform.position);

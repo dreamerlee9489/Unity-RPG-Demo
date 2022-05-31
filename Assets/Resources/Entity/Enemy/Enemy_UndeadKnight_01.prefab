@@ -2277,7 +2277,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4621647554842674533}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 120
   avoidancePriority: 50
@@ -2314,9 +2314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b820ab933ce55a4a8a7e798b0a27a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   weaponPos: {fileID: 1193622632476590618}
-  initialWeaponPrefab: {fileID: -6251124453726707198, guid: d5db51240b5b5a1488c898c83f971c0c, type: 3}
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
   professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: 60d67729e0ab7e04ea3f289eb101c1ba, type: 2}

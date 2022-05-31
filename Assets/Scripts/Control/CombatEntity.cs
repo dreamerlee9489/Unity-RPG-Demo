@@ -48,12 +48,12 @@ namespace App.Control
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
             agent.stoppingDistance = entityConfig.stopDistance;
-            agent.radius = 0.5f;
+            agent.radius = 0.1f;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
+            speedRate = 1;
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
-            speedRate = 1;
             if(mapManager == null)
                 mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Enemy"))
@@ -129,6 +129,7 @@ namespace App.Control
                     speedRate = 1;
                     timer = duration = 0;
                     agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
+                    UIManager.Instance.messagePanel.Print(GetComponent<CombatEntity>().entityConfig.nickName + "的速度恢复正常", Color.green);
                 }
             }
         }
@@ -182,20 +183,38 @@ namespace App.Control
             }
         }
 
+        public void ExecuteAction(Vector3 point) { }
+        public void ExecuteAction(Transform target)
+        {
+            this.target = target;
+            if (CanAttack(target))
+            {
+                transform.LookAt(target);
+                animator.SetBool("attack", true);
+            }
+            else
+            {
+                agent.destination = target.position;
+                animator.SetBool("attack", false);
+            }
+        }
+
+        public void CancelAction()
+        {
+            target = null;
+            animator.SetBool("attack", false);
+            animator.ResetTrigger("skillA");
+            animator.ResetTrigger("skillB");
+            animator.ResetTrigger("skillC");
+            animator.ResetTrigger("skillD");
+        }
+
         public void SaveEntityData()
         {
             EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
             entityData.currentHP = currentHP;
             entityData.currentMP = currentMP;
             entityData.position = new Vector(transform.position);
-        }
-
-        public void LoadEntityData()
-        {
-            EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
-            currentHP = entityData.currentHP;
-            currentMP = entityData.currentMP;
-            transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
         }
 
         public void LoadSkillTree()
@@ -274,32 +293,6 @@ namespace App.Control
             }
             UIManager.Instance.hudPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
-        }
-
-        public void ExecuteAction(Vector3 point) { }
-        public void ExecuteAction(Transform target)
-        {
-            this.target = target;
-            if (CanAttack(target))
-            {
-                transform.LookAt(target);
-                animator.SetBool("attack", true);
-            }
-            else
-            {
-                agent.destination = target.position;
-                animator.SetBool("attack", false);
-            }
-        }
-
-        public void CancelAction()
-        {
-            target = null;
-            animator.SetBool("attack", false);
-            animator.ResetTrigger("skillA");
-            animator.ResetTrigger("skillB");
-            animator.ResetTrigger("skillC");
-            animator.ResetTrigger("skillD");
         }
 
         public bool HandleMessage(Telegram telegram)

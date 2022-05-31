@@ -43,8 +43,13 @@ namespace App.Manager
 
         void SaveData()
         {
-            foreach (var entity in enemies)
-				entity.Value.SaveEntityData();
+            foreach (var enemy in enemies)
+			{
+                EnemyData entityData = mapData.mapEnemyDatas[enemy.Value.name];
+                entityData.currentHP = enemy.Value.currentHP;
+                entityData.currentMP = enemy.Value.currentMP;
+                entityData.position = new Vector(enemy.Value.transform.position);
+            }
             JsonManager.Instance.SaveData(mapData, accessPath);
         }
     }
