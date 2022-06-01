@@ -59,7 +59,7 @@ namespace App.Control
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
-            if(mapManager == null)
+            if (mapManager == null)
                 mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Enemy"))
                 campType = CampType.RED;
@@ -67,11 +67,11 @@ namespace App.Control
 
         void Start()
         {
-            if(CompareTag("Player"))
+            if (CompareTag("Player"))
             {
                 hpBar = UIManager.Instance.hudPanel.hpBar;
                 PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName + "_PlayerData");
-                if(playerData == null)
+                if (playerData == null)
                 {
                     level = 1;
                     currentEXP = 0;
@@ -133,9 +133,9 @@ namespace App.Control
 
         void Update()
         {
-            if(speedRate != 1)
+            if (speedRate != 1)
             {
-                if(timer < duration)
+                if (timer < duration)
                     timer += Time.deltaTime;
                 else
                 {
@@ -157,10 +157,9 @@ namespace App.Control
                 float damage = Mathf.Max((currentATK * factor - defender.currentDEF) * crit, 1);
                 defender.currentHP = Mathf.Max(defender.currentHP - damage, 0);
                 defender.hpBar.UpdateBar(new Vector3(defender.currentHP / defender.maxHP, 1, 1));
-                defender.nameBar.damage.GetComponent<Animation>().Stop();
-                defender.nameBar.damage.text = damage.ToString();
+                defender.nameBar.damage.text = string.Format("{0:0}", damage);
                 defender.nameBar.damage.GetComponent<Animation>().Play();
-                if(crit != 1)
+                if (crit != 1)
                 {
                     defender.audioSource.clip = Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
                     defender.audioSource.Play();
@@ -242,10 +241,10 @@ namespace App.Control
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk + weaponConfig.atk;
                     currentDEF = professionAttribute.def;
-                    animator.runtimeAnimatorController = weaponConfig.animatorController;
                     equipment.transform.SetParent(weaponPos);
                     equipment.gameObject.SetActive(true);
                     currentWeapon = equipment as Weapon;
+                    animator.runtimeAnimatorController = weaponConfig.animatorController;
                     break;
                 case EquipmentType.ARMOR:
                     break;
@@ -262,10 +261,10 @@ namespace App.Control
                 case EquipmentType.WEAPON:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk;
-                    animator.runtimeAnimatorController = Resources.LoadAsync("Animator/Unarmed Controller").asset as RuntimeAnimatorController;
                     equipment.transform.SetParent(InventoryManager.Instance.bag);
                     equipment.gameObject.SetActive(false);
                     currentWeapon = initialWeapon;
+                    animator.runtimeAnimatorController = (currentWeapon.itemConfig as WeaponConfig).animatorController;
                     break;
                 case EquipmentType.ARMOR:
                     break;
