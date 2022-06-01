@@ -4,7 +4,7 @@ using App.Manager;
 namespace App.Control.FSM
 {
     [RequireComponent(typeof(Entity))]
-    public class FiniteStateMachine : MonoBehaviour
+    public class StateController : MonoBehaviour
     {
         public State currentState { get; set; }
         public State previousState { get; set; }

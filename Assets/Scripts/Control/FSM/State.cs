@@ -40,9 +40,9 @@ namespace App.Control.FSM
         {
             idleTimer += Time.deltaTime;
             if(idleTimer > 4)
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Patrol(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Patrol(owner, target));
             else if (owner.CanSee(target.transform))
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Pursuit(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Pursuit(owner, target));
         }
 
         public override void Exit()
@@ -69,7 +69,7 @@ namespace App.Control.FSM
         public override void Execute()
         {
             if (owner.CanSee(target.transform))
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Pursuit(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Pursuit(owner, target));
             else
             {
                 wanderTimer += Time.deltaTime;
@@ -104,11 +104,11 @@ namespace App.Control.FSM
         public override void Execute()
         {
             if (!owner.CanSee(target.transform))
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
             else
             {
                 if (owner.CanAttack(target.transform))
-                    owner.GetComponent<FiniteStateMachine>().ChangeState(new Attack(owner, target));
+                    owner.GetComponent<StateController>().ChangeState(new Attack(owner, target));
                 owner.Seek(target.transform.position);
                 owner.transform.LookAt(target.transform);
             }            
@@ -137,7 +137,7 @@ namespace App.Control.FSM
         {
             owner.transform.LookAt(target.transform);
             if (!owner.CanAttack(target.transform))
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
@@ -174,7 +174,7 @@ namespace App.Control.FSM
         {
             timer += Time.deltaTime;
             if(timer >= duration)
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()
@@ -211,7 +211,7 @@ namespace App.Control.FSM
         {
             timer += Time.deltaTime;
             if(timer >= duration)
-                owner.GetComponent<FiniteStateMachine>().ChangeState(new Idle(owner, target));
+                owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
         }
 
         public override void Exit()

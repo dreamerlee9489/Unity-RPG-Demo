@@ -353,7 +353,7 @@ namespace App.Control
         public bool HandleMessage(Telegram telegram)
         {
             print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
-            return GetComponent<FSM.FiniteStateMachine>().HandleMessage(telegram);
+            return GetComponent<FSM.StateController>().HandleMessage(telegram);
         }
 
         public void SetMaxSpeed(float speedRate, float duration)

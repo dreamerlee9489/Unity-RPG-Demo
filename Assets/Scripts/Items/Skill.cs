@@ -47,13 +47,13 @@ namespace App.Items
                     case ControlType.NONE:
                         break;
                     case ControlType.KNOCK:
-                        target.GetComponent<FiniteStateMachine>()?.ChangeState(new Knocked(target, user));
+                        target.GetComponent<StateController>()?.ChangeState(new Knocked(target, user));
                         break;
                     case ControlType.SPEED:
                         target.SetMaxSpeed(skillAttribute.controlRate, skillAttribute.controlTime);
                         break;
                     case ControlType.STUNN:
-                        target.GetComponent<FiniteStateMachine>()?.ChangeState(new Stunned(target, user, skillAttribute.controlTime));
+                        target.GetComponent<StateController>()?.ChangeState(new Stunned(target, user, skillAttribute.controlTime));
                         break;
                 }
             }
