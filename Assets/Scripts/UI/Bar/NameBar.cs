@@ -27,7 +27,7 @@ namespace App.Control
 				else
 				{
 					chName.color = transform.parent.CompareTag("Enemy") ? Color.red : Color.yellow;
-					chName.text = transform.parent.GetComponent<CombatEntity>().entityConfig.nickName;
+					chName.text = transform.parent.GetComponent<Entity>().entityConfig.nickName;
 				}
 				chName.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 2.4f, 0);
 			}	

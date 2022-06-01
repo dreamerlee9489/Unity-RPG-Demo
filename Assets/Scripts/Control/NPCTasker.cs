@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using App.SO;
@@ -57,10 +56,21 @@ namespace App.Control
         public int index { get; set; }
         public List<Task> tasks { get; set; }
 
+        void SaveData()
+        {
+            NPCData data = new NPCData();
+            data.index = index;
+            data.currentHP = GetComponent<Entity>().currentHP;
+            data.currentMP = GetComponent<Entity>().currentMP;
+            data.position = new Vector(transform.position);
+            BinaryManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
+        }
+
         protected override void Awake()
         {
             base.Awake();
             tasks = new List<Task>();
+            GameManager.Instance.onSavingData += SaveData;
             tasks.Add(new Task("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
             }));
@@ -125,12 +135,7 @@ namespace App.Control
             InventoryManager.Instance.playerData.golds += tasks[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
-            NPCData data = new NPCData();
-            data.index = ++index;
-            data.currentHP = GetComponent<CombatEntity>().currentHP;
-            data.currentMP = GetComponent<CombatEntity>().currentMP;
-            data.position = new Vector(transform.position);
-            BinaryManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
+            index++;
         }
 
         public void CheckTaskProgress()

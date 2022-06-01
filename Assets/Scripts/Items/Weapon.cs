@@ -6,7 +6,7 @@ namespace App.Items
 {
     public class Weapon : Equipment
     {
-        public override void Use(CombatEntity user)
+        public override void Use(Entity user)
         {
             ItemSlot weaponSlot = UIManager.Instance.equipmentPanel.weaponSlot;
             BagPanel bagPanel = UIManager.Instance.bagPanel;

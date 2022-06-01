@@ -31,7 +31,7 @@ namespace App.Control
                     case PatrolState.WALKING:
                         agent.isStopped = false;
                         target = path.GetChild(index);
-                        GetComponent<MoveEntity>().Seek(path.GetChild(index).transform.position);
+                        GetComponent<Entity>().Seek(path.GetChild(index).transform.position);
                         if (OnWaypoint(index))
                         {
                             state = PatrolState.ALERT;
@@ -74,14 +74,14 @@ namespace App.Control
         public void StartPatrol()
         {
             agent.isStopped = false;
-            agent.speed = GetComponent<CombatEntity>().entityConfig.walkSpeed;
+            agent.speed = GetComponent<Entity>().entityConfig.walkSpeed;
             isPatrolling = true;
         }
 
         public void ExitPatrol()
         {
             animator.SetBool("isAlert", false);
-            agent.speed = GetComponent<CombatEntity>().entityConfig.runSpeed;
+            agent.speed = GetComponent<Entity>().entityConfig.runSpeed;
             isPatrolling = false;
         }
     }

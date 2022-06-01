@@ -382,18 +382,6 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: 76bf4a383b83c6940a5b69947094231d, type: 2}
   professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: 60d67729e0ab7e04ea3f289eb101c1ba, type: 2}
---- !u!114 &587872824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246891867373882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &587872825
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2284,10 +2272,9 @@ GameObject:
   - component: {fileID: 95458022253840872}
   - component: {fileID: 587872826}
   - component: {fileID: 587872825}
-  - component: {fileID: 587872824}
+  - component: {fileID: 445835252298868182}
   - component: {fileID: 587872823}
   - component: {fileID: 445835252298868181}
-  - component: {fileID: 445835252298868182}
   - component: {fileID: 445835252298868183}
   m_Layer: 0
   m_Name: Enemy_UndeadKnight_01
@@ -2406,10 +2393,9 @@ GameObject:
   - component: {fileID: 95779956817572806}
   - component: {fileID: 95779956817572811}
   - component: {fileID: 95779956817572810}
-  - component: {fileID: 95779956817572809}
+  - component: {fileID: 95779956817572812}
   - component: {fileID: 95779956817572808}
   - component: {fileID: 95779956817572807}
-  - component: {fileID: 95779956817572812}
   - component: {fileID: 95779956817572813}
   m_Layer: 0
   m_Name: Enemy_Demon_01
@@ -5968,18 +5954,6 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: f583e0a802f5f5248b9f89faf69bfbf4, type: 2}
   professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: ac159c3c31adb974e957f6bb9e87a74a, type: 2}
---- !u!114 &95779956817572809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314013114794234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &95779956817572810
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9710,10 +9684,9 @@ GameObject:
   - component: {fileID: 149283736534826854}
   - component: {fileID: 4329612490772666155}
   - component: {fileID: 428330463300029232}
-  - component: {fileID: 7085570554469207009}
+  - component: {fileID: 7328611324406791022}
   - component: {fileID: 6185118571149635327}
   - component: {fileID: 7328611324406791021}
-  - component: {fileID: 7328611324406791022}
   m_Layer: 0
   m_Name: NPC_WarriorMaster
   m_TagString: NPC
@@ -13345,10 +13318,9 @@ GameObject:
   - component: {fileID: 1128079725998284787}
   - component: {fileID: 4584058773357039845}
   - component: {fileID: 4584058773357039846}
-  - component: {fileID: 4584058773357039847}
+  - component: {fileID: 4584058773357039849}
   - component: {fileID: 4584058773357039848}
   - component: {fileID: 3761874411510212238}
-  - component: {fileID: 4584058773357039849}
   - component: {fileID: 4584058773357039850}
   m_Layer: 0
   m_Name: Enemy_Soldier_01 (2)
@@ -16749,10 +16721,9 @@ GameObject:
   - component: {fileID: 1128079726542310452}
   - component: {fileID: 4584058773900411682}
   - component: {fileID: 4584058773900411681}
-  - component: {fileID: 4584058773900411680}
+  - component: {fileID: 4584058773900411696}
   - component: {fileID: 4584058773900411695}
   - component: {fileID: 3761874413111211337}
-  - component: {fileID: 4584058773900411696}
   - component: {fileID: 4584058773900411697}
   m_Layer: 0
   m_Name: Enemy_Soldier_01
@@ -19639,10 +19610,9 @@ GameObject:
   - component: {fileID: 1128079727054562803}
   - component: {fileID: 4584058774380030693}
   - component: {fileID: 4584058774380030694}
-  - component: {fileID: 4584058774380030695}
+  - component: {fileID: 4584058774380030697}
   - component: {fileID: 4584058774380030696}
   - component: {fileID: 3761874412532931726}
-  - component: {fileID: 4584058774380030697}
   - component: {fileID: 4584058774380030698}
   m_Layer: 0
   m_Name: Enemy_Soldier_01 (1)
@@ -21492,18 +21462,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701663494496304313}
   m_Mesh: {fileID: 4300000, guid: 1fc6a54b0b3be6749a023fc330c1dade, type: 3}
---- !u!114 &2130999124611930293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6199970348928894148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2134408466703742500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22933,18 +22891,6 @@ Transform:
   m_Father: {fileID: 149283736527174970}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3032898568698437732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7029953450926062613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &3684491089117309846
 Transform:
   m_ObjectHideFlags: 0
@@ -23411,18 +23357,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4584058773357039847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128079726005594397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4584058773357039848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23631,18 +23565,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4584058773900411680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128079726532852442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &4584058773900411681
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -23923,18 +23845,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4584058774380030695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128079727064027933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4584058774380030696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25487,10 +25397,9 @@ GameObject:
   - component: {fileID: 4716446853421199136}
   - component: {fileID: 4622678919647141106}
   - component: {fileID: 4622678919647141105}
-  - component: {fileID: 4622678919647141104}
+  - component: {fileID: 5046530981542347550}
   - component: {fileID: 4622678919647141119}
   - component: {fileID: 5046530981542347549}
-  - component: {fileID: 5046530981542347550}
   - component: {fileID: 5046530981542347551}
   m_Layer: 0
   m_Name: Enemy_UndeadKnight_01 (2)
@@ -25511,10 +25420,9 @@ GameObject:
   - component: {fileID: 4716446853636293119}
   - component: {fileID: 4622678919868117549}
   - component: {fileID: 4622678919868117550}
-  - component: {fileID: 4622678919868117551}
+  - component: {fileID: 5046530981762706883}
   - component: {fileID: 4622678919868117536}
   - component: {fileID: 5046530981762706882}
-  - component: {fileID: 5046530981762706883}
   - component: {fileID: 5046530981762706884}
   m_Layer: 0
   m_Name: Enemy_UndeadKnight_01 (1)
@@ -26201,18 +26109,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4622678919647141104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621647554140907506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &4622678919647141105
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26317,18 +26213,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4622678919868117551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621647554326743341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4622957803233167914
 Transform:
   m_ObjectHideFlags: 0
@@ -34095,10 +33979,9 @@ GameObject:
   - component: {fileID: 6199970348919435818}
   - component: {fileID: 7363631187237748028}
   - component: {fileID: 299023694084484660}
-  - component: {fileID: 2130999124611930293}
+  - component: {fileID: 7363631187237748029}
   - component: {fileID: 2490295263613766277}
   - component: {fileID: 859824677667275254}
-  - component: {fileID: 7363631187237748029}
   m_Layer: 0
   m_Name: NPC_Guard_01
   m_TagString: NPC
@@ -37088,10 +36971,9 @@ GameObject:
   - component: {fileID: 7029953450916580091}
   - component: {fileID: 5887628343644063213}
   - component: {fileID: 3720968569365894885}
-  - component: {fileID: 3032898568698437732}
+  - component: {fileID: 7029953450926351100}
   - component: {fileID: 1516199172300042836}
   - component: {fileID: 775188624411968321}
-  - component: {fileID: 7029953450926351100}
   m_Layer: 0
   m_Name: NPC_Grocer_01
   m_TagString: NPC
@@ -38485,18 +38367,6 @@ Transform:
   m_Father: {fileID: 7029953450926280773}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7085570554469207009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 149283736527328196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d4cededce5b9f4499b93e3c20e7e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7111424056925953352
 Transform:
   m_ObjectHideFlags: 0

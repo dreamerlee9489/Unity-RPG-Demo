@@ -23,7 +23,7 @@ namespace App.Items
         public ItemUI itemUI { get; set; }
         public ItemSlot itemSlot { get; set; }
         public ItemData itemData { get; set; }
-        public abstract void Use(CombatEntity user);
+        public abstract void Use(Entity user);
         public abstract void AddToInventory();
         public abstract void RemoveFromInventory();
         public abstract void LoadToContainer(ItemData itemData);

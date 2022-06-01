@@ -5,7 +5,7 @@ using App.SO;
 
 namespace App.Control
 {
-    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
+    [RequireComponent(typeof(Entity))]
     public abstract class NPCController : MonoBehaviour
     {
         protected string nickName = "";
@@ -16,7 +16,7 @@ namespace App.Control
         protected virtual void Awake()
         {
             goods = transform.GetChild(2);
-            nickName = GetComponent<CombatEntity>().entityConfig.nickName;
+            nickName = GetComponent<Entity>().entityConfig.nickName;
         }
 
         public void ActionTrigger(string action)

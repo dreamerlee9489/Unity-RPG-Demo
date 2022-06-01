@@ -6,14 +6,13 @@ using App.Manager;
 
 namespace App.Control
 {
-    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
+    [RequireComponent(typeof(Entity))]
     public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         Animator animator = null;
         NavMeshAgent agent = null;
-        MoveEntity moveEntity = null;
-        CombatEntity combatEntity = null;
+        Entity entity = null;
         List<Command> commands = new List<Command>();
         public Transform bag = null;
         public Transform skills = null;
@@ -22,10 +21,8 @@ namespace App.Control
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            moveEntity = GetComponent<MoveEntity>();
-            combatEntity = GetComponent<CombatEntity>();
-            commands.Add(new MoveCommand(moveEntity));
-            commands.Add(new CombatCommand(combatEntity));
+            entity = GetComponent<Entity>();
+            commands.Add(new CombatCommand(entity));
             commands.Add(new DialogueCommand(UIManager.Instance));
             DontDestroyOnLoad(gameObject);
         }
@@ -38,17 +35,17 @@ namespace App.Control
 
         void Update()
         {
-            if (!combatEntity.isDead)
+            if (!entity.isDead)
             {
-                if (combatEntity.target != null)
-                    combatEntity.ExecuteAction(combatEntity.target);
+                if (entity.target != null)
+                    entity.ExecuteAction(entity.target);
                 if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
                 if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                     {
-                        combatEntity.CancelAction();
+                        entity.CancelAction();
                         UIManager.Instance.target = null;
                         switch (hit.collider.tag)
                         {
@@ -56,12 +53,12 @@ namespace App.Control
                                 ExecuteCommand(0, hit.point);
                                 break;
                             case "Enemy":
-                                ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = 1f + 0.3f * combatEntity.target.localScale.x;
-                                combatEntity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+                                ExecuteCommand(0, hit.transform);
+                                agent.stoppingDistance = 1f + 0.3f * entity.target.localScale.x;
+                                entity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
-                                ExecuteCommand(2, hit.transform);
+                                ExecuteCommand(1, hit.transform);
                                 agent.stoppingDistance = 1f;
                                 break;
                             case "DropItem":

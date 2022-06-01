@@ -5,23 +5,21 @@ using App.Manager;
 
 namespace App.Control
 {
-    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
+    [RequireComponent(typeof(Entity))]
     public class BehaviorController : MonoBehaviour
     {
         float wanderTimer = 6f;
         Animator animator = null;
         NavMeshAgent agent = null;
         Transform player = null;
-        MoveEntity moveEntity = null;
-        CombatEntity combatEntity = null;
+        Entity entity = null;
         Selector root = new Selector();
 
         void Awake()
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            moveEntity = GetComponent<MoveEntity>();
-            combatEntity = GetComponent<CombatEntity>();
+            entity = GetComponent<Entity>();
         }
 
         void Start()
@@ -32,12 +30,12 @@ namespace App.Control
             Parallel chase = new Parallel();
             Condition canSeePlayer = new Condition(() =>
             {
-                if (combatEntity.CanSee(player))
+                if (entity.CanSee(player))
                 {
-                    agent.speed = combatEntity.entityConfig.runSpeed * combatEntity.entityConfig.runFactor * combatEntity.speedRate;
+                    agent.speed = entity.entityConfig.runSpeed * entity.entityConfig.runFactor * entity.speedRate;
                     return true;
                 }
-                agent.speed = combatEntity.entityConfig.walkSpeed * combatEntity.entityConfig.walkFactor;
+                agent.speed = entity.entityConfig.walkSpeed * entity.entityConfig.walkFactor;
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
@@ -46,7 +44,7 @@ namespace App.Control
                 return false;
             }), new Action(() =>
             {
-                if (moveEntity.Flee(player.position))
+                if (entity.Flee(player.position))
                     return Status.SUCCESS;
                 return Status.RUNNING;
             }), new Action(() =>
@@ -58,28 +56,28 @@ namespace App.Control
                 wanderTimer += Time.deltaTime;
                 if (wanderTimer >= 6f)
                 {
-                    moveEntity.Wander();
+                    entity.Wander();
                     wanderTimer = 0;
                 }
                 return Status.RUNNING;
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                combatEntity.ExecuteAction(player);
+                entity.ExecuteAction(player);
                     return Status.RUNNING;
             }));
         }
 
         void Update()
         {
-            if (!combatEntity.isDead)
+            if (!entity.isDead)
                 root.Execute();
         }
 
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, GetComponent<CombatEntity>().entityConfig.viewRadius);
+            Gizmos.DrawWireSphere(transform.position, GetComponent<Entity>().entityConfig.viewRadius);
         }
     }
 }

@@ -11,9 +11,10 @@ namespace App.Control
 {
     public enum CampType { BLUE, RED }
 
-    public class CombatEntity : MonoBehaviour, ICmdReceiver, IMsgReceiver
+    public class Entity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
         float duration = 0, timer = 0;
+        Vector3 initPos;
         Weapon initialWeapon = null;
         public Transform weaponPos = null;
         public EntityConfig entityConfig = null;
@@ -29,6 +30,7 @@ namespace App.Control
         public float maxHP { get; set; }
         public float maxMP { get; set; }
         public float maxEXP { get; set; }
+        public float sqrFleeRadius { get; set; }
         public float sqrViewRadius { get; set; }
         public float sqrAttackRadius { get; set; }
         public float speedRate { get; set; }
@@ -40,9 +42,8 @@ namespace App.Control
         public HUDBar hpBar { get; set; }
         public NameBar nameBar { get; set; }
         public Weapon currentWeapon { get; set; }
-        public CampType campType { get; set; }
         public ProfessionAttribute professionAttribute { get; set; }
-        public EnemyData entityData { get; set; }
+        public CampType campType { get; set; }
 
         void Awake()
         {
@@ -51,11 +52,17 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             audioSource = GetComponent<AudioSource>();
             nameBar = transform.GetChild(1).GetComponent<NameBar>();
+            animator.applyRootMotion = false;
             audioSource.playOnAwake = false;
+            agent.angularSpeed = 4800;
+            agent.acceleration = 120;
+            agent.autoBraking = false;
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.radius = 0.3f;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             speedRate = 1;
+            initPos = transform.position;
+            sqrFleeRadius = Mathf.Pow(entityConfig.fleeRadius, 2);
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
             initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
@@ -142,9 +149,10 @@ namespace App.Control
                     speedRate = 1;
                     timer = duration = 0;
                     agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
-                    UIManager.Instance.messagePanel.Print(GetComponent<CombatEntity>().entityConfig.nickName + "的速度恢复正常。", Color.green);
+                    UIManager.Instance.messagePanel.Print(entityConfig.nickName + "的速度恢复正常。", Color.green);
                 }
             }
+            animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
         }
 
         void Attack() => TakeDamage(target);
@@ -152,7 +160,7 @@ namespace App.Control
         {
             if (target != null)
             {
-                CombatEntity defender = target.GetComponent<CombatEntity>();
+                Entity defender = target.GetComponent<Entity>();
                 int crit = Random.Range(0f, 1f) < 0.2f ? 2 : 1;
                 float damage = Mathf.Max((currentATK * factor - defender.currentDEF) * crit, 1);
                 defender.currentHP = Mathf.Max(defender.currentHP - damage, 0);
@@ -177,13 +185,13 @@ namespace App.Control
         {
             isDead = true;
             target = null;
+            GetComponent<Collider>().enabled = false;
             audioSource.clip = Resources.LoadAsync("Audio/Death/death" + Random.Range(1, 6)).asset as AudioClip;
             audioSource.Play();
             animator.SetBool("attack", false);
             animator.SetBool("death", true);
             agent.isStopped = true;
             agent.radius = 0;
-            GetComponent<Collider>().enabled = false;
         }
 
         void Drop()
@@ -199,7 +207,7 @@ namespace App.Control
             {
                 for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
                 {
-                    CombatEntity target = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<CombatEntity>();
+                    Entity target = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Entity>();
                     if (target != null && target.entityConfig.nickName == entityConfig.nickName)
                         InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
                 }
@@ -207,19 +215,65 @@ namespace App.Control
             }
         }
 
-        public void ExecuteAction(Vector3 point) { }
+        void Pickup()
+        {
+            if (target != null)
+            {
+                Entity.mapManager.mapData.mapItemDatas.Remove(target.GetComponent<Item>().itemData);
+                target.GetComponent<Item>().AddToInventory();
+                if (target.GetComponent<Item>().nameBar != null)
+                {
+                    Destroy(target.GetComponent<Item>().nameBar.gameObject);
+                    target.GetComponent<Item>().nameBar = null;
+                }
+                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + target.GetComponent<Item>().itemConfig.itemName + " * 1", Color.green);
+                animator.SetBool("pickup", false);
+                Destroy(target.GetComponent<Item>().gameObject);
+                target = null;
+            }
+        }
+
+        Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
+        {
+            float distAway = obstacle.radius + distanceFromBoundary;
+            Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
+            return obstacle.transform.position + toObstacle * distAway;
+        }
+
+        public void ExecuteAction(Vector3 point)
+        {
+            agent.stoppingDistance = entityConfig.stopDistance;
+            agent.destination = point;
+        }
+
         public void ExecuteAction(Transform target)
         {
             this.target = target;
-            if (CanAttack(target))
+            if (target.GetComponent<Entity>() != null)
             {
-                transform.LookAt(target);
-                animator.SetBool("attack", true);
+                if (CanAttack(target))
+                {
+                    transform.LookAt(target);
+                    animator.SetBool("attack", true);
+                }
+                else
+                {
+                    agent.destination = target.position;
+                    animator.SetBool("attack", false);
+                }
             }
             else
             {
-                agent.destination = target.position;
-                animator.SetBool("attack", false);
+                if (CanDialogue(target))
+                {
+                    transform.LookAt(target);
+                    animator.SetBool("pickup", true);
+                }
+                else
+                {
+                    agent.destination = target.position;
+                    animator.SetBool("pickup", false);
+                }
             }
         }
 
@@ -227,10 +281,13 @@ namespace App.Control
         {
             target = null;
             animator.SetBool("attack", false);
+            animator.SetBool("pickup", false);
             animator.ResetTrigger("skillA");
             animator.ResetTrigger("skillB");
             animator.ResetTrigger("skillC");
             animator.ResetTrigger("skillD");
+            agent.stoppingDistance = entityConfig.stopDistance;
+            agent.destination = transform.position + transform.forward;
         }
 
         public void AttachEquipment(Equipment equipment)
@@ -309,7 +366,7 @@ namespace App.Control
 
         public bool CanSee(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<Entity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrViewRadius)
@@ -320,13 +377,114 @@ namespace App.Control
 
         public bool CanAttack(Transform target)
         {
-            if (!target.GetComponent<CombatEntity>().isDead)
+            if (!target.GetComponent<Entity>().isDead)
             {
                 Vector3 direction = target.position - transform.position;
                 if (direction.sqrMagnitude <= sqrAttackRadius)
                     return true;
             }
             return false;
+        }
+
+        public bool CanDialogue(Transform target)
+        {
+            Vector3 direction = target.position - transform.position;
+            if (direction.sqrMagnitude <= 1f)
+                return true;
+            return false;
+        }
+
+        public float Seek(Vector3 position)
+        {
+            agent.autoBraking = false;
+            agent.destination = position;
+            return Vector3.Distance(position, agent.destination);
+        }
+
+        public bool Flee(Vector3 position)
+        {
+            Vector3 direction = transform.position - position;
+            if (direction.sqrMagnitude <= Mathf.Pow(entityConfig.fleeRadius, 2))
+            {
+                agent.autoBraking = false;
+                agent.destination = direction.normalized * entityConfig.fleeRadius;
+            }
+            return direction.sqrMagnitude > sqrFleeRadius;
+        }
+
+        public void Arrive(Vector3 position)
+        {
+            agent.autoBraking = true;
+            agent.destination = position;
+        }
+
+        public void Pursuit(NavMeshAgent evader)
+        {
+            Vector3 toEvader = evader.transform.position - transform.position;
+            float relativeHeading = Vector3.Dot(transform.forward, evader.transform.forward);
+            if (Vector3.Dot(transform.forward, toEvader) > 0 && (relativeHeading < -0.95f))
+            {
+                Seek(evader.transform.position);
+                return;
+            }
+            float lookAheadTime = toEvader.magnitude / (agent.speed + evader.speed);
+            Seek(evader.transform.position + evader.velocity * lookAheadTime);
+        }
+
+        public void Evade(NavMeshAgent pursuer)
+        {
+            Vector3 toPursuer = pursuer.transform.position - transform.position;
+            float lookAheadTime = toPursuer.magnitude / (agent.speed + pursuer.speed);
+            Flee(pursuer.transform.position + pursuer.velocity * lookAheadTime);
+        }
+
+        public void Wander(float radius = 10f)
+        {
+            Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+            position = position.normalized * radius * Random.Range(0f, 1f);
+            agent.destination = initPos + position;
+        }
+
+        public void Interpose(NavMeshAgent agentA, NavMeshAgent agentB)
+        {
+            Vector3 midPoint = (agentA.transform.position + agentB.transform.position) / 2.0f;
+            float timeToReachMidPoint = Vector3.Distance(transform.position, midPoint) / agent.speed;
+            Vector3 posA = agentA.transform.position + agentA.velocity * timeToReachMidPoint;
+            Vector3 posB = agentB.transform.position + agentB.velocity * timeToReachMidPoint;
+            midPoint = (posA + posB) / 2.0f;
+            Arrive(midPoint);
+        }
+
+        public void Hide(NavMeshAgent hunter, List<NavMeshObstacle> obstacles)
+        {
+            float distToClosest = float.MaxValue;
+            Vector3 bestHideSpot = Vector3.zero;
+            NavMeshObstacle closest = null;
+            foreach (NavMeshObstacle obstacle in obstacles)
+            {
+                Vector3 hideSpot = GetHidePosition(obstacle, hunter);
+                float dist = Vector3.Distance(hideSpot, transform.position);
+                if (dist < distToClosest)
+                {
+                    distToClosest = dist;
+                    bestHideSpot = hideSpot;
+                    closest = obstacle;
+                }
+            }
+            if (distToClosest == float.MaxValue)
+            {
+                Evade(hunter);
+                return;
+            }
+            Arrive(bestHideSpot);
+        }
+
+        public void OffsetPursuit(NavMeshAgent leader, Vector3 offset)
+        {
+            Vector3 worldOffsetPos = leader.transform.TransformVector(offset);
+            Vector3 toOffset = worldOffsetPos - transform.position;
+            float lookAheadTime = toOffset.magnitude / (agent.speed + leader.speed);
+            Arrive(worldOffsetPos + leader.velocity * lookAheadTime);
         }
     }
 }

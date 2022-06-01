@@ -11,7 +11,7 @@ namespace App.Control
 			base.Awake();
 			actions.Add("OpenSkillShopPanel", () => {
 				UIManager.Instance.skillShopPanel.BuildPanel(goods);
-				if(GameManager.Instance.player.professionConfig != GetComponent<CombatEntity>().professionConfig)
+				if(GameManager.Instance.player.professionConfig != GetComponent<Entity>().professionConfig)
 				{
 					for (int i = 0; i < GameManager.Instance.player.professionConfig.skillTree.Count; i++)
                     	GameManager.Instance.player.professionConfig.skillTree[i].RemoveFromInventory();

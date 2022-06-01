@@ -13,7 +13,7 @@ namespace App.Manager
         static GameManager instance = null;
         public Action onSavingData = null;
         public string targetPortal { get; set; }
-        public CombatEntity player { get; set; }
+        public Entity player { get; set; }
         public CinemachineVirtualCamera virtualCamera { get; set; }
         public static GameManager Instance => instance;
 

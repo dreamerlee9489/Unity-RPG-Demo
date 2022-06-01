@@ -3,7 +3,7 @@ using App.Manager;
 
 namespace App.Control.FSM
 {
-    [RequireComponent(typeof(MoveEntity), typeof(CombatEntity))]
+    [RequireComponent(typeof(Entity))]
     public class FiniteStateMachine : MonoBehaviour
     {
         public State currentState { get; set; }
@@ -12,12 +12,12 @@ namespace App.Control.FSM
 
         void Start()
         {
-            currentState = new Idle(GetComponent<CombatEntity>(), GameManager.Instance.player);
+            currentState = new Idle(GetComponent<Entity>(), GameManager.Instance.player);
         }
 
         void Update()
         {
-            if (!GetComponent<CombatEntity>().isDead)
+            if (!GetComponent<Entity>().isDead)
             {
                 if (globalState != null)
                     globalState.Execute();

@@ -8,15 +8,13 @@ namespace App.Control.FSM
     {
         protected Animator animator = null;
         protected NavMeshAgent agent = null;
-        protected MoveEntity moveEntity = null;
-        protected CombatEntity owner = null;
-        protected CombatEntity target = null;
+        protected Entity owner = null;
+        protected Entity target = null;
 
-        public State(CombatEntity owner, CombatEntity target)
+        public State(Entity owner, Entity target)
         {
             animator = owner.GetComponent<Animator>();
             agent = owner.GetComponent<NavMeshAgent>();
-            moveEntity = owner.GetComponent<MoveEntity>();
             this.owner = owner;
             this.target = target;
         }
@@ -31,7 +29,7 @@ namespace App.Control.FSM
     {
         float idleTimer = 0;
 
-        public Idle(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
+        public Idle(Entity owner, Entity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
@@ -61,7 +59,7 @@ namespace App.Control.FSM
     {
         float wanderTimer = 6f;
 
-        public Patrol(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
+        public Patrol(Entity owner, Entity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
@@ -77,7 +75,7 @@ namespace App.Control.FSM
                 wanderTimer += Time.deltaTime;
                 if (wanderTimer >= 6f)
                 {
-                    moveEntity.Wander();
+                    owner.Wander();
                     wanderTimer = 0;
                 }
             }
@@ -95,7 +93,7 @@ namespace App.Control.FSM
 
     public class Pursuit : State
     {
-        public Pursuit(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
+        public Pursuit(Entity owner, Entity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
@@ -111,7 +109,7 @@ namespace App.Control.FSM
             {
                 if (owner.CanAttack(target.transform))
                     owner.GetComponent<FiniteStateMachine>().ChangeState(new Attack(owner, target));
-                moveEntity.Seek(target.transform.position);
+                owner.Seek(target.transform.position);
                 owner.transform.LookAt(target.transform);
             }            
         }
@@ -128,7 +126,7 @@ namespace App.Control.FSM
 
     public class Attack : State
     {
-        public Attack(CombatEntity owner, CombatEntity target) : base(owner, target) => Enter();
+        public Attack(Entity owner, Entity target) : base(owner, target) => Enter();
 
         public override void Enter()
         {
@@ -158,7 +156,7 @@ namespace App.Control.FSM
     {
         public float duration = 0, timer = 0;
 
-        public Stunned(CombatEntity owner, CombatEntity target, float duration) : base(owner, target)
+        public Stunned(Entity owner, Entity target, float duration) : base(owner, target)
         {
             this.duration = duration;
         }
@@ -196,7 +194,7 @@ namespace App.Control.FSM
     {
         float duration = 5.533f, timer = 0;
 
-        public Knocked(CombatEntity owner, CombatEntity target) : base(owner, target)
+        public Knocked(Entity owner, Entity target) : base(owner, target)
         {
         }
 

@@ -72,7 +72,7 @@ namespace App.Items
             itemSlot.itemUI = itemSlot.icons.childCount > 0 ? itemSlot.icons.GetChild(0).GetComponent<ItemUI>() : null;
         }
 
-        public override void Use(CombatEntity user)
+        public override void Use(Entity user)
         {
             if (cdTimer < itemConfig.cd)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);

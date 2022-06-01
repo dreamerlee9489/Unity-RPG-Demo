@@ -10,7 +10,7 @@ namespace App.Manager
 {
     public class MapManager : MonoBehaviour
     {
-        Dictionary<string, CombatEntity> enemies = null;
+        Dictionary<string, Entity> enemies = null;
         public MapData mapData = null;
 
         public string accessPath
@@ -21,7 +21,7 @@ namespace App.Manager
 
         void Awake()
         {
-            enemies = GameObject.FindGameObjectsWithTag("Enemy").Select(enemy => enemy.GetComponent<CombatEntity>()).ToDictionary(entity => entity.name);
+            enemies = GameObject.FindGameObjectsWithTag("Enemy").Select(enemy => enemy.GetComponent<Entity>()).ToDictionary(entity => entity.name);
             MapData temp = BinaryManager.Instance.LoadData<MapData>(accessPath);
             mapData = temp == null ? new MapData() : temp;
             for (int i = 0; i < mapData.mapItemDatas.Count; i++)

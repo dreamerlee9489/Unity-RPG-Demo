@@ -9,7 +9,7 @@ namespace App.Items
 {
     public class Skill : Item
     {
-        CombatEntity user = null;
+        Entity user = null;
         SkillConfig skillConfig = null;
         SkillAttribute skillAttribute = null;
         WeaponType professWeaponType = WeaponType.NONE;
@@ -38,7 +38,7 @@ namespace App.Items
 
         void OnTriggerEnter(Collider other)
         {
-            CombatEntity target = other.GetComponent<CombatEntity>();
+            Entity target = other.GetComponent<Entity>();
             if (target != null && target.campType != user.campType)
             {
                 collider.enabled = false;
@@ -93,7 +93,7 @@ namespace App.Items
         {
         }
 
-        public override void Use(CombatEntity user)
+        public override void Use(Entity user)
         {
             if (cdTimer < itemConfig.cd)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
