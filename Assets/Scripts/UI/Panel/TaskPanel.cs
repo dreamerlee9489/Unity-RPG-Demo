@@ -16,14 +16,14 @@ namespace App.UI
             taskBar = Resources.Load<TaskBar>("UI/Bar/TaskBar");
         }
 
-        public void Add(Task task)
+        public void Add(Quest task)
         {
             TaskBar bar = Instantiate(taskBar, scrollRect.content);
             bar.chName.text = task.chName;
             bar.progress.text = task.count + " / " + task.number;
         }
 
-        public void UpdatePanel(Task task)
+        public void UpdatePanel(Quest task)
         {
             for (int i = 0; i < scrollRect.content.childCount; i++)
             {
@@ -36,7 +36,7 @@ namespace App.UI
             }
         }
 
-        public void Remove(Task task)
+        public void Remove(Quest task)
         {
             for (int i = 0; i < scrollRect.content.childCount; i++)
             {

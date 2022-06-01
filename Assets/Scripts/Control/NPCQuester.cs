@@ -8,7 +8,7 @@ using App.Data;
 namespace App.Control
 {
     [System.Serializable]
-    public class Task
+    public class Quest
     {
         public string name = "", chName = "";
         public string description = "";
@@ -30,8 +30,8 @@ namespace App.Control
             }
         }
 
-        public Task() { }      
-        public Task(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number, Dictionary<string, int> rewards = null)
+        public Quest() { }      
+        public Quest(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number, Dictionary<string, int> rewards = null)
         {
             this.name = name;
             this.chName = chName;
@@ -51,10 +51,10 @@ namespace App.Control
         }
     }
 
-    public class NPCTasker : NPCController
+    public class NPCQuester : NPCController
     {
         public int index { get; set; }
-        public List<Task> tasks { get; set; }
+        public List<Quest> quests { get; set; }
 
         void SaveData()
         {
@@ -69,25 +69,25 @@ namespace App.Control
         protected override void Awake()
         {
             base.Awake();
-            tasks = new List<Task>();
+            quests = new List<Quest>();
             GameManager.Instance.onSavingData += SaveData;
-            tasks.Add(new Task("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
+            quests.Add(new Quest("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
             }));
-            tasks.Add(new Task("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12, new Dictionary<string, int>() {
+            quests.Add(new Quest("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12, new Dictionary<string, int>() {
                     { "Weapon/Weapon_Axe_Large_01", 1 }
             }));
-            actions.Add("GiveTask_KillUndeadKnight", () =>
+            actions.Add("GiveQuest_KillUndeadKnight", () =>
             {
-                GiveTask(tasks[0]);
+                GiveQuest(quests[0]);
             });
             actions.Add("GiveReward_KillUndeadKnight", () =>
             {
                 GiveReward();
             });
-            actions.Add("GiveTask_CollectMeat", () =>
+            actions.Add("GiveQuest_CollectMeat", () =>
             {
-                GiveTask(tasks[1]);
+                GiveQuest(quests[1]);
             });
             actions.Add("GiveReward_CollectMeat", () =>
             {
@@ -95,20 +95,25 @@ namespace App.Control
             });
             NPCData data = BinaryManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
             index = data == null ? 0 : data.index;
-            for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+            for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
             {
-                if (InventoryManager.Instance.ongoingTasks[i].npcName == nickName)
+                if (InventoryManager.Instance.ongoingQuests[i].npcName == nickName)
                 {
-                    tasks[index] = InventoryManager.Instance.ongoingTasks[i];
+                    quests[index] = InventoryManager.Instance.ongoingQuests[i];
                     break;
                 }
             }
         }
 
-        protected void GiveTask(Task task)
+        void OnDestroy()
+        {
+            GameManager.Instance.onSavingData -= SaveData;
+        }
+
+        protected void GiveQuest(Quest task)
         {
             task.accepted = true;
-            InventoryManager.Instance.ongoingTasks.Add(task);
+            InventoryManager.Instance.ongoingQuests.Add(task);
             UIManager.Instance.taskPanel.Add(task);
             if (task.Target.GetComponent<Item>() != null)
                 task.UpdateProgress(InventoryManager.Instance.Count(task.Target.GetComponent<Item>()));
@@ -116,12 +121,12 @@ namespace App.Control
 
         protected void GiveReward()
         {
-            InventoryManager.Instance.ongoingTasks.Remove(tasks[index]);
-            UIManager.Instance.taskPanel.Remove(tasks[index]);
-            if (tasks[index].Target.GetComponent<Item>() != null)
-                for (int i = 0; i < tasks[index].number; i++)
-                    InventoryManager.Instance.GetItem(tasks[index].Target.GetComponent<Item>()).RemoveFromInventory();
-            foreach (var pair in tasks[index].rewards)
+            InventoryManager.Instance.ongoingQuests.Remove(quests[index]);
+            UIManager.Instance.taskPanel.Remove(quests[index]);
+            if (quests[index].Target.GetComponent<Item>() != null)
+                for (int i = 0; i < quests[index].number; i++)
+                    InventoryManager.Instance.GetItem(quests[index].Target.GetComponent<Item>()).RemoveFromInventory();
+            foreach (var pair in quests[index].rewards)
             {
                 Item item = null;
                 for (int i = 0; i < pair.Value; i++)
@@ -131,27 +136,27 @@ namespace App.Control
                 }
                 UIManager.Instance.messagePanel.Print("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
             }
-            GameManager.Instance.player.GetExprience(tasks[index].exp);
-            InventoryManager.Instance.playerData.golds += tasks[index].bounty;
+            GameManager.Instance.player.GetExprience(quests[index].exp);
+            InventoryManager.Instance.playerData.golds += quests[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
             index++;
         }
 
-        public void CheckTaskProgress()
+        public void CheckQuestProgress()
         {
-            if (index == tasks.Count)
+            if (index == quests.Count)
                 dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
             else
             {
-                if (!tasks[index].accepted)
-                    dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Pending").asset as DialogueConfig;
+                if (!quests[index].accepted)
+                    dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Pending").asset as DialogueConfig;
                 else
                 {
-                    if (tasks[index].count < tasks[index].number)
-                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Undone").asset as DialogueConfig;
+                    if (quests[index].count < quests[index].number)
+                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Undone").asset as DialogueConfig;
                     else
-                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + tasks[index].name + "_Completed").asset as DialogueConfig;
+                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Completed").asset as DialogueConfig;
                 }
             }
         }

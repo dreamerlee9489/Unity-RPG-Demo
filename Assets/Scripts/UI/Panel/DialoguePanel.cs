@@ -52,8 +52,8 @@ namespace App.UI
         {
             if (npc != null)
             {
-                if(npc.GetComponent<NPCTasker>() != null)
-                    npc.GetComponent<NPCTasker>().CheckTaskProgress();
+                if(npc.GetComponent<NPCQuester>() != null)
+                    npc.GetComponent<NPCQuester>().CheckQuestProgress();
                 npcName.text = npc.GetComponent<Entity>().entityConfig.nickName;
                 dialoguesConfig = npc.dialogueConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];

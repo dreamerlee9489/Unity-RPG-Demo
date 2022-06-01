@@ -46,11 +46,11 @@ namespace App.Items
 
         public override void AddToInventory()
         {
-            for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+            for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
             {
-                Item temp = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Item>();
+                Item temp = InventoryManager.Instance.ongoingQuests[i].Target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
-                    InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
+                    InventoryManager.Instance.ongoingQuests[i].UpdateProgress(1);
             }
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
             InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
@@ -60,11 +60,11 @@ namespace App.Items
         public override void RemoveFromInventory()
         {
             InventoryManager.Instance.Remove(this);
-            for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+            for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
             {
-                Item temp = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Item>();
+                Item temp = InventoryManager.Instance.ongoingQuests[i].Target.GetComponent<Item>();
                 if (temp != null && Equals(temp))
-                    InventoryManager.Instance.ongoingTasks[i].UpdateProgress(-1);
+                    InventoryManager.Instance.ongoingQuests[i].UpdateProgress(-1);
             }
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);

@@ -9,7 +9,7 @@ namespace App.Control
 		protected override void Awake()
 		{
 			base.Awake();
-			actions.Add("OpenSkillShopPanel", () => {
+			actions.Add("OpenSkillShop", () => {
 				UIManager.Instance.skillShopPanel.BuildPanel(goods);
 				if(GameManager.Instance.player.professionConfig != GetComponent<Entity>().professionConfig)
 				{

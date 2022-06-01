@@ -205,11 +205,11 @@ namespace App.Control
             }
             if (CompareTag("Enemy"))
             {
-                for (int i = 0; i < InventoryManager.Instance.ongoingTasks.Count; i++)
+                for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
                 {
-                    Entity target = InventoryManager.Instance.ongoingTasks[i].Target.GetComponent<Entity>();
+                    Entity target = InventoryManager.Instance.ongoingQuests[i].Target.GetComponent<Entity>();
                     if (target != null && target.entityConfig.nickName == entityConfig.nickName)
-                        InventoryManager.Instance.ongoingTasks[i].UpdateProgress(1);
+                        InventoryManager.Instance.ongoingQuests[i].UpdateProgress(1);
                 }
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
             }

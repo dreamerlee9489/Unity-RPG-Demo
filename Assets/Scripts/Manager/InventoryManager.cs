@@ -20,7 +20,7 @@ namespace App.Manager
         public PlayerData playerData = null;
         public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
-        public List<Task> ongoingTasks = new List<Task>();
+        public List<Quest> ongoingQuests = new List<Quest>();
         InventoryManager() { GameManager.Instance.onSavingData += SaveData; }
 
         public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
@@ -106,8 +106,8 @@ namespace App.Manager
                 items[i].itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
                 playerData.itemDatas.Add(items[i].itemData);
             }
-            playerData.ongoingTasks.Clear();
-            playerData.ongoingTasks.AddRange(ongoingTasks);
+            playerData.ongoingQuests.Clear();
+            playerData.ongoingQuests.AddRange(ongoingQuests);
             BinaryManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             BinaryManager.Instance.SaveData(playerData, "CurrentPlayerData");
             if(File.Exists(PLAYER_NAMES_PATH))
@@ -130,10 +130,10 @@ namespace App.Manager
         {
             for (int i = 0; i < playerData.itemDatas.Count; i++)
                 Resources.Load<Item>(playerData.itemDatas[i].path).LoadToContainer(playerData.itemDatas[i]);
-            for (int i = 0; i < playerData.ongoingTasks.Count; i++)
+            for (int i = 0; i < playerData.ongoingQuests.Count; i++)
             {
-                ongoingTasks.Add(playerData.ongoingTasks[i]);
-                UIManager.Instance.taskPanel.Add(playerData.ongoingTasks[i]);
+                ongoingQuests.Add(playerData.ongoingQuests[i]);
+                UIManager.Instance.taskPanel.Add(playerData.ongoingQuests[i]);
             }
             GameManager.Instance.player.professionConfig = Resources.Load<ProfessionConfig>(playerData.professionPath);
             UIManager.Instance.goldPanel.UpdatePanel();

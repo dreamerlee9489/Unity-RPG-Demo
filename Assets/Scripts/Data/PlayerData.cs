@@ -16,7 +16,7 @@ namespace App.Data
         public float currentEXP = 0;
         public Vector position;
         public List<ItemData> itemDatas = new List<ItemData>();
-        public List<Task> ongoingTasks = new List<Task>();
+        public List<Quest> ongoingQuests = new List<Quest>();
         public PlayerData() {}
         public PlayerData(string nickName, int golds)
         {

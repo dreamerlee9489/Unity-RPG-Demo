@@ -17,6 +17,6 @@ MonoBehaviour:
     hasNext: 0
     options:
     - dialogue: "\u5E08\u7236\uFF01"
-      action: OpenSkillShopPanel
+      action: OpenSkillShop
     - dialogue: "\u6CA1\u5174\u8DA3\u3002"
       action: 

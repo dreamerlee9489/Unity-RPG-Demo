@@ -20,6 +20,6 @@ MonoBehaviour:
     hasNext: 0
     options:
     - dialogue: "\u53EF\u4EE5\u3002"
-      action: GiveTask_CollectMeat
+      action: GiveQuest_CollectMeat
     - dialogue: "\u5173\u6211\u5C41\u4E8B\u3002"
       action: 
