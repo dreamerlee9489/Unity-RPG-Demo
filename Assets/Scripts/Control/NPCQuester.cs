@@ -47,7 +47,7 @@ namespace App.Control
         public void UpdateProgress(int count)
         {
             this.count += count;
-            UIManager.Instance.taskPanel.UpdatePanel(this);
+            UIManager.Instance.questPanel.UpdatePanel(this);
         }
     }
 
@@ -114,7 +114,7 @@ namespace App.Control
         {
             task.accepted = true;
             InventoryManager.Instance.ongoingQuests.Add(task);
-            UIManager.Instance.taskPanel.Add(task);
+            UIManager.Instance.questPanel.Add(task);
             if (task.Target.GetComponent<Item>() != null)
                 task.UpdateProgress(InventoryManager.Instance.Count(task.Target.GetComponent<Item>()));
         }
@@ -122,7 +122,7 @@ namespace App.Control
         protected void GiveReward()
         {
             InventoryManager.Instance.ongoingQuests.Remove(quests[index]);
-            UIManager.Instance.taskPanel.Remove(quests[index]);
+            UIManager.Instance.questPanel.Remove(quests[index]);
             if (quests[index].Target.GetComponent<Item>() != null)
                 for (int i = 0; i < quests[index].number; i++)
                     InventoryManager.Instance.GetItem(quests[index].Target.GetComponent<Item>()).RemoveFromInventory();

@@ -12,7 +12,7 @@ namespace App.Manager
 {
     public class InventoryManager
     {
-        public static string PLAYER_NAMES_PATH = Application.persistentDataPath + "/PlayerNames.txt";
+        public static string PLAYER_ACCOUNT_PATH = Application.persistentDataPath + "/PlayerAccount.txt";
         static InventoryManager instance = new InventoryManager();
         public static InventoryManager Instance => instance;
         public Transform bag = null;
@@ -34,7 +34,7 @@ namespace App.Manager
             item.itemSlot.itemType = item.itemConfig.itemType;
             item.containerType = containerType;
             item.cdTimer = item.itemConfig.cd;
-            item.gameObject.SetActive(false);
+            item.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public void Remove(Item item)
@@ -110,9 +110,9 @@ namespace App.Manager
             playerData.ongoingQuests.AddRange(ongoingQuests);
             BinaryManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             BinaryManager.Instance.SaveData(playerData, "CurrentPlayerData");
-            if(File.Exists(PLAYER_NAMES_PATH))
+            if(File.Exists(PLAYER_ACCOUNT_PATH))
             {
-                using(StreamReader reader = File.OpenText(PLAYER_NAMES_PATH))
+                using(StreamReader reader = File.OpenText(PLAYER_ACCOUNT_PATH))
                 {
                     string name = "";
                     while((name = reader.ReadLine()) != null)
@@ -122,7 +122,7 @@ namespace App.Manager
                     }
                 }
             } 
-            using (StreamWriter sw = File.AppendText(PLAYER_NAMES_PATH))
+            using (StreamWriter sw = File.AppendText(PLAYER_ACCOUNT_PATH))
                 sw.WriteLine(playerData.nickName);
         }
 
@@ -133,7 +133,7 @@ namespace App.Manager
             for (int i = 0; i < playerData.ongoingQuests.Count; i++)
             {
                 ongoingQuests.Add(playerData.ongoingQuests[i]);
-                UIManager.Instance.taskPanel.Add(playerData.ongoingQuests[i]);
+                UIManager.Instance.questPanel.Add(playerData.ongoingQuests[i]);
             }
             GameManager.Instance.player.professionConfig = Resources.Load<ProfessionConfig>(playerData.professionPath);
             UIManager.Instance.goldPanel.UpdatePanel();

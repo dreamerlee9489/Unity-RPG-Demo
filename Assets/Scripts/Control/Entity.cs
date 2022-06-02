@@ -299,7 +299,7 @@ namespace App.Control
                     currentATK = professionAttribute.atk + weaponConfig.atk;
                     currentDEF = professionAttribute.def;
                     equipment.transform.SetParent(weaponPos);
-                    equipment.gameObject.SetActive(true);
+                    equipment.GetComponent<MeshRenderer>().enabled = true;
                     currentWeapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     break;
@@ -319,7 +319,7 @@ namespace App.Control
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk;
                     equipment.transform.SetParent(InventoryManager.Instance.bag);
-                    equipment.gameObject.SetActive(false);
+                    equipment.GetComponent<MeshRenderer>().enabled = false;
                     currentWeapon = initialWeapon;
                     animator.runtimeAnimatorController = (currentWeapon.itemConfig as WeaponConfig).animatorController;
                     break;

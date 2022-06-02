@@ -15,7 +15,7 @@ namespace App.Manager
         public BagPanel bagPanel { get; set; }
         public EquipmentPanel equipmentPanel { get; set; }
         public DialoguePanel dialoguePanel { get; set; }
-        public TaskPanel taskPanel { get; set; }
+        public QuestPanel questPanel { get; set; }
         public GoldPanel goldPanel { get; set; }
         public MessagePanel messagePanel { get; set; }
         public AttributePanel attributePanel { get; set; }
@@ -34,7 +34,7 @@ namespace App.Manager
             bagPanel = GameObject.Find("BagPanel").GetComponent<BagPanel>();
             equipmentPanel = GameObject.Find("EquipmentPanel").GetComponent<EquipmentPanel>();
             dialoguePanel = GameObject.Find("DialoguePanel").GetComponent<DialoguePanel>();
-            taskPanel = GameObject.Find("TaskPanel").GetComponent<TaskPanel>();
+            questPanel = GameObject.Find("TaskPanel").GetComponent<QuestPanel>();
             goldPanel = GameObject.Find("GoldPanel").GetComponent<GoldPanel>();
             messagePanel = GameObject.Find("MessagePanel").GetComponent<MessagePanel>();
             attributePanel = GameObject.Find("AttributePanel").GetComponent<AttributePanel>();
@@ -49,7 +49,7 @@ namespace App.Manager
             bagPanel.gameObject.SetActive(false);
             equipmentPanel.gameObject.SetActive(false);
             dialoguePanel.gameObject.SetActive(false);
-            taskPanel.gameObject.SetActive(false);
+            questPanel.gameObject.SetActive(false);
             messagePanel.gameObject.SetActive(false);
             attributePanel.gameObject.SetActive(false);
             tipPanel.gameObject.SetActive(false);
@@ -71,7 +71,7 @@ namespace App.Manager
                     bagPanel.gameObject.SetActive(bagPanel.isOpened = false);
                     equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = false);
                     dialoguePanel.gameObject.SetActive(dialoguePanel.isOpened = false);
-                    taskPanel.gameObject.SetActive(taskPanel.isOpened = false);
+                    questPanel.gameObject.SetActive(questPanel.isOpened = false);
                     messagePanel.gameObject.SetActive(messagePanel.isOpened = false);
                     attributePanel.gameObject.SetActive(attributePanel.isOpened = false);
                     itemShopPanel.gameObject.SetActive(itemShopPanel.isOpened = false);
@@ -85,7 +85,7 @@ namespace App.Manager
                 if (Input.GetKeyDown(KeyCode.E))
                     equipmentPanel.gameObject.SetActive(equipmentPanel.isOpened = !equipmentPanel.isOpened);
                 if (Input.GetKeyDown(KeyCode.Q))
-                    taskPanel.gameObject.SetActive(taskPanel.isOpened = !taskPanel.isOpened);
+                    questPanel.gameObject.SetActive(questPanel.isOpened = !questPanel.isOpened);
                 if (Input.GetKeyDown(KeyCode.K))
                     skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = !skillShopPanel.isOpened);
                 if (Input.GetKeyDown(KeyCode.P))

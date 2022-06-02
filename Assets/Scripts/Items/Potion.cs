@@ -24,6 +24,12 @@ namespace App.Items
             tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
         }
 
+        protected override void Update()
+        {
+            if(cdTimer < itemConfig.cd)
+                cdTimer = Mathf.Min(cdTimer + Time.deltaTime, itemConfig.cd);
+        }
+
         public override void LoadToContainer(ItemData itemData)
         {
             switch (itemData.containerType)

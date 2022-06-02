@@ -18,22 +18,18 @@ namespace App.Items
         protected override void Awake()
         {
             base.Awake();
+            collider.enabled = false;
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            skillConfig = itemConfig as SkillConfig;
+            cdTimer = skillConfig.cd;
         }
 
         protected override void Update()
         {
             if(cdTimer < skillConfig.cd)
-            {
                 cdTimer = Mathf.Min(cdTimer + Time.deltaTime, skillConfig.cd);
-            }
-            else
-            {
-                collider.enabled = false;
-                gameObject.SetActive(false);
-            }
         }
 
         void OnTriggerEnter(Collider other)
@@ -89,17 +85,13 @@ namespace App.Items
             }
         }
 
-        public override void RemoveFromInventory()
-        {
-        }
-
+        public override void RemoveFromInventory() {}
         public override void Use(Entity user)
         {
             if (cdTimer < itemConfig.cd)
                 UIManager.Instance.messagePanel.Print("冷却时间未到", Color.red);
             else
             {
-                skillConfig = itemConfig as SkillConfig;
                 skillAttribute = skillConfig.GetSkillAttribute(level);
                 professWeaponType = user.professionConfig.weaponType;
                 currentWeaponType = (user.currentWeapon.itemConfig as WeaponConfig).weaponType;
@@ -109,7 +101,6 @@ namespace App.Items
                     {
                         this.user = user;
                         cdTimer = 0;
-                        gameObject.SetActive(true);
                         collider.enabled = true;
                         switch (skillConfig.skillType)
                         {

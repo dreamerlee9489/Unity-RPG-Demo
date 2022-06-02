@@ -59,9 +59,9 @@ namespace App.UI
             });
             btnLoad.onClick.AddListener(() =>
             {
-                if(File.Exists(InventoryManager.PLAYER_NAMES_PATH))
+                if(File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
                 {
-                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_NAMES_PATH))
+                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
                     {
                         string name = "";
                         while((name = reader.ReadLine()) != null)
@@ -96,9 +96,9 @@ namespace App.UI
             btnCreateSure.onClick.AddListener(() =>
             {
                 string playerName = inputField.text == "" ? "冒险家" : inputField.text;
-                if(File.Exists(InventoryManager.PLAYER_NAMES_PATH))
+                if(File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
                 {
-                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_NAMES_PATH))
+                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
                     {
                         string name = "";
                         while((name = reader.ReadLine()) != null)
