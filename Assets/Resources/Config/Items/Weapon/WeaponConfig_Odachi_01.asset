@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 581f0fa192f8a4a448da23e0b96717b1, type: 3}
+  m_Name: WeaponConfig_Odachi_01
+  m_EditorClassIdentifier: 
+  itemName: "\u6B66\u58EB\u5200"
+  description: "\u6765\u81EA\u4E1C\u701B\u7684\u6B66\u58EB\u5200\uFF0C\u770B\u8D77\u6765\u8D28\u91CF\u4E0D\u9519\u3002"
+  itemLevel: 3
+  itemPrice: 500
+  cd: 0
+  item: {fileID: 7457041118262083073, guid: c1ff364b3785edb419a2c6e2448fa800, type: 3}
+  itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
+  itemType: 7
+  weaponType: 1
+  atk: 10
+  animatorController: {fileID: 22100000, guid: f067300e7aa238d4699c98595294d9a2, type: 2}

@@ -73,11 +73,5 @@ namespace App.Control
             if (!entity.isDead)
                 root.Execute();
         }
-
-        void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, GetComponent<Entity>().entityConfig.viewRadius);
-        }
     }
 }

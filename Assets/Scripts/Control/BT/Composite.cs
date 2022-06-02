@@ -143,14 +143,14 @@ namespace App.Control.BT
         public Parallel(string name = "Parallel") : base(name) { }
         public override Status Execute()
         {
-            int succ_count = 0;
+            int successCount = 0;
             for (int i = 0; i < children.Count; i++)
             {
                 switch (children[i].Execute())
                 {
                     case Status.SUCCESS:
-                        succ_count++;
-                        if (succ_count == children.Count)
+                        successCount++;
+                        if (successCount == children.Count)
                             return status = Status.SUCCESS;
                         break;
                     case Status.RUNNING:

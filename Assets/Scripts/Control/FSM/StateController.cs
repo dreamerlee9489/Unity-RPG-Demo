@@ -40,9 +40,7 @@ namespace App.Control.FSM
         }
 
         public void RevertPreviousState() => ChangeState(previousState);
-
         public bool IsInState(State state) => currentState.GetType() == state.GetType();
-
         public void ChangeState(State newState)
         {
             previousState = currentState;

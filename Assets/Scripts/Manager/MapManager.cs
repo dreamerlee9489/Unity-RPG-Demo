@@ -11,7 +11,7 @@ namespace App.Manager
     public class MapManager : MonoBehaviour
     {
         Dictionary<string, Entity> enemies = null;
-        public MapData mapData = null;
+        public MapData mapData { get; set; }
 
         public string accessPath
         {

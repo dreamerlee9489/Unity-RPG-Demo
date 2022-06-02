@@ -81,6 +81,7 @@ namespace App.Items
             else
             {
                 Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
+                skill.level = 1;
                 InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
             }
         }

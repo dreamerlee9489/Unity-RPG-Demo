@@ -15,7 +15,7 @@ namespace App.Items
     {
         public ItemConfig itemConfig = null;
         public ContainerType containerType = ContainerType.WORLD;
-        public int level = 0;
+        public int level { get; set; }
         public float cdTimer { get; set; }
         public new Collider collider { get; set; }
         public new Rigidbody rigidbody { get; set; }

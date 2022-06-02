@@ -1193,7 +1193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3762264174449391839}
-  m_RootOrder: 1
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3877496438985132695
 SkinnedMeshRenderer:
@@ -1564,7 +1564,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3006573216755222817}
-  - {fileID: 3758593297610437021}
+  - {fileID: 2396295385130163774}
   - {fileID: 3762398078160473755}
   - {fileID: 3758315464686478325}
   - {fileID: 3758531341758461973}
@@ -1572,7 +1572,7 @@ Transform:
   - {fileID: 3762549598588315599}
   - {fileID: 3762281112736934777}
   - {fileID: 3758797855387621503}
-  - {fileID: 2396295385130163774}
+  - {fileID: 3758593297610437021}
   - {fileID: 3762211079844312805}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3370,7 +3370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1964195383620581052, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c5c51c89765d44a4eb021acda922b, type: 3}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b7a704af8483a448ea5f391f6afdc7, type: 3}
+  m_Name: EntityConfig_Skeleton
+  m_EditorClassIdentifier: 
+  nickName: "\u9AB7\u9AC5\u6B66\u58EB"
+  description: 
+  level: 3
+  entity: {fileID: 2088280099731175979, guid: 2bd9242874ab40a48907d4e8a64554be, type: 3}
+  weapon: {fileID: 7457041118262083073, guid: c1ff364b3785edb419a2c6e2448fa800, type: 3}
+  walkSpeed: 1.558401
+  runSpeed: 5.662316
+  walkFactor: 1
+  runFactor: 1
+  viewRadius: 6
+  fleeRadius: 6
+  stopDistance: 1
