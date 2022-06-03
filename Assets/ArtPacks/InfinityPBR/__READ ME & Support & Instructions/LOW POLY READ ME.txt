@@ -1,0 +1,33 @@
+www.InfinityPBR.com -- Thank you for supporting my work!
+
+** Demo scene was made with POLYGON - Dungeon by Synty Studios. You will need that package installed to see the demo in that environment. That pack is NOT required otherwise. **
+
+URP / HDRP
+The "Color Shifter" tool comes with built-in, URP, and HDRP shaders. You will need to change the shader to make it work with URP and HDRP ("Infinity PBR/ ..."). Visit my YouTube or home page to see a tutorial on the Color Shifter editor extension.
+
+SUPPORT
+Best bet is Discord, where myself or the community can help you out: https://discord.com/invite/cmZY2tH
+Email: contact@infinitypbr.com
+Unity Forums:  https://forum.unity.com/threads/infinity-series-works-in-progress-mega-thread.408430/
+
+YOUTUBE / VIDEOS
+Lots of demo scenes, tutorials, and more on my YouTube channel -- please subscribe: https://www.youtube.com/channel/UCzATh2-NC_xZSGnhZF-cFaw
+Tutorial videos on my site: https://infinitypbr.com/tutorials
+Integrations & other tips: https://infinitypbr.com/integrations-tips
+
+REVIEWS:
+Please take a moment to write an honest, positive review. It's very helpful to other users, letting them know they aren't taking a risk with their money. If for any reason you do not feel the package deserves a 5-star rating, please contact me so I can try to fix the issue.
+
+
+BLEND SHAPES (Available on some models):
+We achieve mesh morphing, the ability to change the physical mesh of the characters/objects, through non-animated blend shapes. The "DEMO" prefabs will have a "Blend Shape Manager" script attached, which makes it easier to manage the blend shape values. You can also find the raw values in the SkinnedMeshRenderer of each object that has blend shapes.  It is highly recommended you use the manager script provided, or write your own.
+
+Not all objects/characters will have blend shapes. For those that do, often there will be a "Blend Shapes Preset" folder in the character folder. The "Ranges" .txt file has suggested range limitations for the shape. Check out my YouTube channel for instructions on how to use this file. (In most cases, the values will already be active on the character/object)
+
+If there is no folder for presets, it is likely because the min/max values will work for this character.
+
+If there is no Blend Shapes Manager component attached to the demo, it means there are no blend shapes for this character.
+
+
+CURRENT BUGS / NOTES:
+[Unity 2018.4 - 2019.3] Some versions of the Unity Editor seem to exaggerate the blend shape values, meaning the range presets I have provided may be too high. This is not a bug I can fix, and only affects some versions when using blend shapes for mesh morphing. If you wish to use Mesh Morphing, please check the “Randomize Everything” button in the Blend Shapes Manager inspector, and make sure that things look right for your project. For these veresions, set the Global Modifier to 0.5. This variable will modify all blend shape values, making it easier to work around the bug.

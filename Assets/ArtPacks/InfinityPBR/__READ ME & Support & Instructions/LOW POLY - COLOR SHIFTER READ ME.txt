@@ -1,0 +1,11 @@
+www.InfinityPBR.com -- Thank you for supporting my work!
+
+COLOR SHIFTER
+
+The "Color Shifter" is a special editor tool and shader set, which works in URP, HDRP, and Built-In pipelines.
+
+Please watch this video to learn more about it:
+
+https://www.youtube.com/watch?v=_8rmtficrgA
+
+The Color Shifter makes it easy to create custom color sets for characters.

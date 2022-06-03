@@ -10,7 +10,8 @@ using App.Data;
 namespace App.Control
 {
     public enum CampType { BLUE, RED }
-
+    
+    [RequireComponent(typeof(CapsuleCollider), typeof(NavMeshAgent), typeof(AudioSource))]
     public class Entity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
         float duration = 0, timer = 0;
@@ -52,13 +53,7 @@ namespace App.Control
             agent = GetComponent<NavMeshAgent>();
             audioSource = GetComponent<AudioSource>();
             nameBar = transform.GetChild(1).GetComponent<NameBar>();
-            animator.applyRootMotion = false;
-            audioSource.playOnAwake = false;
-            agent.angularSpeed = 4800;
-            agent.acceleration = 120;
-            agent.autoBraking = false;
             agent.stoppingDistance = entityConfig.stopDistance;
-            agent.radius = 0.3f;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             speedRate = 1;
             initPos = transform.position;

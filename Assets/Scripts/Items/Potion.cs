@@ -26,6 +26,7 @@ namespace App.Items
 
         protected override void Update()
         {
+            base.Update();
             if(cdTimer < itemConfig.cd)
                 cdTimer = Mathf.Min(cdTimer + Time.deltaTime, itemConfig.cd);
         }

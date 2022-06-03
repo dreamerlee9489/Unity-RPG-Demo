@@ -18,8 +18,8 @@ MonoBehaviour:
   itemPrice: 500
   cd: 0
   item: {fileID: 7457041118262083073, guid: c1ff364b3785edb419a2c6e2448fa800, type: 3}
-  itemUI: {fileID: -3276126370694680293, guid: 2c8351154c471424c8f2cddf3b205aa2, type: 3}
+  itemUI: {fileID: 3866098566041951813, guid: 20386beeccd4e2744bf85a41e6b8e5b7, type: 3}
   itemType: 7
   weaponType: 1
-  atk: 10
+  atk: 20
   animatorController: {fileID: 22100000, guid: f067300e7aa238d4699c98595294d9a2, type: 2}
