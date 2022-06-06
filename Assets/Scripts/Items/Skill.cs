@@ -30,6 +30,8 @@ namespace App.Items
         {
             if(cdTimer < skillConfig.cd)
                 cdTimer = Mathf.Min(cdTimer + Time.deltaTime, skillConfig.cd);
+            else
+                collider.enabled = false;
         }
 
         void OnTriggerEnter(Collider other)
@@ -67,7 +69,7 @@ namespace App.Items
                     break;
                 case ContainerType.ACTION:
                     Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
-                    skill.level = level;
+                    skill.level = itemData.level;
                     InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
                     break;
             }
@@ -102,6 +104,7 @@ namespace App.Items
                     {
                         this.user = user;
                         cdTimer = 0;
+                        user.agent.speed = 0;
                         collider.enabled = true;
                         switch (skillConfig.skillType)
                         {

@@ -237,6 +237,7 @@ namespace App.Control
 
         public void ExecuteAction(Vector3 point)
         {
+            agent.speed = entityConfig.runSpeed * entityConfig.runFactor * speedRate;
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.destination = point;
         }

@@ -1692,6 +1692,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9220047975185751864, guid: dec6bf711eae9e94ea60729bc74bb267, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 2.482684
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dec6bf711eae9e94ea60729bc74bb267, type: 3}
 --- !u!4 &6849534571528202586

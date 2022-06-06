@@ -29,6 +29,7 @@ namespace App.Manager
 			{
 				GameManager.Instance.onSavingData();
 				GameManager.Instance.targetPortal = targetPortal;
+				GameManager.Instance.player.nameBar.damage.text = "";
 				GameManager.Instance.player.gameObject.SetActive(false);
 				SceneManager.LoadSceneAsync(targetScene);
 			}
