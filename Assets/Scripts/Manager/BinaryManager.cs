@@ -103,7 +103,6 @@ namespace App.Manager
                                 break;
                         }
                     }
-                    //Invoke()传入的对象必须是调用者(字典对象)
                     object dic = table.GetType().GetField("tuples").GetValue(table);
                     dic.GetType().GetMethod("Add").Invoke(dic, new object[] { obj.GetType().GetField(keyName).GetValue(obj), obj });
                 }
