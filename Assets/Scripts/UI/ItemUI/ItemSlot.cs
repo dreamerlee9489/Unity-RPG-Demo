@@ -27,31 +27,31 @@ namespace App.UI
             {
                 case SlotType.ACTION:
                 case SlotType.BAG:
-                    itemType = ItemType.NONE;
+                    itemType = ItemType.None;
                     return;
                 case SlotType.BREAST:
-                    itemType = ItemType.BREAST;
+                    itemType = ItemType.Breast;
                     return;
                 case SlotType.BOOTS:
-                    itemType = ItemType.BOOTS;
+                    itemType = ItemType.Boots;
                     return;
                 case SlotType.HAND:
-                    itemType = ItemType.BRACELET;
+                    itemType = ItemType.Bracelet;
                     return;
                 case SlotType.HELMET:
-                    itemType = ItemType.HELMET;
+                    itemType = ItemType.Helmet;
                     return;
                 case SlotType.NECKLACE:
-                    itemType = ItemType.NECKLACE;
+                    itemType = ItemType.Necklace;
                     return;
                 case SlotType.PANTS:
-                    itemType = ItemType.PANTS;
+                    itemType = ItemType.Pants;
                     return;
                 case SlotType.SHIELD:
-                    itemType = ItemType.SHIELD;
+                    itemType = ItemType.Shield;
                     return;
                 case SlotType.WEAPON:
-                    itemType = ItemType.WEAPON;
+                    itemType = ItemType.Weapon;
                     return;
             }
         }

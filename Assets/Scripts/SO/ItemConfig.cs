@@ -13,6 +13,6 @@ namespace App.SO
         public float cd = 0;
         public Item item = null;
         public ItemUI itemUI = null;
-        public ItemType itemType = ItemType.WEAPON;
+        public ItemType itemType = ItemType.Weapon;
     }
 }

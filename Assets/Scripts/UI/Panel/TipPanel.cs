@@ -44,7 +44,7 @@ namespace App.UI
                 gameObject.SetActive(true);
                 switch (itemConfig.itemType)
                 {
-                    case ItemType.WEAPON:
+                    case ItemType.Weapon:
                         itemType.text = "武器";
                         itemPrice.text = "价格：" + itemConfig.itemPrice.ToString();
                         itemLevel.text = "等级：" + itemConfig.itemLevel.ToString();
@@ -52,7 +52,7 @@ namespace App.UI
                         bars.Add(Instantiate(tipBarPrefab, transform));
                         bars[0].text = "攻击力：" + (weaponConfig.atk > 0 ? "+" : "") + weaponConfig.atk.ToString();
                         break;
-                    case ItemType.POTION:
+                    case ItemType.Potion:
                         itemType.text = "消耗品";
                         itemPrice.text = "价格：" + itemConfig.itemPrice.ToString();
                         itemLevel.text = "等级：" + itemConfig.itemLevel.ToString();
@@ -83,7 +83,7 @@ namespace App.UI
                             bars[bars.Count - 1].text = "冷却时间：" + potionConfig.cd.ToString() + "秒";
                         }
                         break;
-                    case ItemType.SKILL:
+                    case ItemType.Skill:
                         itemType.text = "技能";
                         itemPrice.text = "不可出售";
                         Skill skill = UIManager.Instance.skillShopPanel.GetPlayerSkill(item as Skill);
@@ -115,13 +115,13 @@ namespace App.UI
                             bars[bars.Count - 1].text = "冷却时间：" + skillConfig.cd.ToString() + "秒";
                         }
                         break;
-                    case ItemType.BOOTS:
-                    case ItemType.BREAST:
-                    case ItemType.BRACELET:
-                    case ItemType.HELMET:
-                    case ItemType.NECKLACE:
-                    case ItemType.PANTS:
-                    case ItemType.SHIELD:
+                    case ItemType.Boots:
+                    case ItemType.Breast:
+                    case ItemType.Bracelet:
+                    case ItemType.Helmet:
+                    case ItemType.Necklace:
+                    case ItemType.Pants:
+                    case ItemType.Shield:
                         break;
                 }
             }

@@ -9,7 +9,7 @@ using App.Data;
 
 namespace App.Control
 {
-    public enum CampType { BLUE, RED }
+    public enum CampType { Blue, Red }
     
     [RequireComponent(typeof(CapsuleCollider), typeof(NavMeshAgent), typeof(AudioSource))]
     public class Entity : MonoBehaviour, ICmdReceiver, IMsgReceiver
@@ -64,7 +64,7 @@ namespace App.Control
             if (mapManager == null)
                 mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Enemy"))
-                campType = CampType.RED;
+                campType = CampType.Red;
         }
 
         void Start()
@@ -290,7 +290,7 @@ namespace App.Control
         {
             switch (equipment.equipmentType)
             {
-                case EquipmentType.WEAPON:
+                case EquipmentType.Weapon:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk + weaponConfig.atk;
                     currentDEF = professionAttribute.def;
@@ -299,19 +299,19 @@ namespace App.Control
                     currentWeapon = equipment as Weapon;
                     animator.runtimeAnimatorController = weaponConfig.animatorController;
                     break;
-                case EquipmentType.ARMOR:
+                case EquipmentType.Armor:
                     break;
-                case EquipmentType.JEWELRY:
+                case EquipmentType.Jewelry:
                     break;
             }
-            equipment.containerType = ContainerType.EQUIPMENT;
+            equipment.containerType = ContainerType.Equipment;
         }
 
-        public void DetachEquipment(Equipment equipment, ContainerType containerType = ContainerType.BAG)
+        public void DetachEquipment(Equipment equipment, ContainerType containerType = ContainerType.Bag)
         {
             switch (equipment.equipmentType)
             {
-                case EquipmentType.WEAPON:
+                case EquipmentType.Weapon:
                     WeaponConfig weaponConfig = equipment.itemConfig as WeaponConfig;
                     currentATK = professionAttribute.atk;
                     equipment.transform.SetParent(InventoryManager.Instance.bag);
@@ -319,9 +319,9 @@ namespace App.Control
                     currentWeapon = initialWeapon;
                     animator.runtimeAnimatorController = (currentWeapon.itemConfig as WeaponConfig).animatorController;
                     break;
-                case EquipmentType.ARMOR:
+                case EquipmentType.Armor:
                     break;
-                case EquipmentType.JEWELRY:
+                case EquipmentType.Jewelry:
                     break;
             }
             equipment.containerType = containerType;

@@ -35,26 +35,26 @@ namespace App.UI
                         return SwapItemUI(targetSlot, target);
                     else if (targetSlot.slotType == SlotType.ACTION)
                     {
-                        if (targetSlot.itemUI.item.itemConfig.itemType == ItemType.SKILL)
+                        if (targetSlot.itemUI.item.itemConfig.itemType == ItemType.Skill)
                             return originParent;
-                        if (item.containerType == ContainerType.EQUIPMENT)
+                        if (item.containerType == ContainerType.Equipment)
                         {
                             if (item.itemConfig.itemType != targetSlot.itemUI.item.itemConfig.itemType)
                                 return originParent;
-                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.ACTION);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Action);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
                         }
                         return SwapItemUI(targetSlot, target);
                     }
                     else if (targetSlot.slotType == SlotType.BAG)
                     {
-                        if (item.itemConfig.itemType == ItemType.SKILL)
+                        if (item.itemConfig.itemType == ItemType.Skill)
                             return originParent;
-                        if (item.containerType == ContainerType.EQUIPMENT)
+                        if (item.containerType == ContainerType.Equipment)
                         {
                             if (item.itemConfig.itemType != targetSlot.itemUI.item.itemConfig.itemType)
                                 return originParent;
-                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.BAG);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Bag);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
                         }
                         return SwapItemUI(targetSlot, target);
@@ -63,7 +63,7 @@ namespace App.UI
                     {
                         if (item.itemConfig.itemType != targetSlot.itemType)
                             return originParent;
-                        if (item.containerType == ContainerType.EQUIPMENT)
+                        if (item.containerType == ContainerType.Equipment)
                         {
                             GameManager.Instance.player.DetachEquipment(item as Equipment, targetSlot.itemUI.item.containerType);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
@@ -83,16 +83,16 @@ namespace App.UI
                     return targetSlot.transform;
                 else if (targetSlot.slotType == SlotType.ACTION)
                 {
-                    if (item.containerType == ContainerType.EQUIPMENT)
-                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.ACTION);
+                    if (item.containerType == ContainerType.Equipment)
+                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Action);
                     return targetSlot.transform;
                 }
                 else if (targetSlot.slotType == SlotType.BAG)
                 {
-                    if (item.itemConfig.itemType == ItemType.SKILL)
+                    if (item.itemConfig.itemType == ItemType.Skill)
                         return originParent;
-                    if (item.containerType == ContainerType.EQUIPMENT)
-                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.BAG);
+                    if (item.containerType == ContainerType.Equipment)
+                        GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Bag);
                     return targetSlot.transform;
                 }
                 else

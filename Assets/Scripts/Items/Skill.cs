@@ -61,16 +61,16 @@ namespace App.Items
         {
             switch (itemData.containerType)
             {
-                case ContainerType.WORLD:
+                case ContainerType.World:
                     break;
-                case ContainerType.BAG:
+                case ContainerType.Bag:
                     break;
-                case ContainerType.EQUIPMENT:
+                case ContainerType.Equipment:
                     break;
-                case ContainerType.ACTION:
+                case ContainerType.Action:
                     Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                     skill.level = itemData.level;
-                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
+                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.Action);
                     break;
             }
         }
@@ -84,7 +84,7 @@ namespace App.Items
             {
                 Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                 skill.level = 1;
-                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.ACTION);
+                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.Action);
             }
         }
 

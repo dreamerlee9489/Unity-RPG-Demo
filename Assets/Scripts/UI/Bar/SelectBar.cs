@@ -59,7 +59,7 @@ namespace App.UI
                     for (int i = 0; i < goods.childCount; i++)
                     {
                         ItemType itemType = goods.GetChild(i).GetComponent<Item>().itemConfig.itemType;
-                        if (itemType == ItemType.BOOTS || itemType == ItemType.BREAST || itemType == ItemType.HELMET || itemType == ItemType.PANTS || itemType == ItemType.SHIELD)
+                        if (itemType == ItemType.Boots || itemType == ItemType.Breast || itemType == ItemType.Helmet || itemType == ItemType.Pants || itemType == ItemType.Shield)
                             indexs.Add(i);
                     }
                     break;
@@ -67,18 +67,18 @@ namespace App.UI
                     for (int i = 0; i < goods.childCount; i++)
                     {
                         ItemType itemType = goods.GetChild(i).GetComponent<Item>().itemConfig.itemType;
-                        if (itemType == ItemType.BRACELET || itemType == ItemType.NECKLACE)
+                        if (itemType == ItemType.Bracelet || itemType == ItemType.Necklace)
                             indexs.Add(i);
                     }
                     break;
                 case GoodsType.WEAPON:
                     for (int i = 0; i < goods.childCount; i++)
-                        if (goods.GetChild(i).GetComponent<Item>().itemConfig.itemType == ItemType.WEAPON)
+                        if (goods.GetChild(i).GetComponent<Item>().itemConfig.itemType == ItemType.Weapon)
                             indexs.Add(i);
                     break;
                 case GoodsType.POTION:
                     for (int i = 0; i < goods.childCount; i++)
-                        if (goods.GetChild(i).GetComponent<Item>().itemConfig.itemType == ItemType.POTION)
+                        if (goods.GetChild(i).GetComponent<Item>().itemConfig.itemType == ItemType.Potion)
                             indexs.Add(i);
                     break;
             }

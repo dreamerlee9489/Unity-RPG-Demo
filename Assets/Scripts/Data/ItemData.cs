@@ -9,7 +9,7 @@ namespace App.Data
         public string path = "";
         public int level = 0;
         public Vector position;
-        public ContainerType containerType = ContainerType.WORLD;
+        public ContainerType containerType = ContainerType.World;
         public ItemData() {}
 
         public override bool Equals(object obj)

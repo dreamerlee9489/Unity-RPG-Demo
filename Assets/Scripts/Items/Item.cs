@@ -6,15 +6,15 @@ using App.Data;
 
 namespace App.Items
 {
-    public enum ItemType { NONE, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, BRACELET, WEAPON, PANTS, POTION, SKILL }
-    public enum EquipmentType { WEAPON, ARMOR, JEWELRY }
-    public enum ContainerType { WORLD, BAG, EQUIPMENT, ACTION }
+    public enum ItemType { None, Helmet, Breast, Shield, Boots, Necklace, Bracelet, Weapon, Pants, Potion, Skill }
+    public enum EquipmentType { Weapon, Armor, Jewelry }
+    public enum ContainerType { World, Bag, Equipment, Action }
 
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
     {
         public ItemConfig itemConfig = null;
-        public ContainerType containerType = ContainerType.WORLD;
+        public ContainerType containerType = ContainerType.World;
         public int level { get; set; }
         public float cdTimer { get; set; }
         public new Collider collider { get; set; }
@@ -43,7 +43,7 @@ namespace App.Items
 
         protected virtual void Update()
         {
-            if (containerType == ContainerType.WORLD)
+            if (containerType == ContainerType.World)
             {
                 if (nameBar == null)
                 {

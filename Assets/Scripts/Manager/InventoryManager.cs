@@ -23,7 +23,7 @@ namespace App.Manager
         public List<Quest> ongoingQuests = new List<Quest>();
         InventoryManager() { GameManager.Instance.onSavingData += SaveData; }
 
-        public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.BAG)
+        public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.Bag)
         {
             items.Add(item);
             itemUIs.Add(itemUI);
@@ -69,7 +69,7 @@ namespace App.Manager
         public int HasItem(Item item)
         {
             for (int i = 0; i < items.Count; i++)
-                if (items[i].Equals(item) && items[i].containerType != ContainerType.EQUIPMENT)
+                if (items[i].Equals(item) && items[i].containerType != ContainerType.Equipment)
                     return i;
             return -1;
         }

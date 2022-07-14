@@ -12,8 +12,8 @@ namespace App.Items
             BagPanel bagPanel = UIManager.Instance.bagPanel;
             switch (containerType)
             {
-                case ContainerType.ACTION:
-                case ContainerType.BAG:
+                case ContainerType.Action:
+                case ContainerType.Bag:
                     ItemUI temp = weaponSlot.itemUI;
                     if (weaponSlot.itemUI != null)
                     {
@@ -22,7 +22,7 @@ namespace App.Items
                         weaponSlot.Draw(itemUI);
                         bagPanel.Draw(temp);
                         GameManager.Instance.player.DetachEquipment(temp.item as Equipment);
-                        temp.item.containerType = ContainerType.BAG;
+                        temp.item.containerType = ContainerType.Bag;
                     }
                     else
                     {
@@ -30,13 +30,13 @@ namespace App.Items
                         weaponSlot.Draw(itemUI);
                     }
                     GameManager.Instance.player.AttachEquipment(this);
-                    containerType = ContainerType.EQUIPMENT;
+                    containerType = ContainerType.Equipment;
                     break;
-                case ContainerType.EQUIPMENT:
+                case ContainerType.Equipment:
                     weaponSlot.Erase();
                     bagPanel.Draw(itemUI);
                     GameManager.Instance.player.DetachEquipment(this);
-                    containerType = ContainerType.BAG;
+                    containerType = ContainerType.Bag;
                     break;
             }
         }   

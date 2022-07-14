@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using App.Data;
 using App.Manager;
@@ -6,7 +7,7 @@ namespace App.Items
 {
     public abstract class Equipment : Item
     {
-        public EquipmentType equipmentType = EquipmentType.WEAPON;
+        public EquipmentType equipmentType = EquipmentType.Weapon;
 
         protected override void Awake()
         {
@@ -18,9 +19,9 @@ namespace App.Items
         {
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
-            collider.enabled = containerType == ContainerType.WORLD ? true : false;
-            tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
+            rigidbody.constraints = containerType == ContainerType.World ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            collider.enabled = containerType == ContainerType.World ? true : false;
+            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";    
         }
 
         public override void AddToInventory()
@@ -45,18 +46,18 @@ namespace App.Items
         {
             switch (itemData.containerType)
             {
-                case ContainerType.WORLD:
+                case ContainerType.World:
                     break;
-                case ContainerType.BAG:
+                case ContainerType.Bag:
                     InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     break;
-                case ContainerType.EQUIPMENT:
+                case ContainerType.Equipment:
                     Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
                     InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     item.Use(GameManager.Instance.player);
                     break;
-                case ContainerType.ACTION:
+                case ContainerType.Action:
                     break;
             }
         }

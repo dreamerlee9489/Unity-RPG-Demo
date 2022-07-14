@@ -19,9 +19,9 @@ namespace App.Items
         {
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.WORLD ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
-            collider.enabled = containerType == ContainerType.WORLD ? true : false;
-            tag = containerType == ContainerType.WORLD ? "DropItem" : "Untagged";    
+            rigidbody.constraints = containerType == ContainerType.World ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            collider.enabled = containerType == ContainerType.World ? true : false;
+            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";    
         }
 
         protected override void Update()
@@ -35,18 +35,18 @@ namespace App.Items
         {
             switch (itemData.containerType)
             {
-                case ContainerType.WORLD:
+                case ContainerType.World:
                     break;
-                case ContainerType.BAG:
+                case ContainerType.Bag:
                     ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
                     Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
                     InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
                     tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
                     break;
-                case ContainerType.EQUIPMENT:
+                case ContainerType.Equipment:
                     break;
-                case ContainerType.ACTION:
+                case ContainerType.Action:
                     break;
             }
         }
