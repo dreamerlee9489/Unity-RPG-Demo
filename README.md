@@ -1,7 +1,6 @@
-# Unity RPG Project
+# Unity RPG Demo
 项目名称：《幻想大陆》  
 版本要求：Unity 2021.3
-## 界面截图
 ![image](Images/Snipaste_2022-07-22_22-55-29.png)
 ![image](Images/Snipaste_2022-07-22_22-55-59.png)
 ![image](Images/Snipaste_2022-07-22_22-57-46.png)
