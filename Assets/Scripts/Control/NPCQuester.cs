@@ -19,19 +19,23 @@ namespace App.Control
         public bool accepted = false;
         public Dictionary<string, int> rewards = null;
         [System.NonSerialized] GameObject target = null;
-        
+
         public GameObject Target
         {
             get
             {
-                if(target == null)
+                if (target == null)
                     target = Resources.LoadAsync(targetPath).asset as GameObject;
                 return target;
             }
         }
 
-        public Quest() { }      
-        public Quest(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number, Dictionary<string, int> rewards = null)
+        public Quest()
+        {
+        }
+
+        public Quest(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number,
+            Dictionary<string, int> rewards = null)
         {
             this.name = name;
             this.chName = chName;
@@ -71,29 +75,23 @@ namespace App.Control
             base.Awake();
             quests = new List<Quest>();
             GameManager.Instance.onSavingData += SaveData;
-            quests.Add(new Quest("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100, 1, new Dictionary<string, int>(){
+            quests.Add(new Quest("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100,
+                1, new Dictionary<string, int>()
+                {
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
-            }));
-            quests.Add(new Quest("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12, new Dictionary<string, int>() {
+                }));
+            quests.Add(new Quest("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12,
+                new Dictionary<string, int>()
+                {
                     { "Weapon/Weapon_Axe_Large_01", 1 }
-            }));
-            actions.Add("GiveQuest_KillUndeadKnight", () =>
-            {
-                GiveQuest(quests[0]);
-            });
-            actions.Add("GiveReward_KillUndeadKnight", () =>
-            {
-                GiveReward();
-            });
-            actions.Add("GiveQuest_CollectMeat", () =>
-            {
-                GiveQuest(quests[1]);
-            });
-            actions.Add("GiveReward_CollectMeat", () =>
-            {
-                GiveReward();
-            });
-            NPCData data = BinaryManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
+                }));
+            actions.Add("GiveQuest_KillUndeadKnight", () => { GiveQuest(quests[0]); });
+            actions.Add("GiveReward_KillUndeadKnight", () => { GiveReward(); });
+            actions.Add("GiveQuest_CollectMeat", () => { GiveQuest(quests[1]); });
+            actions.Add("GiveReward_CollectMeat", () => { GiveReward(); });
+            NPCData data =
+                BinaryManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" +
+                                                         name);
             index = data == null ? 0 : data.index;
             for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
             {
@@ -134,8 +132,11 @@ namespace App.Control
                     item = Resources.Load<Item>("Items/" + pair.Key);
                     item.AddToInventory();
                 }
-                UIManager.Instance.messagePanel.Print("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value, Color.yellow);
+
+                UIManager.Instance.messagePanel.Print("[系统]  获得奖励：" + item.itemConfig.itemName + " * " + pair.Value,
+                    Color.yellow);
             }
+
             GameManager.Instance.player.GetExprience(quests[index].exp);
             InventoryManager.Instance.playerData.golds += quests[index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
@@ -150,13 +151,19 @@ namespace App.Control
             else
             {
                 if (!quests[index].accepted)
-                    dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Pending").asset as DialogueConfig;
+                    dialogueConfig =
+                        Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Pending")
+                            .asset as DialogueConfig;
                 else
                 {
                     if (quests[index].count < quests[index].number)
-                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Undone").asset as DialogueConfig;
+                        dialogueConfig =
+                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Undone")
+                                .asset as DialogueConfig;
                     else
-                        dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Completed").asset as DialogueConfig;
+                        dialogueConfig =
+                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Completed")
+                                .asset as DialogueConfig;
                 }
             }
         }
