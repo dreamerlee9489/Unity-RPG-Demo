@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace App.Data
-{   
+namespace Data
+{
     [System.Serializable]
     public struct Vector
     {
@@ -13,7 +13,7 @@ namespace App.Data
             this.y = y;
             this.z = z;
         }
-        
+
         public Vector(Vector3 vector3)
         {
             x = vector3.x;

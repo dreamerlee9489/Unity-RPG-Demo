@@ -1,17 +1,22 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace App.Control
+namespace Control.NPC
 {
     public class Patroller : MonoBehaviour
     {
-        public enum PatrolState { WALKING, ALERT }
+        public enum PatrolState
+        {
+            Walking,
+            Alert
+        }
+
         public Transform path = null;
         NavMeshAgent agent = null;
         int index = 0;
         bool isPatrolling = false;
         public Transform target;
-        PatrolState state = PatrolState.WALKING;
+        PatrolState state = PatrolState.Walking;
         float timer = 0, alertTime = 4f;
         Animator animator = null;
 
@@ -28,27 +33,29 @@ namespace App.Control
             {
                 switch (state)
                 {
-                    case PatrolState.WALKING:
+                    case PatrolState.Walking:
                         agent.isStopped = false;
                         target = path.GetChild(index);
                         GetComponent<Entity>().Seek(path.GetChild(index).transform.position);
                         if (OnWaypoint(index))
                         {
-                            state = PatrolState.ALERT;
+                            state = PatrolState.Alert;
                             animator.SetBool("isAlert", true);
                         }
+
                         break;
-                    case PatrolState.ALERT:
+                    case PatrolState.Alert:
                         agent.isStopped = true;
                         timer += Time.deltaTime;
                         if (timer >= alertTime)
                         {
                             timer = 0;
                             index = Random.Range(0, path.childCount);
-                            state = PatrolState.WALKING;
+                            state = PatrolState.Walking;
                             target = null;
                             animator.SetBool("isAlert", false);
                         }
+
                         break;
                 }
             }
@@ -70,7 +77,7 @@ namespace App.Control
                 return true;
             return false;
         }
-        
+
         public void StartPatrol()
         {
             agent.isStopped = false;

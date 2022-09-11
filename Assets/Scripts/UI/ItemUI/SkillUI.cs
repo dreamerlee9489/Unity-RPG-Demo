@@ -1,7 +1,6 @@
-namespace App.UI
+namespace UI
 {
-	public class SkillUI : ItemUI
-	{
-
-	}
+    public class SkillUI : ItemUI
+    {
+    }
 }

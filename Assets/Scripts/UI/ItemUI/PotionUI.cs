@@ -1,7 +1,6 @@
-namespace App.UI
+namespace UI
 {
-	public class PotionUI : ItemUI
-	{
-
-	}
+    public class PotionUI : ItemUI
+    {
+    }
 }

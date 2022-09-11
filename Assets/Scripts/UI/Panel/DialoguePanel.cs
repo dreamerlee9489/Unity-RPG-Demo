@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using App.SO;
-using App.Control;
+using SO;
+using Control;
+using Control.NPC;
 
-namespace App.UI
+namespace UI
 {
     public class DialoguePanel : BasePanel
     {
@@ -41,10 +42,7 @@ namespace App.UI
                     }
                 }
             });
-            quitBtn.onClick.AddListener(() =>
-            {
-                gameObject.SetActive(false);
-            });
+            quitBtn.onClick.AddListener(() => { gameObject.SetActive(false); });
             nextRow.SetActive(false);
         }
 
@@ -52,8 +50,8 @@ namespace App.UI
         {
             if (npc != null)
             {
-                if(npc.GetComponent<NPCQuester>() != null)
-                    npc.GetComponent<NPCQuester>().CheckQuestProgress();
+                if (npc.GetComponent<Quester>() != null)
+                    npc.GetComponent<Quester>().CheckQuestProgress();
                 npcName.text = npc.GetComponent<Entity>().entityConfig.nickName;
                 dialoguesConfig = npc.dialogueConfig;
                 DialogueNode node = dialoguesConfig.dialogues[0];

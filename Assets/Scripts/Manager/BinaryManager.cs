@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
 
-namespace App.Manager
+namespace Manager
 {
     public class BinaryManager
     {
@@ -27,6 +27,7 @@ namespace App.Manager
         {
             if (!Directory.Exists(DATA_DIR))
                 Directory.CreateDirectory(DATA_DIR);
+            // Debug.Log(DATA_DIR);
             using (MemoryStream ms = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(ms, data);
@@ -47,6 +48,7 @@ namespace App.Manager
                 using (MemoryStream ms = new MemoryStream(bytes))
                     return new BinaryFormatter().Deserialize(ms) as T;
             }
+
             return null;
         }
 
@@ -62,17 +64,18 @@ namespace App.Manager
         {
             string tableName = typeof(T1).Name;
             T2 table = Activator.CreateInstance(typeof(T2)) as T2;
-            using (FileStream fs = File.Open(DATA_DIR + "Excel/" + tableName + ".table", FileMode.Open, FileAccess.Read))
+            using (FileStream fs = File.Open(DATA_DIR + "Excel/" + tableName + ".table", FileMode.Open,
+                       FileAccess.Read))
             {
                 byte[] bytes = new byte[fs.Length];
                 fs.Read(bytes, 0, (int)fs.Length);
                 int index = 0;
                 int keyLen = BitConverter.ToInt32(bytes, index);
-                index += sizeof(int);//读取键名长度
+                index += sizeof(int); //读取键名长度
                 string keyName = Encoding.UTF8.GetString(bytes, index, keyLen);
-                index += keyLen;//读取键名
+                index += keyLen; //读取键名
                 int rowCount = BitConverter.ToInt32(bytes, index);
-                index += sizeof(int);//读取行数
+                index += sizeof(int); //读取行数
                 for (int i = 0; i < rowCount; i++)
                 {
                     T1 obj = Activator.CreateInstance(typeof(T1)) as T1;
@@ -96,17 +99,21 @@ namespace App.Manager
                             case "String":
                                 int strlen = BitConverter.ToInt32(bytes, index);
                                 index += sizeof(int);
-                                obj.GetType().GetField(field.Name).SetValue(obj, Encoding.UTF8.GetString(bytes, index, strlen));
+                                obj.GetType().GetField(field.Name)
+                                    .SetValue(obj, Encoding.UTF8.GetString(bytes, index, strlen));
                                 index += strlen;
                                 break;
                             default:
                                 break;
                         }
                     }
+
                     object dic = table.GetType().GetField("tuples").GetValue(table);
-                    dic.GetType().GetMethod("Add").Invoke(dic, new object[] { obj.GetType().GetField(keyName).GetValue(obj), obj });
+                    dic.GetType().GetMethod("Add").Invoke(dic,
+                        new object[] { obj.GetType().GetField(keyName).GetValue(obj), obj });
                 }
             }
+
             return table;
         }
     }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using App.Control;
-using App.Items;
+using Control;
+using Items;
 
-namespace App.SO
+namespace SO
 {
     [CreateAssetMenu(fileName = "EntityConfig_", menuName = "Unity RPG Project/EntityConfig", order = 0)]
     public class EntityConfig : ScriptableObject

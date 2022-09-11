@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using App.Manager;
-using App.Control;
-using App.SO;
-using App.UI;
-using App.Data;
+using Manager;
+using Control;
+using SO;
+using UI;
+using Data;
 
-namespace App.Items
+namespace Items
 {
     public class Potion : Item
     {
@@ -14,20 +14,22 @@ namespace App.Items
             base.Awake();
             level = itemData.level = itemConfig.itemLevel;
         }
-        
+
         void Start()
         {
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.World ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            rigidbody.constraints = containerType == ContainerType.World
+                ? RigidbodyConstraints.None
+                : RigidbodyConstraints.FreezeAll;
             collider.enabled = containerType == ContainerType.World ? true : false;
-            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";    
+            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";
         }
 
         protected override void Update()
         {
             base.Update();
-            if(cdTimer < itemConfig.cd)
+            if (cdTimer < itemConfig.cd)
                 cdTimer = Mathf.Min(cdTimer + Time.deltaTime, itemConfig.cd);
         }
 
@@ -42,7 +44,8 @@ namespace App.Items
                     Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
                     InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
-                    tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
+                    tempSlot.count.text =
+                        tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
                     break;
                 case ContainerType.Equipment:
                     break;
@@ -59,8 +62,10 @@ namespace App.Items
                 if (temp != null && Equals(temp))
                     InventoryManager.Instance.ongoingQuests[i].UpdateProgress(1);
             }
+
             ItemSlot tempSlot = UIManager.Instance.bagPanel.GetStackSlot(this);
-            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag),
+                Instantiate(itemConfig.itemUI, tempSlot.icons.transform));
             tempSlot.count.text = tempSlot.count.text == "" ? "1" : (int.Parse(tempSlot.count.text) + 1).ToString();
         }
 
@@ -73,6 +78,7 @@ namespace App.Items
                 if (temp != null && Equals(temp))
                     InventoryManager.Instance.ongoingQuests[i].UpdateProgress(-1);
             }
+
             Destroy(this.itemUI.gameObject);
             Destroy(this.gameObject);
             itemSlot.count.text = itemSlot.count.text == "1" ? "" : (int.Parse(itemSlot.count.text) - 1).ToString();

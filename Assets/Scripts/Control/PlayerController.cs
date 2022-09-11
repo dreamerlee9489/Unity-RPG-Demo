@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Control.CMD;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using App.Manager;
+using Manager;
 
-namespace App.Control
+namespace Control
 {
     [RequireComponent(typeof(Entity))]
     public class PlayerController : MonoBehaviour
@@ -77,7 +78,8 @@ namespace App.Control
 
         void ExecuteCommand(int index, Vector3 point) => commands[index].Execute(point);
         void ExecuteCommand(int index, Transform target) => commands[index].Execute(target);
-        void CancelCommand()
+
+        public void CancelCommand()
         {
             foreach (var command in commands)
                 command.Cancel();

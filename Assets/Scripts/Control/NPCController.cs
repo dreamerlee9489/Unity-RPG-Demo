@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using App.SO;
+using SO;
 
-namespace App.Control
+namespace Control
 {
     [RequireComponent(typeof(Entity))]
     public abstract class NPCController : MonoBehaviour

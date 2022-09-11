@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
-using App.Control;
-using App.Data;
+using Control;
+using Data;
 
-namespace App.Manager
+namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
@@ -32,10 +32,10 @@ namespace App.Manager
         }
 
         public void EnterScene(string sceneName, Vector position)
-        {            
+        {
             player.gameObject.SetActive(false);
             player.transform.position = new Vector3(position.x, position.y, position.z);
-            SceneManager.LoadSceneAsync(sceneName);            
+            SceneManager.LoadSceneAsync(sceneName);
             player.gameObject.SetActive(true);
         }
     }

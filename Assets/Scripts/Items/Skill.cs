@@ -1,11 +1,11 @@
 using UnityEngine;
-using App.Control;
-using App.Control.FSM;
-using App.Manager;
-using App.SO;
-using App.Data;
+using Control;
+using Control.FSM;
+using Manager;
+using SO;
+using Data;
 
-namespace App.Items
+namespace Items
 {
     public class Skill : Item
     {
@@ -28,7 +28,7 @@ namespace App.Items
 
         protected override void Update()
         {
-            if(cdTimer < skillConfig.cd)
+            if (cdTimer < skillConfig.cd)
                 cdTimer = Mathf.Min(cdTimer + Time.deltaTime, skillConfig.cd);
             else
                 collider.enabled = false;
@@ -51,7 +51,8 @@ namespace App.Items
                         target.SetMaxSpeed(skillAttribute.controlRate, skillAttribute.controlTime);
                         break;
                     case ControlType.STUNN:
-                        target.GetComponent<StateController>()?.ChangeState(new Stunned(target, user, skillAttribute.controlTime));
+                        target.GetComponent<StateController>()
+                            ?.ChangeState(new Stunned(target, user, skillAttribute.controlTime));
                         break;
                 }
             }
@@ -70,7 +71,9 @@ namespace App.Items
                 case ContainerType.Action:
                     Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                     skill.level = itemData.level;
-                    InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.Action);
+                    InventoryManager.Instance.Add(skill,
+                        Instantiate(itemConfig.itemUI,
+                            UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.Action);
                     break;
             }
         }
@@ -84,11 +87,16 @@ namespace App.Items
             {
                 Skill skill = Instantiate(itemConfig.item, InventoryManager.Instance.skills).GetComponent<Skill>();
                 skill.level = 1;
-                InventoryManager.Instance.Add(skill, Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform), ContainerType.Action);
+                InventoryManager.Instance.Add(skill,
+                    Instantiate(itemConfig.itemUI, UIManager.Instance.actionPanel.GetFirstValidSlot().icons.transform),
+                    ContainerType.Action);
             }
         }
 
-        public override void RemoveFromInventory() {}
+        public override void RemoveFromInventory()
+        {
+        }
+
         public override void Use(Entity user)
         {
             if (cdTimer < itemConfig.cd)

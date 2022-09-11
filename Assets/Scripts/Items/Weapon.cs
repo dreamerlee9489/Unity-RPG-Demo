@@ -1,8 +1,8 @@
-﻿using App.Manager;
-using App.UI;
-using App.Control;
+﻿using Manager;
+using UI;
+using Control;
 
-namespace App.Items
+namespace Items
 {
     public class Weapon : Equipment
     {
@@ -29,6 +29,7 @@ namespace App.Items
                         bagPanel.Erase(itemUI);
                         weaponSlot.Draw(itemUI);
                     }
+
                     GameManager.Instance.player.AttachEquipment(this);
                     containerType = ContainerType.Equipment;
                     break;
@@ -39,6 +40,6 @@ namespace App.Items
                     containerType = ContainerType.Bag;
                     break;
             }
-        }   
+        }
     }
 }

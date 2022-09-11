@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using App.UI;
-using App.Items;
+using UI;
+using Items;
 
-namespace App.SO
+namespace SO
 {
     public abstract class ItemConfig : ScriptableObject
     {

@@ -1,37 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
-using App.Manager;
+using Manager;
 
-namespace App.Control
+namespace Control
 {
     public class NameBar : MonoBehaviour
     {
-		public Text chName { get; set; }
-		public Text damage { get; set; }
+        public Text chName { get; set; }
+        public Text damage { get; set; }
 
-		void Awake()
-		{
-			chName = transform.GetChild(0).GetComponent<Text>();
-			damage = transform.GetChild(1).GetComponent<Text>();
-		}
+        void Awake()
+        {
+            chName = transform.GetChild(0).GetComponent<Text>();
+            damage = transform.GetChild(1).GetComponent<Text>();
+        }
 
-		void Start()
-		{
-			if(transform.parent != null)
-			{
-				if(transform.parent.CompareTag("Player"))
-				{
-					chName.color = Color.green;
-					chName.text = InventoryManager.Instance.playerData.nickName;
-				}
-				else
-				{
-					chName.color = transform.parent.CompareTag("Enemy") ? Color.red : Color.yellow;
-					chName.text = transform.parent.GetComponent<Entity>().entityConfig.nickName;
-				}
-				chName.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 2.4f, 0);
-			}	
-		}
+        void Start()
+        {
+            if (transform.parent != null)
+            {
+                if (transform.parent.CompareTag("Player"))
+                {
+                    chName.color = Color.green;
+                    chName.text = InventoryManager.Instance.playerData.nickName;
+                }
+                else
+                {
+                    chName.color = transform.parent.CompareTag("Enemy") ? Color.red : Color.yellow;
+                    chName.text = transform.parent.GetComponent<Entity>().entityConfig.nickName;
+                }
+
+                chName.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 2.4f, 0);
+            }
+        }
 
         void LateUpdate()
         {

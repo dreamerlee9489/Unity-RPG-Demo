@@ -1,20 +1,20 @@
 using UnityEngine;
-using App.Items;
-using App.Manager;
+using Items;
+using Manager;
 
-namespace App.UI
+namespace UI
 {
     public class ItemShopBar : ShopBar
     {
-		public int inventory { get; set; }
-        
+        public int inventory { get; set; }
+
         protected override void Awake()
         {
             base.Awake();
-			inventory = UIManager.Instance.itemShopPanel.isSell ? 1 : 10;
+            inventory = UIManager.Instance.itemShopPanel.isSell ? 1 : 10;
             btnMinus.onClick.AddListener(() =>
             {
-                if(count != 0)
+                if (count != 0)
                 {
                     count = Mathf.Max(--count, 0);
                     total = count * price;
@@ -25,7 +25,7 @@ namespace App.UI
             });
             btnPlus.onClick.AddListener(() =>
             {
-                if(count == inventory)
+                if (count == inventory)
                     shopPanel.hint.text = (shopPanel as ItemShopPanel).isSell ? "已达到你的库存上限" : "已达到单次购买数量最大限制";
                 else
                 {

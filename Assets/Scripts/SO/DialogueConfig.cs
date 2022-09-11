@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.SO
+namespace SO
 {
     [System.Serializable]
     public class DialogueOption

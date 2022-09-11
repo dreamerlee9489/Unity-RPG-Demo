@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using App.Manager;
+using Manager;
 
-namespace App.Control.FSM
+namespace Control.FSM
 {
     public abstract class State
     {
@@ -39,7 +39,7 @@ namespace App.Control.FSM
         public override void Execute()
         {
             idleTimer += Time.deltaTime;
-            if(idleTimer > 4)
+            if (idleTimer > 4)
                 owner.GetComponent<StateController>().ChangeState(new Patrol(owner, target));
             else if (owner.CanSee(target.transform))
                 owner.GetComponent<StateController>().ChangeState(new Pursuit(owner, target));
@@ -111,7 +111,7 @@ namespace App.Control.FSM
                     owner.GetComponent<StateController>().ChangeState(new Attack(owner, target));
                 owner.Seek(target.transform.position);
                 owner.transform.LookAt(target.transform);
-            }            
+            }
         }
 
         public override void Exit()
@@ -163,7 +163,8 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            owner.audioSource.clip = Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
+            owner.audioSource.clip =
+                Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
             owner.audioSource.Play();
             animator.SetBool("stunned", true);
             agent.isStopped = true;
@@ -173,7 +174,7 @@ namespace App.Control.FSM
         public override void Execute()
         {
             timer += Time.deltaTime;
-            if(timer >= duration)
+            if (timer >= duration)
                 owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
         }
 
@@ -200,7 +201,8 @@ namespace App.Control.FSM
 
         public override void Enter()
         {
-            owner.audioSource.clip = Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
+            owner.audioSource.clip =
+                Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
             owner.audioSource.Play();
             animator.SetTrigger("knocked");
             agent.isStopped = true;
@@ -210,7 +212,7 @@ namespace App.Control.FSM
         public override void Execute()
         {
             timer += Time.deltaTime;
-            if(timer >= duration)
+            if (timer >= duration)
                 owner.GetComponent<StateController>().ChangeState(new Idle(owner, target));
         }
 

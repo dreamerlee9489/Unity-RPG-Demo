@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using App.Control;
-using App.UI;
+using Control;
+using Control.CMD;
+using UI;
 
-namespace App.Manager
+namespace Manager
 {
     public class UIManager : MonoBehaviour, ICmdReceiver
     {
@@ -78,6 +79,7 @@ namespace App.Manager
                     skillShopPanel.gameObject.SetActive(skillShopPanel.isOpened = false);
                     pausePanel.gameObject.SetActive(pausePanel.isOpened = true);
                 }
+
                 if (Input.GetKeyDown(KeyCode.A))
                     attributePanel.gameObject.SetActive(attributePanel.isOpened = !attributePanel.isOpened);
                 if (Input.GetKeyDown(KeyCode.B))
@@ -93,7 +95,10 @@ namespace App.Manager
             }
         }
 
-        public void ExecuteAction(Vector3 point) { }
+        public void ExecuteAction(Vector3 point)
+        {
+        }
+
         public void ExecuteAction(Transform target)
         {
             if (!GameManager.Instance.player.CanDialogue(target))

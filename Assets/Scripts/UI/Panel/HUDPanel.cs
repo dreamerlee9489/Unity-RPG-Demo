@@ -1,7 +1,7 @@
-using App.Manager;
+using Manager;
 using UnityEngine;
 
-namespace App.UI
+namespace UI
 {
     public class HUDPanel : MonoBehaviour
     {
@@ -25,9 +25,12 @@ namespace App.UI
 
         public void UpdatePanel()
         {
-            hpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentHP / GameManager.Instance.player.professionAttribute.hp, 1, 1));
-            mpBar.UpdateBar(new Vector3(GameManager.Instance.player.currentMP / GameManager.Instance.player.professionAttribute.mp, 1, 1));
-            expBar.UpdateBar(new Vector3(GameManager.Instance.player.currentEXP / GameManager.Instance.player.professionAttribute.exp, 1, 1));
+            hpBar.UpdateBar(new Vector3(
+                GameManager.Instance.player.currentHP / GameManager.Instance.player.professionAttribute.hp, 1, 1));
+            mpBar.UpdateBar(new Vector3(
+                GameManager.Instance.player.currentMP / GameManager.Instance.player.professionAttribute.mp, 1, 1));
+            expBar.UpdateBar(new Vector3(
+                GameManager.Instance.player.currentEXP / GameManager.Instance.player.professionAttribute.exp, 1, 1));
         }
     }
 }

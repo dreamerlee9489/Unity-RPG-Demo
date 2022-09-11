@@ -1,10 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using App.Items;
+using Items;
 
-namespace App.UI
+namespace UI
 {
-    public enum SlotType { BAG, ACTION, HELMET, BREAST, SHIELD, BOOTS, NECKLACE, HAND, WEAPON, PANTS }
+    public enum SlotType
+    {
+        BAG,
+        ACTION,
+        HELMET,
+        BREAST,
+        SHIELD,
+        BOOTS,
+        NECKLACE,
+        HAND,
+        WEAPON,
+        PANTS
+    }
 
     public class ItemSlot : MonoBehaviour
     {
@@ -66,11 +78,12 @@ namespace App.UI
 
         public void Erase()
         {
-            if(itemUI != null)
+            if (itemUI != null)
             {
                 itemUI.transform.SetParent(null);
                 itemUI = null;
             }
+
             ResetItemType();
         }
     }

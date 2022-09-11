@@ -2,9 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.UI
+namespace UI
 {
-    public enum ShopType { ITEM, SKILL }
+    public enum ShopType
+    {
+        ITEM,
+        SKILL
+    }
 
     public abstract class ShopPanel : BasePanel
     {

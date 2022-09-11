@@ -1,10 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.SO
+namespace SO
 {
-    public enum SkillType { A, B, C, D }
-    public enum ControlType { NONE, SPEED, STUNN, KNOCK }
+    public enum SkillType
+    {
+        A,
+        B,
+        C,
+        D
+    }
+
+    public enum ControlType
+    {
+        NONE,
+        SPEED,
+        STUNN,
+        KNOCK
+    }
+
     public class SkillAttribute
     {
         public float hp = 0, mp = 0, atk = 0, def = 0, cd = 0, controlTime = 0, controlRate = 0.5f;
@@ -17,7 +31,13 @@ namespace App.SO
         public ControlType controlType = ControlType.NONE;
         public float controlRate = 0.5f;
         public float initialHP = 0, initialMP = 0, initialATK = 0, initialDEF = 0, initialControlTime = 2;
-        public float factorHP = 0.25f, factorMP = 0.25f, factorATK = 0.25f, factorDEF = 0.25f, factorControlTime = 0.25f;
+
+        public float factorHP = 0.25f,
+            factorMP = 0.25f,
+            factorATK = 0.25f,
+            factorDEF = 0.25f,
+            factorControlTime = 0.25f;
+
         public List<int> levelRequires = new List<int>();
 
         public SkillAttribute GetSkillAttribute(int level)

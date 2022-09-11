@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.UI
+namespace UI
 {
     public class QuestBar : MonoBehaviour
     {

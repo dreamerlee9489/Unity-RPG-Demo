@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using App.Manager;
-using App.Control;
-using App.Data;
+using Manager;
+using Control;
+using Data;
 
-namespace App.UI
+namespace UI
 {
     public class StartPanel : MonoBehaviour
     {
@@ -43,8 +43,10 @@ namespace App.UI
                     GameManager.Instance.EnterScene(playerData.sceneName, playerData.position);
                     InventoryManager.Instance.playerData = playerData;
                     InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
-                    InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
-                    UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                    InventoryManager.Instance.skills =
+                        GameManager.Instance.player.GetComponent<PlayerController>().skills;
+                    UIManager.Instance.audioSource.clip =
+                        Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
                     UIManager.Instance.audioSource.Play();
                     UIManager.Instance.hudPanel.gameObject.SetActive(true);
                     UIManager.Instance.actionPanel.gameObject.SetActive(true);
@@ -59,24 +61,31 @@ namespace App.UI
             });
             btnLoad.onClick.AddListener(() =>
             {
-                if(File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
+                if (File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
                 {
-                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
+                    using (StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
                     {
                         string name = "";
-                        while((name = reader.ReadLine()) != null)
+                        while ((name = reader.ReadLine()) != null)
                         {
                             Button btn = Instantiate(btnRecord, recordPanel.content);
                             btn.transform.GetChild(0).GetComponent<Text>().text = name;
-                            btn.onClick.AddListener(() => {
-                                PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>(btn.transform.GetChild(0).GetComponent<Text>().text + "_PlayerData");
-                                GameManager.Instance.player = Instantiate(Resources.Load<Entity>("Entity/Player/Player"));
+                            btn.onClick.AddListener(() =>
+                            {
+                                PlayerData playerData =
+                                    BinaryManager.Instance.LoadData<PlayerData>(
+                                        btn.transform.GetChild(0).GetComponent<Text>().text + "_PlayerData");
+                                GameManager.Instance.player =
+                                    Instantiate(Resources.Load<Entity>("Entity/Player/Player"));
                                 GameManager.Instance.virtualCamera.Follow = GameManager.Instance.player.transform;
                                 GameManager.Instance.EnterScene(playerData.sceneName, playerData.position);
                                 InventoryManager.Instance.playerData = playerData;
-                                InventoryManager.Instance.bag = GameManager.Instance.player.GetComponent<PlayerController>().bag;
-                                InventoryManager.Instance.skills = GameManager.Instance.player.GetComponent<PlayerController>().skills;
-                                UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
+                                InventoryManager.Instance.bag =
+                                    GameManager.Instance.player.GetComponent<PlayerController>().bag;
+                                InventoryManager.Instance.skills = GameManager.Instance.player
+                                    .GetComponent<PlayerController>().skills;
+                                UIManager.Instance.audioSource.clip =
+                                    Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
                                 UIManager.Instance.audioSource.Play();
                                 UIManager.Instance.hudPanel.gameObject.SetActive(true);
                                 UIManager.Instance.actionPanel.gameObject.SetActive(true);
@@ -86,31 +95,30 @@ namespace App.UI
                         }
                     }
                 }
+
                 optionsPanel.gameObject.SetActive(false);
                 recordPanel.gameObject.SetActive(true);
             });
-            btnExit.onClick.AddListener(() =>
-            {
-                Application.Quit();
-            });
+            btnExit.onClick.AddListener(() => { Application.Quit(); });
             btnCreateSure.onClick.AddListener(() =>
             {
                 string playerName = inputField.text == "" ? "冒险家" : inputField.text;
-                if(File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
+                if (File.Exists(InventoryManager.PLAYER_ACCOUNT_PATH))
                 {
-                    using(StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
+                    using (StreamReader reader = File.OpenText(InventoryManager.PLAYER_ACCOUNT_PATH))
                     {
                         string name = "";
-                        while((name = reader.ReadLine()) != null)
+                        while ((name = reader.ReadLine()) != null)
                         {
-                            if(name == playerName)
+                            if (name == playerName)
                             {
                                 Debug.Log("用户名已存在!");
                                 return;
                             }
                         }
                     }
-                } 
+                }
+
                 UIManager.Instance.audioSource.clip = Resources.LoadAsync("Audio/SFX_Heal spell").asset as AudioClip;
                 UIManager.Instance.audioSource.Play();
                 InventoryManager.Instance.playerData = new PlayerData(playerName, 5000);

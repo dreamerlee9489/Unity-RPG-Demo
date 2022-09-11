@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using App.Control;
+using Control;
+using Control.NPC;
 
-namespace App.UI
+namespace UI
 {
     public class QuestPanel : BasePanel
     {
@@ -41,7 +42,7 @@ namespace App.UI
             for (int i = 0; i < scrollRect.content.childCount; i++)
             {
                 tempBar = scrollRect.content.GetChild(i).GetComponent<QuestBar>();
-                if (tempBar.chName.text== quest.chName)
+                if (tempBar.chName.text == quest.chName)
                 {
                     Destroy(scrollRect.content.GetChild(i).gameObject);
                     return;

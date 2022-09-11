@@ -1,10 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-using App.Items;
+using Items;
 
-namespace App.SO
+namespace SO
 {
-    public enum ProfessionType { NONE, WARRIOR, ARCHER, MEGA, SHAMAN }
+    public enum ProfessionType
+    {
+        NONE,
+        WARRIOR,
+        ARCHER,
+        MEGA,
+        SHAMAN
+    }
 
     public class ProfessionAttribute
     {

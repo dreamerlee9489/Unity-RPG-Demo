@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.UI
+namespace UI
 {
     public class MessagePanel : BasePanel
     {
@@ -33,7 +33,7 @@ namespace App.UI
             text.color = color;
             text.text = msg;
             timer = 10;
-            scrollRect.verticalScrollbar.value = 0f;        
+            scrollRect.verticalScrollbar.value = 0f;
             gameObject.SetActive(true);
         }
     }

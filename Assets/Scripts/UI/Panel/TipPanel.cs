@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using App.SO;
-using App.Items;
-using App.Manager;
+using SO;
+using Items;
+using Manager;
 
-namespace App.UI
+namespace UI
 {
     public class TipPanel : MonoBehaviour
     {
@@ -60,28 +60,37 @@ namespace App.UI
                         if (potionConfig.hp != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "生命值：" + (potionConfig.hp > 0 ? "+" : "") + potionConfig.hp.ToString();
+                            bars[bars.Count - 1].text =
+                                "生命值：" + (potionConfig.hp > 0 ? "+" : "") + potionConfig.hp.ToString();
                         }
+
                         if (potionConfig.mp != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "法力值：" + (potionConfig.mp > 0 ? "+" : "") + potionConfig.mp.ToString();
+                            bars[bars.Count - 1].text =
+                                "法力值：" + (potionConfig.mp > 0 ? "+" : "") + potionConfig.mp.ToString();
                         }
+
                         if (potionConfig.atk != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "攻击力：" + (potionConfig.atk > 0 ? "+" : "") + potionConfig.atk.ToString();
+                            bars[bars.Count - 1].text =
+                                "攻击力：" + (potionConfig.atk > 0 ? "+" : "") + potionConfig.atk.ToString();
                         }
+
                         if (potionConfig.def != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "防御力：" + (potionConfig.def > 0 ? "+" : "") + potionConfig.def.ToString();
+                            bars[bars.Count - 1].text =
+                                "防御力：" + (potionConfig.def > 0 ? "+" : "") + potionConfig.def.ToString();
                         }
-                        if(potionConfig.cd != 0)
+
+                        if (potionConfig.cd != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
                             bars[bars.Count - 1].text = "冷却时间：" + potionConfig.cd.ToString() + "秒";
                         }
+
                         break;
                     case ItemType.Skill:
                         itemType.text = "技能";
@@ -89,31 +98,40 @@ namespace App.UI
                         Skill skill = UIManager.Instance.skillShopPanel.GetPlayerSkill(item as Skill);
                         itemLevel.text = "等级：" + (skill == null ? 1 : skill.level + 1);
                         SkillConfig skillConfig = itemConfig as SkillConfig;
-                        if(skillConfig.initialHP != 0)
+                        if (skillConfig.initialHP != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "生命值：" + (skillConfig.initialHP > 0 ? "+" : "") + skillConfig.initialHP.ToString();
+                            bars[bars.Count - 1].text = "生命值：" + (skillConfig.initialHP > 0 ? "+" : "") +
+                                                        skillConfig.initialHP.ToString();
                         }
-                        if(skillConfig.initialMP != 0)
+
+                        if (skillConfig.initialMP != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "法力值：" + (skillConfig.initialMP > 0 ? "+" : "") + skillConfig.initialMP.ToString();
+                            bars[bars.Count - 1].text = "法力值：" + (skillConfig.initialMP > 0 ? "+" : "") +
+                                                        skillConfig.initialMP.ToString();
                         }
-                        if(skillConfig.initialATK != 0)
+
+                        if (skillConfig.initialATK != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "攻击力：" + (skillConfig.initialATK > 0 ? "+" : "") + skillConfig.initialATK.ToString();
+                            bars[bars.Count - 1].text = "攻击力：" + (skillConfig.initialATK > 0 ? "+" : "") +
+                                                        skillConfig.initialATK.ToString();
                         }
-                        if(skillConfig.initialDEF != 0)
+
+                        if (skillConfig.initialDEF != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
-                            bars[bars.Count - 1].text = "防御力：" + (skillConfig.initialDEF > 0 ? "+" : "") + skillConfig.initialDEF.ToString();
+                            bars[bars.Count - 1].text = "防御力：" + (skillConfig.initialDEF > 0 ? "+" : "") +
+                                                        skillConfig.initialDEF.ToString();
                         }
-                        if(skillConfig.cd != 0)
+
+                        if (skillConfig.cd != 0)
                         {
                             bars.Add(Instantiate(tipBarPrefab, transform));
                             bars[bars.Count - 1].text = "冷却时间：" + skillConfig.cd.ToString() + "秒";
                         }
+
                         break;
                     case ItemType.Boots:
                     case ItemType.Breast:

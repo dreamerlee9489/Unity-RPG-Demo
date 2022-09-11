@@ -2829,7 +2829,7 @@ GameObject:
   - component: {fileID: 7598806302966244455}
   - component: {fileID: 820470872506824559}
   - component: {fileID: 3299999189824377822}
-  - component: {fileID: 336090344837830829}
+  - component: {fileID: 3281232651908160978}
   m_Layer: 0
   m_Name: NPC_Guard_01
   m_TagString: NPC
@@ -3029,7 +3029,7 @@ MonoBehaviour:
   entityConfig: {fileID: 11400000, guid: 46fc001bb2ed3764e988d38d40e8a87e, type: 2}
   professionConfig: {fileID: 11400000, guid: f4de5f38ebd077f448c209fe2a943935, type: 2}
   dropListConfig: {fileID: 11400000, guid: 174f01bdc1ace704783a0787a18b33cd, type: 2}
---- !u!114 &336090344837830829
+--- !u!114 &3281232651908160978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

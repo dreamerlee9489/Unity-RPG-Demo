@@ -1,14 +1,40 @@
 ﻿using UnityEngine;
-using App.SO;
-using App.UI;
-using App.Control;
-using App.Data;
+using SO;
+using UI;
+using Control;
+using Data;
 
-namespace App.Items
+namespace Items
 {
-    public enum ItemType { None, Helmet, Breast, Shield, Boots, Necklace, Bracelet, Weapon, Pants, Potion, Skill }
-    public enum EquipmentType { Weapon, Armor, Jewelry }
-    public enum ContainerType { World, Bag, Equipment, Action }
+    public enum ItemType
+    {
+        None,
+        Helmet,
+        Breast,
+        Shield,
+        Boots,
+        Necklace,
+        Bracelet,
+        Weapon,
+        Pants,
+        Potion,
+        Skill
+    }
+
+    public enum EquipmentType
+    {
+        Weapon,
+        Armor,
+        Jewelry
+    }
+
+    public enum ContainerType
+    {
+        World,
+        Bag,
+        Equipment,
+        Action
+    }
 
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public abstract class Item : MonoBehaviour
@@ -34,11 +60,13 @@ namespace App.Items
         {
             collider = GetComponent<Collider>();
             rigidbody = GetComponent<Rigidbody>();
-            itemData = new ItemData();
-            itemData.id = System.Guid.NewGuid().ToString();
-            itemData.path = "Items/" + GetType().Name + "/" + itemConfig.item.name;
-            itemData.position = new Vector(transform.position);
-            itemData.containerType = containerType;
+            itemData = new ItemData
+            {
+                id = System.Guid.NewGuid().ToString(),
+                path = "Items/" + GetType().Name + "/" + itemConfig.item.name,
+                position = new Vector(transform.position),
+                containerType = containerType
+            };
         }
 
         protected virtual void Update()
@@ -50,7 +78,9 @@ namespace App.Items
                     nameBar = Instantiate(Resources.Load<NameBar>("UI/Bar/NameBar"));
                     nameBar.chName.text = itemConfig.itemName;
                 }
-                nameBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+
+                nameBar.transform.position =
+                    new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             }
         }
     }

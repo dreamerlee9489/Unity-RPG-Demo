@@ -1,8 +1,8 @@
-﻿using App.Items;
+﻿using Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.UI
+namespace UI
 {
     public class BagPanel : BasePanel
     {
@@ -23,7 +23,7 @@ namespace App.UI
             for (int i = 0; i < content.childCount; i++)
             {
                 ItemSlot slot = content.GetChild(i).GetComponent<ItemSlot>();
-                if(itemUI == slot.itemUI)
+                if (itemUI == slot.itemUI)
                 {
                     slot.Erase();
                     return;
@@ -35,9 +35,10 @@ namespace App.UI
         {
             for (int i = 0; i < content.childCount; i++)
             {
-                if(content.GetChild(i).GetComponent<ItemSlot>().itemUI == null)
+                if (content.GetChild(i).GetComponent<ItemSlot>().itemUI == null)
                     return content.GetChild(i).GetComponent<ItemSlot>();
             }
+
             return null;
         }
 
@@ -50,6 +51,7 @@ namespace App.UI
                 if (itemSlot.itemUI != null && itemSlot.itemUI.item.Equals(item))
                     return itemSlot;
             }
+
             return GetFirstValidSlot();
         }
     }

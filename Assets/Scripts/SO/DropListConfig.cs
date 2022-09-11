@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using App.Items;
+using Items;
 
-namespace App.SO
+namespace SO
 {
     [CreateAssetMenu(fileName = "DropListConfig_", menuName = "Unity RPG Project/DropListConfig", order = 5)]
     public class DropListConfig : ScriptableObject
@@ -20,6 +20,7 @@ namespace App.SO
                 for (int i = 0; i < dropCount; i++)
                     drops.Add(dropList[Random.Range(0, dropList.Count)]);
             }
+
             return drops;
         }
     }

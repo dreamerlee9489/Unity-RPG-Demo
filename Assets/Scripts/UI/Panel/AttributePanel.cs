@@ -1,8 +1,8 @@
 using UnityEngine.UI;
-using App.Manager;
-using App.Control;
+using Manager;
+using Control;
 
-namespace App.UI
+namespace UI
 {
     public class AttributePanel : BasePanel
     {
@@ -20,7 +20,7 @@ namespace App.UI
 
         void Start()
         {
-			UpdatePanel();
+            UpdatePanel();
         }
 
         public void UpdatePanel()

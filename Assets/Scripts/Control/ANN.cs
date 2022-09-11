@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Control
+namespace Control
 {
     public class Neuron
     {
@@ -38,7 +38,7 @@ namespace App.Control
     }
 
     public class ANN
-	{
+    {
         public int inputNum;
         public int outputNum;
         public int hiddenNum;
@@ -76,15 +76,17 @@ namespace App.Control
                 {
                     double equ = 0;
                     for (int k = 0; k < layers[i].neurons[j].inputNum; k++)
-                    { 
+                    {
                         layers[i].neurons[j].inputs[k] = tempInputs[k];
                         equ += layers[i].neurons[j].weights[k] * tempInputs[k];
                     }
+
                     equ -= layers[i].neurons[j].bias;
                     layers[i].neurons[j].output = (i == hiddenNum) ? Sigmoid(equ) : ReLu(equ);
                     tempOutputs.Add(layers[i].neurons[j].output);
                 }
             }
+
             return tempOutputs;
         }
 
@@ -118,17 +120,19 @@ namespace App.Control
                         }
                         else
                         {
-                            layers[i].neurons[j].weights[k] += alpha * layers[i].neurons[j].inputs[k] * layers[i].neurons[j].gradient;
+                            layers[i].neurons[j].weights[k] +=
+                                alpha * layers[i].neurons[j].inputs[k] * layers[i].neurons[j].gradient;
                         }
                     }
+
                     layers[i].neurons[j].bias -= alpha * layers[i].neurons[j].gradient;
                 }
             }
         }
 
         double ReLu(double x)
-        { 
-            if(x > 0)
+        {
+            if (x > 0)
                 return x;
             return 0;
         }
@@ -151,5 +155,5 @@ namespace App.Control
                 return 1;
             return 0;
         }
-	}
+    }
 }

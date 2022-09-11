@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Manager
+namespace Manager
 {
-    public enum Message { Hello, ByeBye }
+    public enum Message
+    {
+        Hello,
+        ByeBye
+    }
 
     public interface IMsgReceiver
     {

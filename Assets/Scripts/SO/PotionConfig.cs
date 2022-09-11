@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.SO
+namespace SO
 {
     [CreateAssetMenu(fileName = "PotionConfig_", menuName = "Unity RPG Project/PotionConfig", order = 4)]
     public class PotionConfig : ItemConfig

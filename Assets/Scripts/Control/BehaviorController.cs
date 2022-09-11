@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using App.Control.BT;
-using App.Manager;
+using Control.BT;
+using Control.BT.Composite;
+using Control.BT.Decorator;
+using Manager;
 
-namespace App.Control
+namespace Control
 {
     [RequireComponent(typeof(Entity))]
     public class BehaviorController : MonoBehaviour
@@ -35,22 +37,17 @@ namespace App.Control
                     agent.speed = entity.entityConfig.runSpeed * entity.entityConfig.runFactor * entity.speedRate;
                     return true;
                 }
+
                 agent.speed = entity.entityConfig.walkSpeed * entity.entityConfig.walkFactor;
                 return false;
             });
             root.AddChildren(retreat, wander, chase);
-            retreat.AddChildren(new Condition(() =>
-            {
-                return false;
-            }), new Action(() =>
+            retreat.AddChildren(new Condition(() => { return false; }), new Action(() =>
             {
                 if (entity.Flee(player.position))
-                    return Status.SUCCESS;
-                return Status.RUNNING;
-            }), new Action(() =>
-            {
-                return Status.SUCCESS;
-            }));
+                    return Status.Success;
+                return Status.Running;
+            }), new Action(() => { return Status.Success; }));
             wander.AddChildren(new UntilSuccess(canSeePlayer), new Action(() =>
             {
                 wanderTimer += Time.deltaTime;
@@ -59,12 +56,13 @@ namespace App.Control
                     entity.Wander();
                     wanderTimer = 0;
                 }
-                return Status.RUNNING;
+
+                return Status.Running;
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
                 entity.ExecuteAction(player);
-                    return Status.RUNNING;
+                return Status.Running;
             }));
         }
 

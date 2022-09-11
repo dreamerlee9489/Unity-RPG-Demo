@@ -1,8 +1,16 @@
 using UnityEngine;
 
-namespace App.SO
+namespace SO
 {
-    public enum WeaponType { NONE, SWORD, AXE, ARROW, STAFF, PROJECTILE }
+    public enum WeaponType
+    {
+        NONE,
+        SWORD,
+        AXE,
+        ARROW,
+        STAFF,
+        PROJECTILE
+    }
 
     [CreateAssetMenu(fileName = "WeaponConfig_", menuName = "Unity RPG Project/WeaponConfig", order = 2)]
     public class WeaponConfig : ItemConfig

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using App.Items;
-using App.Manager;
-using App.SO;
+using Items;
+using Manager;
+using SO;
 
-namespace App.UI
+namespace UI
 {
     public class SkillShopPanel : ShopPanel
     {
@@ -24,7 +24,9 @@ namespace App.UI
                     {
                         if (shopBars[i].count > 0)
                         {
-                            int levelRequire = (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).levelRequires[shopBars[i].count - 1];
+                            int levelRequire =
+                                (shopBars[i].shopItem.GetComponent<Skill>().itemConfig as SkillConfig).levelRequires[
+                                    shopBars[i].count - 1];
                             Skill skill = (shopBars[i] as SkillShopBar).skill;
                             if (skill == null || shopBars[i].count > skill.level)
                             {
@@ -34,11 +36,14 @@ namespace App.UI
                                 {
                                     for (int j = 0; j < shopBars[i].count; j++)
                                         goods.GetChild(i).GetComponent<Skill>().AddToInventory();
-                                    UIManager.Instance.messagePanel.Print("[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" + shopBars[i].count, Color.yellow);
+                                    UIManager.Instance.messagePanel.Print(
+                                        "[系统]  " + shopBars[i].shopItem.itemConfig.itemName + "的技能等级提升到了：" +
+                                        shopBars[i].count, Color.yellow);
                                 }
                             }
                         }
                     }
+
                     InventoryManager.Instance.playerData.golds -= total;
                     UIManager.Instance.goldPanel.UpdatePanel();
                     gameObject.SetActive(false);
@@ -72,6 +77,7 @@ namespace App.UI
                 if (result != null && result.Equals(skill))
                     return result;
             }
+
             return null;
         }
     }

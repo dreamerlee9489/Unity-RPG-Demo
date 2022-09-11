@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using App.Manager;
-using App.Items;
+using Manager;
+using Items;
 
-namespace App.UI
+namespace UI
 {
     [System.Serializable]
-    public abstract class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public abstract class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,
+        IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         Transform originParent = null;
         public Item item { get; set; }
 
         void Update()
         {
-            GetComponent<Image>().fillAmount = item.cdTimer < item.itemConfig.cd ? item.cdTimer / item.itemConfig.cd : 1;           
+            GetComponent<Image>().fillAmount =
+                item.cdTimer < item.itemConfig.cd ? item.cdTimer / item.itemConfig.cd : 1;
         }
 
         Transform CheckSlotType(GameObject obj)
@@ -44,6 +46,7 @@ namespace App.UI
                             GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Action);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
                         }
+
                         return SwapItemUI(targetSlot, target);
                     }
                     else if (targetSlot.slotType == SlotType.BAG)
@@ -57,6 +60,7 @@ namespace App.UI
                             GameManager.Instance.player.DetachEquipment(item as Equipment, ContainerType.Bag);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
                         }
+
                         return SwapItemUI(targetSlot, target);
                     }
                     else
@@ -65,14 +69,17 @@ namespace App.UI
                             return originParent;
                         if (item.containerType == ContainerType.Equipment)
                         {
-                            GameManager.Instance.player.DetachEquipment(item as Equipment, targetSlot.itemUI.item.containerType);
+                            GameManager.Instance.player.DetachEquipment(item as Equipment,
+                                targetSlot.itemUI.item.containerType);
                             GameManager.Instance.player.AttachEquipment(targetSlot.itemUI.item as Equipment);
                         }
                         else
                         {
-                            GameManager.Instance.player.DetachEquipment(targetSlot.itemUI.item as Equipment, item.containerType);
+                            GameManager.Instance.player.DetachEquipment(targetSlot.itemUI.item as Equipment,
+                                item.containerType);
                             GameManager.Instance.player.AttachEquipment(item as Equipment);
                         }
+
                         return SwapItemUI(targetSlot, target);
                     }
                 }
@@ -128,7 +135,8 @@ namespace App.UI
         public void OnEndDrag(PointerEventData eventData)
         {
             originParent.GetComponent<ItemSlot>().itemUI = null;
-            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter).GetComponent<ItemSlot>().icons);
+            eventData.pointerDrag.transform.SetParent(CheckSlotType(eventData.pointerEnter).GetComponent<ItemSlot>()
+                .icons);
             transform.parent.parent.GetComponent<ItemSlot>().itemUI = this;
             GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             GetComponent<Image>().raycastTarget = true;
@@ -151,17 +159,24 @@ namespace App.UI
             if (position.x > tipRect.width)
             {
                 if (position.y < tipRect.height)
-                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(-itemRect.width, tipRect.height / 2, 0);
+                    UIManager.Instance.tipPanel.transform.position =
+                        position + new Vector3(-itemRect.width, tipRect.height / 2, 0);
                 else
-                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(-itemRect.width, -tipRect.height / 2, 0);
+                    UIManager.Instance.tipPanel.transform.position =
+                        position + new Vector3(-itemRect.width, -tipRect.height / 2, 0);
             }
             else
             {
                 if (position.y < tipRect.height)
-                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(itemRect.width / 2 + tipRect.width, tipRect.height / 2, 0);
+                    UIManager.Instance.tipPanel.transform.position = position +
+                                                                     new Vector3(itemRect.width / 2 + tipRect.width,
+                                                                         tipRect.height / 2, 0);
                 else
-                    UIManager.Instance.tipPanel.transform.position = position + new Vector3(itemRect.width / 2 + tipRect.width, -tipRect.height / 2, 0);
+                    UIManager.Instance.tipPanel.transform.position = position +
+                                                                     new Vector3(itemRect.width / 2 + tipRect.width,
+                                                                         -tipRect.height / 2, 0);
             }
+
             UIManager.Instance.tipPanel.Draw(item);
         }
 

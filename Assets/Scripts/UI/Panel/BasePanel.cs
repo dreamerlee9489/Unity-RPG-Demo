@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace App.UI
+namespace UI
 {
     public abstract class BasePanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {

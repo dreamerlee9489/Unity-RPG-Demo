@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
-using App.Data;
-using App.Manager;
+using Data;
+using Manager;
 
-namespace App.Items
+namespace Items
 {
     public abstract class Equipment : Item
     {
@@ -19,14 +19,17 @@ namespace App.Items
         {
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.constraints = containerType == ContainerType.World ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+            rigidbody.constraints = containerType == ContainerType.World
+                ? RigidbodyConstraints.None
+                : RigidbodyConstraints.FreezeAll;
             collider.enabled = containerType == ContainerType.World ? true : false;
-            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";    
+            tag = containerType == ContainerType.World ? "DropItem" : "Untagged";
         }
 
         public override void AddToInventory()
         {
-            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+            InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag),
+                Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
             for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
             {
                 Item temp = InventoryManager.Instance.ongoingQuests[i].Target.GetComponent<Item>();
@@ -34,7 +37,7 @@ namespace App.Items
                     InventoryManager.Instance.ongoingQuests[i].UpdateProgress(1);
             }
         }
-        
+
         public override void RemoveFromInventory()
         {
             InventoryManager.Instance.Remove(this);
@@ -49,12 +52,16 @@ namespace App.Items
                 case ContainerType.World:
                     break;
                 case ContainerType.Bag:
-                    InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag), Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+                    InventoryManager.Instance.Add(Instantiate(itemConfig.item, InventoryManager.Instance.bag),
+                        Instantiate(itemConfig.itemUI,
+                            UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     break;
                 case ContainerType.Equipment:
                     Item item = Instantiate(itemConfig.item, InventoryManager.Instance.bag);
                     item.level = level;
-                    InventoryManager.Instance.Add(item, Instantiate(itemConfig.itemUI, UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
+                    InventoryManager.Instance.Add(item,
+                        Instantiate(itemConfig.itemUI,
+                            UIManager.Instance.bagPanel.GetFirstValidSlot().icons.transform));
                     item.Use(GameManager.Instance.player);
                     break;
                 case ContainerType.Action:

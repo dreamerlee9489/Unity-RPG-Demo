@@ -1,6 +1,6 @@
-using App.Items;
+using Items;
 
-namespace App.Data
+namespace Data
 {
     [System.Serializable]
     public class ItemData
@@ -10,7 +10,10 @@ namespace App.Data
         public int level = 0;
         public Vector position;
         public ContainerType containerType = ContainerType.World;
-        public ItemData() {}
+
+        public ItemData()
+        {
+        }
 
         public override bool Equals(object obj)
         {

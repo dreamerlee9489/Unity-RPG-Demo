@@ -1,7 +1,8 @@
+using Control.FSM;
+using Manager;
 using UnityEngine;
-using App.Manager;
 
-namespace App.Control.FSM
+namespace Control
 {
     [RequireComponent(typeof(Entity))]
     public class StateController : MonoBehaviour
@@ -31,6 +32,7 @@ namespace App.Control.FSM
                     globalState.Exit();
                     globalState = null;
                 }
+
                 if (currentState != null)
                 {
                     currentState.Exit();
@@ -41,6 +43,7 @@ namespace App.Control.FSM
 
         public void RevertPreviousState() => ChangeState(previousState);
         public bool IsInState(State state) => currentState.GetType() == state.GetType();
+
         public void ChangeState(State newState)
         {
             previousState = currentState;

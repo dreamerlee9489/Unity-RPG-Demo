@@ -1,72 +1,26 @@
 using System.Collections.Generic;
+using Data;
+using Items;
+using Manager;
+using SO;
 using UnityEngine;
-using App.SO;
-using App.Manager;
-using App.Items;
-using App.Data;
 
-namespace App.Control
+namespace Control.NPC
 {
-    [System.Serializable]
-    public class Quest
-    {
-        public string name = "", chName = "";
-        public string description = "";
-        public string npcName = "";
-        public string targetPath = "";
-        public int bounty = 0, exp = 0;
-        public int count = 0, number = 1;
-        public bool accepted = false;
-        public Dictionary<string, int> rewards = null;
-        [System.NonSerialized] GameObject target = null;
-
-        public GameObject Target
-        {
-            get
-            {
-                if (target == null)
-                    target = Resources.LoadAsync(targetPath).asset as GameObject;
-                return target;
-            }
-        }
-
-        public Quest()
-        {
-        }
-
-        public Quest(string name, string chName, string npcName, string targetPath, int bounty, int exp, int number,
-            Dictionary<string, int> rewards = null)
-        {
-            this.name = name;
-            this.chName = chName;
-            this.npcName = npcName;
-            this.targetPath = targetPath;
-            this.bounty = bounty;
-            this.exp = exp;
-            this.number = number;
-            this.rewards = rewards;
-            target = Resources.LoadAsync(targetPath).asset as GameObject;
-        }
-
-        public void UpdateProgress(int count)
-        {
-            this.count += count;
-            UIManager.Instance.questPanel.UpdatePanel(this);
-        }
-    }
-
-    public class NPCQuester : NPCController
+    public class Quester : NPCController
     {
         public int index { get; set; }
         public List<Quest> quests { get; set; }
 
         void SaveData()
         {
-            NPCData data = new NPCData();
-            data.index = index;
-            data.currentHP = GetComponent<Entity>().currentHP;
-            data.currentMP = GetComponent<Entity>().currentMP;
-            data.position = new Vector(transform.position);
+            NPCData data = new NPCData
+            {
+                index = index,
+                currentHP = GetComponent<Entity>().currentHP,
+                currentMP = GetComponent<Entity>().currentMP,
+                position = new Vector(transform.position)
+            };
             BinaryManager.Instance.SaveData(data, InventoryManager.Instance.playerData.nickName + "_NPCData_" + name);
         }
 

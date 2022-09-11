@@ -1,54 +1,60 @@
 using UnityEngine;
-using App.Manager;
+using Manager;
 
-namespace App.UI
+namespace UI
 {
-	public class ActionPanel : BasePanel
-	{
+    public class ActionPanel : BasePanel
+    {
         ItemUI itemUI = null;
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 itemUI = transform.GetChild(0).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 itemUI = transform.GetChild(1).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha3))
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 itemUI = transform.GetChild(2).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha4))
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 itemUI = transform.GetChild(3).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha5))
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 itemUI = transform.GetChild(4).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha6))
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 itemUI = transform.GetChild(5).GetComponent<ItemSlot>().itemUI;
                 itemUI?.item.Use(GameManager.Instance.player);
             }
         }
-		
-		public ItemSlot GetFirstValidSlot()
+
+        public ItemSlot GetFirstValidSlot()
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                if(transform.GetChild(i).GetComponent<ItemSlot>().itemUI == null)
+                if (transform.GetChild(i).GetComponent<ItemSlot>().itemUI == null)
                     return transform.GetChild(i).GetComponent<ItemSlot>();
             }
+
             return null;
         }
-	}
+    }
 }

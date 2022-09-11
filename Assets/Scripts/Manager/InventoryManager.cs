@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using App.Items;
-using App.UI;
-using App.Data;
-using App.SO;
-using App.Control;
+using Items;
+using UI;
+using Data;
+using SO;
+using Control;
+using Control.NPC;
 
-namespace App.Manager
+namespace Manager
 {
     public class InventoryManager
     {
@@ -21,7 +22,11 @@ namespace App.Manager
         public List<Item> items = new List<Item>();
         public List<ItemUI> itemUIs = new List<ItemUI>();
         public List<Quest> ongoingQuests = new List<Quest>();
-        InventoryManager() { GameManager.Instance.onSavingData += SaveData; }
+
+        InventoryManager()
+        {
+            GameManager.Instance.onSavingData += SaveData;
+        }
 
         public void Add(Item item, ItemUI itemUI, ContainerType containerType = ContainerType.Bag)
         {
@@ -57,6 +62,7 @@ namespace App.Manager
                 if (items[i].Equals(item))
                     count++;
             }
+
             return count;
         }
 
@@ -100,28 +106,32 @@ namespace App.Manager
             playerData.position = new Vector(GameManager.Instance.player.transform.position);
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].itemData = new ItemData();
-                items[i].itemData.level = items[i].level;
-                items[i].itemData.containerType = items[i].containerType;
-                items[i].itemData.path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name;
+                items[i].itemData = new ItemData
+                {
+                    level = items[i].level,
+                    containerType = items[i].containerType,
+                    path = "Items/" + items[i].GetType().Name + "/" + items[i].itemConfig.item.name
+                };
                 playerData.itemDatas.Add(items[i].itemData);
             }
+
             playerData.ongoingQuests.Clear();
             playerData.ongoingQuests.AddRange(ongoingQuests);
             BinaryManager.Instance.SaveData(playerData, playerData.nickName + "_PlayerData");
             BinaryManager.Instance.SaveData(playerData, "CurrentPlayerData");
-            if(File.Exists(PLAYER_ACCOUNT_PATH))
+            if (File.Exists(PLAYER_ACCOUNT_PATH))
             {
-                using(StreamReader reader = File.OpenText(PLAYER_ACCOUNT_PATH))
+                using (StreamReader reader = File.OpenText(PLAYER_ACCOUNT_PATH))
                 {
                     string name = "";
-                    while((name = reader.ReadLine()) != null)
+                    while ((name = reader.ReadLine()) != null)
                     {
-                        if(name == playerData.nickName)
+                        if (name == playerData.nickName)
                             return;
                     }
                 }
-            } 
+            }
+
             using (StreamWriter sw = File.AppendText(PLAYER_ACCOUNT_PATH))
                 sw.WriteLine(playerData.nickName);
         }
@@ -135,6 +145,7 @@ namespace App.Manager
                 ongoingQuests.Add(playerData.ongoingQuests[i]);
                 UIManager.Instance.questPanel.Add(playerData.ongoingQuests[i]);
             }
+
             GameManager.Instance.player.professionConfig = Resources.Load<ProfessionConfig>(playerData.professionPath);
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();

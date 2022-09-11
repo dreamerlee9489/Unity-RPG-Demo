@@ -1,4 +1,4 @@
-namespace App.UI
+namespace UI
 {
     public class WeaponUI : ItemUI
     {

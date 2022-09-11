@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
+using Control.CMD;
 using UnityEngine;
 using UnityEngine.AI;
-using App.SO;
-using App.Manager;
-using App.Items;
-using App.UI;
-using App.Data;
+using SO;
+using Manager;
+using Items;
+using UI;
+using Data;
 
-namespace App.Control
+namespace Control
 {
-    public enum CampType { Blue, Red }
-    
+    public enum CampType
+    {
+        Blue,
+        Red
+    }
+
     [RequireComponent(typeof(CapsuleCollider), typeof(NavMeshAgent), typeof(AudioSource))]
     public class Entity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
@@ -72,7 +77,9 @@ namespace App.Control
             if (CompareTag("Player"))
             {
                 hpBar = UIManager.Instance.hudPanel.hpBar;
-                PlayerData playerData = BinaryManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName + "_PlayerData");
+                PlayerData playerData =
+                    BinaryManager.Instance.LoadData<PlayerData>(InventoryManager.Instance.playerData.nickName +
+                                                                "_PlayerData");
                 if (playerData == null)
                 {
                     level = 1;
@@ -109,7 +116,8 @@ namespace App.Control
                     currentHP = entityData.currentHP;
                     currentMP = entityData.currentMP;
                     gameObject.SetActive(false);
-                    transform.position = new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
+                    transform.position =
+                        new Vector3(entityData.position.x, entityData.position.y, entityData.position.z);
                     gameObject.SetActive(true);
                 }
                 else
@@ -121,6 +129,7 @@ namespace App.Control
                     mapManager.mapData.mapEnemyDatas.Add(name, entityData);
                 }
             }
+
             if (currentHP <= 0)
             {
                 isDead = true;
@@ -147,10 +156,12 @@ namespace App.Control
                     UIManager.Instance.messagePanel.Print(entityConfig.nickName + "的速度恢复正常。", Color.green);
                 }
             }
+
             animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
         }
 
         void Attack() => TakeDamage(target);
+
         void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
@@ -164,9 +175,11 @@ namespace App.Control
                 defender.nameBar.damage.GetComponent<Animation>().Play();
                 if (crit != 1)
                 {
-                    defender.audioSource.clip = Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
+                    defender.audioSource.clip =
+                        Resources.LoadAsync("Audio/SFX_Take Damage Ouch " + Random.Range(1, 6)).asset as AudioClip;
                     defender.audioSource.Play();
                 }
+
                 if (defender.currentHP <= 0)
                 {
                     defender.Death();
@@ -191,13 +204,17 @@ namespace App.Control
 
         void Drop()
         {
-            List<Item> dropItems = dropListConfig.GetDropItems(professionAttribute, ref InventoryManager.Instance.playerData.golds);
+            List<Item> dropItems =
+                dropListConfig.GetDropItems(professionAttribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
             foreach (var dropItem in dropItems)
             {
-                Item item = Instantiate(dropItem, transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere, Quaternion.Euler(90, 90, 90));
+                Item item = Instantiate(dropItem,
+                    transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere,
+                    Quaternion.Euler(90, 90, 90));
                 mapManager.mapData.mapItemDatas.Add(item.itemData);
             }
+
             if (CompareTag("Enemy"))
             {
                 for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
@@ -206,6 +223,7 @@ namespace App.Control
                     if (target != null && target.entityConfig.nickName == entityConfig.nickName)
                         InventoryManager.Instance.ongoingQuests[i].UpdateProgress(1);
                 }
+
                 GameManager.Instance.player.GetExprience(professionAttribute.exp * 0.5f);
             }
         }
@@ -221,7 +239,9 @@ namespace App.Control
                     Destroy(target.GetComponent<Item>().nameBar.gameObject);
                     target.GetComponent<Item>().nameBar = null;
                 }
-                UIManager.Instance.messagePanel.Print("[系统]  你拾取了" + target.GetComponent<Item>().itemConfig.itemName + " * 1", Color.green);
+
+                UIManager.Instance.messagePanel.Print(
+                    "[系统]  你拾取了" + target.GetComponent<Item>().itemConfig.itemName + " * 1", Color.green);
                 animator.SetBool("pickup", false);
                 Destroy(target.GetComponent<Item>().gameObject);
                 target = null;
@@ -304,6 +324,7 @@ namespace App.Control
                 case EquipmentType.Jewelry:
                     break;
             }
+
             equipment.containerType = ContainerType.Equipment;
         }
 
@@ -324,6 +345,7 @@ namespace App.Control
                 case EquipmentType.Jewelry:
                     break;
             }
+
             equipment.containerType = containerType;
         }
 
@@ -340,8 +362,10 @@ namespace App.Control
                 currentHP += professionAttribute.hp * 0.2f;
                 currentMP += professionAttribute.mp * 0.2f;
                 currentDEF = professionAttribute.def;
-                currentATK = professionAttribute.atk + (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
+                currentATK = professionAttribute.atk +
+                             (currentWeapon == null ? 0 : (currentWeapon.itemConfig as WeaponConfig).atk);
             }
+
             UIManager.Instance.hudPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
         }
@@ -349,7 +373,7 @@ namespace App.Control
         public bool HandleMessage(Telegram telegram)
         {
             print(Time.unscaledTime + "s: " + gameObject.name + " recv: " + telegram.ToString());
-            return GetComponent<FSM.StateController>().HandleMessage(telegram);
+            return GetComponent<StateController>().HandleMessage(telegram);
         }
 
         public void SetMaxSpeed(float speedRate, float duration)
@@ -357,7 +381,9 @@ namespace App.Control
             this.speedRate = speedRate;
             this.duration = duration;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor * speedRate;
-            UIManager.Instance.messagePanel.Print(entityConfig.nickName + "的速度" + (speedRate > 1 ? "提升了" + (1 - speedRate * 100) : ("降低了" + speedRate * 100)) + "%。", Color.green);
+            UIManager.Instance.messagePanel.Print(
+                entityConfig.nickName + "的速度" +
+                (speedRate > 1 ? "提升了" + (1 - speedRate * 100) : ("降低了" + speedRate * 100)) + "%。", Color.green);
         }
 
         public bool CanSee(Transform target)
@@ -368,6 +394,7 @@ namespace App.Control
                 if (direction.sqrMagnitude <= sqrViewRadius)
                     return true;
             }
+
             return false;
         }
 
@@ -379,6 +406,7 @@ namespace App.Control
                 if (direction.sqrMagnitude <= sqrAttackRadius)
                     return true;
             }
+
             return false;
         }
 
@@ -405,6 +433,7 @@ namespace App.Control
                 agent.autoBraking = false;
                 agent.destination = direction.normalized * entityConfig.fleeRadius;
             }
+
             return direction.sqrMagnitude > sqrFleeRadius;
         }
 
@@ -423,6 +452,7 @@ namespace App.Control
                 Seek(evader.transform.position);
                 return;
             }
+
             float lookAheadTime = toEvader.magnitude / (agent.speed + evader.speed);
             Seek(evader.transform.position + evader.velocity * lookAheadTime);
         }
@@ -467,11 +497,13 @@ namespace App.Control
                     closest = obstacle;
                 }
             }
+
             if (distToClosest == float.MaxValue)
             {
                 Evade(hunter);
                 return;
             }
+
             Arrive(bestHideSpot);
         }
 
