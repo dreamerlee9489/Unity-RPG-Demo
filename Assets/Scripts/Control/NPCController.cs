@@ -11,7 +11,7 @@ namespace Control
         protected string nickName = "";
         public Transform goods { get; set; }
         public DialogueConfig dialogueConfig { get; set; }
-        public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+        protected readonly Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
         protected virtual void Awake()
         {

@@ -15,15 +15,15 @@ namespace Control.NPC
         public int count = 0, number = 1;
         public bool accepted = false;
         public Dictionary<string, int> rewards = null;
-        [System.NonSerialized] GameObject target = null;
+        [System.NonSerialized] private GameObject _target = null;
 
         public GameObject Target
         {
             get
             {
-                if (target == null)
-                    target = Resources.LoadAsync(targetPath).asset as GameObject;
-                return target;
+                if (_target == null)
+                    _target = Resources.LoadAsync(targetPath).asset as GameObject;
+                return _target;
             }
         }
 
@@ -42,7 +42,7 @@ namespace Control.NPC
             this.exp = exp;
             this.number = number;
             this.rewards = rewards;
-            target = Resources.LoadAsync(targetPath).asset as GameObject;
+            _target = Resources.LoadAsync(targetPath).asset as GameObject;
         }
 
         public void UpdateProgress(int count)

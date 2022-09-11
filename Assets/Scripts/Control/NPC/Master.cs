@@ -1,3 +1,4 @@
+using Items;
 using Manager;
 using SO;
 using UnityEngine;
@@ -14,8 +15,9 @@ namespace Control.NPC
                 UIManager.Instance.skillShopPanel.BuildPanel(goods);
                 if (GameManager.Instance.player.professionConfig != GetComponent<Entity>().professionConfig)
                 {
-                    for (int i = 0; i < GameManager.Instance.player.professionConfig.skillTree.Count; i++)
-                        GameManager.Instance.player.professionConfig.skillTree[i].RemoveFromInventory();
+                    foreach (var skill in GameManager.Instance.player.professionConfig.skillTree)
+                        skill.RemoveFromInventory();
+
                     GameManager.Instance.player.professionConfig =
                         Resources.LoadAsync("Config/Profession/ProfessionConfig_Warrior").asset as ProfessionConfig;
                 }

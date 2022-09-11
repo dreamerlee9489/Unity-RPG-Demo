@@ -10,13 +10,10 @@ namespace Control.BT
 
     public abstract class Node
     {
-        public string name;
-        public Status status = Status.None;
+        private string _name;
+        protected Status status = Status.None;
 
-        public Node(string name = "Node")
-        {
-            this.name = name;
-        }
+        protected Node(string name = "Node") => this._name = name;
 
         public abstract Status Execute();
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Items;
 using Manager;
@@ -9,14 +10,14 @@ namespace Control.NPC
 {
     public class Quester : NPCController
     {
-        public int index { get; set; }
-        public List<Quest> quests { get; set; }
+        private int _index = 0;
+        private List<Quest> _quests = new();
 
-        void SaveData()
+        private void SaveData()
         {
             NPCData data = new NPCData
             {
-                index = index,
+                index = _index,
                 currentHP = GetComponent<Entity>().currentHP,
                 currentMP = GetComponent<Entity>().currentMP,
                 position = new Vector(transform.position)
@@ -27,42 +28,39 @@ namespace Control.NPC
         protected override void Awake()
         {
             base.Awake();
-            quests = new List<Quest>();
+            _quests = new List<Quest>();
             GameManager.Instance.onSavingData += SaveData;
-            quests.Add(new Quest("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100,
+            _quests.Add(new Quest("KillUndeadKnight", "消灭不死骑士", nickName, "Entity/Enemy/Enemy_UndeadKnight_01", 500, 100,
                 1, new Dictionary<string, int>()
                 {
                     { "Weapon/Weapon_Sword_Broad", 1 }, { "Potion/Potion_Meat_01", 10 }
                 }));
-            quests.Add(new Quest("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12,
+            _quests.Add(new Quest("CollectMeat", "收集烤牛排", nickName, "Items/Potion/Potion_Meat_01", 500, 200, 12,
                 new Dictionary<string, int>()
                 {
                     { "Weapon/Weapon_Axe_Large_01", 1 }
                 }));
-            actions.Add("GiveQuest_KillUndeadKnight", () => { GiveQuest(quests[0]); });
-            actions.Add("GiveReward_KillUndeadKnight", () => { GiveReward(); });
-            actions.Add("GiveQuest_CollectMeat", () => { GiveQuest(quests[1]); });
-            actions.Add("GiveReward_CollectMeat", () => { GiveReward(); });
+            actions.Add("GiveQuest_KillUndeadKnight", () => { GiveQuest(_quests[0]); });
+            actions.Add("GiveReward_KillUndeadKnight", GiveReward);
+            actions.Add("GiveQuest_CollectMeat", () => { GiveQuest(_quests[1]); });
+            actions.Add("GiveReward_CollectMeat", GiveReward);
             NPCData data =
                 BinaryManager.Instance.LoadData<NPCData>(InventoryManager.Instance.playerData.nickName + "_NPCData_" +
                                                          name);
-            index = data == null ? 0 : data.index;
-            for (int i = 0; i < InventoryManager.Instance.ongoingQuests.Count; i++)
+            _index = data?.index ?? 0;
+            foreach (var quest in InventoryManager.Instance.ongoingQuests.Where(quest => quest.npcName == nickName))
             {
-                if (InventoryManager.Instance.ongoingQuests[i].npcName == nickName)
-                {
-                    quests[index] = InventoryManager.Instance.ongoingQuests[i];
-                    break;
-                }
+                _quests[_index] = quest;
+                break;
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             GameManager.Instance.onSavingData -= SaveData;
         }
 
-        protected void GiveQuest(Quest task)
+        private void GiveQuest(Quest task)
         {
             task.accepted = true;
             InventoryManager.Instance.ongoingQuests.Add(task);
@@ -71,14 +69,14 @@ namespace Control.NPC
                 task.UpdateProgress(InventoryManager.Instance.Count(task.Target.GetComponent<Item>()));
         }
 
-        protected void GiveReward()
+        private void GiveReward()
         {
-            InventoryManager.Instance.ongoingQuests.Remove(quests[index]);
-            UIManager.Instance.questPanel.Remove(quests[index]);
-            if (quests[index].Target.GetComponent<Item>() != null)
-                for (int i = 0; i < quests[index].number; i++)
-                    InventoryManager.Instance.GetItem(quests[index].Target.GetComponent<Item>()).RemoveFromInventory();
-            foreach (var pair in quests[index].rewards)
+            InventoryManager.Instance.ongoingQuests.Remove(_quests[_index]);
+            UIManager.Instance.questPanel.Remove(_quests[_index]);
+            if (_quests[_index].Target.GetComponent<Item>() != null)
+                for (int i = 0; i < _quests[_index].number; i++)
+                    InventoryManager.Instance.GetItem(_quests[_index].Target.GetComponent<Item>()).RemoveFromInventory();
+            foreach (var pair in _quests[_index].rewards)
             {
                 Item item = null;
                 for (int i = 0; i < pair.Value; i++)
@@ -91,32 +89,32 @@ namespace Control.NPC
                     Color.yellow);
             }
 
-            GameManager.Instance.player.GetExprience(quests[index].exp);
-            InventoryManager.Instance.playerData.golds += quests[index].bounty;
+            GameManager.Instance.player.GetExprience(_quests[_index].exp);
+            InventoryManager.Instance.playerData.golds += _quests[_index].bounty;
             UIManager.Instance.goldPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
-            index++;
+            _index++;
         }
 
         public void CheckQuestProgress()
         {
-            if (index == quests.Count)
+            if (_index == _quests.Count)
                 dialogueConfig = Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + name).asset as DialogueConfig;
             else
             {
-                if (!quests[index].accepted)
+                if (!_quests[_index].accepted)
                     dialogueConfig =
-                        Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Pending")
+                        Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + _quests[_index].name + "_Pending")
                             .asset as DialogueConfig;
                 else
                 {
-                    if (quests[index].count < quests[index].number)
+                    if (_quests[_index].count < _quests[_index].number)
                         dialogueConfig =
-                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Undone")
+                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + _quests[_index].name + "_Undone")
                                 .asset as DialogueConfig;
                     else
                         dialogueConfig =
-                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + quests[index].name + "_Completed")
+                            Resources.LoadAsync("Config/Dialogue/DialogueConfig_" + _quests[_index].name + "_Completed")
                                 .asset as DialogueConfig;
                 }
             }

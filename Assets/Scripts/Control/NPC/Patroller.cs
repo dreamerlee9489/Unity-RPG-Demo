@@ -5,55 +5,57 @@ namespace Control.NPC
 {
     public class Patroller : MonoBehaviour
     {
-        public enum PatrolState
+        private enum PatrolState
         {
             Walking,
             Alert
         }
 
         public Transform path = null;
-        NavMeshAgent agent = null;
-        int index = 0;
-        bool isPatrolling = false;
+        private NavMeshAgent _agent = null;
+        private int _index = 0;
+        private bool _isPatrolling = false;
         public Transform target;
-        PatrolState state = PatrolState.Walking;
-        float timer = 0, alertTime = 4f;
-        Animator animator = null;
+        private PatrolState _state = PatrolState.Walking;
+        private float _timer = 0;
+        private Animator _animator = null;
+        private static readonly int isAlert = Animator.StringToHash("isAlert");
+        private const float AlertTime = 4f;
 
-        void Awake()
+        private void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
-            index = Random.Range(0, path.childCount);
+            _agent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+            _index = Random.Range(0, path.childCount);
         }
 
-        void Update()
+        private void Update()
         {
-            if (isPatrolling)
+            if (_isPatrolling)
             {
-                switch (state)
+                switch (_state)
                 {
                     case PatrolState.Walking:
-                        agent.isStopped = false;
-                        target = path.GetChild(index);
-                        GetComponent<Entity>().Seek(path.GetChild(index).transform.position);
-                        if (OnWaypoint(index))
+                        _agent.isStopped = false;
+                        target = path.GetChild(_index);
+                        GetComponent<Entity>().Seek(path.GetChild(_index).transform.position);
+                        if (OnWaypoint(_index))
                         {
-                            state = PatrolState.Alert;
-                            animator.SetBool("isAlert", true);
+                            _state = PatrolState.Alert;
+                            _animator.SetBool(isAlert, true);
                         }
 
                         break;
                     case PatrolState.Alert:
-                        agent.isStopped = true;
-                        timer += Time.deltaTime;
-                        if (timer >= alertTime)
+                        _agent.isStopped = true;
+                        _timer += Time.deltaTime;
+                        if (_timer >= AlertTime)
                         {
-                            timer = 0;
-                            index = Random.Range(0, path.childCount);
-                            state = PatrolState.Walking;
+                            _timer = 0;
+                            _index = Random.Range(0, path.childCount);
+                            _state = PatrolState.Walking;
                             target = null;
-                            animator.SetBool("isAlert", false);
+                            _animator.SetBool(isAlert, false);
                         }
 
                         break;
@@ -73,23 +75,23 @@ namespace Control.NPC
 
         bool OnWaypoint(int index)
         {
-            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= agent.stoppingDistance)
+            if (Vector3.Distance(transform.position, path.GetChild(index).position) <= _agent.stoppingDistance)
                 return true;
             return false;
         }
 
         public void StartPatrol()
         {
-            agent.isStopped = false;
-            agent.speed = GetComponent<Entity>().entityConfig.walkSpeed;
-            isPatrolling = true;
+            _agent.isStopped = false;
+            _agent.speed = GetComponent<Entity>().entityConfig.walkSpeed;
+            _isPatrolling = true;
         }
 
         public void ExitPatrol()
         {
-            animator.SetBool("isAlert", false);
-            agent.speed = GetComponent<Entity>().entityConfig.runSpeed;
-            isPatrolling = false;
+            _animator.SetBool(isAlert, false);
+            _agent.speed = GetComponent<Entity>().entityConfig.runSpeed;
+            _isPatrolling = false;
         }
     }
 }

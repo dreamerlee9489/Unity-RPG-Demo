@@ -2,11 +2,12 @@
 {
     public class Limit : Decorator
     {
-        int time = 0, count = 0;
+        private readonly int _time = 0;
+        private int _count = 0;
 
         public Limit(int time, Node child, string name = "Limit") : base(child, name)
         {
-            this.time = time;
+            this._time = time;
         }
 
         public override Status Execute()
@@ -14,10 +15,10 @@
             switch (child.Execute())
             {
                 case Status.Success:
-                    count++;
-                    if (count >= time)
+                    _count++;
+                    if (_count >= _time)
                     {
-                        count = 0;
+                        _count = 0;
                         return status = Status.Success;
                     }
 
@@ -25,10 +26,10 @@
                 case Status.Running:
                     break;
                 case Status.Failure:
-                    count++;
-                    if (count >= time)
+                    _count++;
+                    if (_count >= _time)
                     {
-                        count = 0;
+                        _count = 0;
                         return status = Status.Success;
                     }
 

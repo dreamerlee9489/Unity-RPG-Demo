@@ -3,7 +3,6 @@
     public class Condition : Node
     {
         public delegate bool Task();
-
         public event Task task = null;
         public Condition(Task task, string name = "Condition") : base(name) => this.task = task;
 

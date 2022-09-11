@@ -2,7 +2,7 @@
 {
     public class RandomSelector : Composite
     {
-        bool shuffled = false;
+        private bool _shuffled = false;
 
         public RandomSelector(string name = "RandomSelector") : base(name)
         {
@@ -10,17 +10,17 @@
 
         public override Status Execute()
         {
-            if (!shuffled)
+            if (!_shuffled)
             {
                 children.Shuffle();
-                shuffled = true;
+                _shuffled = true;
             }
 
             switch (children[index].Execute())
             {
                 case Status.Success:
                     index = 0;
-                    shuffled = false;
+                    _shuffled = false;
                     return status = Status.Success;
                 case Status.Running:
                     break;
@@ -29,7 +29,7 @@
                     if (index >= children.Count)
                     {
                         index = 0;
-                        shuffled = false;
+                        _shuffled = false;
                         return status = Status.Failure;
                     }
 

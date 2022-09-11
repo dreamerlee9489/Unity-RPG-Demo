@@ -7,9 +7,9 @@ namespace Control
     [RequireComponent(typeof(Entity))]
     public class StateController : MonoBehaviour
     {
-        public State currentState { get; set; }
-        public State previousState { get; set; }
-        public State globalState { get; set; }
+        private State currentState { get; set; }
+        private State previousState { get; set; }
+        private State globalState { get; set; }
 
         void Start()
         {

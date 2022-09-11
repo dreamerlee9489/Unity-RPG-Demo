@@ -2,14 +2,12 @@ namespace Control.BT.Composite
 {
     public class Parallel : Composite
     {
-        
-
         public override Status Execute()
         {
             int successCount = 0;
-            for (int i = 0; i < children.Count; i++)
+            foreach (var child in children)
             {
-                switch (children[i].Execute())
+                switch (child.Execute())
                 {
                     case Status.Success:
                         successCount++;

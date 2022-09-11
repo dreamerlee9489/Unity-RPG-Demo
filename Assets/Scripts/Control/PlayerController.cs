@@ -10,65 +10,65 @@ namespace Control
     [RequireComponent(typeof(Entity))]
     public class PlayerController : MonoBehaviour
     {
-        RaycastHit hit;
-        Animator animator = null;
-        NavMeshAgent agent = null;
-        Entity entity = null;
-        List<Command> commands = new List<Command>();
+        private RaycastHit _hit;
+        private Animator _animator = null;
+        private NavMeshAgent _agent = null;
+        private Entity _entity = null;
+        private readonly List<Command> _commands = new List<Command>();
         public Transform bag = null;
         public Transform skills = null;
 
-        void Awake()
+        private void Awake()
         {
-            animator = GetComponent<Animator>();
-            agent = GetComponent<NavMeshAgent>();
-            entity = GetComponent<Entity>();
-            commands.Add(new CombatCommand(entity));
-            commands.Add(new DialogueCommand(UIManager.Instance));
+            _animator = GetComponent<Animator>();
+            _agent = GetComponent<NavMeshAgent>();
+            _entity = GetComponent<Entity>();
+            _commands.Add(new CombatCommand(_entity));
+            _commands.Add(new DialogueCommand(UIManager.Instance));
             DontDestroyOnLoad(gameObject);
         }
 
-        void Start()
+        private void Start()
         {
             UIManager.Instance.hudPanel.UpdatePanel();
             UIManager.Instance.attributePanel.UpdatePanel();
         }
 
-        void Update()
+        private void Update()
         {
-            if (!entity.isDead)
+            if (!_entity.isDead)
             {
-                if (entity.target != null)
-                    entity.ExecuteAction(entity.target);
+                if (_entity.target != null)
+                    _entity.ExecuteAction(_entity.target);
                 if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                     CancelCommand();
                 if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out _hit))
                     {
-                        entity.CancelAction();
+                        _entity.CancelAction();
                         UIManager.Instance.target = null;
-                        switch (hit.collider.tag)
+                        switch (_hit.collider.tag)
                         {
                             case "Terrain":
-                                ExecuteCommand(0, hit.point);
+                                ExecuteCommand(0, _hit.point);
                                 break;
                             case "Enemy":
-                                ExecuteCommand(0, hit.transform);
-                                agent.stoppingDistance = 1f + 0.3f * entity.target.localScale.x;
-                                entity.sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
+                                ExecuteCommand(0, _hit.transform);
+                                _agent.stoppingDistance = 1f + 0.3f * _entity.target.localScale.x;
+                                _entity.sqrAttackRadius = Mathf.Pow(_agent.stoppingDistance, 2);
                                 break;
                             case "NPC":
-                                ExecuteCommand(1, hit.transform);
-                                agent.stoppingDistance = 1f;
+                                ExecuteCommand(1, _hit.transform);
+                                _agent.stoppingDistance = 1f;
                                 break;
                             case "DropItem":
-                                ExecuteCommand(0, hit.transform);
-                                agent.stoppingDistance = 1f;
+                                ExecuteCommand(0, _hit.transform);
+                                _agent.stoppingDistance = 1f;
                                 break;
                             case "Portal":
-                                ExecuteCommand(0, hit.transform.position + new Vector3(-2.5f, 0, 0));
-                                agent.stoppingDistance = 1f;
+                                ExecuteCommand(0, _hit.transform.position + new Vector3(-2.5f, 0, 0));
+                                _agent.stoppingDistance = 1f;
                                 break;
                         }
                     }
@@ -76,12 +76,12 @@ namespace Control
             }
         }
 
-        void ExecuteCommand(int index, Vector3 point) => commands[index].Execute(point);
-        void ExecuteCommand(int index, Transform target) => commands[index].Execute(target);
+        void ExecuteCommand(int index, Vector3 point) => _commands[index].Execute(point);
+        void ExecuteCommand(int index, Transform target) => _commands[index].Execute(target);
 
         public void CancelCommand()
         {
-            foreach (var command in commands)
+            foreach (var command in _commands)
                 command.Cancel();
         }
     }

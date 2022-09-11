@@ -39,7 +39,7 @@ namespace Control.BT.Composite
                 }
             }
 
-            if (waitNode.Count == 0)
+            if (waitNode.Count > 0)
             {
                 _waitNodes = waitNode;
                 return Status.Running;

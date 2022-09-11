@@ -5,9 +5,9 @@ namespace Control
 {
     public class Neuron
     {
-        public int inputNum;
-        public double[] inputs;
-        public double[] weights;
+        public readonly int inputNum;
+        public readonly double[] inputs;
+        public readonly double[] weights;
         public double output;
         public double bias;
         public double gradient;
@@ -25,8 +25,8 @@ namespace Control
 
     public class Layer
     {
-        public int neuronNum;
-        public Neuron[] neurons;
+        public readonly int neuronNum;
+        public readonly Neuron[] neurons;
 
         public Layer(int neuronNum, int inputNum)
         {

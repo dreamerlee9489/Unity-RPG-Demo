@@ -6,7 +6,7 @@ namespace Manager
 {
     public class Portal : MonoBehaviour
     {
-        static MapManager mapManager = null;
+        private static MapManager _mapManager = null;
         public string targetScene = "";
         public string targetPortal = "";
         public Transform point { get; set; }
@@ -14,8 +14,8 @@ namespace Manager
         void Awake()
         {
             point = transform.GetChild(0);
-            if (mapManager == null)
-                mapManager = GameObject.FindObjectOfType<MapManager>();
+            if (_mapManager == null)
+                _mapManager = GameObject.FindObjectOfType<MapManager>();
             if (GameManager.Instance.targetPortal == name)
             {
                 GameManager.Instance.player.transform.position = point.position;

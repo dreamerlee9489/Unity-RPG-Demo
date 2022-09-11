@@ -2,32 +2,32 @@
 {
     public class PrioritySelector : Composite
     {
-        bool ordered = false;
-        public double priority = 0;
+        private bool _ordered = false;
+        private readonly double _priority = 0;
 
         public PrioritySelector(double priority, string name = "PrioritySelector") : base(name) =>
-            this.priority = priority;
+            this._priority = priority;
 
         public override Status Execute()
         {
-            if (!ordered)
+            if (!_ordered)
             {
                 children.Sort((a, b) =>
                 {
-                    if (((PrioritySelector)a).priority < ((PrioritySelector)b).priority)
+                    if (((PrioritySelector)a)._priority < ((PrioritySelector)b)._priority)
                         return -1;
-                    else if (((PrioritySelector)a).priority > ((PrioritySelector)b).priority)
+                    else if (((PrioritySelector)a)._priority > ((PrioritySelector)b)._priority)
                         return 1;
                     return 0;
                 });
-                ordered = true;
+                _ordered = true;
             }
 
             switch (children[index].Execute())
             {
                 case Status.Success:
                     index = 0;
-                    ordered = false;
+                    _ordered = false;
                     return status = Status.Success;
                 case Status.Running:
                     break;
@@ -36,7 +36,7 @@
                     if (index >= children.Count)
                     {
                         index = 0;
-                        ordered = false;
+                        _ordered = false;
                         return status = Status.Failure;
                     }
 

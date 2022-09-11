@@ -10,66 +10,66 @@ namespace Control
     [RequireComponent(typeof(Entity))]
     public class BehaviorController : MonoBehaviour
     {
-        float wanderTimer = 6f;
-        Animator animator = null;
-        NavMeshAgent agent = null;
-        Transform player = null;
-        Entity entity = null;
-        Selector root = new Selector();
+        private float _wanderTimer = 6f;
+        private Animator _animator = null;
+        private NavMeshAgent _agent = null;
+        private Transform _player = null;
+        private Entity _entity = null;
+        private readonly Selector _root = new Selector();
 
-        void Awake()
+        private void Awake()
         {
-            animator = GetComponent<Animator>();
-            agent = GetComponent<NavMeshAgent>();
-            entity = GetComponent<Entity>();
+            _animator = GetComponent<Animator>();
+            _agent = GetComponent<NavMeshAgent>();
+            _entity = GetComponent<Entity>();
         }
 
-        void Start()
+        private void Start()
         {
-            player = GameManager.Instance.player.transform;
+            _player = GameManager.Instance.player.transform;
             Sequence retreat = new Sequence();
             Parallel wander = new Parallel();
             Parallel chase = new Parallel();
             Condition canSeePlayer = new Condition(() =>
             {
-                if (entity.CanSee(player))
+                if (_entity.CanSee(_player))
                 {
-                    agent.speed = entity.entityConfig.runSpeed * entity.entityConfig.runFactor * entity.speedRate;
+                    _agent.speed = _entity.entityConfig.runSpeed * _entity.entityConfig.runFactor * _entity.speedRate;
                     return true;
                 }
 
-                agent.speed = entity.entityConfig.walkSpeed * entity.entityConfig.walkFactor;
+                _agent.speed = _entity.entityConfig.walkSpeed * _entity.entityConfig.walkFactor;
                 return false;
             });
-            root.AddChildren(retreat, wander, chase);
-            retreat.AddChildren(new Condition(() => { return false; }), new Action(() =>
+            _root.AddChildren(retreat, wander, chase);
+            retreat.AddChildren(new Condition(() => false), new Action(() =>
             {
-                if (entity.Flee(player.position))
+                if (_entity.Flee(_player.position))
                     return Status.Success;
                 return Status.Running;
-            }), new Action(() => { return Status.Success; }));
+            }), new Action(() => Status.Success));
             wander.AddChildren(new UntilSuccess(canSeePlayer), new Action(() =>
             {
-                wanderTimer += Time.deltaTime;
-                if (wanderTimer >= 6f)
+                _wanderTimer += Time.deltaTime;
+                if (_wanderTimer >= 6f)
                 {
-                    entity.Wander();
-                    wanderTimer = 0;
+                    _entity.Wander();
+                    _wanderTimer = 0;
                 }
 
                 return Status.Running;
             }));
             chase.AddChildren(new UntilFailure(canSeePlayer), new Action(() =>
             {
-                entity.ExecuteAction(player);
+                _entity.ExecuteAction(_player);
                 return Status.Running;
             }));
         }
 
-        void Update()
+        private void Update()
         {
-            if (!entity.isDead)
-                root.Execute();
+            if (!_entity.isDead)
+                _root.Execute();
         }
     }
 }

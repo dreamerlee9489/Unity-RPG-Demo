@@ -18,8 +18,8 @@ namespace Control
 
     public class AStarNode
     {
-        public Transform node;
-        public List<AStarEdge> edges = new List<AStarEdge>();
+        public readonly Transform node;
+        public readonly List<AStarEdge> edges = new List<AStarEdge>();
         public AStarNode last;
         public float g, h, f;
         public AStarNode(Transform node) => this.node = node;
@@ -40,11 +40,11 @@ namespace Control
 
     public class AStarGraph
     {
-        List<AStarNode> nodes = new List<AStarNode>();
-        List<AStarEdge> edges = new List<AStarEdge>();
-        public List<AStarNode> path = new List<AStarNode>();
+        private readonly List<AStarNode> _nodes = new List<AStarNode>();
+        private readonly List<AStarEdge> _edges = new List<AStarEdge>();
+        public readonly List<AStarNode> path = new List<AStarNode>();
 
-        public void AddNode(Transform node) => nodes.Add(new AStarNode(node));
+        public void AddNode(Transform node) => _nodes.Add(new AStarNode(node));
 
         public void AddEdge(Transform fromNode, Transform toNode)
         {
@@ -53,14 +53,14 @@ namespace Control
             if (from != null && to != null)
             {
                 AStarEdge edge = new AStarEdge(from, to);
-                edges.Add(edge);
+                _edges.Add(edge);
                 from.edges.Add(edge);
             }
         }
 
         AStarNode FindNode(Transform node)
         {
-            foreach (AStarNode n in nodes)
+            foreach (AStarNode n in _nodes)
                 if (n.GetNode() == node)
                     return n;
             return null;

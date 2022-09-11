@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Control.CMD;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,14 +20,22 @@ namespace Control
     [RequireComponent(typeof(CapsuleCollider), typeof(NavMeshAgent), typeof(AudioSource))]
     public class Entity : MonoBehaviour, ICmdReceiver, IMsgReceiver
     {
-        float duration = 0, timer = 0;
-        Vector3 initPos;
-        Weapon initialWeapon = null;
+        private float _duration = 0, _timer = 0;
+        private Vector3 _initPos;
+        private Weapon _initialWeapon = null;
+        private static MapManager _mapManager = null;
+        private static readonly int attack = Animator.StringToHash("attack");
+        private static readonly int death = Animator.StringToHash("death");
+        private static readonly int moveSpeed = Animator.StringToHash("moveSpeed");
+        private static readonly int pickup = Animator.StringToHash("pickup");
+        private static readonly int skillA = Animator.StringToHash("skillA");
+        private static readonly int skillB = Animator.StringToHash("skillB");
+        private static readonly int skillC = Animator.StringToHash("skillC");
+        private static readonly int skillD = Animator.StringToHash("skillD");
         public Transform weaponPos = null;
         public EntityConfig entityConfig = null;
         public ProfessionConfig professionConfig = null;
         public DropListConfig dropListConfig = null;
-        public static MapManager mapManager = null;
         public int level { get; set; }
         public float currentHP { get; set; }
         public float currentMP { get; set; }
@@ -51,7 +60,7 @@ namespace Control
         public ProfessionAttribute professionAttribute { get; set; }
         public CampType campType { get; set; }
 
-        void Awake()
+        private void Awake()
         {
             GetComponent<Collider>().enabled = true;
             animator = GetComponent<Animator>();
@@ -61,18 +70,18 @@ namespace Control
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
             speedRate = 1;
-            initPos = transform.position;
+            _initPos = transform.position;
             sqrFleeRadius = Mathf.Pow(entityConfig.fleeRadius, 2);
             sqrViewRadius = Mathf.Pow(entityConfig.viewRadius, 2);
             sqrAttackRadius = Mathf.Pow(agent.stoppingDistance, 2);
-            initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
-            if (mapManager == null)
-                mapManager = GameObject.FindObjectOfType<MapManager>();
+            _initialWeapon = Instantiate(entityConfig.weapon, weaponPos);
+            if (_mapManager == null)
+                _mapManager = GameObject.FindObjectOfType<MapManager>();
             if (CompareTag("Enemy"))
                 campType = CampType.Red;
         }
 
-        void Start()
+        private void Start()
         {
             if (CompareTag("Player"))
             {
@@ -88,7 +97,7 @@ namespace Control
                     maxEXP = professionAttribute.exp;
                     currentHP = maxHP = professionAttribute.hp;
                     currentMP = maxMP = professionAttribute.mp;
-                    AttachEquipment(currentWeapon = initialWeapon);
+                    AttachEquipment(currentWeapon = _initialWeapon);
                 }
                 else
                 {
@@ -109,10 +118,10 @@ namespace Control
                 professionAttribute = professionConfig.GetProfessionAttribute(level = entityConfig.level);
                 maxHP = professionAttribute.hp;
                 maxMP = professionAttribute.mp;
-                AttachEquipment(currentWeapon = initialWeapon);
-                if (mapManager.mapData.mapEnemyDatas.ContainsKey(name))
+                AttachEquipment(currentWeapon = _initialWeapon);
+                if (_mapManager.mapData.mapEnemyDatas.ContainsKey(name))
                 {
-                    EnemyData entityData = mapManager.mapData.mapEnemyDatas[name];
+                    EnemyData entityData = _mapManager.mapData.mapEnemyDatas[name];
                     currentHP = entityData.currentHP;
                     currentMP = entityData.currentMP;
                     gameObject.SetActive(false);
@@ -122,11 +131,13 @@ namespace Control
                 }
                 else
                 {
-                    EnemyData entityData = new EnemyData();
-                    entityData.currentHP = currentHP = maxHP;
-                    entityData.currentMP = currentMP = maxMP;
-                    entityData.position = new Vector(transform.position);
-                    mapManager.mapData.mapEnemyDatas.Add(name, entityData);
+                    EnemyData entityData = new EnemyData
+                    {
+                        currentHP = currentHP = maxHP,
+                        currentMP = currentMP = maxMP,
+                        position = new Vector(transform.position)
+                    };
+                    _mapManager.mapData.mapEnemyDatas.Add(name, entityData);
                 }
             }
 
@@ -134,35 +145,35 @@ namespace Control
             {
                 isDead = true;
                 target = null;
-                animator.SetBool("attack", false);
-                animator.SetBool("death", true);
+                animator.SetBool(attack, false);
+                animator.SetBool(death, true);
                 agent.isStopped = true;
                 agent.radius = 0;
                 GetComponent<Collider>().enabled = false;
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (speedRate != 1)
             {
-                if (timer < duration)
-                    timer += Time.deltaTime;
+                if (_timer < _duration)
+                    _timer += Time.deltaTime;
                 else
                 {
                     speedRate = 1;
-                    timer = duration = 0;
+                    _timer = _duration = 0;
                     agent.speed = entityConfig.runSpeed * entityConfig.runFactor;
                     UIManager.Instance.messagePanel.Print(entityConfig.nickName + "的速度恢复正常。", Color.green);
                 }
             }
 
-            animator.SetFloat("moveSpeed", transform.InverseTransformVector(agent.velocity).z);
+            animator.SetFloat(moveSpeed, transform.InverseTransformVector(agent.velocity).z);
         }
 
-        void Attack() => TakeDamage(target);
+        private void Attack() => TakeDamage(target);
 
-        void TakeDamage(Transform target, float factor = 1)
+        private void TakeDamage(Transform target, float factor = 1)
         {
             if (target != null)
             {
@@ -189,30 +200,29 @@ namespace Control
             }
         }
 
-        void Death()
+        private void Death()
         {
             isDead = true;
             target = null;
             GetComponent<Collider>().enabled = false;
             audioSource.clip = Resources.LoadAsync("Audio/Death/death" + Random.Range(1, 6)).asset as AudioClip;
             audioSource.Play();
-            animator.SetBool("attack", false);
-            animator.SetBool("death", true);
+            animator.SetBool(attack, false);
+            animator.SetBool(death, true);
             agent.isStopped = true;
             agent.radius = 0;
         }
 
-        void Drop()
+        private void Drop()
         {
             List<Item> dropItems =
                 dropListConfig.GetDropItems(professionAttribute, ref InventoryManager.Instance.playerData.golds);
             UIManager.Instance.goldPanel.UpdatePanel();
-            foreach (var dropItem in dropItems)
+            foreach (var item in dropItems.Select(dropItem => Instantiate(dropItem,
+                         transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere,
+                         Quaternion.Euler(90, 90, 90))))
             {
-                Item item = Instantiate(dropItem,
-                    transform.position + Vector3.up * 2 + UnityEngine.Random.insideUnitSphere,
-                    Quaternion.Euler(90, 90, 90));
-                mapManager.mapData.mapItemDatas.Add(item.itemData);
+                _mapManager.mapData.mapItemDatas.Add(item.itemData);
             }
 
             if (CompareTag("Enemy"))
@@ -228,11 +238,11 @@ namespace Control
             }
         }
 
-        void Pickup()
+        private void Pickup()
         {
             if (target != null)
             {
-                Entity.mapManager.mapData.mapItemDatas.Remove(target.GetComponent<Item>().itemData);
+                _mapManager.mapData.mapItemDatas.Remove(target.GetComponent<Item>().itemData);
                 target.GetComponent<Item>().AddToInventory();
                 if (target.GetComponent<Item>().nameBar != null)
                 {
@@ -242,13 +252,13 @@ namespace Control
 
                 UIManager.Instance.messagePanel.Print(
                     "[系统]  你拾取了" + target.GetComponent<Item>().itemConfig.itemName + " * 1", Color.green);
-                animator.SetBool("pickup", false);
+                animator.SetBool(pickup, false);
                 Destroy(target.GetComponent<Item>().gameObject);
                 target = null;
             }
         }
 
-        Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
+        private Vector3 GetHidePosition(NavMeshObstacle obstacle, NavMeshAgent target, float distanceFromBoundary = 3f)
         {
             float distAway = obstacle.radius + distanceFromBoundary;
             Vector3 toObstacle = (obstacle.transform.position - target.transform.position).normalized;
@@ -270,12 +280,12 @@ namespace Control
                 if (CanAttack(target))
                 {
                     transform.LookAt(target);
-                    animator.SetBool("attack", true);
+                    animator.SetBool(attack, true);
                 }
                 else
                 {
                     agent.destination = target.position;
-                    animator.SetBool("attack", false);
+                    animator.SetBool(attack, false);
                 }
             }
             else
@@ -283,12 +293,12 @@ namespace Control
                 if (CanDialogue(target))
                 {
                     transform.LookAt(target);
-                    animator.SetBool("pickup", true);
+                    animator.SetBool(pickup, true);
                 }
                 else
                 {
                     agent.destination = target.position;
-                    animator.SetBool("pickup", false);
+                    animator.SetBool(pickup, false);
                 }
             }
         }
@@ -296,12 +306,12 @@ namespace Control
         public void CancelAction()
         {
             target = null;
-            animator.SetBool("attack", false);
-            animator.SetBool("pickup", false);
-            animator.ResetTrigger("skillA");
-            animator.ResetTrigger("skillB");
-            animator.ResetTrigger("skillC");
-            animator.ResetTrigger("skillD");
+            animator.SetBool(attack, false);
+            animator.SetBool(pickup, false);
+            animator.ResetTrigger(skillA);
+            animator.ResetTrigger(skillB);
+            animator.ResetTrigger(skillC);
+            animator.ResetTrigger(skillD);
             agent.stoppingDistance = entityConfig.stopDistance;
             agent.destination = transform.position + transform.forward;
         }
@@ -337,7 +347,7 @@ namespace Control
                     currentATK = professionAttribute.atk;
                     equipment.transform.SetParent(InventoryManager.Instance.bag);
                     equipment.GetComponent<MeshRenderer>().enabled = false;
-                    currentWeapon = initialWeapon;
+                    currentWeapon = _initialWeapon;
                     animator.runtimeAnimatorController = (currentWeapon.itemConfig as WeaponConfig).animatorController;
                     break;
                 case EquipmentType.Armor:
@@ -379,7 +389,7 @@ namespace Control
         public void SetMaxSpeed(float speedRate, float duration)
         {
             this.speedRate = speedRate;
-            this.duration = duration;
+            this._duration = duration;
             agent.speed = entityConfig.runSpeed * entityConfig.runFactor * speedRate;
             UIManager.Instance.messagePanel.Print(
                 entityConfig.nickName + "的速度" +
@@ -468,7 +478,7 @@ namespace Control
         {
             Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
             position = position.normalized * radius * Random.Range(0f, 1f);
-            agent.destination = initPos + position;
+            agent.destination = _initPos + position;
         }
 
         public void Interpose(NavMeshAgent agentA, NavMeshAgent agentB)
