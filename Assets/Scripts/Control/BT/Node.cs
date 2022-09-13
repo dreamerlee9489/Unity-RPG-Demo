@@ -1,3 +1,5 @@
+using Control.MSG;
+
 namespace Control.BT
 {
     public enum Status
@@ -14,7 +16,9 @@ namespace Control.BT
         protected Status status = Status.None;
 
         protected Node(string name = "Node") => this._name = name;
-
+        
         public abstract Status Execute();
+        
+        public abstract bool OnMessage(Telegram telegram);
     }
 }

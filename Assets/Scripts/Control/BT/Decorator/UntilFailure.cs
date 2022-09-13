@@ -1,4 +1,7 @@
-﻿namespace Control.BT.Decorator
+﻿using Control.MSG;
+using Manager;
+
+namespace Control.BT.Decorator
 {
     public class UntilFailure : Decorator
     {
@@ -19,6 +22,11 @@
             }
 
             return status = Status.Running;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

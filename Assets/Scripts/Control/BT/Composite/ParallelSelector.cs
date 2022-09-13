@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Control.MSG;
+using Manager;
 
 namespace Control.BT.Composite
 {
@@ -49,6 +51,11 @@ namespace Control.BT.Composite
             status = _isFailure ? Status.Failure : Status.Success;
             Reset();
             return status;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new NotImplementedException();
         }
     }
 }

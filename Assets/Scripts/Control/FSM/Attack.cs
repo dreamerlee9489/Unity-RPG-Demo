@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Control.MSG;
+using Manager;
 using UnityEngine;
 
 namespace Control.FSM

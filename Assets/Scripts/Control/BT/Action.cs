@@ -1,4 +1,7 @@
-﻿namespace Control.BT
+﻿using Control.MSG;
+using Manager;
+
+namespace Control.BT
 {
     public class Action : Node
     {
@@ -11,6 +14,11 @@
             if (task != null)
                 return status = task();
             return status = Status.Failure;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

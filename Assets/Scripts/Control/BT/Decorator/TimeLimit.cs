@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Control.MSG;
+using Manager;
+using UnityEngine;
 
 namespace Control.BT.Decorator
 {
@@ -22,6 +24,11 @@ namespace Control.BT.Decorator
             }
 
             return status = Status.Running;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Control.BT.Composite
+﻿using Control.MSG;
+using Manager;
+
+namespace Control.BT.Composite
 {
     public class PrioritySelector : Composite
     {
@@ -44,6 +47,11 @@
             }
 
             return status = Status.Running;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void Reset()

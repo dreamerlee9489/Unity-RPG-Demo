@@ -1,4 +1,6 @@
 ﻿using System;
+using Control.MSG;
+using Manager;
 
 namespace Control.BT.Composite
 {
@@ -32,6 +34,11 @@ namespace Control.BT.Composite
             }
             Reset();
             return Status.Success;
+        }
+
+        public override bool OnMessage(Telegram telegram)
+        {
+            throw new NotImplementedException();
         }
     }
 }
