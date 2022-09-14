@@ -1,43 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace Control
+namespace Control.ANN
 {
-    public class Neuron
-    {
-        public readonly int inputNum;
-        public readonly double[] inputs;
-        public readonly double[] weights;
-        public double output;
-        public double bias;
-        public double gradient;
-
-        public Neuron(int inputNum)
-        {
-            this.inputNum = inputNum;
-            inputs = new double[inputNum];
-            weights = new double[inputNum];
-            bias = Random.Range(-1.0f, 1.0f);
-            for (int i = 0; i < inputNum; i++)
-                weights[i] = Random.Range(-1.0f, 1.0f);
-        }
-    }
-
-    public class Layer
-    {
-        public readonly int neuronNum;
-        public readonly Neuron[] neurons;
-
-        public Layer(int neuronNum, int inputNum)
-        {
-            this.neuronNum = neuronNum;
-            neurons = new Neuron[neuronNum];
-            for (int i = 0; i < neuronNum; i++)
-                neurons[i] = new Neuron(inputNum);
-        }
-    }
-
-    public class ANN
+    public class Network
     {
         public int inputNum;
         public int outputNum;
@@ -46,7 +11,7 @@ namespace Control
         public double alpha;
         Layer[] layers;
 
-        public ANN(int inputNum, int outputNum, int hiddenNum, int perHiddenNeuronNum, double alpha)
+        public Network(int inputNum, int outputNum, int hiddenNum, int perHiddenNeuronNum, double alpha)
         {
             this.inputNum = inputNum;
             this.outputNum = outputNum;

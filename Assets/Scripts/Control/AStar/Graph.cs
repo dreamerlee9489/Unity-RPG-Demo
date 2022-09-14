@@ -1,14 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Control
+namespace Control.AStar
 {
-    public enum EdgeDirect
-    {
-        Bi,
-        Uni
-    }
-
     public enum HeuristicType
     {
         None,
@@ -16,51 +10,29 @@ namespace Control
         Manhattan
     }
 
-    public class AStarNode
+    public class Graph
     {
-        public readonly Transform node;
-        public readonly List<AStarEdge> edges = new List<AStarEdge>();
-        public AStarNode last;
-        public float g, h, f;
-        public AStarNode(Transform node) => this.node = node;
-        public Transform GetNode() => node;
-    }
+        private readonly List<Node> _nodes = new List<Node>();
+        private readonly List<Edge> _edges = new List<Edge>();
+        public readonly List<Node> path = new List<Node>();
 
-    public class AStarEdge
-    {
-        public AStarNode from, to;
-        public EdgeDirect direct = EdgeDirect.Uni;
-
-        public AStarEdge(AStarNode from, AStarNode to)
-        {
-            this.from = from;
-            this.to = to;
-        }
-    }
-
-    public class AStarGraph
-    {
-        private readonly List<AStarNode> _nodes = new List<AStarNode>();
-        private readonly List<AStarEdge> _edges = new List<AStarEdge>();
-        public readonly List<AStarNode> path = new List<AStarNode>();
-
-        public void AddNode(Transform node) => _nodes.Add(new AStarNode(node));
+        public void AddNode(Transform node) => _nodes.Add(new Node(node));
 
         public void AddEdge(Transform fromNode, Transform toNode)
         {
-            AStarNode from = FindNode(fromNode);
-            AStarNode to = FindNode(toNode);
+            Node from = FindNode(fromNode);
+            Node to = FindNode(toNode);
             if (from != null && to != null)
             {
-                AStarEdge edge = new AStarEdge(from, to);
+                Edge edge = new Edge(from, to);
                 _edges.Add(edge);
                 from.edges.Add(edge);
             }
         }
 
-        AStarNode FindNode(Transform node)
+        Node FindNode(Transform node)
         {
-            foreach (AStarNode n in _nodes)
+            foreach (Node n in _nodes)
                 if (n.GetNode() == node)
                     return n;
             return null;
@@ -68,13 +40,13 @@ namespace Control
 
         public bool FindPath(Transform startNode, Transform endNode)
         {
-            AStarNode start = FindNode(startNode);
-            AStarNode end = FindNode(endNode);
+            Node start = FindNode(startNode);
+            Node end = FindNode(endNode);
             if (start == null || end == null)
                 return false;
 
-            List<AStarNode> openList = new List<AStarNode>();
-            List<AStarNode> closeList = new List<AStarNode>();
+            List<Node> openList = new List<Node>();
+            List<Node> closeList = new List<Node>();
 
             start.g = 0;
             start.h = Heuristic(start, end, HeuristicType.None);
@@ -83,7 +55,7 @@ namespace Control
 
             while (openList.Count > 0)
             {
-                AStarNode currentNode = MinFNode(openList);
+                Node currentNode = MinFNode(openList);
                 if (currentNode.node == endNode)
                 {
                     ConstructPath(start, end);
@@ -92,8 +64,8 @@ namespace Control
 
                 openList.Remove(currentNode);
                 closeList.Add(currentNode);
-                AStarNode neighbor;
-                foreach (AStarEdge edge in currentNode.edges)
+                Node neighbor;
+                foreach (Edge edge in currentNode.edges)
                 {
                     neighbor = edge.to;
                     if (closeList.IndexOf(neighbor) != -1)
@@ -113,11 +85,11 @@ namespace Control
             return false;
         }
 
-        void ConstructPath(AStarNode start, AStarNode end)
+        void ConstructPath(Node start, Node end)
         {
             path.Clear();
             path.Add(end);
-            AStarNode last = end.last;
+            Node last = end.last;
             while (last != null)
             {
                 path.Insert(0, last);
@@ -125,7 +97,7 @@ namespace Control
             }
         }
 
-        AStarNode MinFNode(List<AStarNode> openList)
+        Node MinFNode(List<Node> openList)
         {
             float minF = openList[0].f;
             int index = 0;
@@ -141,7 +113,7 @@ namespace Control
             return openList[index];
         }
 
-        float Heuristic(AStarNode from, AStarNode to, HeuristicType type)
+        float Heuristic(Node from, Node to, HeuristicType type)
         {
             float distance = 0;
             switch (type)
@@ -160,37 +132,6 @@ namespace Control
             }
 
             return distance;
-        }
-    }
-
-    public class AStarGraphBuildler : MonoBehaviour
-    {
-        [System.Serializable]
-        public struct Edge
-        {
-            public Transform fromNode, toNode;
-            public EdgeDirect direct;
-        }
-
-        public List<Transform> waypoints = new List<Transform>();
-        public List<Edge> edges = new List<Edge>();
-        public AStarGraph graph = new AStarGraph();
-
-        void Awake()
-        {
-            BuildGraph();
-        }
-
-        public void BuildGraph()
-        {
-            foreach (var waypoint in waypoints)
-                graph.AddNode(waypoint);
-            foreach (var edge in edges)
-            {
-                graph.AddEdge(edge.fromNode, edge.toNode);
-                if (edge.direct == EdgeDirect.Bi)
-                    graph.AddEdge(edge.toNode, edge.fromNode);
-            }
         }
     }
 }
